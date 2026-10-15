@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-15T21:34:32Z
-- State: **working**
-- Stage: renderer-smoke
-- Last observed activity: The line-to-frame story reads; typography and paper/ink contrast are clear. The midpoint word wipe needed a visible seam, the signature line needed to dissolve as the K completes, and a floating endpoint dot needed removal. Adjusted the word wipe to cross actual glyph bounds quickly, fade the connecting filament, and remove the stray dot; retained exact smoke images under ignored work/frame-smoke and work/review-fix.
-- Latest evidence/artifact: agents/kinetic/render.py
-- Next concrete action: Render an 8-second voiced-by-sound-only hard shot; inspect 0.5s frames plus dense morph boundaries.
+- Updated: 2026-10-15T21:34:58Z
+- State: **checkpoint**
+- Stage: prototype-audio
+- Last observed activity: Exit 0; 1 lines. Last observed output: wrote work/audio/hero-r00.wav: 1296000 stereo samples, 27.000000s at 48000 Hz
+- Latest evidence/artifact: /home/user/frameforge/agents/kinetic/work/process-1792100096884296888.log
+- Next concrete action: Inspect output and continue production; command success is not film completion.
 - Source: your own agents/kinetic/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -44,4 +44,16 @@
 - Result/discovery: The line-to-frame story reads; typography and paper/ink contrast are clear. The midpoint word wipe needed a visible seam, the signature line needed to dissolve as the K completes, and a floating endpoint dot needed removal. Adjusted the word wipe to cross actual glyph bounds quickly, fade the connecting filament, and remove the stray dot; retained exact smoke images under ignored work/frame-smoke and work/review-fix.
 - Evidence: agents/kinetic/render.py
 - Next: Render an 8-second voiced-by-sound-only hard shot; inspect 0.5s frames plus dense morph boundaries.
+
+### 2026-10-15T21:34:56Z — command-start
+- Action: python3 audio.py --kind hero --out work/audio/hero-r00.wav
+- Result/discovery: Launching actual child process; not yet proof of progress.
+- Evidence: /home/user/frameforge/agents/kinetic/work/process-1792100096884296888.log
+- Next: continue current stage
+
+### 2026-10-15T21:34:58Z — command-end
+- Action: python3 audio.py --kind hero --out work/audio/hero-r00.wav
+- Result/discovery: Exit 0; 1 lines. Last observed output: wrote work/audio/hero-r00.wav: 1296000 stereo samples, 27.000000s at 48000 Hz
+- Evidence: /home/user/frameforge/agents/kinetic/work/process-1792100096884296888.log
+- Next: Inspect output and continue production; command success is not film completion.
 
