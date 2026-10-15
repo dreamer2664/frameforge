@@ -1,10 +1,10 @@
 {
   "agent": "kinetic",
-  "updated_at": "2026-10-15T22:04:31Z",
+  "updated_at": "2026-10-15T22:05:27Z",
   "state": "checkpoint",
-  "stage": "loop-audio-r01",
-  "observed_activity": "Exit 0; 1 lines. Last observed output: wrote work/audio/loop-r01.wav: 491520 stereo samples, 10.240000s at 48000 Hz",
-  "artifact": "/home/user/frameforge/agents/kinetic/work/process-1792101870847601726.log",
+  "stage": "loop-picture-r01",
+  "observed_activity": "Exit 0; 12 lines. Last observed output: loop: wrote work/renders/loop-r01-picture.mp4 (256 frames; 10.240s at 25 fps)",
+  "artifact": "/home/user/frameforge/agents/kinetic/work/process-1792101906459263582.log",
   "next_action": "Inspect output and continue production; command success is not film completion.",
   "heartbeat_interval_seconds": 300,
   "note": "Fresh timestamp is evidence of this observation, NOT a promise that an AI session continues after it stops."
