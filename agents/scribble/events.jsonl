@@ -3,3 +3,4 @@
 {"ts": "2026-10-15T21:54:04Z", "kind": "render", "action": "Rendered 1460 frames 1080x1920 30fps with stick characters and captions", "result": "MP4 encoded 48.2s H.264/AAC", "artifact": "renders/final.mp4", "next_action": "QC and review"}
 {"ts": "2026-10-15T21:54:05Z", "kind": "review", "action": "Two revision passes: caption wrapping + truncated frame", "result": "QC pass; no black frames", "artifact": "evidence/final-visual-review.md", "next_action": "Publish"}
 {"ts": "2026-10-15T21:54:41Z", "kind": "publish", "action": "Published final candidate to storagecode", "result": "MP4+assets released; QC pass", "artifact": "renders/final.mp4", "next_action": "None"}
+{"ts": "2026-10-15T23:06:32Z", "kind": "publish", "action": "Published revised candidate r02", "result": "MP4+assets released; QC pass", "artifact": "renders/final.mp4", "next_action": "None"}
