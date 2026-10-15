@@ -348,7 +348,7 @@ def draw_hero_frame(t: float) -> Image.Image:
         q=point_along(polygon,p)
         draw_dot(img,q,WARM,3,int(230*smooth(9.2,9.45,t)),30)
         display=font('display',91,610)
-        morph=smooth(10.52,10.80,t)
+        morph=smooth(10.52,10.68,t)
         draw_morph_center(img,'A thought','A world',640,317,display,DARK_TYPE,morph)
         body=font('ui',25,400)
         draw_center(img,'becomes a place to go.',640,430,body,(74,82,88),alpha=int(238*smooth(11.24,11.58,t)))
@@ -374,10 +374,14 @@ def draw_hero_frame(t: float) -> Image.Image:
         draw_path(img,allpath,ease_out(u),COOL_DARK,2,10,alpha=185)
         q=point_along(allpath,ease_out(u)); draw_dot(img,q,COOL,3,230,32)
         display=font('display',112,600)
-        ptext=ease_out(smooth(12.78,13.82,t))
-        # Keep the incoming word inside the evolving frame, then let the frame outrun it.
+        # Keep complete words inside the evolving frame, then let the frame outrun them.
         text_x=int(lerp(300,172,p))
-        draw_text(img,'Make room.',text_x,257,display,DARK_TYPE,alpha=255,reveal=ptext,feather=3)
+        make_p=ease_out(smooth(12.76,13.08,t))
+        room_p=ease_out(smooth(13.04,13.36,t))
+        make_y=257+int(9*(1-make_p)); room_y=257+int(9*(1-room_p))
+        draw_text(img,'Make',text_x,make_y,display,DARK_TYPE,alpha=int(255*make_p))
+        room_x=text_x+display.getlength('Make ')
+        draw_text(img,'room.',room_x,room_y,display,DARK_TYPE,alpha=int(255*room_p))
         body=font('ui',27,400)
         draw_text(img,'for the unexpected.',text_x+8,396,body,MUTED_DARK,alpha=int(230*smooth(13.35,14.12,t)),reveal=smooth(13.35,14.1,t))
 

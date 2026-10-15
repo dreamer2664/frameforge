@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-15T21:42:22Z
-- State: **checkpoint**
-- Stage: hard-shot-r02-mux
-- Last observed activity: Exit 0; 1 lines. Last observed output: prototype-r02-muxed
-- Latest evidence/artifact: /home/user/frameforge/agents/kinetic/work/process-1792100542044092346.log
-- Next concrete action: Inspect output and continue production; command success is not film completion.
+- Updated: 2026-10-15T21:44:28Z
+- State: **working**
+- Stage: prototype-r03-code
+- Last observed activity: Word replacement now completes its seam wipe by master 10.68; opening phrase reveals complete words (“Make”, then “room.”) rather than a malformed glyph fragment while x-position tracks the expanding frame. Existing fast “Meaning” entry and 01–07 labels are retained; the change still requires an exported r03 review.
+- Latest evidence/artifact: agents/kinetic/render.py
+- Next concrete action: Render/mux the corrected 8-second r03 hard shot; inspect at 0.5s and 0.1s around both word reveals.
 - Source: your own agents/kinetic/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -146,4 +146,16 @@
 - Result/discovery: Exit 0; 1 lines. Last observed output: prototype-r02-muxed
 - Evidence: /home/user/frameforge/agents/kinetic/work/process-1792100542044092346.log
 - Next: Inspect output and continue production; command success is not film completion.
+
+### 2026-10-15T21:44:28Z — inspection
+- Action: Opened the exact r02 8s MP4 contact sheet, three 0.1s dense sheets, and full-size decoded frames at master 10.6 and 13.0
+- Result/discovery: r02 SHA256 85c56053ce64b408faf0e0aecd2e68c0bdcc438050ea94e3d561d025af281f48, H.264/yuv420p/30 1920x1080 + AAC 48k, -16.3 LUFS/-4.6 dBTP. Palette cut and subtitle are corrected, and type stays inside the open frame. Actual remaining defects: 10.7 briefly reads as “A wought”; 13.0 the glyph wipe shows malformed “Mal”. Full-size and dense timing evidence in prototype-r02-review.md.
+- Evidence: agents/kinetic/evidence/prototype-r02-review.md
+- Next: Render r03 with 0.16s morph and whole-word Make / room reveals, then verify actual MP4 frames and cue.
+
+### 2026-10-15T21:44:28Z — revision
+- Action: Changed the two observed slow/partial type reveals after r02 inspection
+- Result/discovery: Word replacement now completes its seam wipe by master 10.68; opening phrase reveals complete words (“Make”, then “room.”) rather than a malformed glyph fragment while x-position tracks the expanding frame. Existing fast “Meaning” entry and 01–07 labels are retained; the change still requires an exported r03 review.
+- Evidence: agents/kinetic/render.py
+- Next: Render/mux the corrected 8-second r03 hard shot; inspect at 0.5s and 0.1s around both word reveals.
 
