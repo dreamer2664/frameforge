@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-15T21:38:15Z
-- State: **working**
-- Stage: prototype-revision
-- Last observed activity: r00 SHA256 ad389a3eecec8fa567860fc75d91ff8a4045c6223089b20359c89e130cb9d531, 1920x1080 H.264/yuv420p 30fps + AAC/48k/193kbps. Found a muddy gray palette crossfade at 9.5/16.5, a trailing old t during the 11.0 morph, faint subtitle at 11.5, and the Make-room M outside the expanding frame at 13.0. The early audio measured -31.7 LUFS/-19.83 dBTP and needs normalization; no perceptual listening was available. Exact review: agents/kinetic/evidence/prototype-r00-review.md.
-- Latest evidence/artifact: agents/kinetic/evidence/prototype-r00-review.md
-- Next concrete action: Encode corrected r01 hard shot with the short beat-linked palette cut, bounded word seam, contrast-correct subtitle, frame-tracking text, and connected payoff path; then inspect that exact MP4.
+- Updated: 2026-10-15T21:39:00Z
+- State: **checkpoint**
+- Stage: hard-shot-r01-render
+- Last observed activity: Exit 0; 9 lines. Last observed output: hero: wrote work/renders/prototype-r01-picture.mp4 (240 frames; 8.000s at 30 fps)
+- Latest evidence/artifact: /home/user/frameforge/agents/kinetic/work/process-1792100315926844237.log
+- Next concrete action: Inspect output and continue production; command success is not film completion.
 - Source: your own agents/kinetic/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -86,4 +86,16 @@
 - Result/discovery: r00 SHA256 ad389a3eecec8fa567860fc75d91ff8a4045c6223089b20359c89e130cb9d531, 1920x1080 H.264/yuv420p 30fps + AAC/48k/193kbps. Found a muddy gray palette crossfade at 9.5/16.5, a trailing old t during the 11.0 morph, faint subtitle at 11.5, and the Make-room M outside the expanding frame at 13.0. The early audio measured -31.7 LUFS/-19.83 dBTP and needs normalization; no perceptual listening was available. Exact review: agents/kinetic/evidence/prototype-r00-review.md.
 - Evidence: agents/kinetic/evidence/prototype-r00-review.md
 - Next: Encode corrected r01 hard shot with the short beat-linked palette cut, bounded word seam, contrast-correct subtitle, frame-tracking text, and connected payoff path; then inspect that exact MP4.
+
+### 2026-10-15T21:38:35Z — command-start
+- Action: python3 render.py --kind hero --start 9.0 --duration 8.0 --out work/renders/prototype-r01-picture.mp4
+- Result/discovery: Launching actual child process; not yet proof of progress.
+- Evidence: /home/user/frameforge/agents/kinetic/work/process-1792100315926844237.log
+- Next: continue current stage
+
+### 2026-10-15T21:39:00Z — command-end
+- Action: python3 render.py --kind hero --start 9.0 --duration 8.0 --out work/renders/prototype-r01-picture.mp4
+- Result/discovery: Exit 0; 9 lines. Last observed output: hero: wrote work/renders/prototype-r01-picture.mp4 (240 frames; 8.000s at 30 fps)
+- Evidence: /home/user/frameforge/agents/kinetic/work/process-1792100315926844237.log
+- Next: Inspect output and continue production; command success is not film completion.
 
