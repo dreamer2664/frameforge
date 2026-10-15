@@ -1,0 +1,158 @@
+[
+  {
+    "name": "motion-a",
+    "url": "https://vm.tiktok.com/ZN8SAhoXP/",
+    "id": "7670123707980991776",
+    "title": "Motion Design for Claude \ud83d\udd25 | Open for collaboration EN/FR  #motiondes...",
+    "duration": 13,
+    "webpage_url": "https://www.tiktok.com/@zensu.visuals/video/7670123707980991776?_r=1&_t=ZN-9AaBel4CdGQ",
+    "bytes": 753395,
+    "sha256": "41578443e4482e02570d114ddbda59cf8f991a11cde06523a6da38696e378c25",
+    "duration_seconds": 13.000998,
+    "frames_decoded": 6,
+    "sampled_at_seconds": [
+      0.2,
+      1.9501496999999999,
+      3.9002993999999997,
+      6.240479039999999,
+      8.71066866,
+      12.300998
+    ],
+    "codec": [
+      "h264",
+      "aac"
+    ]
+  },
+  {
+    "name": "motion-b",
+    "url": "https://vm.tiktok.com/ZN8SARgMg/",
+    "id": "7676881388053777686",
+    "title": "Meet Claude\ud83d\udcac || Dm for custom video! || #claude #sfx #motiongraphics ...",
+    "duration": 17,
+    "webpage_url": "https://www.tiktok.com/@robiimotion/video/7676881388053777686?_r=1&_t=ZN-9AaBfrUwYtC",
+    "bytes": 469691,
+    "sha256": "cde8224a5cbf302631697c900ea4b7e2b1d0e073744cc3a4a9aea4cb2367dfee",
+    "duration_seconds": 17.0,
+    "frames_decoded": 6,
+    "sampled_at_seconds": [
+      0.2,
+      2.55,
+      5.1,
+      8.16,
+      11.39,
+      16.3
+    ],
+    "codec": [
+      "aac",
+      "hevc"
+    ]
+  },
+  {
+    "name": "short-a",
+    "url": "https://vm.tiktok.com/ZN8SA24Nv/",
+    "id": "7607479857181658388",
+    "title": "Most teenagers think making money online is a scam or impossible. It\u2019...",
+    "duration": 17,
+    "webpage_url": "https://www.tiktok.com/@finance_with_stickman/video/7607479857181658388?_r=1&_t=ZN-9AaC7CoDkMI",
+    "bytes": 455679,
+    "sha256": "9c1e44709dc50537b57594908c510a11914d5542b85135fc57868d4ee88153b1",
+    "duration_seconds": 17.275011,
+    "frames_decoded": 6,
+    "sampled_at_seconds": [
+      0.2,
+      2.59125165,
+      5.1825033,
+      8.29200528,
+      11.57425737,
+      16.575011
+    ],
+    "codec": [
+      "aac",
+      "hevc"
+    ]
+  },
+  {
+    "name": "short-b",
+    "url": "https://vm.tiktok.com/ZN8SAjcxd/",
+    "id": "7691756745663761671",
+    "title": "Part 1 | #lookafteryou #explainingsongs #explaning #foryou #stickman ",
+    "duration": 45,
+    "webpage_url": "https://www.tiktok.com/@haruna.motivation/video/7691756745663761671?_r=1&_t=ZN-9AaC83vkUvG",
+    "bytes": 764643,
+    "sha256": "4b713bec65f55f5bc4110ad8278d79af0e0966778a46335952e400b73b34ef18",
+    "duration_seconds": 45.733333,
+    "frames_decoded": 6,
+    "sampled_at_seconds": [
+      0.2,
+      6.85999995,
+      13.7199999,
+      21.95199984,
+      30.64133311,
+      45.033333
+    ],
+    "codec": [
+      "aac",
+      "hevc"
+    ]
+  },
+  {
+    "name": "short-c",
+    "url": "https://vm.tiktok.com/ZN8SANwhn/",
+    "id": "7657501427643829534",
+    "title": "President Vs Prime Minister \ud83d\ude03 What's the Difference \ud83e\udd14? #stickman #tre...",
+    "duration": 17,
+    "webpage_url": "https://www.tiktok.com/@sticky_explained/video/7657501427643829534?_r=1&_t=ZN-9AaCEUoPc9u",
+    "bytes": 253203,
+    "sha256": "d28fcb147bf0415503b855563df497a2099b60e058aa8e983deb37659914790a",
+    "duration_seconds": 17.333333,
+    "frames_decoded": 6,
+    "sampled_at_seconds": [
+      0.2,
+      2.59999995,
+      5.1999999,
+      8.31999984,
+      11.613333110000001,
+      16.633333
+    ],
+    "codec": [
+      "aac",
+      "hevc"
+    ]
+  },
+  {
+    "name": "long",
+    "url": "https://www.youtube.com/watch?v=XVQdhpwO75g",
+    "id": "XVQdhpwO75g",
+    "title": "Questions That Science Still Can\u2019t Explain",
+    "duration": 1050,
+    "webpage_url": "https://www.youtube.com/watch?v=XVQdhpwO75g",
+    "bytes": 5644343,
+    "sha256": "963b37d65810053b04d894fe75bbc1db270b4c76f3d122e55e2337aa3630f81c",
+    "duration_seconds": 1050.0,
+    "frames_decoded": 19,
+    "sampled_at_seconds": [
+      0.5,
+      30,
+      75,
+      110,
+      170,
+      205,
+      270,
+      320,
+      375,
+      450,
+      510,
+      570,
+      650,
+      710,
+      770,
+      830,
+      900,
+      970,
+      1040
+    ],
+    "codec": [
+      "av1"
+    ]
+  }
+]

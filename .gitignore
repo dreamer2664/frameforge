@@ -1,0 +1,27 @@
+# Secrets and credential-bearing kits never belong in this repository
+.env
+.env.*
+*.token
+*PRIVATE*
+private/
+.private/
+# Downloaded models, third-party reference clips, toolchains and build outputs
+.cache/
+.venv/
+venv/
+node_modules/
+__pycache__/
+*.pyc
+**/work/
+**/renders/
+**/final/
+*.mp4
+*.mov
+*.webm
+*.wav
+*.mp3
+*.m4a
+*.onnx
+*.bin
+*.zip
+# Keep source scene code, local font licenses, metadata, HANDOFF.md and events.jsonl

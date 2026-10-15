@@ -1,0 +1,91 @@
+{
+  "verified_at": "2026-10-15T19:44:16+00:00",
+  "scope": "Commissioning tools and charters only. ZERO commissioned films and ZERO agents activated by commissioner.",
+  "offline_tests": {
+    "passed": 18,
+    "failed": 0,
+    "command": "python3 -m unittest discover -s tests -v",
+    "receipt": "offline-tests.txt"
+  },
+  "references": {
+    "clips_retrieved": 6,
+    "decoded_frames_opened": 49,
+    "continuous_full_av_watch_claimed": false,
+    "original_media_published": false,
+    "receipt": "../research/reference-retrieval-receipts.json"
+  },
+  "voice_runtime": {
+    "engine": "kokoro-onnx",
+    "voice": "af_heart",
+    "synthetic": true,
+    "sample_rate": 24000,
+    "duration_seconds": 9.076,
+    "sha256": "e699f38a4d979b0771f90361c0d1c5f48773d3c3e2416a8bc7047b7b81de7738",
+    "user_audition_requested": false
+  },
+  "voice_model_sources": {
+    "kokoro-v1.0.onnx": {
+      "url": "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.1/kokoro-v1.0.onnx",
+      "sha256": "beb0d1848dee9a49da392cc3df26958d46cfa35d321edf434f52949153f0df3a",
+      "bytes": 325505369
+    },
+    "voices-v1.0.bin": {
+      "url": "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.1/voices-v1.0.bin",
+      "sha256": "bca610b8308e8d99f32e6fe4197e7ec01679264efed0cac9140fe9c29f1fbf7d",
+      "bytes": 28214398
+    }
+  },
+  "ffmpeg": {
+    "url": "https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz",
+    "archive_sha256": "abda8d77ce8309141f83ab8edf0596834087c52467f6badf376a6a2a4c87cf67",
+    "license_note": "Read FFmpeg build licensing before redistributing binaries; this helper installs locally, not into the source repo."
+  },
+  "integration_fixture": {
+    "purpose": "TTS to H264/AAC, decode, loudness, hash, contact sheets. NOT A FILM.",
+    "sha256": "4374bcd881d61da676bc41db592bbb68ab401ee1a0987196c4a6108345026633",
+    "bytes": 241639,
+    "duration_seconds": 9.076,
+    "technical_pass": true,
+    "test_api_duration_bypass": true,
+    "visual_sample_sheet_opened": true,
+    "perceptual_audio_listening_claimed": false,
+    "first_failure": "AAC true peak -0.99dBTP exceeded -1; encode limiter headroom changed to -2, then measured -1.98dBTP and -17.12 LUFS",
+    "qc": "toolchain-fixture-qc.json"
+  },
+  "limits": [
+    "Local publisher safety guards tested offline; final producer film release upload/remote hash verification remains to be exercised on each actual deliverable.",
+    "A real background child can be observed; these kits cannot keep an AI session thinking after the platform ends it.",
+    "Creative film quality and reference motion/audio require further actual producer inspection; no completed movie is implied.",
+    "Regenerating the same TTS text can change WAV bytes; cache and hash actual cue files, do not promise bit-identical re-synthesis."
+  ],
+  "goal_cards": {
+    "kinetic": {
+      "id": "t-20261015-e800",
+      "status": "open",
+      "owner": null,
+      "deps": []
+    },
+    "scribble": {
+      "id": "t-20261015-5856",
+      "status": "open",
+      "owner": null,
+      "deps": []
+    },
+    "axiom": {
+      "id": "t-20261015-d413",
+      "status": "open",
+      "owner": null,
+      "deps": []
+    }
+  },
+  "voice_runtime_current_helper_retest": {
+    "engine": "kokoro-onnx",
+    "voice": "af_heart",
+    "language": "en-us",
+    "synthetic": true,
+    "sample_rate": 24000,
+    "duration_seconds": 9.076,
+    "sha256": "b3120934aa700579619397636528e0620a6a1af268d6eff69f830e7cf696db8d",
+    "user_audition_requested": false
+  }
+}

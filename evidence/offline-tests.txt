@@ -1,0 +1,33 @@
+test_all_briefs_are_substantial_clean_and_independent (test_ops.CharterTests.test_all_briefs_are_substantial_clean_and_independent) ... ok
+test_embedded_credential_bootstrap_is_executable_and_private (test_ops.CharterTests.test_embedded_credential_bootstrap_is_executable_and_private) ... ok
+test_qc_cannot_certify_artistic_approval (test_ops.CharterTests.test_qc_cannot_certify_artistic_approval) ... ok
+test_credential_in_own_tracked_file_refused (test_ops.GitTests.test_credential_in_own_tracked_file_refused) ... ok
+test_foreign_staged_changes_refused (test_ops.GitTests.test_foreign_staged_changes_refused) ... ok
+test_parallel_independent_workspaces_rebase_without_loss (test_ops.GitTests.test_parallel_independent_workspaces_rebase_without_loss) ... [main 9171f6d] kinetic: checkpoint / factual heartbeat
+ 3 files changed, 35 insertions(+)
+ create mode 100644 agents/kinetic/HANDOFF.md
+ create mode 100644 agents/kinetic/events.jsonl
+ create mode 100644 status/kinetic.json
+[main 61ecaf6] axiom: checkpoint / factual heartbeat
+ 3 files changed, 35 insertions(+)
+ create mode 100644 agents/axiom/HANDOFF.md
+ create mode 100644 agents/axiom/events.jsonl
+ create mode 100644 status/axiom.json
+ok
+test_bad_sampling_interval_refused (test_ops.InspectionTests.test_bad_sampling_interval_refused) ... ok
+test_final_samples_are_chronological_and_unique (test_ops.InspectionTests.test_final_samples_are_chronological_and_unique) ... ok
+test_actions_failures_and_next_survive (test_ops.JournalTests.test_actions_failures_and_next_survive) ... ok
+test_child_has_no_inherited_crew_key (test_ops.JournalTests.test_child_has_no_inherited_crew_key) ... ok
+test_identity_is_fenced (test_ops.JournalTests.test_identity_is_fenced) ... ok
+test_known_credentials_are_redacted (test_ops.JournalTests.test_known_credentials_are_redacted) ... ok
+test_missing_command_does_not_leave_running (test_ops.JournalTests.test_missing_command_does_not_leave_running) ... ok
+test_nonzero_child_is_failure_not_delivery (test_ops.JournalTests.test_nonzero_child_is_failure_not_delivery) ... ok
+test_silent_partial_line_child_still_observed (test_ops.JournalTests.test_silent_partial_line_child_still_observed) ... ok
+test_credential_split_across_read_blocks_refused (test_ops.PublicationSafetyTests.test_credential_split_across_read_blocks_refused) ... ok
+test_foreign_folder_and_md_upload_refused (test_ops.PublicationSafetyTests.test_foreign_folder_and_md_upload_refused) ... ok
+test_symlink_to_other_agent_refused (test_ops.PublicationSafetyTests.test_symlink_to_other_agent_refused) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.463s
+
+OK

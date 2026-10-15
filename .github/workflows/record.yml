@@ -1,0 +1,11 @@
+name: record
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, closed, reopened]
+  workflow_dispatch:
+permissions: {}
+jobs:
+  record:
+    uses: dreamer2664/chatcode/.github/workflows/record.yml@main

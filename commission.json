@@ -1,0 +1,33 @@
+{
+  "commissioned_at": "2026-10-15",
+  "repo": "dreamer2664/frameforge",
+  "primary_archive": "dreamer2664/storagecode",
+  "agents": {
+    "kinetic": {
+      "brief": "briefs/KINETIC.md",
+      "workspace": "agents/kinetic",
+      "handoff": "agents/kinetic/HANDOFF.md",
+      "status": "status/kinetic.json",
+      "task": "t-20261015-e800",
+      "independent": true
+    },
+    "scribble": {
+      "brief": "briefs/SCRIBBLE.md",
+      "workspace": "agents/scribble",
+      "handoff": "agents/scribble/HANDOFF.md",
+      "status": "status/scribble.json",
+      "task": "t-20261015-5856",
+      "independent": true
+    },
+    "axiom": {
+      "brief": "briefs/AXIOM.md",
+      "workspace": "agents/axiom",
+      "handoff": "agents/axiom/HANDOFF.md",
+      "status": "status/axiom.json",
+      "task": "t-20261015-d413",
+      "independent": true
+    }
+  },
+  "mars": "paused",
+  "not_an_old_campaign_acceptance": true
+}
