@@ -281,7 +281,7 @@ def draw_hero_frame(t: float) -> Image.Image:
         path=bezier((110,435),(215,435),(305,408),(500,430),72)
         u=clamp(t/1.48)
         draw_path(img,path,u,WARM,2,15,alpha=int(255*ease_out(u)))
-        p= smooth(0.03,0.80,t)
+        p= smooth(0.03,0.68,t)
         display=font('display',112,590)
         draw_text(img,'A thought',145,258,display,IVORY,alpha=255,reveal=p,feather=3)
         support=font('ui',27,400)
@@ -340,20 +340,23 @@ def draw_hero_frame(t: float) -> Image.Image:
 
     elif t < 12.5:
         # 04 — The baseline folds into an open frame. A seam changes a word, not the scene.
-        draw_label(img,'04  /  GIVE IT FORM',light=False,accent=COOL_DARK)
+        form_on_paper = t >= 9.40
+        draw_label(img,'04  /  GIVE IT FORM',light=not form_on_paper,accent=COOL_DARK if form_on_paper else WARM)
         p=smooth(9.18,10.55,t)
         start=(1050,444)
         polygon=[start,(988,520),(286,505),(258,230),(1008,208),(1050,444)]
         outline=poly_partial(polygon,p)
-        draw_path(img,outline,1,COOL_DARK,2,9,alpha=int(210*smooth(9.25,9.7,t)))
+        frame_color=COOL_DARK if form_on_paper else COOL
+        draw_path(img,outline,1,frame_color,2,9,alpha=int(210*smooth(9.25,9.7,t)))
         # one copper anchor remains at the end of the route
         q=point_along(polygon,p)
         draw_dot(img,q,WARM,3,int(230*smooth(9.2,9.45,t)),30)
         display=font('display',91,610)
         morph=smooth(10.52,10.68,t)
-        draw_morph_center(img,'A thought','A world',640,317,display,DARK_TYPE,morph)
+        form_type= DARK_TYPE if form_on_paper else IVORY
+        draw_morph_center(img,'A thought','A world',640,317,display,form_type,morph)
         body=font('ui',25,400)
-        draw_center(img,'becomes a place to go.',640,430,body,(74,82,88),alpha=int(238*smooth(11.24,11.58,t)))
+        draw_center(img,'becomes a place to go.',640,430,body,(74,82,88),alpha=int(238*ease_out(smooth(11.24,11.58,t))))
         # fine registration ticks are part of the frame, not tiny interface controls
         if t>10.1:
             d=ImageDraw.Draw(img)
@@ -385,7 +388,8 @@ def draw_hero_frame(t: float) -> Image.Image:
         room_x=text_x+display.getlength('Make ')
         draw_text(img,'room.',room_x,room_y,display,DARK_TYPE,alpha=int(255*room_p))
         body=font('ui',27,400)
-        draw_text(img,'for the unexpected.',text_x+8,396,body,MUTED_DARK,alpha=int(230*smooth(13.35,14.12,t)),reveal=smooth(13.35,14.1,t))
+        body_p=ease_out(smooth(13.30,13.58,t))
+        draw_text(img,'for the unexpected.',text_x+8,396,body,MUTED_DARK,alpha=int(230*body_p))
 
     elif t < 20.5:
         # 06 — The paper recedes; the moving point lands in the punctuation.

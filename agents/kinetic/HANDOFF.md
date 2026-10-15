@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-15T21:51:22Z
-- State: **checkpoint**
-- Stage: full-hero-rough-r01-mux
-- Last observed activity: Exit 0; 1 lines. Last observed output: hero-r01-muxed
-- Latest evidence/artifact: /home/user/frameforge/agents/kinetic/work/process-1792101082172728129.log
-- Next concrete action: Inspect output and continue production; command success is not film completion.
+- Updated: 2026-10-15T21:56:05Z
+- State: **working**
+- Stage: full-hero-visual-r01
+- Last observed activity: The story, rhythm sequence, open frame, payoff, and KINETIC end lockup read; 640x360 main type and signature are legible. Found dark-on-dark form label/title at9.2–9.3 before the 9.4 paper cut and an overly slow/faint support fade at13.5. Detected low-motion holds only where story type/end card is intentionally held; the 23.4–27.0 signature hold is deliberate. No continuous playback or perceptual audio review is claimed. Exact timecodes/coverage in hero-r01-visual-review.md.
+- Latest evidence/artifact: agents/kinetic/evidence/hero-r01-visual-review.md
+- Next concrete action: Use high-contrast warm copy on ink before the palette cut, faster phrase/support reveals, render r02, and review the exact new file.
 - Source: your own agents/kinetic/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -224,4 +224,16 @@
 - Result/discovery: Exit 0; 1 lines. Last observed output: hero-r01-muxed
 - Evidence: /home/user/frameforge/agents/kinetic/work/process-1792101082172728129.log
 - Next: Inspect output and continue production; command success is not film completion.
+
+### 2026-10-15T21:56:05Z — render
+- Action: Rendered 810 time-indexed frames, muxed the measured procedural score, and ran exact-file technical QC
+- Result/discovery: Exact rough cut: agents/kinetic/work/renders/hero-r01.mp4, 27.000s, 1920x1080 H.264/yuv420p/30fps + AAC 48k/197.4kbps, 1,909,132 bytes, SHA256 1f1ea285f3f8bbd44b068b20c0daf6c0970c02b64dbda774ee3d31f5bd4f7110. media_qc technical_pass=true/no violations; -16.15 LUFS/-4.09 dBTP; full decode passed; blackdetect found no threshold-qualified interval.
+- Evidence: agents/kinetic/evidence/hero-r01-technical.json
+- Next: Finish timecoded exact-file visual review, fix observed contrast/support-line defects, then produce r02 whole-cut.
+
+### 2026-10-15T21:56:05Z — inspection
+- Action: Opened all three full-cut contact sheets, eight dense transition sheets, eight full-size frames, and eight phone-scale frames from the exact r01 MP4
+- Result/discovery: The story, rhythm sequence, open frame, payoff, and KINETIC end lockup read; 640x360 main type and signature are legible. Found dark-on-dark form label/title at9.2–9.3 before the 9.4 paper cut and an overly slow/faint support fade at13.5. Detected low-motion holds only where story type/end card is intentionally held; the 23.4–27.0 signature hold is deliberate. No continuous playback or perceptual audio review is claimed. Exact timecodes/coverage in hero-r01-visual-review.md.
+- Evidence: agents/kinetic/evidence/hero-r01-visual-review.md
+- Next: Use high-contrast warm copy on ink before the palette cut, faster phrase/support reveals, render r02, and review the exact new file.
 

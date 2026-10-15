@@ -1,11 +1,11 @@
 {
   "agent": "kinetic",
-  "updated_at": "2026-10-15T21:51:22Z",
-  "state": "checkpoint",
-  "stage": "full-hero-rough-r01-mux",
-  "observed_activity": "Exit 0; 1 lines. Last observed output: hero-r01-muxed",
-  "artifact": "/home/user/frameforge/agents/kinetic/work/process-1792101082172728129.log",
-  "next_action": "Inspect output and continue production; command success is not film completion.",
+  "updated_at": "2026-10-15T21:56:05Z",
+  "state": "working",
+  "stage": "full-hero-visual-r01",
+  "observed_activity": "The story, rhythm sequence, open frame, payoff, and KINETIC end lockup read; 640x360 main type and signature are legible. Found dark-on-dark form label/title at9.2–9.3 before the 9.4 paper cut and an overly slow/faint support fade at13.5. Detected low-motion holds only where story type/end card is intentionally held; the 23.4–27.0 signature hold is deliberate. No continuous playback or perceptual audio review is claimed. Exact timecodes/coverage in hero-r01-visual-review.md.",
+  "artifact": "agents/kinetic/evidence/hero-r01-visual-review.md",
+  "next_action": "Use high-contrast warm copy on ink before the palette cut, faster phrase/support reveals, render r02, and review the exact new file.",
   "heartbeat_interval_seconds": 300,
   "note": "Fresh timestamp is evidence of this observation, NOT a promise that an AI session continues after it stops."
 }
