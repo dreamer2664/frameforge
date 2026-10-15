@@ -4,11 +4,11 @@
 
 ## Resume here
 
-- Updated: 2026-10-15T21:57:56Z
+- Updated: 2026-10-15T21:58:05Z
 - State: **checkpoint**
-- Stage: full-hero-rough-r02
-- Last observed activity: Exit 0; 28 lines. Last observed output: hero: wrote work/renders/hero-r02-picture.mp4 (810 frames; 27.000s at 30 fps)
-- Latest evidence/artifact: /home/user/frameforge/agents/kinetic/work/process-1792101396712788808.log
+- Stage: full-hero-rough-r02-mux
+- Last observed activity: Exit 0; 1 lines. Last observed output: hero-r02-muxed
+- Latest evidence/artifact: /home/user/frameforge/agents/kinetic/work/process-1792101485182409564.log
 - Next concrete action: Inspect output and continue production; command success is not film completion.
 - Source: your own agents/kinetic/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
@@ -253,5 +253,17 @@
 - Action: python3 render.py --kind hero --out work/renders/hero-r02-picture.mp4
 - Result/discovery: Exit 0; 28 lines. Last observed output: hero: wrote work/renders/hero-r02-picture.mp4 (810 frames; 27.000s at 30 fps)
 - Evidence: /home/user/frameforge/agents/kinetic/work/process-1792101396712788808.log
+- Next: Inspect output and continue production; command success is not film completion.
+
+### 2026-10-15T21:58:05Z — command-start
+- Action: bash -lc '/home/user/.cache/frameforge/bin/ffmpeg -hide_banner -loglevel error -y -i work/renders/hero-r02-picture.mp4 -i work/audio/hero-r01-loudnorm.wav -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 192k -ar 48000 -t 27 -movflags +faststart work/renders/hero-r02.mp4 && echo hero-r02-muxed'
+- Result/discovery: Launching actual child process; not yet proof of progress.
+- Evidence: /home/user/frameforge/agents/kinetic/work/process-1792101485182409564.log
+- Next: continue current stage
+
+### 2026-10-15T21:58:05Z — command-end
+- Action: bash -lc '/home/user/.cache/frameforge/bin/ffmpeg -hide_banner -loglevel error -y -i work/renders/hero-r02-picture.mp4 -i work/audio/hero-r01-loudnorm.wav -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 192k -ar 48000 -t 27 -movflags +faststart work/renders/hero-r02.mp4 && echo hero-r02-muxed'
+- Result/discovery: Exit 0; 1 lines. Last observed output: hero-r02-muxed
+- Evidence: /home/user/frameforge/agents/kinetic/work/process-1792101485182409564.log
 - Next: Inspect output and continue production; command success is not film completion.
 
