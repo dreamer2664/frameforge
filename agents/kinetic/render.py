@@ -374,7 +374,7 @@ def draw_hero_frame(t: float) -> Image.Image:
         draw_path(img,allpath,ease_out(u),COOL_DARK,2,10,alpha=185)
         q=point_along(allpath,ease_out(u)); draw_dot(img,q,COOL,3,230,32)
         display=font('display',112,600)
-        ptext=smooth(12.78,13.82,t)
+        ptext=ease_out(smooth(12.78,13.82,t))
         # Keep the incoming word inside the evolving frame, then let the frame outrun it.
         text_x=int(lerp(300,172,p))
         draw_text(img,'Make room.',text_x,257,display,DARK_TYPE,alpha=255,reveal=ptext,feather=3)

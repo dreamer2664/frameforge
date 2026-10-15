@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-15T21:41:38Z
-- State: **working**
-- Stage: prototype-r02-code
-- Last observed activity: Morph now ends at master 10.80; Make room is kept inside the expanding frame with an ease-out; Meaning starts with a fast ease-out at16.52; chapter numbers now run sequentially. Exact r02 MP4 still needs rendering/inspection.
-- Latest evidence/artifact: agents/kinetic/render.py
-- Next concrete action: Encode r02 picture, mux loudness-managed cue slice, run actual full decode and dense seam inspection.
+- Updated: 2026-10-15T21:42:15Z
+- State: **checkpoint**
+- Stage: hard-shot-r02-render
+- Last observed activity: Exit 0; 9 lines. Last observed output: hero: wrote work/renders/prototype-r02-picture.mp4 (240 frames; 8.000s at 30 fps)
+- Latest evidence/artifact: /home/user/frameforge/agents/kinetic/work/process-1792100512768476747.log
+- Next concrete action: Inspect output and continue production; command success is not film completion.
 - Source: your own agents/kinetic/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -122,4 +122,16 @@
 - Result/discovery: Morph now ends at master 10.80; Make room is kept inside the expanding frame with an ease-out; Meaning starts with a fast ease-out at16.52; chapter numbers now run sequentially. Exact r02 MP4 still needs rendering/inspection.
 - Evidence: agents/kinetic/render.py
 - Next: Encode r02 picture, mux loudness-managed cue slice, run actual full decode and dense seam inspection.
+
+### 2026-10-15T21:41:52Z — command-start
+- Action: python3 render.py --kind hero --start 9.0 --duration 8.0 --out work/renders/prototype-r02-picture.mp4
+- Result/discovery: Launching actual child process; not yet proof of progress.
+- Evidence: /home/user/frameforge/agents/kinetic/work/process-1792100512768476747.log
+- Next: continue current stage
+
+### 2026-10-15T21:42:15Z — command-end
+- Action: python3 render.py --kind hero --start 9.0 --duration 8.0 --out work/renders/prototype-r02-picture.mp4
+- Result/discovery: Exit 0; 9 lines. Last observed output: hero: wrote work/renders/prototype-r02-picture.mp4 (240 frames; 8.000s at 30 fps)
+- Evidence: /home/user/frameforge/agents/kinetic/work/process-1792100512768476747.log
+- Next: Inspect output and continue production; command success is not film completion.
 
