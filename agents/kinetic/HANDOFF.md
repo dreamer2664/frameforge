@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-15T21:56:05Z
+- Updated: 2026-10-15T21:56:27Z
 - State: **working**
-- Stage: full-hero-visual-r01
-- Last observed activity: The story, rhythm sequence, open frame, payoff, and KINETIC end lockup read; 640x360 main type and signature are legible. Found dark-on-dark form label/title at9.2–9.3 before the 9.4 paper cut and an overly slow/faint support fade at13.5. Detected low-motion holds only where story type/end card is intentionally held; the 23.4–27.0 signature hold is deliberate. No continuous playback or perceptual audio review is claimed. Exact timecodes/coverage in hero-r01-visual-review.md.
-- Latest evidence/artifact: agents/kinetic/evidence/hero-r01-visual-review.md
-- Next concrete action: Use high-contrast warm copy on ink before the palette cut, faster phrase/support reveals, render r02, and review the exact new file.
+- Stage: full-hero-r02-code
+- Last observed activity: At master9.2–9.3 the label/title/outline are now warm and high-contrast on ink; exactly at9.4 they switch to dark/cool as the field becomes paper. “for the unexpected.” now finishes a fast ease-out by13.58, visible alongside the settled Make room. headline. A thought completes its wipe by0.68s while the filament continues. This source revision passes six deterministic renderer/loop/font checks; exact r02 export still needs review.
+- Latest evidence/artifact: agents/kinetic/render.py
+- Next concrete action: Render and mux the full r02; repeat 0.5s/transition/phone-scale inspection of the exact file.
 - Source: your own agents/kinetic/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -236,4 +236,10 @@
 - Result/discovery: The story, rhythm sequence, open frame, payoff, and KINETIC end lockup read; 640x360 main type and signature are legible. Found dark-on-dark form label/title at9.2–9.3 before the 9.4 paper cut and an overly slow/faint support fade at13.5. Detected low-motion holds only where story type/end card is intentionally held; the 23.4–27.0 signature hold is deliberate. No continuous playback or perceptual audio review is claimed. Exact timecodes/coverage in hero-r01-visual-review.md.
 - Evidence: agents/kinetic/evidence/hero-r01-visual-review.md
 - Next: Use high-contrast warm copy on ink before the palette cut, faster phrase/support reveals, render r02, and review the exact new file.
+
+### 2026-10-15T21:56:27Z — revision
+- Action: Applied whole-cut r01 fixes to the pre-cut frame contrast, 13.5s support line, and first-second title rhythm
+- Result/discovery: At master9.2–9.3 the label/title/outline are now warm and high-contrast on ink; exactly at9.4 they switch to dark/cool as the field becomes paper. “for the unexpected.” now finishes a fast ease-out by13.58, visible alongside the settled Make room. headline. A thought completes its wipe by0.68s while the filament continues. This source revision passes six deterministic renderer/loop/font checks; exact r02 export still needs review.
+- Evidence: agents/kinetic/render.py
+- Next: Render and mux the full r02; repeat 0.5s/transition/phone-scale inspection of the exact file.
 
