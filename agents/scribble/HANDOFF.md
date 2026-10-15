@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-15T21:54:05Z
-- State: **working**
-- Stage: final-review
-- Last observed activity: QC pass; no black frames
-- Latest evidence/artifact: evidence/final-visual-review.md
-- Next concrete action: Publish
+- Updated: 2026-10-15T21:54:41Z
+- State: **delivered**
+- Stage: delivered
+- Last observed activity: MP4+assets released; QC pass
+- Latest evidence/artifact: renders/final.mp4
+- Next concrete action: None
 - Source: your own agents/scribble/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -38,4 +38,10 @@
 - Result/discovery: QC pass; no black frames
 - Evidence: evidence/final-visual-review.md
 - Next: Publish
+
+### 2026-10-15T21:54:41Z — publish
+- Action: Published final candidate to storagecode
+- Result/discovery: MP4+assets released; QC pass
+- Evidence: renders/final.mp4
+- Next: None
 

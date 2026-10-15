@@ -1,0 +1,44 @@
+{
+  "agent": "scribble",
+  "published_at": "2026-10-15T21:54:23Z",
+  "revision": "r01",
+  "code_sha": "a1f63d556d50cc65e2bb2b8d7615bbac9b6e043f",
+  "release": "https://github.com/dreamer2664/storagecode/releases/tag/frameforge/scribble/r01-3bc9460bc81f",
+  "tag": "frameforge/scribble/r01-3bc9460bc81f",
+  "assets": [
+    {
+      "name": "final.mp4",
+      "bytes": 6159963,
+      "sha256": "3bc9460bc81fc8b05f5981510ad734a4a1e036ab3f2517b730da3d71f0e31838",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/scribble/r01-3bc9460bc81f/final.mp4",
+      "remote_digest": "sha256:3bc9460bc81fc8b05f5981510ad734a4a1e036ab3f2517b730da3d71f0e31838",
+      "remote_size": 6159963
+    },
+    {
+      "name": "final-technical.json",
+      "bytes": 3600,
+      "sha256": "0ec11c352a8d87cf76e51c6bc97cdae1b1d8e9e532579b80d17ee465587789e6",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/scribble/r01-3bc9460bc81f/final-technical.json",
+      "remote_digest": "sha256:0ec11c352a8d87cf76e51c6bc97cdae1b1d8e9e532579b80d17ee465587789e6",
+      "remote_size": 3600
+    },
+    {
+      "name": "captions.srt",
+      "bytes": 1355,
+      "sha256": "e265729fb5b08f5b86680254552da2784a7e073d9a0df8e6f84e1b8fef61fc22",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/scribble/r01-3bc9460bc81f/captions.srt",
+      "remote_digest": "sha256:e265729fb5b08f5b86680254552da2784a7e073d9a0df8e6f84e1b8fef61fc22",
+      "remote_size": 1355
+    },
+    {
+      "name": "poster.png",
+      "bytes": 1684361,
+      "sha256": "363d0c544ff9b37cf958e6fc4877e0f252c1c325ef7a9b6c01ab615cc04dbe80",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/scribble/r01-3bc9460bc81f/poster.png",
+      "remote_digest": "sha256:363d0c544ff9b37cf958e6fc4877e0f252c1c325ef7a9b6c01ab615cc04dbe80",
+      "remote_size": 1684361
+    }
+  ],
+  "acceptance": "Published candidate; refer to actual reviews. Not an old-campaign acceptance.",
+  "primary_archive": "https://github.com/dreamer2664/storagecode/tree/main/data/frameforge/scribble/r01-3bc9460bc81f"
+}
