@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-15T21:46:11Z
+- Updated: 2026-10-15T21:46:54Z
 - State: **working**
 - Stage: prototype-r03
-- Last observed activity: Exact SHA256 2a182d39b687a47f38a8b36d1543149d7e8a19756567d23d66f4489796d06c79, 1920x1080 H.264/yuv420p/30 + AAC 48k/195.7kbps, 8.000s. Make/room now enter as complete staggered words inside the expanding frame; the thought→world seam resolves by 10.7; paper/night state and subtitle hold. Prototype audio meters -16.3 LUFS/-4.6 dBTP. The hard-shot prototype gate is complete; no continuous playback or perceptual audio listening is claimed. Exact review: agents/kinetic/evidence/prototype-r03-review.md.
+- Last observed activity: r03 SHA256 2a182d39b687a47f38a8b36d1543149d7e8a19756567d23d66f4489796d06c79; 8.000s 1920x1080 H.264/yuv420p/30 + AAC 48k, -16.3 LUFS/-4.6 dBTP. At13.0 “Make” is a whole readable word, “room.” follows and settles by13.2; the morph has a one-frame moving-seam hybrid at10.6 and resolves by10.7. No gray inversion, title clipping or low-contrast subtitle remains in this hard shot. Hard-shot gate is complete; exact evidence in prototype-r03-review.md.
 - Latest evidence/artifact: agents/kinetic/evidence/prototype-r03-review.md
-- Next concrete action: Render complete 27s rough hero and 10s periodic loop with this locked renderer; inspect all beats, then revise materially based on whole-cut evidence.
+- Next concrete action: Lock the prototype grammar and build the complete 27s hero plus a technically frame-aligned 10.24s loop; inspect rough cuts before any final.
 - Source: your own agents/kinetic/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -188,4 +188,10 @@
 - Result/discovery: Exact SHA256 2a182d39b687a47f38a8b36d1543149d7e8a19756567d23d66f4489796d06c79, 1920x1080 H.264/yuv420p/30 + AAC 48k/195.7kbps, 8.000s. Make/room now enter as complete staggered words inside the expanding frame; the thought→world seam resolves by 10.7; paper/night state and subtitle hold. Prototype audio meters -16.3 LUFS/-4.6 dBTP. The hard-shot prototype gate is complete; no continuous playback or perceptual audio listening is claimed. Exact review: agents/kinetic/evidence/prototype-r03-review.md.
 - Evidence: agents/kinetic/evidence/prototype-r03-review.md
 - Next: Render complete 27s rough hero and 10s periodic loop with this locked renderer; inspect all beats, then revise materially based on whole-cut evidence.
+
+### 2026-10-15T21:46:54Z — inspection
+- Action: Reviewed the exact r03 prototype chronologically and opened dense 0.1s transition sheets plus full-size 10.6s and 13.1s frames
+- Result/discovery: r03 SHA256 2a182d39b687a47f38a8b36d1543149d7e8a19756567d23d66f4489796d06c79; 8.000s 1920x1080 H.264/yuv420p/30 + AAC 48k, -16.3 LUFS/-4.6 dBTP. At13.0 “Make” is a whole readable word, “room.” follows and settles by13.2; the morph has a one-frame moving-seam hybrid at10.6 and resolves by10.7. No gray inversion, title clipping or low-contrast subtitle remains in this hard shot. Hard-shot gate is complete; exact evidence in prototype-r03-review.md.
+- Evidence: agents/kinetic/evidence/prototype-r03-review.md
+- Next: Lock the prototype grammar and build the complete 27s hero plus a technically frame-aligned 10.24s loop; inspect rough cuts before any final.
 
