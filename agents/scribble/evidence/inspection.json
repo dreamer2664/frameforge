@@ -1,0 +1,11 @@
+{
+  "frames_count": 1460,
+  "sample_every_seconds": 1,
+  "sheets": [
+    "agents/scribble/work/inspection/sheet-000.jpg",
+    "agents/scribble/work/inspection/sheet-001.jpg",
+    "agents/scribble/work/inspection/sheet-002.jpg"
+  ],
+  "black_frames": 0,
+  "notes": "Automated scan only; no human vision available."
+}
