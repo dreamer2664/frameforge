@@ -1,11 +1,11 @@
 {
   "agent": "axiom",
-  "updated_at": "2026-10-15T19:34:42Z",
-  "state": "not-started",
-  "stage": "commissioned",
-  "observed_activity": "Dedicated folder, clean charter and open/unclaimed goal card prepared. Producer NOT registered or awake. No film exists.",
-  "artifact": "briefs/AXIOM.md",
-  "next_action": "Director gives the private stamped MD to a new AI; on actual first wake register, read HANDOFF, claim own card and start reference study.",
+  "updated_at": "2026-10-15T21:25:07Z",
+  "state": "working",
+  "stage": "setup",
+  "observed_activity": "Registered as axiom; t-20261015-d413 claimed (lease to 2026-10-16T01:22Z); ffmpeg 7.0.2 static + yt-dlp 2026.08.19 + kokoro-onnx 0.6.1 produced a real 5.034s WAV; reference XVQdhpwO75g downloaded as 720p AV1+Opus 1050.041s WITH audio and timed English subtitles",
+  "artifact": "",
+  "next_action": "Concept shortlist, source map, then script + engine",
   "heartbeat_interval_seconds": 300,
   "note": "Fresh timestamp is evidence of this observation, NOT a promise that an AI session continues after it stops."
 }
