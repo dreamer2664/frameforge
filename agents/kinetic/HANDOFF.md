@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-15T21:56:27Z
-- State: **working**
-- Stage: full-hero-r02-code
-- Last observed activity: At master9.2–9.3 the label/title/outline are now warm and high-contrast on ink; exactly at9.4 they switch to dark/cool as the field becomes paper. “for the unexpected.” now finishes a fast ease-out by13.58, visible alongside the settled Make room. headline. A thought completes its wipe by0.68s while the filament continues. This source revision passes six deterministic renderer/loop/font checks; exact r02 export still needs review.
-- Latest evidence/artifact: agents/kinetic/render.py
-- Next concrete action: Render and mux the full r02; repeat 0.5s/transition/phone-scale inspection of the exact file.
+- Updated: 2026-10-15T21:57:56Z
+- State: **checkpoint**
+- Stage: full-hero-rough-r02
+- Last observed activity: Exit 0; 28 lines. Last observed output: hero: wrote work/renders/hero-r02-picture.mp4 (810 frames; 27.000s at 30 fps)
+- Latest evidence/artifact: /home/user/frameforge/agents/kinetic/work/process-1792101396712788808.log
+- Next concrete action: Inspect output and continue production; command success is not film completion.
 - Source: your own agents/kinetic/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -242,4 +242,16 @@
 - Result/discovery: At master9.2–9.3 the label/title/outline are now warm and high-contrast on ink; exactly at9.4 they switch to dark/cool as the field becomes paper. “for the unexpected.” now finishes a fast ease-out by13.58, visible alongside the settled Make room. headline. A thought completes its wipe by0.68s while the filament continues. This source revision passes six deterministic renderer/loop/font checks; exact r02 export still needs review.
 - Evidence: agents/kinetic/render.py
 - Next: Render and mux the full r02; repeat 0.5s/transition/phone-scale inspection of the exact file.
+
+### 2026-10-15T21:56:36Z — command-start
+- Action: python3 render.py --kind hero --out work/renders/hero-r02-picture.mp4
+- Result/discovery: Launching actual child process; not yet proof of progress.
+- Evidence: /home/user/frameforge/agents/kinetic/work/process-1792101396712788808.log
+- Next: continue current stage
+
+### 2026-10-15T21:57:56Z — command-end
+- Action: python3 render.py --kind hero --out work/renders/hero-r02-picture.mp4
+- Result/discovery: Exit 0; 28 lines. Last observed output: hero: wrote work/renders/hero-r02-picture.mp4 (810 frames; 27.000s at 30 fps)
+- Evidence: /home/user/frameforge/agents/kinetic/work/process-1792101396712788808.log
+- Next: Inspect output and continue production; command success is not film completion.
 

@@ -1,11 +1,11 @@
 {
   "agent": "kinetic",
-  "updated_at": "2026-10-15T21:56:27Z",
-  "state": "working",
-  "stage": "full-hero-r02-code",
-  "observed_activity": "At master9.2–9.3 the label/title/outline are now warm and high-contrast on ink; exactly at9.4 they switch to dark/cool as the field becomes paper. “for the unexpected.” now finishes a fast ease-out by13.58, visible alongside the settled Make room. headline. A thought completes its wipe by0.68s while the filament continues. This source revision passes six deterministic renderer/loop/font checks; exact r02 export still needs review.",
-  "artifact": "agents/kinetic/render.py",
-  "next_action": "Render and mux the full r02; repeat 0.5s/transition/phone-scale inspection of the exact file.",
+  "updated_at": "2026-10-15T21:57:56Z",
+  "state": "checkpoint",
+  "stage": "full-hero-rough-r02",
+  "observed_activity": "Exit 0; 28 lines. Last observed output: hero: wrote work/renders/hero-r02-picture.mp4 (810 frames; 27.000s at 30 fps)",
+  "artifact": "/home/user/frameforge/agents/kinetic/work/process-1792101396712788808.log",
+  "next_action": "Inspect output and continue production; command success is not film completion.",
   "heartbeat_interval_seconds": 300,
   "note": "Fresh timestamp is evidence of this observation, NOT a promise that an AI session continues after it stops."
 }
