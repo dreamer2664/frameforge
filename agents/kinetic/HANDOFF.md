@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-15T21:44:28Z
-- State: **working**
-- Stage: prototype-r03-code
-- Last observed activity: Word replacement now completes its seam wipe by master 10.68; opening phrase reveals complete words (“Make”, then “room.”) rather than a malformed glyph fragment while x-position tracks the expanding frame. Existing fast “Meaning” entry and 01–07 labels are retained; the change still requires an exported r03 review.
-- Latest evidence/artifact: agents/kinetic/render.py
-- Next concrete action: Render/mux the corrected 8-second r03 hard shot; inspect at 0.5s and 0.1s around both word reveals.
+- Updated: 2026-10-15T21:45:00Z
+- State: **checkpoint**
+- Stage: hard-shot-r03-render
+- Last observed activity: Exit 0; 9 lines. Last observed output: hero: wrote work/renders/prototype-r03-picture.mp4 (240 frames; 8.000s at 30 fps)
+- Latest evidence/artifact: /home/user/frameforge/agents/kinetic/work/process-1792100675875765113.log
+- Next concrete action: Inspect output and continue production; command success is not film completion.
 - Source: your own agents/kinetic/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -158,4 +158,16 @@
 - Result/discovery: Word replacement now completes its seam wipe by master 10.68; opening phrase reveals complete words (“Make”, then “room.”) rather than a malformed glyph fragment while x-position tracks the expanding frame. Existing fast “Meaning” entry and 01–07 labels are retained; the change still requires an exported r03 review.
 - Evidence: agents/kinetic/render.py
 - Next: Render/mux the corrected 8-second r03 hard shot; inspect at 0.5s and 0.1s around both word reveals.
+
+### 2026-10-15T21:44:35Z — command-start
+- Action: python3 render.py --kind hero --start 9.0 --duration 8.0 --out work/renders/prototype-r03-picture.mp4
+- Result/discovery: Launching actual child process; not yet proof of progress.
+- Evidence: /home/user/frameforge/agents/kinetic/work/process-1792100675875765113.log
+- Next: continue current stage
+
+### 2026-10-15T21:45:00Z — command-end
+- Action: python3 render.py --kind hero --start 9.0 --duration 8.0 --out work/renders/prototype-r03-picture.mp4
+- Result/discovery: Exit 0; 9 lines. Last observed output: hero: wrote work/renders/prototype-r03-picture.mp4 (240 frames; 8.000s at 30 fps)
+- Evidence: /home/user/frameforge/agents/kinetic/work/process-1792100675875765113.log
+- Next: Inspect output and continue production; command success is not film completion.
 
