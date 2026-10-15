@@ -9,10 +9,14 @@
     "notes": "All sound is generated from oscillators, deterministic envelopes, and fixed-seed interpolated noise in audio.py. No third-party sample or reference audio is used."
   },
   "loop": {
-    "duration_seconds": 10.0,
+    "duration_seconds": 10.24,
     "sample_rate": 48000,
-    "period_seconds": 10.0,
-    "fundamental_cycles": [55.0, 65.0, 82.5, 110.0, 165.0, 220.0],
-    "notes": "Periodic chord bed and low-amplitude integer-cycle modulation only; no transient or release tail at the seam."
+    "period_seconds": 10.24,
+    "fps": 25,
+    "frames": 256,
+    "aac_frame_samples": 1024,
+    "aac_frames": 480,
+    "harmonic_frequencies_hz": [50.0, 62.5, 75.0, 100.0, 125.0, 150.0, 200.0, 328.125],
+    "notes": "A 10.24s cycle equals 256 picture frames at 25fps and 491,520 PCM samples, exactly 480 AAC frames of 1,024 samples each. Each synthesized tone completes an integer number of cycles over the loop; only smooth periodic modulation is used, with no transient or release tail at the seam."
   }
 }

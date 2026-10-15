@@ -43,7 +43,7 @@ The editable details live in `storyboard.json`; the independent sound cue map is
 | 20.5–23.4 | Signature | That filament draws a custom three-stroke K; the KINETIC wordmark locks beside it. |
 | 23.4–27.0 | End hold | “KINETIC / Ideas, in motion.” holds with a small living light phase; the last frame is a deliberate brand lock-up, not a black tail. |
 
-The loop is separate: a 10.0-second periodic field with the line and light orbiting at a precise 0.1 Hz fundamental; wordmark and phrase remain static and readable. Its visual and audio phase are chosen to close continuously at 10 seconds.
+The loop is separate: a 10.24-second periodic field with the line and light orbiting in a shared 10.24s phase; wordmark and phrase remain static and readable. The duration is deliberate: 256 picture frames at 25fps and 491,520 PCM samples at 48kHz land on 480 complete 1,024-sample AAC frames, so picture, oscillator and AAC packet boundaries coincide. Visual velocity and audio phase are checked at the wrap, not assumed from the timeline.
 
 ## Sound decision
 

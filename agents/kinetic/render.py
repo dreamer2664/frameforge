@@ -9,6 +9,8 @@ FONT_DIR = os.path.join(BASE, 'fonts')
 W, H = 1280, 720
 FPS = 30
 DURATION = 27.0
+LOOP_DURATION = 10.24
+LOOP_FPS = 25
 SCALE = 2
 LW, LH = W // SCALE, H // SCALE
 
@@ -240,9 +242,9 @@ def draw_morph_center(img, old, new, cx, y, f, color, p):
         ImageDraw.Draw(img).line((edge,y-8,edge,y+96),fill=(*WARM_HI,seam_alpha),width=2)
 
 
-def draw_periodic_bg_light(img,t,intensity=1.0):
-    # Slow, low-amplitude warm breath. Same phase every 5 seconds; never floods text.
-    a=22+int(5*(0.5+0.5*math.sin(2*math.pi*t/5.0)))
+def draw_periodic_bg_light(img,t,intensity=1.0,period=5.0):
+    # Slow, low-amplitude warm breath; explicit period keeps the separate loop seam phase-locked.
+    a=22+int(5*(0.5+0.5*math.sin(2*math.pi*t/period)))
     add=Image.new('RGBA',(LW,LH),(0,0,0,0)); d=ImageDraw.Draw(add)
     d.ellipse((70,500/SCALE,360,650/SCALE),fill=(231,164,97,int(a*intensity)))
     add=add.filter(ImageFilter.GaussianBlur(26))
@@ -439,17 +441,17 @@ def draw_hero_frame(t: float) -> Image.Image:
 
 
 def draw_loop_frame(t: float) -> Image.Image:
-    # Exact 10-second periodic composition: all animated values are functions of phase only.
-    t=t % 10.0
-    phase=2*math.pi*t/10.0
+    # Exact 10.24-second periodic composition; every animated channel shares one phase.
+    t=t % LOOP_DURATION
+    phase=2*math.pi*t/LOOP_DURATION
     img=DARK_BG.copy().convert('RGBA')
-    draw_periodic_bg_light(img,t,0.85)
+    draw_periodic_bg_light(img,t,0.85,period=LOOP_DURATION)
     # Quiet orbit rings, not radial spokes; the moving point is the only bright cursor.
     cx,cy=640,360
     d=ImageDraw.Draw(img)
     d.ellipse((cx-360,cy-185,cx+360,cy+185),outline=(100,113,124,48),width=1)
     d.ellipse((cx-306,cy-143,cx+306,cy+143),outline=(87,99,110,34),width=1)
-    # Two smooth ellipses with a trail of variable opacity; each has one 10s period.
+    # Two smooth ellipses with a trail of variable opacity; each has one 10.24s period.
     for track,(rx,ry,offset,color,width) in enumerate([(360,185,phase,WARM,2),(306,143,-phase+.6,COOL,1)]):
         span=1.20 if track==0 else .85
         pts=[]
@@ -462,7 +464,7 @@ def draw_loop_frame(t: float) -> Image.Image:
             col=color
             alpha=int((40+150*age)*(0.75+0.25*math.sin(phase+track)))
             d.line((pts[i-1],pts[i]),fill=(*col,alpha),width=width+1 if age>.8 else width)
-    # Orbiting point: position, light breath and sound phase all close on exactly 10.0 s.
+    # Orbiting point: position, light breath and sound phase all close on exactly 10.24 s.
     px=cx+360*math.cos(phase); py=cy+185*math.sin(phase)
     draw_dot(img,(px,py),WARM_HI,4,255,35)
     # One counter-moving, quieter glass point.
@@ -476,10 +478,14 @@ def draw_loop_frame(t: float) -> Image.Image:
     return img.convert('RGB')
 
 
-def encode_video(kind, out, start=0.0, duration=None, fps=FPS, ffmpeg=None):
+def encode_video(kind, out, start=0.0, duration=None, fps=None, ffmpeg=None):
     if duration is None:
-        duration=DURATION if kind=='hero' else 10.0
+        duration=DURATION if kind=='hero' else LOOP_DURATION
+    if fps is None:
+        fps=FPS if kind=='hero' else LOOP_FPS
     total=int(round(duration*fps))
+    if abs(total/fps-duration)>1e-9:
+        raise ValueError(f'{duration}s does not land on a complete frame at {fps}fps')
     ffmpeg=ffmpeg or os.environ.get('FFMPEG_BIN') or shutil.which('ffmpeg')
     if not ffmpeg:
         candidate=os.path.expanduser('~/.cache/frameforge/bin/ffmpeg')
@@ -511,7 +517,7 @@ def main():
     ap.add_argument('--out',required=True)
     ap.add_argument('--start',type=float,default=0.0)
     ap.add_argument('--duration',type=float,default=None)
-    ap.add_argument('--fps',type=int,default=FPS)
+    ap.add_argument('--fps',type=int,default=None)
     ap.add_argument('--ffmpeg',default=None)
     args=ap.parse_args()
     encode_video(args.kind,args.out,args.start,args.duration,args.fps,args.ffmpeg)

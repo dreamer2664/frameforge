@@ -1,6 +1,6 @@
 # Kinetic — “A thought becomes a world”
 
-An original, deterministic, time-based 27-second 1920×1080 H.264 kinetic-typography film and separate 10-second seamless loop. The working renderer draws at 1280×720 and encodes through FFmpeg Lanczos scaling to 1920×1080. Every cue is frame/time driven at 30 fps; no screen recording or remote rendering service.
+An original, deterministic, time-based 27-second 1920×1080 H.264 kinetic-typography film and separate 10.24-second seamless loop (25fps, 256 frames). The working renderer draws at 1280×720 and encodes through FFmpeg Lanczos scaling to 1920×1080. Every cue is frame/time driven at 30 fps; no screen recording or remote rendering service.
 
 ## Run
 

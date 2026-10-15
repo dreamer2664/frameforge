@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-15T21:46:54Z
+- Updated: 2026-10-15T21:49:48Z
 - State: **working**
-- Stage: prototype-r03
-- Last observed activity: r03 SHA256 2a182d39b687a47f38a8b36d1543149d7e8a19756567d23d66f4489796d06c79; 8.000s 1920x1080 H.264/yuv420p/30 + AAC 48k, -16.3 LUFS/-4.6 dBTP. At13.0 “Make” is a whole readable word, “room.” follows and settles by13.2; the morph has a one-frame moving-seam hybrid at10.6 and resolves by10.7. No gray inversion, title clipping or low-contrast subtitle remains in this hard shot. Hard-shot gate is complete; exact evidence in prototype-r03-review.md.
-- Latest evidence/artifact: agents/kinetic/evidence/prototype-r03-review.md
-- Next concrete action: Lock the prototype grammar and build the complete 27s hero plus a technically frame-aligned 10.24s loop; inspect rough cuts before any final.
+- Stage: loop-system
+- Last observed activity: The earlier 10s plan is superseded before export: 10.24s = 256 frames at 25fps and 491,520 samples at 48kHz = 480 AAC frames of 1,024 samples. Every oscillator and light/position phase closes on that period. Source frame at0 and10.24 is pixel-identical; source seam-step MAE 0.09033 vs ordinary step0.08409 (1.0742x). Six offline renderer/period/asset tests pass. Actual loop MP4, decoded AAC seam and loudness remain untested.
+- Latest evidence/artifact: agents/kinetic/evidence/loop-design.md
+- Next concrete action: Render full rough hero and the 10.24s loop; run exact-file QC and dense wrap inspection.
 - Source: your own agents/kinetic/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -194,4 +194,10 @@
 - Result/discovery: r03 SHA256 2a182d39b687a47f38a8b36d1543149d7e8a19756567d23d66f4489796d06c79; 8.000s 1920x1080 H.264/yuv420p/30 + AAC 48k, -16.3 LUFS/-4.6 dBTP. At13.0 “Make” is a whole readable word, “room.” follows and settles by13.2; the morph has a one-frame moving-seam hybrid at10.6 and resolves by10.7. No gray inversion, title clipping or low-contrast subtitle remains in this hard shot. Hard-shot gate is complete; exact evidence in prototype-r03-review.md.
 - Evidence: agents/kinetic/evidence/prototype-r03-review.md
 - Next: Lock the prototype grammar and build the complete 27s hero plus a technically frame-aligned 10.24s loop; inspect rough cuts before any final.
+
+### 2026-10-15T21:49:48Z — revision
+- Action: Aligned the separate loop’s visual/audio cycle to the encoded frame and AAC packet grids
+- Result/discovery: The earlier 10s plan is superseded before export: 10.24s = 256 frames at 25fps and 491,520 samples at 48kHz = 480 AAC frames of 1,024 samples. Every oscillator and light/position phase closes on that period. Source frame at0 and10.24 is pixel-identical; source seam-step MAE 0.09033 vs ordinary step0.08409 (1.0742x). Six offline renderer/period/asset tests pass. Actual loop MP4, decoded AAC seam and loudness remain untested.
+- Evidence: agents/kinetic/evidence/loop-design.md
+- Next: Render full rough hero and the 10.24s loop; run exact-file QC and dense wrap inspection.
 

@@ -88,15 +88,21 @@ def hero_audio(path,start=0.0,duration=None):
     stereo[:int(.018*SR),1]=mix[:int(.018*SR)]*.95
     write_wav(path,stereo)
 
-def loop_audio(path,start=0.0,duration=10.0):
+def loop_audio(path,start=0.0,duration=None):
+    period=float(CUES['loop']['period_seconds'])
+    if duration is None: duration=float(CUES['loop']['duration_seconds'])
     t=timebase(start,duration)
-    phase=2*np.pi*t
-    # Integer-cycle tones at 55/65/82.5 Hz return to identical phase every ten seconds.
-    bed=(.035*np.sin(phase*55.0)+.026*np.sin(phase*65.0+.35)+
-         .020*np.sin(phase*82.5+.8)+.012*np.sin(phase*110.0+.5)+
-         .008*np.sin(phase*165.0+1.0)+.005*np.sin(phase*220.0+.2))
-    breathe=.88+.12*(.5+.5*np.sin(phase)) # exactly one envelope cycle per 10 s
-    shimmer=.006*np.sin(phase*330.0+np.sin(phase)*.08)
+    phase=2*np.pi*t/period
+    # Integer-cycle harmonic tones close exactly after the 10.24s AAC-aligned period.
+    freqs=np.asarray(CUES['loop']['harmonic_frequencies_hz'],dtype=np.float64)
+    cycles=np.rint(freqs*period).astype(np.int64)
+    levels=np.asarray([.035,.026,.020,.012,.009,.007,.005,.002],dtype=np.float64)
+    offsets=np.asarray([0.0,.35,.8,.5,1.0,.2,.4,.1],dtype=np.float64)
+    bed=np.zeros_like(t)
+    for n,amp,offset in zip(cycles,levels,offsets):
+        bed += amp*np.sin(phase*n+offset)
+    breathe=.88+.12*(.5+.5*np.sin(phase)) # exactly one envelope cycle per period
+    shimmer=.004*np.sin(phase*cycles[-1]+np.sin(phase)*.06)
     mono=bed*breathe+shimmer
     # Identical channels avoid unintended phase width and give a reliably repeatable seam.
     write_wav(path,np.column_stack((mono,mono)))
@@ -109,5 +115,5 @@ def main():
     ap.add_argument('--duration',type=float,default=None)
     a=ap.parse_args()
     if a.kind=='hero': hero_audio(a.out,a.start,a.duration)
-    else: loop_audio(a.out,a.start,a.duration or 10.0)
+    else: loop_audio(a.out,a.start,a.duration)
 if __name__=='__main__': main()

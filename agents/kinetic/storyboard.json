@@ -19,6 +19,7 @@
     "ui": "Inter (Medium / SemiBold)",
     "line_break_principle": "large, quiet display phrase; one short supporting line; labels secondary and legible at phone scale"
   },
+  "loop": {"duration_seconds": 10.24, "fps": 25, "frames": 256, "audio_sample_rate": 48000, "pcm_samples": 491520, "aac_frame_samples": 1024, "aac_frames": 480, "periodic_phase_seconds": 10.24},
   "beats": [
     {"id": "spark", "in": 0.0, "out": 3.0, "copy": ["A thought", "starts with one point."], "action": "A single warm point travels and draws the reveal mask under the phrase; the first line is fully readable before the second beat."},
     {"id": "direction", "in": 3.0, "out": 6.1, "copy": ["Give it a line."], "action": "The same filament curves into a route; the moving point and a left-to-right mask travel together, not as an unrelated wipe."},
