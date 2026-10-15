@@ -4,11 +4,11 @@
 
 ## Resume here
 
-- Updated: 2026-10-15T21:34:58Z
+- Updated: 2026-10-15T21:35:42Z
 - State: **checkpoint**
-- Stage: prototype-audio
-- Last observed activity: Exit 0; 1 lines. Last observed output: wrote work/audio/hero-r00.wav: 1296000 stereo samples, 27.000000s at 48000 Hz
-- Latest evidence/artifact: /home/user/frameforge/agents/kinetic/work/process-1792100096884296888.log
+- Stage: hard-shot-prototype
+- Last observed activity: Exit 0; 9 lines. Last observed output: hero: wrote work/renders/prototype-picture.mp4 (240 frames; 8.000s at 30 fps)
+- Latest evidence/artifact: /home/user/frameforge/agents/kinetic/work/process-1792100116094350757.log
 - Next concrete action: Inspect output and continue production; command success is not film completion.
 - Source: your own agents/kinetic/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
@@ -55,5 +55,17 @@
 - Action: python3 audio.py --kind hero --out work/audio/hero-r00.wav
 - Result/discovery: Exit 0; 1 lines. Last observed output: wrote work/audio/hero-r00.wav: 1296000 stereo samples, 27.000000s at 48000 Hz
 - Evidence: /home/user/frameforge/agents/kinetic/work/process-1792100096884296888.log
+- Next: Inspect output and continue production; command success is not film completion.
+
+### 2026-10-15T21:35:16Z — command-start
+- Action: python3 render.py --kind hero --start 9.0 --duration 8.0 --out work/renders/prototype-picture.mp4
+- Result/discovery: Launching actual child process; not yet proof of progress.
+- Evidence: /home/user/frameforge/agents/kinetic/work/process-1792100116094350757.log
+- Next: continue current stage
+
+### 2026-10-15T21:35:42Z — command-end
+- Action: python3 render.py --kind hero --start 9.0 --duration 8.0 --out work/renders/prototype-picture.mp4
+- Result/discovery: Exit 0; 9 lines. Last observed output: hero: wrote work/renders/prototype-picture.mp4 (240 frames; 8.000s at 30 fps)
+- Evidence: /home/user/frameforge/agents/kinetic/work/process-1792100116094350757.log
 - Next: Inspect output and continue production; command success is not film completion.
 
