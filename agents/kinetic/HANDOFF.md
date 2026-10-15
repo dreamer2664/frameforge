@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-15T22:05:38Z
-- State: **checkpoint**
-- Stage: loop-picture-audio-r01-mux
-- Last observed activity: Exit 0; 1 lines. Last observed output: loop-r01-muxed
-- Latest evidence/artifact: /home/user/frameforge/agents/kinetic/work/process-1792101937899791484.log
-- Next concrete action: Inspect output and continue production; command success is not film completion.
+- Updated: 2026-10-15T22:09:03Z
+- State: **working**
+- Stage: full-hero-exact-r03
+- Last observed activity: Exact SHA256 4cfd227f6567c0e81594cc057e4ab2ccfae5efc4edddd0ae942e1aa3dd32aa21, 27.000s H.264/yuv420p/30 + AAC 48k, 1920x1080, technical QC green, -16.15 LUFS/-4.09 dBTP, 810 frames, no black-detect interval. r02 contrast fix and r03 word-pacing fix hold in actual pixels; key type and signature are readable at 640x360. No continuous video playback or perceptual audio listening claimed. Full timecoded review and honest self-score: hero-r03-final-visual-review.md.
+- Latest evidence/artifact: agents/kinetic/evidence/hero-r03-final-visual-review.md
+- Next concrete action: Finish 10.24s loop exact AAC/ALAC seam inspection; then publish hero + loop and verify storage receipts.
 - Source: your own agents/kinetic/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -338,4 +338,10 @@
 - Result/discovery: Exit 0; 1 lines. Last observed output: loop-r01-muxed
 - Evidence: /home/user/frameforge/agents/kinetic/work/process-1792101937899791484.log
 - Next: Inspect output and continue production; command success is not film completion.
+
+### 2026-10-15T22:09:03Z — inspection
+- Action: Performed final-candidate r03 exact-file review: 55 chronological half-second frames, dense 0.1s transitions, selected full-size glyph frames, phone-scale sheet, complete decode/black check
+- Result/discovery: Exact SHA256 4cfd227f6567c0e81594cc057e4ab2ccfae5efc4edddd0ae942e1aa3dd32aa21, 27.000s H.264/yuv420p/30 + AAC 48k, 1920x1080, technical QC green, -16.15 LUFS/-4.09 dBTP, 810 frames, no black-detect interval. r02 contrast fix and r03 word-pacing fix hold in actual pixels; key type and signature are readable at 640x360. No continuous video playback or perceptual audio listening claimed. Full timecoded review and honest self-score: hero-r03-final-visual-review.md.
+- Evidence: agents/kinetic/evidence/hero-r03-final-visual-review.md
+- Next: Finish 10.24s loop exact AAC/ALAC seam inspection; then publish hero + loop and verify storage receipts.
 
