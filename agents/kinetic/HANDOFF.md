@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-15T21:49:48Z
-- State: **working**
-- Stage: loop-system
-- Last observed activity: The earlier 10s plan is superseded before export: 10.24s = 256 frames at 25fps and 491,520 samples at 48kHz = 480 AAC frames of 1,024 samples. Every oscillator and light/position phase closes on that period. Source frame at0 and10.24 is pixel-identical; source seam-step MAE 0.09033 vs ordinary step0.08409 (1.0742x). Six offline renderer/period/asset tests pass. Actual loop MP4, decoded AAC seam and loudness remain untested.
-- Latest evidence/artifact: agents/kinetic/evidence/loop-design.md
-- Next concrete action: Render full rough hero and the 10.24s loop; run exact-file QC and dense wrap inspection.
+- Updated: 2026-10-15T21:51:13Z
+- State: **checkpoint**
+- Stage: full-hero-rough-r01
+- Last observed activity: Exit 0; 28 lines. Last observed output: hero: wrote work/renders/hero-r01-picture.mp4 (810 frames; 27.000s at 30 fps)
+- Latest evidence/artifact: /home/user/frameforge/agents/kinetic/work/process-1792100997232290415.log
+- Next concrete action: Inspect output and continue production; command success is not film completion.
 - Source: your own agents/kinetic/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -200,4 +200,16 @@
 - Result/discovery: The earlier 10s plan is superseded before export: 10.24s = 256 frames at 25fps and 491,520 samples at 48kHz = 480 AAC frames of 1,024 samples. Every oscillator and light/position phase closes on that period. Source frame at0 and10.24 is pixel-identical; source seam-step MAE 0.09033 vs ordinary step0.08409 (1.0742x). Six offline renderer/period/asset tests pass. Actual loop MP4, decoded AAC seam and loudness remain untested.
 - Evidence: agents/kinetic/evidence/loop-design.md
 - Next: Render full rough hero and the 10.24s loop; run exact-file QC and dense wrap inspection.
+
+### 2026-10-15T21:49:57Z — command-start
+- Action: python3 render.py --kind hero --out work/renders/hero-r01-picture.mp4
+- Result/discovery: Launching actual child process; not yet proof of progress.
+- Evidence: /home/user/frameforge/agents/kinetic/work/process-1792100997232290415.log
+- Next: continue current stage
+
+### 2026-10-15T21:51:13Z — command-end
+- Action: python3 render.py --kind hero --out work/renders/hero-r01-picture.mp4
+- Result/discovery: Exit 0; 28 lines. Last observed output: hero: wrote work/renders/hero-r01-picture.mp4 (810 frames; 27.000s at 30 fps)
+- Evidence: /home/user/frameforge/agents/kinetic/work/process-1792100997232290415.log
+- Next: Inspect output and continue production; command success is not film completion.
 
