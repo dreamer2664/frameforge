@@ -1,0 +1,18 @@
+{
+  "hero": {
+    "duration_seconds": 27.0,
+    "sample_rate": 48000,
+    "mix_intent": "original low-volume sustained chords, sparse soft plucks, gently filtered procedural air on the transitions; silence/space remains between punctuations; no narration",
+    "progression_seconds": [0.0, 6.1, 12.5, 16.5, 20.5, 27.0],
+    "chords_hz": [[146.83, 220.00, 261.63, 329.63], [116.54, 174.61, 220.00, 261.63], [87.31, 130.81, 174.61, 220.00], [130.81, 196.00, 261.63, 329.63], [110.00, 164.81, 220.00, 293.66]],
+    "punctuations_seconds": [0.32, 3.08, 6.18, 7.12, 8.06, 9.23, 10.55, 12.53, 16.52, 20.52, 23.37],
+    "notes": "All sound is generated from oscillators, deterministic envelopes, and fixed-seed interpolated noise in audio.py. No third-party sample or reference audio is used."
+  },
+  "loop": {
+    "duration_seconds": 10.0,
+    "sample_rate": 48000,
+    "period_seconds": 10.0,
+    "fundamental_cycles": [55.0, 65.0, 82.5, 110.0, 165.0, 220.0],
+    "notes": "Periodic chord bed and low-amplitude integer-cycle modulation only; no transient or release tail at the seam."
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "project": "Kinetic — A thought becomes a world",
+  "promise": "Kinetic turns one small thought into a world with shape, rhythm, and room to move.",
+  "emotional_arc": ["curiosity", "direction", "rhythm", "expansion", "clarity", "quiet signature"],
+  "format": {"width": 1920, "height": 1080, "fps": 30, "duration_seconds": 27.0, "working_resolution": [1280, 720]},
+  "palette": {
+    "ink": "#090B10",
+    "night": "#11141B",
+    "paper": "#F0ECE3",
+    "paper_shadow": "#E6E1D8",
+    "warm": "#E7A461",
+    "warm_highlight": "#FFE0B6",
+    "cool": "#8CA8BA",
+    "dark_type": "#202630",
+    "light_type": "#F3EEE5"
+  },
+  "type_direction": {
+    "display": "Fraunces variable (optical size set to rendered size, weight 550–720)",
+    "ui": "Inter (Medium / SemiBold)",
+    "line_break_principle": "large, quiet display phrase; one short supporting line; labels secondary and legible at phone scale"
+  },
+  "beats": [
+    {"id": "spark", "in": 0.0, "out": 3.0, "copy": ["A thought", "starts with one point."], "action": "A single warm point travels and draws the reveal mask under the phrase; the first line is fully readable before the second beat."},
+    {"id": "direction", "in": 3.0, "out": 6.1, "copy": ["Give it a line."], "action": "The same filament curves into a route; the moving point and a left-to-right mask travel together, not as an unrelated wipe."},
+    {"id": "rhythm", "in": 6.1, "out": 9.2, "copy": ["pause", "pulse", "repeat"], "action": "Three words arrive in a deliberate stagger on a restrained baseline; a travelling point lands on each word and changes its emphasis."},
+    {"id": "form", "in": 9.2, "out": 12.5, "copy": ["A thought", "A world"], "action": "The drawn route folds into an open frame; a light seam sweeps through the same typographic position, replacing thought with world."},
+    {"id": "opening", "in": 12.5, "out": 16.5, "copy": ["Make room.", "for the unexpected."], "action": "The outlined frame opens past the safe margins and resolves into generous typographic space; palette inverts from ink to paper, with cool light."},
+    {"id": "meaning", "in": 16.5, "out": 20.5, "copy": ["Meaning,", "in motion."], "action": "Paper recedes into night; two lines enter at different scales and settle on one shared baseline as the warm point finds the period."},
+    {"id": "signature", "in": 20.5, "out": 23.4, "copy": ["KINETIC"], "action": "The moving line resolves into an original three-stroke K monogram, then the wordmark locks to its right."},
+    {"id": "hold", "in": 23.4, "out": 27.0, "copy": ["KINETIC", "Ideas, in motion."], "action": "A clean end frame holds long enough to read; final light has a designed low, steady phase rather than a fade to black."}
+  ]
+}
