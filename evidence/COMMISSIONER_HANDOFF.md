@@ -38,3 +38,15 @@ Receive your own private MD, read it fully and your own HANDOFF, actually regist
 Mars/Windows/PC work remains paused. Old ten-film acceptance is not fulfilled or waived by this commission. Never expose credentials or touch captchaproject/captchaprogram.
 
 Publication/closeout receipts should be appended below once they are actually confirmed; the checklist above records the real intermediate state, not a false claim that publication already happened.
+
+## Confirmed publication / closeout (appended after the intermediate checklist)
+
+- Clean complete source bundle **efa617d051f1912a5b718c5ea223aeea288b755d** pushed and independently confirmed by `ls-remote`. Actual GitHub **record** and **operations safety** runs both completed **success** on that bundle.
+- Project registered on chatcode **6539ed04d6c5c1656988102ed89ac43130bb0ab7**, preserving existing focus/history. General all-crew alert **a745cabb**, independently read back at chatcode **968c64d**. Initial strict text comparison failed because the CLI prepends `Vesta: `; verified the exact body after that known prefix instead of reposting a duplicate.
+- GitHub Pages enabled; **https://dreamer2664.github.io/frameforge/** returned **HTTP200** with all three embedded prepared slots. Embedded dashboard JavaScript also executed against a test DOM and rendered three honest not-started cards. This is not a claim of a full Android/browser visual test. The HTTP page fetches public status every minute; a sandboxed viewer falls back to a labelled snapshot.
+- Three complete private packets stamped from the authoritative vault: KINETIC.md, SCRIBBLE.md, AXIOM.md, mode600, both authorised existing keys in each, unchanged KIT-DBF340. ZIP entries/content/integrity verified; ZIP mode600. **No stamped file/key value was committed or primary-archived.** Director's safe launch sheet and private ZIP prepared for delivery.
+- Clean commissioning receipts (16files), initial logs, actual visual observations/provenance, tests/fixture/failure records, exact crew-introduction proof, Pages proof and metadata archived to **storagecode a9c178aa066a6f65e17eef89c1cb0eff1a17fa78**, `data/frameforge/2026-10-15-commissioning/`, with append-only INDEX/PUSHES rows. Prior/concurrent records preserved.
+- Late review hardened raw-log naming to nanoseconds (rapid commands cannot overwrite one another) and suppressed process-running observations after a child's real exit. A two-command temporary-workspace probe confirmed separate logs; **18/18 offline tests passed again**. No test wrote fake activity into real producer slots.
+- Final verification: all three reserved cards still open/unclaimed/deps-empty; no kinetic/scribble/axiom roster rows created. These are ready-to-launch briefs, **not running agents or finished films**. Nothing remains for the commissioner to invent; the next real work is each producer's actual first wake and film production.
+
+See `PUBLICATION_RECEIPT.json` for machine-readable source/archive/workflow/intro/dashboard pointers. Private packet contents remain private. Mars/PC/Windows and old-campaign acceptance constraints remain unchanged.

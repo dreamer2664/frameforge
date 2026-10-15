@@ -84,7 +84,7 @@ def publish(agent,root=ROOT):
 def run_tracked(agent,cmd,stage,*,interval=300,push=False,root=ROOT):
     if not cmd:raise ValueError('An actual command is required')
     p=home(agent,root);work=p/'work';work.mkdir(exist_ok=True)
-    logfile=work/('process-'+str(int(time.time()))+'.log')
+    logfile=work/('process-'+str(time.time_ns())+'.log')
     event(agent,'command-start',shlex.join(cmd),'Launching actual child process; not yet proof of progress.',stage=stage,state='process-running',artifact=str(logfile),root=root)
     child_env={k:v for k,v in os.environ.items() if k not in ('CHATCODE_TOKEN','GITHUB_TOKEN','GH_TOKEN')}
     try:child=subprocess.Popen(cmd,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,bufsize=0,cwd=p,env=child_env)
@@ -109,7 +109,7 @@ def run_tracked(agent,cmd,stage,*,interval=300,push=False,root=ROOT):
                             line=redact(pending);out.write(line);out.flush();print(line,flush=True);lines+=1;latest=line.strip()[-500:];pending=''
                         sel.unregister(child.stdout)
                 if child.poll() is not None and not sel.get_map():break
-                if time.monotonic()-last>=interval:
+                if time.monotonic()-last>=interval and child.poll() is None:
                     event(agent,'process-observation',shlex.join(cmd),f'Child PID {child.pid} exists; {lines} completed output lines / {bytes_seen} bytes observed. Latest: {latest}. Process liveness alone does not certify creative progress.',stage=stage,state='process-running',artifact=str(logfile),root=root)
                     if push:
                         try:publish(agent,root)

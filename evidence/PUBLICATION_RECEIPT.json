@@ -1,0 +1,48 @@
+{
+  "recorded_at": "2026-10-15T19:51:58+00:00",
+  "source_repo": "https://github.com/dreamer2664/frameforge",
+  "source_first_public_commit": "efa617d051f1912a5b718c5ea223aeea288b755d",
+  "project_registration_commit": "6539ed04d6c5c1656988102ed89ac43130bb0ab7",
+  "crew_introduction_id": "a745cabb",
+  "crew_verified_chatcode_sha": "968c64dcebc7e68599487e046e4a8b2bfc6b44c3",
+  "dashboard": "https://dreamer2664.github.io/frameforge/",
+  "dashboard_http_verified": 200,
+  "actual_github_workflows": [
+    {
+      "id": 38796696227,
+      "name": "record",
+      "head_sha": "efa617d051f1912a5b718c5ea223aeea288b755d",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/dreamer2664/frameforge/actions/runs/38796696227"
+    },
+    {
+      "id": 38796694617,
+      "name": "operations safety",
+      "head_sha": "efa617d051f1912a5b718c5ea223aeea288b755d",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/dreamer2664/frameforge/actions/runs/38796694617"
+    }
+  ],
+  "private_delivery": {
+    "md_packets": 3,
+    "mode": "0600",
+    "same_existing_kit": "KIT-DBF340",
+    "both_authorised_keys_in_each": true,
+    "private_packets_or_key_values_archived_here": false
+  },
+  "actual_agent_state": "commissioned, not registered/awake/claimed on their behalf; zero commissioned films",
+  "primary_archive_path": "data/frameforge/2026-10-15-commissioning",
+  "old_campaign": "separate; no acceptance claimed",
+  "mars": "paused",
+  "primary_archive_commit": "a9c178aa066a6f65e17eef89c1cb0eff1a17fa78",
+  "primary_archive": "https://github.com/dreamer2664/storagecode/tree/main/data/frameforge/2026-10-15-commissioning",
+  "closeout_recorded_at": "2026-10-15T19:53:52+00:00",
+  "late_helper_hardening": {
+    "rapid_command_logs_unique": true,
+    "observer_only_reports_live_child": true,
+    "dashboard_embedded_script_executed": true,
+    "offline_suite_after_hardening": "18/18 passed"
+  }
+}
