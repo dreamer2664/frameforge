@@ -1,10 +1,10 @@
 {
   "agent": "kinetic",
-  "updated_at": "2026-10-15T22:02:11Z",
+  "updated_at": "2026-10-15T22:02:23Z",
   "state": "checkpoint",
-  "stage": "full-hero-master-r03",
-  "observed_activity": "Exit 0; 28 lines. Last observed output: hero: wrote work/renders/hero-r03-picture.mp4 (810 frames; 27.000s at 30 fps)",
-  "artifact": "/home/user/frameforge/agents/kinetic/work/process-1792101652759599659.log",
+  "stage": "full-hero-master-r03-mux",
+  "observed_activity": "Exit 0; 1 lines. Last observed output: hero-r03-muxed",
+  "artifact": "/home/user/frameforge/agents/kinetic/work/process-1792101742377975788.log",
   "next_action": "Inspect output and continue production; command success is not film completion.",
   "heartbeat_interval_seconds": 300,
   "note": "Fresh timestamp is evidence of this observation, NOT a promise that an AI session continues after it stops."
