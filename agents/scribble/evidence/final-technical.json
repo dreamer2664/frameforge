@@ -1,8 +1,8 @@
 {
   "file": "final.mp4",
   "agent": "scribble",
-  "sha256": "3bc9460bc81fc8b05f5981510ad734a4a1e036ab3f2517b730da3d71f0e31838",
-  "bytes": 6159963,
+  "sha256": "2631680aad6b8e47d6bebfe801289bf2f11d1062df59f339d51cc34bb98f7b36",
+  "bytes": 4862396,
   "duration_seconds": 48.2,
   "streams": [
     {
@@ -35,7 +35,7 @@
       "start_time": "0.000000",
       "duration_ts": 740352,
       "duration": "48.200000",
-      "bit_rate": "851867",
+      "bit_rate": "606600",
       "bits_per_raw_sample": "8",
       "nb_frames": "1446",
       "extradata_size": 47,
@@ -88,7 +88,7 @@
       "start_time": "0.000000",
       "duration_ts": 2313600,
       "duration": "48.200000",
-      "bit_rate": "161415",
+      "bit_rate": "191338",
       "nb_frames": "2259",
       "extradata_size": 5,
       "disposition": {
@@ -119,16 +119,16 @@
     }
   ],
   "loudness": {
-    "input_i": "-16.63",
-    "input_tp": "-4.33",
-    "input_lra": "1.60",
-    "input_thresh": "-27.24",
-    "output_i": "-16.05",
-    "output_tp": "-3.15",
-    "output_lra": "1.70",
-    "output_thresh": "-26.68",
+    "input_i": "-17.16",
+    "input_tp": "-4.45",
+    "input_lra": "1.50",
+    "input_thresh": "-27.25",
+    "output_i": "-16.02",
+    "output_tp": "-3.18",
+    "output_lra": "1.40",
+    "output_thresh": "-26.08",
     "normalization_type": "dynamic",
-    "target_offset": "0.05"
+    "target_offset": "0.02"
   },
   "technical_pass": true,
   "violations": [],
