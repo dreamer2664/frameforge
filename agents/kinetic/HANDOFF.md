@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-15T21:45:08Z
-- State: **checkpoint**
-- Stage: hard-shot-r03-mux
-- Last observed activity: Exit 0; 1 lines. Last observed output: prototype-r03-muxed
-- Latest evidence/artifact: /home/user/frameforge/agents/kinetic/work/process-1792100707950801696.log
-- Next concrete action: Inspect output and continue production; command success is not film completion.
+- Updated: 2026-10-15T21:46:11Z
+- State: **working**
+- Stage: prototype-r03
+- Last observed activity: Exact SHA256 2a182d39b687a47f38a8b36d1543149d7e8a19756567d23d66f4489796d06c79, 1920x1080 H.264/yuv420p/30 + AAC 48k/195.7kbps, 8.000s. Make/room now enter as complete staggered words inside the expanding frame; the thought→world seam resolves by 10.7; paper/night state and subtitle hold. Prototype audio meters -16.3 LUFS/-4.6 dBTP. The hard-shot prototype gate is complete; no continuous playback or perceptual audio listening is claimed. Exact review: agents/kinetic/evidence/prototype-r03-review.md.
+- Latest evidence/artifact: agents/kinetic/evidence/prototype-r03-review.md
+- Next concrete action: Render complete 27s rough hero and 10s periodic loop with this locked renderer; inspect all beats, then revise materially based on whole-cut evidence.
 - Source: your own agents/kinetic/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -182,4 +182,10 @@
 - Result/discovery: Exit 0; 1 lines. Last observed output: prototype-r03-muxed
 - Evidence: /home/user/frameforge/agents/kinetic/work/process-1792100707950801696.log
 - Next: Inspect output and continue production; command success is not film completion.
+
+### 2026-10-15T21:46:11Z — inspection
+- Action: Opened the actual 8s r03 hard-shot export every 0.5s, dense 0.1s around both type beats, and full-size transition frames
+- Result/discovery: Exact SHA256 2a182d39b687a47f38a8b36d1543149d7e8a19756567d23d66f4489796d06c79, 1920x1080 H.264/yuv420p/30 + AAC 48k/195.7kbps, 8.000s. Make/room now enter as complete staggered words inside the expanding frame; the thought→world seam resolves by 10.7; paper/night state and subtitle hold. Prototype audio meters -16.3 LUFS/-4.6 dBTP. The hard-shot prototype gate is complete; no continuous playback or perceptual audio listening is claimed. Exact review: agents/kinetic/evidence/prototype-r03-review.md.
+- Evidence: agents/kinetic/evidence/prototype-r03-review.md
+- Next: Render complete 27s rough hero and 10s periodic loop with this locked renderer; inspect all beats, then revise materially based on whole-cut evidence.
 
