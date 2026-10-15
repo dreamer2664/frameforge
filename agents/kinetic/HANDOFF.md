@@ -4,11 +4,11 @@
 
 ## Resume here
 
-- Updated: 2026-10-15T21:35:42Z
+- Updated: 2026-10-15T21:35:52Z
 - State: **checkpoint**
-- Stage: hard-shot-prototype
-- Last observed activity: Exit 0; 9 lines. Last observed output: hero: wrote work/renders/prototype-picture.mp4 (240 frames; 8.000s at 30 fps)
-- Latest evidence/artifact: /home/user/frameforge/agents/kinetic/work/process-1792100116094350757.log
+- Stage: prototype-audio-mux
+- Last observed activity: Exit 0; 1 lines. Last observed output: prototype_muxed
+- Latest evidence/artifact: /home/user/frameforge/agents/kinetic/work/process-1792100151952725280.log
 - Next concrete action: Inspect output and continue production; command success is not film completion.
 - Source: your own agents/kinetic/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
@@ -67,5 +67,17 @@
 - Action: python3 render.py --kind hero --start 9.0 --duration 8.0 --out work/renders/prototype-picture.mp4
 - Result/discovery: Exit 0; 9 lines. Last observed output: hero: wrote work/renders/prototype-picture.mp4 (240 frames; 8.000s at 30 fps)
 - Evidence: /home/user/frameforge/agents/kinetic/work/process-1792100116094350757.log
+- Next: Inspect output and continue production; command success is not film completion.
+
+### 2026-10-15T21:35:51Z — command-start
+- Action: bash -lc '/home/user/.cache/frameforge/bin/ffmpeg -hide_banner -loglevel error -y -ss 9 -i work/audio/hero-r00.wav -t 8 -c:a pcm_s16le work/audio/prototype-cue.wav && /home/user/.cache/frameforge/bin/ffmpeg -hide_banner -loglevel error -y -i work/renders/prototype-picture.mp4 -i work/audio/prototype-cue.wav -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 192k -ar 48000 -t 8 -movflags +faststart work/renders/prototype-hardshot.mp4 && echo prototype_muxed'
+- Result/discovery: Launching actual child process; not yet proof of progress.
+- Evidence: /home/user/frameforge/agents/kinetic/work/process-1792100151952725280.log
+- Next: continue current stage
+
+### 2026-10-15T21:35:52Z — command-end
+- Action: bash -lc '/home/user/.cache/frameforge/bin/ffmpeg -hide_banner -loglevel error -y -ss 9 -i work/audio/hero-r00.wav -t 8 -c:a pcm_s16le work/audio/prototype-cue.wav && /home/user/.cache/frameforge/bin/ffmpeg -hide_banner -loglevel error -y -i work/renders/prototype-picture.mp4 -i work/audio/prototype-cue.wav -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 192k -ar 48000 -t 8 -movflags +faststart work/renders/prototype-hardshot.mp4 && echo prototype_muxed'
+- Result/discovery: Exit 0; 1 lines. Last observed output: prototype_muxed
+- Evidence: /home/user/frameforge/agents/kinetic/work/process-1792100151952725280.log
 - Next: Inspect output and continue production; command success is not film completion.
 
