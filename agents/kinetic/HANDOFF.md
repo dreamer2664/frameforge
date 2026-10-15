@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-15T21:39:08Z
-- State: **checkpoint**
-- Stage: hard-shot-r01-mux
-- Last observed activity: Exit 0; 1 lines. Last observed output: prototype-r01-muxed
-- Latest evidence/artifact: /home/user/frameforge/agents/kinetic/work/process-1792100348701581228.log
-- Next concrete action: Inspect output and continue production; command success is not film completion.
+- Updated: 2026-10-15T21:41:38Z
+- State: **working**
+- Stage: prototype-r02-code
+- Last observed activity: Morph now ends at master 10.80; Make room is kept inside the expanding frame with an ease-out; Meaning starts with a fast ease-out at16.52; chapter numbers now run sequentially. Exact r02 MP4 still needs rendering/inspection.
+- Latest evidence/artifact: agents/kinetic/render.py
+- Next concrete action: Encode r02 picture, mux loudness-managed cue slice, run actual full decode and dense seam inspection.
 - Source: your own agents/kinetic/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -110,4 +110,16 @@
 - Result/discovery: Exit 0; 1 lines. Last observed output: prototype-r01-muxed
 - Evidence: /home/user/frameforge/agents/kinetic/work/process-1792100348701581228.log
 - Next: Inspect output and continue production; command success is not film completion.
+
+### 2026-10-15T21:41:38Z — inspection
+- Action: Reviewed the exact corrected 8s prototype MP4 at 17 half-second timestamps, three full-size frames, and nine dense 0.1s morph frames
+- Result/discovery: r01 SHA256 082556bbb3d1cde0ba4dabccbd8dfca9fed6259a4ab9e557586207b638356a71; 1920x1080 H.264/yuv420p/30, AAC 48k/195.7kbps, 8.000s. The gray inversion and out-of-frame M are fixed; subtitle is readable; the word settles by 10.9–11.0 and the seam is visible. The hybrid morph is still slightly slow at 10.7–10.8, the frame-opening title briefly shows only M at13.0, and the Meaning reveal begins too slowly at16.5. AAC measures -16.3 LUFS / -4.6 dBTP; no perceptual audio listening is claimed. Full exact-file notes: agents/kinetic/evidence/prototype-r01-review.md.
+- Evidence: agents/kinetic/evidence/prototype-r01-review.md
+- Next: Render r02 with 0.28s word seam, fast title/Meaning ease-out, sequential chapter labels; densely inspect the same critical frames.
+
+### 2026-10-15T21:41:38Z — action
+- Action: Revised prototype timing and story labels after actual r01 frame inspection
+- Result/discovery: Morph now ends at master 10.80; Make room is kept inside the expanding frame with an ease-out; Meaning starts with a fast ease-out at16.52; chapter numbers now run sequentially. Exact r02 MP4 still needs rendering/inspection.
+- Evidence: agents/kinetic/render.py
+- Next: Encode r02 picture, mux loudness-managed cue slice, run actual full decode and dense seam inspection.
 

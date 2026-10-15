@@ -292,7 +292,7 @@ def draw_hero_frame(t: float) -> Image.Image:
 
     elif t < 6.1:
         # 02 — The same filament takes a chosen direction and writes the new phrase.
-        draw_label(img,'01  /  DIRECTION',light=True)
+        draw_label(img,'02  /  DIRECTION',light=True)
         path=bezier((500,430),(610,470),(655,368),(780,395),65)+bezier((780,395),(890,420),(1010,472),(1142,316),65)[1:]
         u=clamp((t-3.0)/2.72)
         draw_path(img,path,ease_out(u),WARM,2,15,alpha=int(255*smooth(3.02,3.35,t)))
@@ -310,7 +310,7 @@ def draw_hero_frame(t: float) -> Image.Image:
 
     elif t < 9.2:
         # 03 — One drawn line branches into a three-part tempo.
-        draw_label(img,'02  /  FIND THE RHYTHM',light=True)
+        draw_label(img,'03  /  FIND THE RHYTHM',light=True)
         centers=[230,640,1050]
         words=['pause','pulse','repeat']
         # incoming line continues from the direction beat into a single baseline
@@ -338,7 +338,7 @@ def draw_hero_frame(t: float) -> Image.Image:
 
     elif t < 12.5:
         # 04 — The baseline folds into an open frame. A seam changes a word, not the scene.
-        draw_label(img,'03  /  GIVE IT FORM',light=False,accent=COOL_DARK)
+        draw_label(img,'04  /  GIVE IT FORM',light=False,accent=COOL_DARK)
         p=smooth(9.18,10.55,t)
         start=(1050,444)
         polygon=[start,(988,520),(286,505),(258,230),(1008,208),(1050,444)]
@@ -348,7 +348,7 @@ def draw_hero_frame(t: float) -> Image.Image:
         q=point_along(polygon,p)
         draw_dot(img,q,WARM,3,int(230*smooth(9.2,9.45,t)),30)
         display=font('display',91,610)
-        morph=smooth(10.52,10.94,t)
+        morph=smooth(10.52,10.80,t)
         draw_morph_center(img,'A thought','A world',640,317,display,DARK_TYPE,morph)
         body=font('ui',25,400)
         draw_center(img,'becomes a place to go.',640,430,body,(74,82,88),alpha=int(238*smooth(11.24,11.58,t)))
@@ -360,7 +360,7 @@ def draw_hero_frame(t: float) -> Image.Image:
 
     elif t < 16.5:
         # 05 — The frame opens past its margins; the copy remains in clear negative space.
-        draw_label(img,'04  /  OPEN THE FRAME',light=False,accent=COOL_DARK)
+        draw_label(img,'05  /  OPEN THE FRAME',light=False,accent=COOL_DARK)
         p=smooth(12.48,14.25,t)
         old=[(258,230),(1008,208),(1050,444),(286,505)]
         new=[(28,80),(1240,64),(1264,635),(22,638)]
@@ -383,12 +383,12 @@ def draw_hero_frame(t: float) -> Image.Image:
 
     elif t < 20.5:
         # 06 — The paper recedes; the moving point lands in the punctuation.
-        draw_label(img,'05  /  MEANING',light=True)
-        p=smooth(16.58,17.68,t)
+        draw_label(img,'06  /  MEANING',light=True)
+        p=ease_out(smooth(16.52,17.24,t))
         display=font('display',105,590)
         display2=font('ui',76,550)
         draw_text(img,'Meaning,',170,262,display,IVORY,alpha=255,reveal=p,feather=3)
-        p2=smooth(17.05,18.0,t)
+        p2=ease_out(smooth(17.05,18.0,t))
         draw_text(img,'in motion.',180,389,display2,IVORY,alpha=int(255*p2),reveal=p2,feather=2)
         # same seam continues under the statement and finds its terminal point
         payoff=bezier((180,520),(390,520),(770,540),(980,520),64)
@@ -402,7 +402,7 @@ def draw_hero_frame(t: float) -> Image.Image:
 
     elif t < 23.4:
         # 07 — The writing stroke becomes a new K monogram.
-        draw_label(img,'KINETIC  /  SIGNATURE',light=True)
+        draw_label(img,'07  /  SIGNATURE',light=True)
         connector=bezier((980,520),(900,485),(720,420),(518,360),56)
         cp=clamp((t-20.5)/.78)
         connector_alpha=int(230*(1-smooth(21.02,21.52,t)))
