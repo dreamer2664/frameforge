@@ -4,11 +4,11 @@
 
 ## Resume here
 
-- Updated: 2026-10-15T22:05:27Z
+- Updated: 2026-10-15T22:05:38Z
 - State: **checkpoint**
-- Stage: loop-picture-r01
-- Last observed activity: Exit 0; 12 lines. Last observed output: loop: wrote work/renders/loop-r01-picture.mp4 (256 frames; 10.240s at 25 fps)
-- Latest evidence/artifact: /home/user/frameforge/agents/kinetic/work/process-1792101906459263582.log
+- Stage: loop-picture-audio-r01-mux
+- Last observed activity: Exit 0; 1 lines. Last observed output: loop-r01-muxed
+- Latest evidence/artifact: /home/user/frameforge/agents/kinetic/work/process-1792101937899791484.log
 - Next concrete action: Inspect output and continue production; command success is not film completion.
 - Source: your own agents/kinetic/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
@@ -325,5 +325,17 @@
 - Action: python3 render.py --kind loop --out work/renders/loop-r01-picture.mp4
 - Result/discovery: Exit 0; 12 lines. Last observed output: loop: wrote work/renders/loop-r01-picture.mp4 (256 frames; 10.240s at 25 fps)
 - Evidence: /home/user/frameforge/agents/kinetic/work/process-1792101906459263582.log
+- Next: Inspect output and continue production; command success is not film completion.
+
+### 2026-10-15T22:05:37Z — command-start
+- Action: bash -lc '/home/user/.cache/frameforge/bin/ffmpeg -hide_banner -loglevel error -y -i work/renders/loop-r01-picture.mp4 -i work/audio/loop-r01-loudnorm.wav -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 192k -ar 48000 -t 10.24 -movflags +faststart work/renders/loop-r01.mp4 && echo loop-r01-muxed'
+- Result/discovery: Launching actual child process; not yet proof of progress.
+- Evidence: /home/user/frameforge/agents/kinetic/work/process-1792101937899791484.log
+- Next: continue current stage
+
+### 2026-10-15T22:05:38Z — command-end
+- Action: bash -lc '/home/user/.cache/frameforge/bin/ffmpeg -hide_banner -loglevel error -y -i work/renders/loop-r01-picture.mp4 -i work/audio/loop-r01-loudnorm.wav -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 192k -ar 48000 -t 10.24 -movflags +faststart work/renders/loop-r01.mp4 && echo loop-r01-muxed'
+- Result/discovery: Exit 0; 1 lines. Last observed output: loop-r01-muxed
+- Evidence: /home/user/frameforge/agents/kinetic/work/process-1792101937899791484.log
 - Next: Inspect output and continue production; command success is not film completion.
 
