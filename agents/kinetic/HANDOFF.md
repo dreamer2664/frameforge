@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-15T22:00:41Z
-- State: **working**
-- Stage: full-hero-r03-code
-- Last observed activity: The first headline mask now completes at 0.56s instead of 0.68s, and “in motion.” finishes by 17.65s instead of 18.0s. Six deterministic timeline/period/font/loop tests pass. This is the second whole-cut polish pass in source; r03 must be rendered, reviewed and possibly corrected before it can be final.
-- Latest evidence/artifact: agents/kinetic/render.py
-- Next concrete action: Render/mux the r03 full master, run technical QC, then repeat all 0.5s, dense-transition, full-size and phone-size inspection.
+- Updated: 2026-10-15T22:02:11Z
+- State: **checkpoint**
+- Stage: full-hero-master-r03
+- Last observed activity: Exit 0; 28 lines. Last observed output: hero: wrote work/renders/hero-r03-picture.mp4 (810 frames; 27.000s at 30 fps)
+- Latest evidence/artifact: /home/user/frameforge/agents/kinetic/work/process-1792101652759599659.log
+- Next concrete action: Inspect output and continue production; command success is not film completion.
 - Source: your own agents/kinetic/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -278,4 +278,16 @@
 - Result/discovery: The first headline mask now completes at 0.56s instead of 0.68s, and “in motion.” finishes by 17.65s instead of 18.0s. Six deterministic timeline/period/font/loop tests pass. This is the second whole-cut polish pass in source; r03 must be rendered, reviewed and possibly corrected before it can be final.
 - Evidence: agents/kinetic/render.py
 - Next: Render/mux the r03 full master, run technical QC, then repeat all 0.5s, dense-transition, full-size and phone-size inspection.
+
+### 2026-10-15T22:00:52Z — command-start
+- Action: python3 render.py --kind hero --out work/renders/hero-r03-picture.mp4
+- Result/discovery: Launching actual child process; not yet proof of progress.
+- Evidence: /home/user/frameforge/agents/kinetic/work/process-1792101652759599659.log
+- Next: continue current stage
+
+### 2026-10-15T22:02:11Z — command-end
+- Action: python3 render.py --kind hero --out work/renders/hero-r03-picture.mp4
+- Result/discovery: Exit 0; 28 lines. Last observed output: hero: wrote work/renders/hero-r03-picture.mp4 (810 frames; 27.000s at 30 fps)
+- Evidence: /home/user/frameforge/agents/kinetic/work/process-1792101652759599659.log
+- Next: Inspect output and continue production; command success is not film completion.
 
