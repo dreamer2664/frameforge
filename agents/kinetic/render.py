@@ -267,7 +267,9 @@ def draw_logo_mark(img, x, y, size=100, progress=1.0, alpha=255, warm=WARM, cool
 
 def draw_hero_frame(t: float) -> Image.Image:
     t=clamp(t,0.0,DURATION)
-    paper=smooth(9.15,10.05,t)*(1.0-smooth(16.05,17.05,t))
+    # A single editorial palette inversion at each transition avoids a long muddy gray dissolve.
+    # The filament and frame carry continuity across the deliberate hard color-state cut.
+    paper=1.0 if 9.40 <= t < 16.50 else 0.0
     img=Image.blend(DARK_BG,PAPER_BG,paper).convert('RGBA')
     draw_periodic_bg_light(img,t,1.0-paper)
 
@@ -346,10 +348,10 @@ def draw_hero_frame(t: float) -> Image.Image:
         q=point_along(polygon,p)
         draw_dot(img,q,WARM,3,int(230*smooth(9.2,9.45,t)),30)
         display=font('display',91,610)
-        morph=smooth(10.52,10.98,t)
+        morph=smooth(10.52,10.94,t)
         draw_morph_center(img,'A thought','A world',640,317,display,DARK_TYPE,morph)
         body=font('ui',25,400)
-        draw_center(img,'becomes a place to go.',640,430,body,MUTED_DARK,alpha=int(225*smooth(11.3,11.9,t)))
+        draw_center(img,'becomes a place to go.',640,430,body,(74,82,88),alpha=int(238*smooth(11.24,11.58,t)))
         # fine registration ticks are part of the frame, not tiny interface controls
         if t>10.1:
             d=ImageDraw.Draw(img)
@@ -373,9 +375,11 @@ def draw_hero_frame(t: float) -> Image.Image:
         q=point_along(allpath,ease_out(u)); draw_dot(img,q,COOL,3,230,32)
         display=font('display',112,600)
         ptext=smooth(12.78,13.82,t)
-        draw_text(img,'Make room.',172,257,display,DARK_TYPE,alpha=255,reveal=ptext,feather=3)
+        # Keep the incoming word inside the evolving frame, then let the frame outrun it.
+        text_x=int(lerp(300,172,p))
+        draw_text(img,'Make room.',text_x,257,display,DARK_TYPE,alpha=255,reveal=ptext,feather=3)
         body=font('ui',27,400)
-        draw_text(img,'for the unexpected.',180,396,body,MUTED_DARK,alpha=int(230*smooth(13.35,14.12,t)),reveal=smooth(13.35,14.1,t))
+        draw_text(img,'for the unexpected.',text_x+8,396,body,MUTED_DARK,alpha=int(230*smooth(13.35,14.12,t)),reveal=smooth(13.35,14.1,t))
 
     elif t < 20.5:
         # 06 — The paper recedes; the moving point lands in the punctuation.
@@ -387,7 +391,7 @@ def draw_hero_frame(t: float) -> Image.Image:
         p2=smooth(17.05,18.0,t)
         draw_text(img,'in motion.',180,389,display2,IVORY,alpha=int(255*p2),reveal=p2,feather=2)
         # same seam continues under the statement and finds its terminal point
-        payoff=bezier((812,520),(850,520),(914,514),(980,520),64)
+        payoff=bezier((180,520),(390,520),(770,540),(980,520),64)
         u=smooth(16.5,19.2,t)
         draw_path(img,payoff,u,WARM,2,13,alpha=240)
         q=point_along(payoff,u); draw_dot(img,q,WARM_HI,4,255,38)
