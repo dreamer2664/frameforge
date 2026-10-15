@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-15T21:58:05Z
-- State: **checkpoint**
-- Stage: full-hero-rough-r02-mux
-- Last observed activity: Exit 0; 1 lines. Last observed output: hero-r02-muxed
-- Latest evidence/artifact: /home/user/frameforge/agents/kinetic/work/process-1792101485182409564.log
-- Next concrete action: Inspect output and continue production; command success is not film completion.
+- Updated: 2026-10-15T22:00:41Z
+- State: **working**
+- Stage: full-hero-r03-code
+- Last observed activity: The first headline mask now completes at 0.56s instead of 0.68s, and “in motion.” finishes by 17.65s instead of 18.0s. Six deterministic timeline/period/font/loop tests pass. This is the second whole-cut polish pass in source; r03 must be rendered, reviewed and possibly corrected before it can be final.
+- Latest evidence/artifact: agents/kinetic/render.py
+- Next concrete action: Render/mux the r03 full master, run technical QC, then repeat all 0.5s, dense-transition, full-size and phone-size inspection.
 - Source: your own agents/kinetic/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -266,4 +266,16 @@
 - Result/discovery: Exit 0; 1 lines. Last observed output: hero-r02-muxed
 - Evidence: /home/user/frameforge/agents/kinetic/work/process-1792101485182409564.log
 - Next: Inspect output and continue production; command success is not film completion.
+
+### 2026-10-15T22:00:41Z — inspection
+- Action: Reopened all 55 full-cut half-second samples, 9.2–9.6 dense palette frames, 0.5/17.5/13.5 full-size frames, and 640x360 phone-scale samples from exact r02
+- Result/discovery: R02 SHA256 b7f48c9394de61c3110cb7f6d51a2759a2ff7ed59f2941c8e4d1ece8d44f7ec1 passes technical QC. The 9.2–9.4 inversion is now high-contrast on both fields; 13.5 support copy is readable at device size. Remaining opportunities are actual partial words: hook at0.5 reads “A thoug…” and the full-size 17.5 frame reads “in motio…” before the payoff line settles. Main layout, wordmark and end hold are legible; no new clipping or continuity issue found. Full coverage in hero-r02-visual-review.md; playback/audio hearing not claimed.
+- Evidence: agents/kinetic/evidence/hero-r02-visual-review.md
+- Next: Shorten these two word reveals in r03, render the whole 27s again, and inspect the exact output at the same coverage.
+
+### 2026-10-15T22:00:41Z — revision
+- Action: Shortened two phone-scale word fragments based on exact r02 frame inspection
+- Result/discovery: The first headline mask now completes at 0.56s instead of 0.68s, and “in motion.” finishes by 17.65s instead of 18.0s. Six deterministic timeline/period/font/loop tests pass. This is the second whole-cut polish pass in source; r03 must be rendered, reviewed and possibly corrected before it can be final.
+- Evidence: agents/kinetic/render.py
+- Next: Render/mux the r03 full master, run technical QC, then repeat all 0.5s, dense-transition, full-size and phone-size inspection.
 

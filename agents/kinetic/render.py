@@ -281,7 +281,7 @@ def draw_hero_frame(t: float) -> Image.Image:
         path=bezier((110,435),(215,435),(305,408),(500,430),72)
         u=clamp(t/1.48)
         draw_path(img,path,u,WARM,2,15,alpha=int(255*ease_out(u)))
-        p= smooth(0.03,0.68,t)
+        p= smooth(0.03,0.56,t)
         display=font('display',112,590)
         draw_text(img,'A thought',145,258,display,IVORY,alpha=255,reveal=p,feather=3)
         support=font('ui',27,400)
@@ -398,7 +398,7 @@ def draw_hero_frame(t: float) -> Image.Image:
         display=font('display',105,590)
         display2=font('ui',76,550)
         draw_text(img,'Meaning,',170,262,display,IVORY,alpha=255,reveal=p,feather=3)
-        p2=ease_out(smooth(17.05,18.0,t))
+        p2=ease_out(smooth(17.05,17.65,t))
         draw_text(img,'in motion.',180,389,display2,IVORY,alpha=int(255*p2),reveal=p2,feather=2)
         # same seam continues under the statement and finds its terminal point
         payoff=bezier((180,520),(390,520),(770,540),(980,520),64)
