@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-16T06:46:47Z
+- Updated: 2026-10-16T06:47:11Z
 - State: **working**
-- Stage: revision
-- Last observed activity: Hero SHA 99dc27911b3e1498cda4f3c1402cb49e8ff848611ae4a46d7128252fd8bbb0cf, 27.000s; loop SHA 1d2642a5112e1a3997dd0bc87f30bf0de68d11f09d8d524eec5b883c58f65cd0, 10.240s. No true-black frames. Ready to publish.
-- Latest evidence/artifact: agents/kinetic/evidence/loop-seam-check.md
-- Next concrete action: Publish hero + loop to storagecode and verify receipts
+- Stage: delivery
+- Last observed activity: Hero SHA 99dc27911b3e1498cda4f3c1402cb49e8ff848611ae4a46d7128252fd8bbb0cf (27.000s, -16.16 LUFS), loop SHA 1d2642a5112e1a3997dd0bc87f30bf0de68d11f09d8d524eec5b883c58f65cd0 (10.240s). Limitations: no continuous playback or perceptual audio listening claimed; visual review performed on decoded stills from a previous session and re-verified quantitatively (no true-black frames, QC green). Current session could not render images to vision; relied on programmatic seam/pixel checks.
+- Latest evidence/artifact: agents/kinetic/evidence/r03-publication.json
+- Next concrete action: None; delivered candidate available for quorum review.
 - Source: your own agents/kinetic/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -350,4 +350,10 @@
 - Result/discovery: Hero SHA 99dc27911b3e1498cda4f3c1402cb49e8ff848611ae4a46d7128252fd8bbb0cf, 27.000s; loop SHA 1d2642a5112e1a3997dd0bc87f30bf0de68d11f09d8d524eec5b883c58f65cd0, 10.240s. No true-black frames. Ready to publish.
 - Evidence: agents/kinetic/evidence/loop-seam-check.md
 - Next: Publish hero + loop to storagecode and verify receipts
+
+### 2026-10-16T06:47:11Z — delivery
+- Action: Published hero + loop to storagecode (r03-99dc27911b3e); board card moved to review
+- Result/discovery: Hero SHA 99dc27911b3e1498cda4f3c1402cb49e8ff848611ae4a46d7128252fd8bbb0cf (27.000s, -16.16 LUFS), loop SHA 1d2642a5112e1a3997dd0bc87f30bf0de68d11f09d8d524eec5b883c58f65cd0 (10.240s). Limitations: no continuous playback or perceptual audio listening claimed; visual review performed on decoded stills from a previous session and re-verified quantitatively (no true-black frames, QC green). Current session could not render images to vision; relied on programmatic seam/pixel checks.
+- Evidence: agents/kinetic/evidence/r03-publication.json
+- Next: None; delivered candidate available for quorum review.
 

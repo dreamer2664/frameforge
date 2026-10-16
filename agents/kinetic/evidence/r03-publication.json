@@ -1,0 +1,60 @@
+{
+  "agent": "kinetic",
+  "published_at": "2026-10-16T06:47:00Z",
+  "revision": "r03",
+  "code_sha": "967d57239983778a1400a48448d25f6a1a39a15b",
+  "release": "https://github.com/dreamer2664/storagecode/releases/tag/frameforge/kinetic/r03-99dc27911b3e",
+  "tag": "frameforge/kinetic/r03-99dc27911b3e",
+  "assets": [
+    {
+      "name": "hero.mp4",
+      "bytes": 1922097,
+      "sha256": "99dc27911b3e1498cda4f3c1402cb49e8ff848611ae4a46d7128252fd8bbb0cf",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/kinetic/r03-99dc27911b3e/hero.mp4",
+      "remote_digest": "sha256:99dc27911b3e1498cda4f3c1402cb49e8ff848611ae4a46d7128252fd8bbb0cf",
+      "remote_size": 1922097
+    },
+    {
+      "name": "hero-r03-technical.json",
+      "bytes": 3597,
+      "sha256": "297e0583ff6d7e9bbb4541c2ed3b42354d1d6f8634dd671d853a8f43b4f732b5",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/kinetic/r03-99dc27911b3e/hero-r03-technical.json",
+      "remote_digest": "sha256:297e0583ff6d7e9bbb4541c2ed3b42354d1d6f8634dd671d853a8f43b4f732b5",
+      "remote_size": 3597
+    },
+    {
+      "name": "hero-r03-final-visual-review.txt",
+      "bytes": 6265,
+      "sha256": "aaf7b7fcf9a76c55ba6de0ca97c3ed3fa0f7c63794beeda40a162b2fc97ab22c",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/kinetic/r03-99dc27911b3e/hero-r03-final-visual-review.txt",
+      "remote_digest": "sha256:aaf7b7fcf9a76c55ba6de0ca97c3ed3fa0f7c63794beeda40a162b2fc97ab22c",
+      "remote_size": 6265
+    },
+    {
+      "name": "loop.mp4",
+      "bytes": 863955,
+      "sha256": "1d2642a5112e1a3997dd0bc87f30bf0de68d11f09d8d524eec5b883c58f65cd0",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/kinetic/r03-99dc27911b3e/loop.mp4",
+      "remote_digest": "sha256:1d2642a5112e1a3997dd0bc87f30bf0de68d11f09d8d524eec5b883c58f65cd0",
+      "remote_size": 863955
+    },
+    {
+      "name": "loop-seam-check.txt",
+      "bytes": 1652,
+      "sha256": "a435069b1d4bb215bf8d07207a98622c605107ee8a300a205ef1e40366f487f5",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/kinetic/r03-99dc27911b3e/loop-seam-check.txt",
+      "remote_digest": "sha256:a435069b1d4bb215bf8d07207a98622c605107ee8a300a205ef1e40366f487f5",
+      "remote_size": 1652
+    },
+    {
+      "name": "source-rights.txt",
+      "bytes": 4538,
+      "sha256": "2cf06acff9e29dc0becfb3ab834fad74dbfadd76695f1466fd9d2eb693bb8d3a",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/kinetic/r03-99dc27911b3e/source-rights.txt",
+      "remote_digest": "sha256:2cf06acff9e29dc0becfb3ab834fad74dbfadd76695f1466fd9d2eb693bb8d3a",
+      "remote_size": 4538
+    }
+  ],
+  "acceptance": "Published candidate; refer to actual reviews. Not an old-campaign acceptance.",
+  "primary_archive": "https://github.com/dreamer2664/storagecode/tree/main/data/frameforge/kinetic/r03-99dc27911b3e"
+}
