@@ -335,6 +335,7 @@ for fi in range(total_frames):
     phrase=open(f'{BASE}/work/cues/cue-{ci:03d}.txt').read().strip()
     kw=KEYWORDS.get(ci,'')
     highlight_caption(draw, phrase, 1520, kw)
+    img=img.filter(ImageFilter.SMOOTH)
     img.save(outpath)
 
 print('rendered', total_frames)
