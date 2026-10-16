@@ -910,32 +910,32 @@
     {
       "id": "hall",
       "in": 0.0,
-      "out": 6.0,
+      "out": 4.2,
       "action": "A slow dolly down a dark stone hall; a tall slot of warm light burns at the right, a doorway of amber at the left, piers pass in the near field."
     },
     {
       "id": "wall",
-      "in": 6.0,
-      "out": 15.0,
+      "in": 4.2,
+      "out": 12.2,
       "action": "A raking light travels along the stone and the carved word KINETIC emerges letter by letter, each casting a long shadow across the wall."
     },
     {
       "id": "release",
-      "in": 15.0,
-      "out": 22.4,
+      "in": 12.2,
+      "out": 19.4,
       "action": "The letters hinge out of the stone and float into the hall as a field of monoliths at different depths; the nearest sweeps past the lens."
     },
     {
       "id": "gate",
-      "in": 22.4,
-      "out": 29.4,
+      "in": 19.4,
+      "out": 26.4,
       "action": "The letters swing together into a monumental doorway of type; the camera accelerates, turns and passes through the opening."
     },
     {
       "id": "monument",
-      "in": 29.4,
+      "in": 26.4,
       "out": 40.0,
-      "action": "Inside the chamber the letters fly past the camera and land as a row on a plinth; the promise is written in light on the stone."
+      "action": "Inside the chamber the letters fly past the camera and land as a row on a plinth; the camera drifts right and back so the room opens around the word, and the promise is written in light on the stone."
     }
   ],
   "revision_log": {

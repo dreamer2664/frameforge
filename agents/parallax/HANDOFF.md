@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-16T12:09:05Z
+- Updated: 2026-10-16T12:46:37Z
 - State: **working**
 - Stage: production
-- Last observed activity: Toolchain restored; 1080p hero render restarted from segment 0; score recomposed at -16.0 LUFS (hero and loop) with a loop seam step of 0.00003
-- Latest evidence/artifact: agents/parallax/px/work/audio/hero.m4a
-- Next concrete action: finish the five hero segments, render the loop, mux, QC, revision passes, publish
+- Last observed activity: work/evidence/hardshot-8s-1080p.mp4 = 8.000 s, 1920x1080, 24 fps, AAC 48 kHz 192 kbps, 84.8 Mbit/s video; decoded frames show the carved word KINETIC in relief on a lit stone wall, the raking light travelling right to left, the copy 'We set it in stone.', the slot of light at frame right and the arch at frame left; no missing glyphs, no black tail
+- Latest evidence/artifact: agents/parallax/px/work/evidence/hardshot-8s-1080p.mp4
+- Next concrete action: Finish segments 1-4, then the loop, then the exact-file review
 - Source: your own agents/parallax/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -62,4 +62,22 @@
 - Result/discovery: Toolchain restored; 1080p hero render restarted from segment 0; score recomposed at -16.0 LUFS (hero and loop) with a loop seam step of 0.00003
 - Evidence: agents/parallax/px/work/audio/hero.m4a
 - Next: finish the five hero segments, render the loop, mux, QC, revision passes, publish
+
+### 2026-10-16T12:24:16Z — revision
+- Action: Revision 1 (whole-cut rhythm): re-timed every timed element of the storyboard with a piecewise time map (6.0->4.2, 15.0->12.2, 22.4->19.4, 29.4->26.4); the gate forms 3 s earlier, the monument arrival gains 3 s of screen time, and the camera now converges on the gate centre line so no letter fills the frame
+- Result/discovery: Beats now hall 0-4.2 / wall 4.2-12.2 / release 12.2-19.4 / gate 19.4-26.4 / monument 26.4-40.0; before/after frames captured at 1280x720 (work/rev1/before vs work/rev2/after2); revision log stored in storyboard.json and evidence/revision-1-rhythm.md
+- Evidence: agents/parallax/px/evidence/revision-1-rhythm.md
+- Next: Revision 2: material, light, type readability, sound sync
+
+### 2026-10-16T12:24:16Z — revision
+- Action: Revision 2 (material/light/type/sound): the carved wall got its own stone material plus a travelling band of light and a grazing rake light, the chamber became a graded room with piers instead of a flat cream card, box UVs became world-scale (the plinth no longer reads as smeared wood), copy fades out when the lens is within 4.2 m, and the score was re-derived from the storyboard so the seven taps land on the actual letter-reveal times (6.819-11.084 s) and pan with the light
+- Result/discovery: Wall reads as lit stone with a value gradient; final image is the word on a plinth in a receding warm room; hero -16.00 LUFS / -12.80 dBTP, loop -16.00 LUFS / -14.20 dBTP, loop seam step 0.00003; before/after frames in work/rev2/after2 and after4
+- Evidence: agents/parallax/px/evidence/revision-2-material-light-type-sound.md
+- Next: Final 1920x1080 hero render, then the loop, then QC and publication
+
+### 2026-10-16T12:46:37Z — proof
+- Action: Hard-shot proof: rendered and muxed a real 8.000 s 1920x1080 H.264/AAC segment of the film (the opening of the hero with the composed score) and inspected it as decoded frames
+- Result/discovery: work/evidence/hardshot-8s-1080p.mp4 = 8.000 s, 1920x1080, 24 fps, AAC 48 kHz 192 kbps, 84.8 Mbit/s video; decoded frames show the carved word KINETIC in relief on a lit stone wall, the raking light travelling right to left, the copy 'We set it in stone.', the slot of light at frame right and the arch at frame left; no missing glyphs, no black tail
+- Evidence: agents/parallax/px/work/evidence/hardshot-8s-1080p.mp4
+- Next: Finish segments 1-4, then the loop, then the exact-file review
 
