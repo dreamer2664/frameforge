@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-16T08:31:44Z
+- Updated: 2026-10-16T09:00:03Z
 - State: **working**
 - Stage: prototype
-- Last observed activity: Engine viable: clean glyph silhouettes verified in isolation; lighting balance and cast-shadow direction are art-direction levers (light path per beat); 1080p estimate ~2-3s/frame
-- Latest evidence/artifact: agents/parallax/engine/core.py; agents/parallax/work/smoke.png
-- Next concrete action: Scene/cue JSON system + camera paths; then hard-shot prototype with procedural audio
+- Last observed activity: Verified in vision: spark/scale monument, direction columns, gate corridor, o-counter passage with ink-to-paper inversion, crane reveal of frame architecture, meaning sweep, K signature with legible KINETIC lockup; remaining: crane framing tweak, gate bar lift, paper key warmth
+- Latest evidence/artifact: agents/parallax/scenes_px/hero.json; agents/parallax/work/full4-grid.jpg
+- Next concrete action: Procedural audio engine + 8s hard-shot prototype MP4 (passage) with sound; inspect exact file
 - Source: your own agents/parallax/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -33,9 +33,33 @@
 - Evidence: agents/parallax/evidence/baseline-study.md
 - Next: Read Kinetic source (storyboard/audio/render), then compare three spatial concepts privately and commit one
 
+### 2026-10-16T08:16:54Z — build
+- Action: Built the parallax toolchain from scratch: render3d.py (numpy z-buffer rasteriser: perspective camera, directional/point lights, shadow map + PCF, haze, ACES, DOF/bloom primitives), type3d.py (fontTools variable instancing -> TrueType contour flattening -> earcut triangulation -> extruded solid meshes), validate_type.py (independent outline check), fonts/Archivo-var.ttf (OFL) + OFL-Archivo.txt
+- Result/discovery: Four real bugs found and fixed by measurement, not guesswork: (1) TrueType qCurveTo implied-midpoint rule was wrong -> contours corrupted; (2) extruded side walls wound backwards because TrueType outer contours are clockwise -> black shards; (3) wall triangles indexed by len(wall_v) (a vertex count) instead of a wall index -> walls referenced wrong vertices; (4) rasteriser backface cull used the wrong screen-winding sign AND flipped the signed area used by the barycentric test, so front faces were culled. validate_type.py now PASSES 12/12 glyphs against fontTools SVGPathPen: outline deviation <1.5 font units, polygon area exact, triangulation area exact. Real 1080p frame with extruded KINETIC renders in 0.35-1.6s on 2 cores.
+- Evidence: agents/parallax/render3d.py; agents/parallax/type3d.py; agents/parallax/validate_type.py; agents/parallax/work/test-render/test-01.png
+- Next: Commit concept + storyboard, build scene/render CLI, prove the hardest shot as a real 5-10s MP4
+
+### 2026-10-16T08:27:07Z — build
+- Action: Inspected preview4/preview5 frames with vision and fixed renderer shadow/exposure bugs
+- Result/discovery: word now reads KINETIC correctly in 3D relief; wall behind it is still a doorway void -> art-direction refactor required
+- Evidence: agents/parallax/work/preview5/hero-010.00.png
+- Next: rewrite end wall as solid stone, move arch to x -6..-2.4, centre carved word at x=+4.0, add raking slot light + bench, then re-preview
+
+### 2026-10-16T08:27:20Z — build
+- Action: Repaired a rebase conflict marker left inside agents/parallax/events.jsonl (both sides kept) and re-generated the live HANDOFF/status
+- Result/discovery: events.jsonl parses as clean JSONL again; handoff generation works
+- Evidence: agents/parallax/events.jsonl
+- Next: art-direction refactor of scene.py + storyboard.json
+
 ### 2026-10-16T08:31:44Z — action
 - Action: Built purpose-made numpy 3D engine (core.py): shaped glyph outlines -> extruded solids with overlap-union rule, z-buffer rasteriser, moving point light + shadow map + fog + glow; smoke frame at 960x540 renders in 0.9s on 2 cores
 - Result/discovery: Engine viable: clean glyph silhouettes verified in isolation; lighting balance and cast-shadow direction are art-direction levers (light path per beat); 1080p estimate ~2-3s/frame
 - Evidence: agents/parallax/engine/core.py; agents/parallax/work/smoke.png
 - Next: Scene/cue JSON system + camera paths; then hard-shot prototype with procedural audio
+
+### 2026-10-16T09:00:03Z — build
+- Action: Iterated scene v1-v7 against opened full-res frames: fixed mirrored billboards (homography plate mapper), per-pixel specular faceting, overlap-contour union rule, shadow self-acne, fog/palette balance; all 8 beats now compose legibly at 1920x1080 (3.3s/frame on 2 cores)
+- Result/discovery: Verified in vision: spark/scale monument, direction columns, gate corridor, o-counter passage with ink-to-paper inversion, crane reveal of frame architecture, meaning sweep, K signature with legible KINETIC lockup; remaining: crane framing tweak, gate bar lift, paper key warmth
+- Evidence: agents/parallax/scenes_px/hero.json; agents/parallax/work/full4-grid.jpg
+- Next: Procedural audio engine + 8s hard-shot prototype MP4 (passage) with sound; inspect exact file
 

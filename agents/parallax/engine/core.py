@@ -199,7 +199,7 @@ def word_mesh(font_path, text, size, depth, cache_dir=None):
     for g in rings_by_glyph:
         xs = [p[0] for r in rings_by_glyph[g] for p in r]
         gcenters[g] = (min(xs) + max(xs)) / 2 if xs else 0.0
-    eps = 0.0035 * size / 6.0
+    eps = 0.0012 * size / 6.0
     for g, rings in rings_by_glyph.items():
         # containment forest + non-zero-winding hole rule (overlapping contours
         # with same winding as their container are separate solids, not holes)
@@ -482,10 +482,10 @@ def draw_triangles(fb, verts_w, tris, normals, cam, mat, light, fog, shadow,
                 ndl = np.clip(np.einsum("ij,j->i", Ln, nrm), 0, 1)
                 att = 1.0 / (1.0 + (dist / light.get("ref", 26.0)) ** 2)
                 sh = 1.0
-                if shadow is not None:
+                if shadow is not None and dist.min() > 8.0 and ndl.mean() > 0.25:
                     sh = shadow.sample(lpos, P, nrm)
-                V = norm(cam.pos - ctr)
-                Hh = norm(Ln + V[None, :])
+                Vv = norm(cam.pos[None, :] - P)
+                Hh = norm(Ln + Vv)
                 spc = (np.clip(np.einsum("ij,j->i", Hh, nrm), 0, 1) ** shin) * spec
                 fillv = max(0.0, float(np.dot(fdir, nrm)))
                 fill = np.full(len(P), fillv)
@@ -498,7 +498,8 @@ def draw_triangles(fb, verts_w, tris, normals, cam, mat, light, fog, shadow,
                     em = emissive
                 if ignite_t is not None and mat.get("ignite_amp", 0.0):
                     ig = ignite_t[ti]
-                    pulse = math.exp(-(((t - ig) / 0.55) ** 2))
+                    sig = mat.get("ignite_sigma", 0.55)
+                    pulse = math.exp(-(((t - ig) / sig) ** 2))
                     em += mat["ignite_amp"] * pulse
                 if em:
                     base = base + np.asarray(mat.get("ignite_col", (1.0, 0.55, 0.25)))[None, :] * em
@@ -508,8 +509,21 @@ def draw_triangles(fb, verts_w, tris, normals, cam, mat, light, fog, shadow,
                 if em:
                     glowf[flat] += np.asarray(mat.get("ignite_col", (1.0, 0.55, 0.25)))[None, :] * (em * 0.9)
 
+def _quad_homography(pr, vals):
+    """projective map screen(x,y) -> vals (4,3) given 4 screen corners (4,2)."""
+    A = []
+    b = []
+    for (x, y), t in zip(pr, vals):
+        for k in range(3):
+            row = [0.0] * 11
+            row[k * 3] = x; row[k * 3 + 1] = y; row[k * 3 + 2] = 1.0
+            row[9] = -t[k] * x; row[10] = -t[k] * y
+            A.append(row); b.append(t[k])
+    sol, *_ = np.linalg.lstsq(np.asarray(A), np.asarray(b), rcond=None)
+    return sol[:9].reshape(3, 3), sol[9], sol[10]
+
 def draw_plate(fb, quad_w, tex, tcol, cam, glow_amt=0.8, alpha=1.0):
-    """textured emissive quad (already world-transformed, uv in mesh['uv'])."""
+    """textured emissive planar quad (world-transformed, uv in mesh['uv'])."""
     W, H = fb.W, fb.H
     colf = fb.col.reshape(-1, 3); glowf = fb.glow.reshape(-1, 3)
     camv = cam.to_cam(quad_w["verts"])
@@ -517,53 +531,54 @@ def draw_plate(fb, quad_w, tex, tcol, cam, glow_amt=0.8, alpha=1.0):
         return
     proj, _ = cam.project(camv, W, H)
     uv = quad_w["uv"]
-    for a, b, c in [(0, 1, 2), (0, 2, 3)]:
-        pa, pb, pc = proj[a], proj[b], proj[c]
-        za, zb, zc = camv[a, 2], camv[b, 2], camv[c, 2]
-        ua, ub, uc = uv[a], uv[b], uv[c]
-        d = (pb[0] - pa[0]) * (pc[1] - pa[1]) - (pb[1] - pa[1]) * (pc[0] - pa[0])
-        if abs(d) < 1e-9:
-            continue
-        minx, maxx = int(max(0, math.floor(min(pa[0], pb[0], pc[0])))), int(min(W - 1, math.ceil(max(pa[0], pb[0], pc[0]))))
-        miny, maxy = int(max(0, math.floor(min(pa[1], pb[1], pc[1])))), int(min(H - 1, math.ceil(max(pa[1], pb[1], pc[1]))))
-        if maxx <= minx or maxy <= miny:
-            continue
-        gx = np.arange(minx, maxx + 1) + 0.5
-        gy = np.arange(miny, maxy + 1) + 0.5
-        PX, PY = np.meshgrid(gx, gy)
-        w0 = (pb[0] - pa[0]) * (PY - pa[1]) - (pb[1] - pa[1]) * (PX - pa[0])
-        w1 = (pc[0] - pb[0]) * (PY - pb[1]) - (pc[1] - pb[1]) * (PX - pb[0])
-        w2 = (pa[0] - pc[0]) * (PY - pc[1]) - (pa[1] - pc[1]) * (PX - pc[0])
-        if d > 0:
-            mask = (w0 >= 0) & (w1 >= 0) & (w2 >= 0)
-        else:
-            mask = (w0 <= 0) & (w1 <= 0) & (w2 <= 0)
-            w0, w1, w2 = -w0, -w1, -w2
-        if not mask.any():
-            continue
-        ia, ib, ic = 1 / za, 1 / zb, 1 / zc
-        s = (w0 / d) * ia + (w1 / d) * ib + (w2 / d) * ic
-        la = (w0 / d) * ia / s; lb = (w1 / d) * ib / s; lc = (w2 / d) * ic / s
-        zpix = 1.0 / s
-        ys_i, xs_i = np.nonzero(mask)
-        flat = (ys_i + miny) * W + (xs_i + minx)
-        zm = zpix[ys_i, xs_i] < fb.z[flat]
-        ys_i, xs_i, flat = ys_i[zm], xs_i[zm], flat[zm]
-        if len(flat) == 0:
-            continue
-        la_, lb_, lc_ = la[ys_i, xs_i], lb[ys_i, xs_i], lc[ys_i, xs_i]
-        U = la_[:, None] * ua + lb_[:, None] * ub + lc_[:, None] * uc
-        th, tw = tex.shape
-        tx = np.clip((U[:, 0] * (tw - 1)).astype(int), 0, tw - 1)
-        ty = np.clip(((1 - U[:, 1]) * (th - 1)).astype(int), 0, th - 1)
-        a_ = tex[ty, tx] * alpha
-        keep = a_ > 0.02
-        ys_i, xs_i, flat, a_ = ys_i[keep], xs_i[keep], flat[keep], a_[keep]
-        if len(flat) == 0:
-            continue
-        colf[flat] = colf[flat] * (1 - a_)[:, None] + (tcol[None, :] * 1.35) * a_[:, None]
-        glowf[flat] += tcol[None, :] * (a_[:, None] * glow_amt)
-        fb.z[flat] = np.minimum(fb.z[flat], zpix[keep])
+    vals = np.concatenate([uv, (1.0 / camv[:, 2])[:, None]], axis=1)
+    M, g, h = _quad_homography(proj, vals)
+    xs0 = proj[:, 0].min(); xs1 = proj[:, 0].max()
+    ys0 = proj[:, 1].min(); ys1 = proj[:, 1].max()
+    minx, maxx = int(max(0, math.floor(xs0))), int(min(W - 1, math.ceil(xs1)))
+    miny, maxy = int(max(0, math.floor(ys0))), int(min(H - 1, math.ceil(ys1)))
+    if maxx <= minx or maxy <= miny:
+        return
+    gx = np.arange(minx, maxx + 1) + 0.5
+    gy = np.arange(miny, maxy + 1) + 0.5
+    PX, PY = np.meshgrid(gx, gy)
+    # convex quad membership: same-side test on the 4 edges
+    inside = np.ones(PX.shape, bool)
+    for i in range(4):
+        ax, ay = proj[i]; bx, by = proj[(i + 1) % 4]
+        e = (bx - ax) * (PY - ay) - (by - ay) * (PX - ax)
+        cx, cy = proj[(i + 2) % 4]
+        ref = (bx - ax) * (cy - ay) - (by - ay) * (cx - ax)
+        inside &= (e * np.sign(ref) >= 0) if ref != 0 else (e == 0)
+    if not inside.any():
+        return
+    den = g * PX + h * PY + 1.0
+    U = (M[0, 0] * PX + M[0, 1] * PY + M[0, 2]) / den
+    V = (M[1, 0] * PX + M[1, 1] * PY + M[1, 2]) / den
+    Z = (M[2, 0] * PX + M[2, 1] * PY + M[2, 2]) / den
+    zpix = 1.0 / np.maximum(Z, 1e-9)
+    mask = inside & (U >= -0.02) & (U <= 1.02) & (V >= -0.02) & (V <= 1.02)
+    ys_i, xs_i = np.nonzero(mask)
+    if len(ys_i) == 0:
+        return
+    flat = (ys_i + miny) * W + (xs_i + minx)
+    zm = zpix[ys_i, xs_i] < fb.z[flat]
+    ys_i, xs_i, flat = ys_i[zm], xs_i[zm], flat[zm]
+    if len(flat) == 0:
+        return
+    zsel = zpix[ys_i, xs_i]
+    uu = np.clip(U[ys_i, xs_i], 0, 1); vv = np.clip(V[ys_i, xs_i], 0, 1)
+    th, tw = tex.shape
+    tx = np.clip((uu * (tw - 1)).astype(int), 0, tw - 1)
+    ty = np.clip(((1 - vv) * (th - 1)).astype(int), 0, th - 1)
+    a_ = tex[ty, tx] * alpha
+    keep = a_ > 0.02
+    ys_i, xs_i, flat, a_, zsel = ys_i[keep], xs_i[keep], flat[keep], a_[keep], zsel[keep]
+    if len(flat) == 0:
+        return
+    colf[flat] = colf[flat] * (1 - a_)[:, None] + (tcol[None, :] * 1.35) * a_[:, None]
+    glowf[flat] += tcol[None, :] * (a_[:, None] * glow_amt)
+    fb.z[flat] = np.minimum(fb.z[flat], zsel)
 
 # ---------------------------------------------------------------- shadow map
 class ShadowMap:
@@ -627,7 +642,7 @@ class ShadowMap:
         if self.depth is None:
             return np.ones(len(P))
         S = self.size
-        P = P + nrm[None, :] * 0.15
+        P = P + nrm[None, :] * 0.35
         cv = (P - lpos) @ self.R.T
         z = cv[:, 2]
         px = S * 0.5 + self.f * cv[:, 0] / np.maximum(z, 1e-6)
@@ -635,7 +650,7 @@ class ShadowMap:
         xi = np.clip(px.astype(int), 0, S - 1)
         yi = np.clip(py.astype(int), 0, S - 1)
         inside = (px >= 0) & (px < S) & (py >= 0) & (py < S)
-        bias = 0.05 + 0.006 * z
+        bias = 0.12 + 0.010 * z
         lit = (z - bias) <= self.depth[yi, xi]
         out = np.where(inside, np.where(lit, 1.0, 0.18), 1.0)
         return out
