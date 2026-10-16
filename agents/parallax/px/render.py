@@ -38,7 +38,7 @@ def camera_and_scene(film, kind, t):
 
 def render_segment(film, kind, start, duration, out_path, width, height, fps,
                    subframes=2, shutter=0.5, focus=None, aperture=0.9, seed=0,
-                   crf=16, log_every=10, motion_subframes=True):
+                   crf=16, log_every=10, motion_subframes=True, motion_threshold=0.08):
     out_path = Path(out_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     nframes = int(round(duration * fps))
@@ -58,7 +58,7 @@ def render_segment(film, kind, start, duration, out_path, width, height, fps,
             nsub = subframes
             if motion_subframes and subframes > 1:
                 # only spend a second sample where the camera actually moves
-                nsub = 2 if camera_speed(film, kind, t, fps) > 0.012 else 1
+                nsub = 2 if camera_speed(film, kind, t, fps) > motion_threshold else 1
             for s in range(nsub):
                 u = (s + 0.5) / nsub - 0.5
                 ts = t + u * shutter / fps

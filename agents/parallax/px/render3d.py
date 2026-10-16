@@ -423,11 +423,11 @@ def make_shadow_factor(sh):
         step = 2  # PCF radius in shadow-map texels
         ref = depth[yi, xi]
         lit = (cur - b) <= ref
-        # 3x3 PCF
+        # 3x3 PCF over a 2-texel stride (9 taps, same soft edge as the old 5x5)
         acc = lit.astype(F32)
         cnt = 1.0
-        for dx in (-2, -1, 0, 1, 2):
-            for dy in (-2, -1, 0, 1, 2):
+        for dx in (-2, 0, 2):
+            for dy in (-2, 0, 2):
                 if dx == 0 and dy == 0:
                     continue
                 x2 = np.clip(xi + dx, 0, res - 1)

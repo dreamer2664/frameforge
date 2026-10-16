@@ -14,6 +14,7 @@ monument.  A synthetic room is applied to place everything in a hall.
 from __future__ import annotations
 
 import argparse
+import json
 import math
 import subprocess
 import wave
@@ -23,6 +24,19 @@ import numpy as np
 from scipy.signal import butter, lfilter
 
 SR = 48000
+
+# --- sync points, derived from storyboard.json (revision 2: the score follows
+#     the picture instead of guessing at it)
+STORY = json.loads((Path(__file__).resolve().parent / "storyboard.json").read_text())
+STAGES = STORY["stages"]
+_REV_T0, _REV_T1 = 4.2, 11.3
+_REV_X0, _REV_X1 = 11.5, -5.0
+_REVEAL = []
+for _spec in STORY["letters"]:
+    _u = (_REV_X0 - (_spec["wall_x"] - 2.6)) / (_REV_X0 - _REV_X1)
+    _REVEAL.append((round(_REV_T0 + _u * (_REV_T1 - _REV_T0), 3), _spec["wall_x"]))
+REVEAL_TAPS = [t for t, _x in sorted(_REVEAL, key=lambda p: p[0])]
+REVEAL_PANS = [min(max((x + 2.0) / 10.0, 0.0), 1.0) for _t, x in sorted(_REVEAL, key=lambda p: p[0])]
 FFMPEG = str(Path.home() / ".cache" / "frameforge" / "bin" / "ffmpeg")
 FFPROBE = str(Path.home() / ".cache" / "frameforge" / "bin" / "ffprobe")
 
@@ -239,52 +253,52 @@ def hero(dur=40.0, sr=SR):
     R += d * 0.97
 
     # --- movement 2: one dry tap per revealed letter
-    for i, t0 in enumerate((6.00, 6.85, 7.70, 8.55, 9.40, 10.25, 11.10)):
+    for i, t0 in enumerate(REVEAL_TAPS):
         tap = stone_tap(sr=sr, seed=30 + i, bright=700 + 120 * i) * 0.55
-        pan = (i / 6.0 - 0.5) * 0.5
+        pan = (REVEAL_PANS[i] - 0.5) * 0.5
         add_at(L, tap * (0.5 - pan * 0.5), t0 * sr)
         add_at(R, tap * (0.5 + pan * 0.5), t0 * sr)
 
     # --- movement 3: the stone lets go
     sw = sub_swell(4.6, sr=sr) * 0.85
-    add_at(L, sw, 14.4 * sr)
-    add_at(R, sw, 14.4 * sr)
+    add_at(L, sw, 11.6 * sr)
+    add_at(R, sw, 11.6 * sr)
     for i in range(7):
         sc = hinge_scrape(1.9, seed=40 + i, sr=sr) * (0.30 - 0.02 * i)
-        t0 = 15.0 + i * 0.15
+        t0 = STAGES["release"] + i * STAGES["release_stagger"]
         pan = (i / 6.0 - 0.5) * 0.8
         add_at(L, sc * (0.5 - pan * 0.5), t0 * sr)
         add_at(R, sc * (0.5 + pan * 0.5), t0 * sr)
 
     # --- movement 4: the gate
     cl = rising_cluster(7.4, sr=sr) * 0.55
-    add_at(L, cl, 22.0 * sr)
-    add_at(R, cl * 0.96, 22.0 * sr)
-    for i, t0 in enumerate((22.4, 24.2, 25.6, 26.8, 27.8, 28.6)):
+    add_at(L, cl, 19.0 * sr)
+    add_at(R, cl * 0.96, 19.0 * sr)
+    for i, t0 in enumerate((19.4, 21.2, 22.6, 23.8, 24.8, 25.6)):
         tap = stone_tap(sr=sr, seed=60 + i, bright=520 + 150 * i) * 0.4
         add_at(L, tap, t0 * sr)
         add_at(R, tap, t0 * sr)
 
     # --- the passage through
     im = impact(sr=sr) * 0.9
-    add_at(L, im, 29.3 * sr)
-    add_at(R, im, 29.3 * sr)
+    add_at(L, im, 26.3 * sr)
+    add_at(R, im, 26.3 * sr)
 
     # --- movement 5: the monument
-    ch = chord(dur - 29.0, sr=sr) * 0.85
-    ce = env(n - int(29.0 * sr), 2.0, 1.0, sustain=0.75, hold=4.0, release=3.5, sr=sr)
+    ch = chord(dur - 26.0, sr=sr) * 0.85
+    ce = env(n - int(26.0 * sr), 2.0, 1.0, sustain=0.75, hold=4.0, release=3.5, sr=sr)
     ch = ch * ce
-    add_at(L, ch, 29.0 * sr)
-    add_at(R, ch * 0.95, 29.0 * sr)
-    for i, t0 in enumerate((32.2, 33.4, 34.6, 35.8)):
+    add_at(L, ch, 26.0 * sr)
+    add_at(R, ch * 0.95, 26.0 * sr)
+    for i, t0 in enumerate((28.75, 30.3, 31.85, 33.4)):
         tap = stone_tap(sr=sr, seed=80 + i, bright=420 + 90 * i) * 0.30
         add_at(L, tap, t0 * sr)
         add_at(R, tap, t0 * sr)
 
     # --- a breath of air in the last movement
-    sh = shimmer(dur - 31.0, cycles=1, sr=sr) * 0.05
-    add_at(L, sh, 31.0 * sr)
-    add_at(R, sh * 0.9, 31.0 * sr)
+    sh = shimmer(dur - 27.2, cycles=1, sr=sr) * 0.05
+    add_at(L, sh, 27.2 * sr)
+    add_at(R, sh * 0.9, 27.2 * sr)
 
     # --- the hall
     ir = room_ir()

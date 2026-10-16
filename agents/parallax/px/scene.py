@@ -206,6 +206,19 @@ def quad(v0, v1, v2, v3, normal=None, uv=None):
     return v, np.tile(n, (4, 1)), u, t
 
 
+def band_texture(size=256):
+    """A soft band of warm light: bright along the middle, fading in x and y."""
+    x = np.linspace(-1.0, 1.0, size, dtype=np.float32)
+    prof = np.exp(-3.4 * x * x)
+    prof = (prof - prof.min()) / max(prof.max() - prof.min(), 1e-6)
+    band = np.tile(prof, (size // 4, 1))
+    y = np.linspace(0.0, 1.0, size // 4, dtype=np.float32)
+    fall = (0.25 + 0.75 * (1.0 - y) ** 1.6)[:, None]
+    band = band * fall
+    rgb = np.stack([band * 1.0, band * 0.70, band * 0.42], axis=2)
+    return rgb.astype(np.float32)
+
+
 def stone_texture(seed=7, size=512):
     """Deterministic procedural stone: two scales of value noise plus grain."""
     from scipy.ndimage import zoom
@@ -218,7 +231,7 @@ def stone_texture(seed=7, size=512):
     img = np.clip(img, 0, 1)
     blot = zoom(rng.random((size // 32 + 1, size // 32 + 1)).astype(np.float32),
                 size / (size // 32 + 1), order=3)[:size, :size]
-    grain = rng.normal(0, 0.010, (size, size)).astype(np.float32)
+    grain = rng.normal(0, 0.0045, (size, size)).astype(np.float32)
     tex = np.clip(img * 0.22 + blot * 0.12 + 0.62 + grain, 0, 1.4)
     return np.repeat(tex[:, :, None], 3, axis=2).astype(np.float32)
 
@@ -243,7 +256,11 @@ def box_mesh(cx, cy, cz, sx, sy, sz):
         i = len(v)
         v.extend([c[a], c[b], c[cc], c[d]])
         n.extend([nrm] * 4)
-        u.extend([(0, 0), (1, 0), (1, 1), (0, 1)])
+        # world-scale UVs (metres) so a texture tile is always the same physical
+        # size on every face: a stretched tile reads as smeared wood grain.
+        nax = 0 if abs(nrm[0]) > 0.5 else (1 if abs(nrm[1]) > 0.5 else 2)
+        ax, ay = [i for i in range(3) if i != nax]
+        u.extend([(c[p][ax], c[p][ay]) for p in (a, b, cc, d)])
         t.extend([[i, i + 1, i + 2], [i, i + 2, i + 3]])
     return (np.array(v, dtype=np.float32), np.array(n, dtype=np.float32),
             np.array(u, dtype=np.float32), np.array(t, dtype=np.int32))
@@ -276,6 +293,12 @@ class Film:
         self.pool_tex = soft_rect_texture()
         self.shaft_tex = shaft_texture()
         self.glow_tex = glow_texture()
+        self._band_cache = {}
+        # the chamber light: bright at the floor, falling away into the dark
+        gx = np.linspace(0.0, 1.0, 64, dtype=np.float32)
+        gy = np.linspace(0.0, 1.0, 64, dtype=np.float32)
+        fall = np.exp(-2.2 * gy)[:, None] * (0.55 + 0.45 * (1.0 - np.abs(gx - 0.5) * 2.0) ** 2)[None, :]
+        self.chamber_tex = np.stack([fall * 1.0, fall * 0.62, fall * 0.30], axis=2).astype(np.float32)
         self.copy_textures = {}
         for c in STORY["copy"]:
             key = (c["text"], c.get("small", False))
@@ -320,11 +343,19 @@ class Film:
         return poses
 
     # ------------------------------------------------------------------ reveal
+    # The raking light enters at the slot end of the word and travels to the far
+    # end, so every letter is fully lit at some point (revision 1: the sweep now
+    # spans the whole word, the first letter included).
+    REVEAL_T0 = 4.2
+    REVEAL_T1 = 11.3
+    REVEAL_X0 = 11.5
+    REVEAL_X1 = -5.0
+
     def reveal(self, t):
         """0..1 per letter: how much of the raking light has reached it."""
         out = []
-        u = float(np.clip((t - 6.0) / 7.0, 0.0, 1.0))
-        x_light = 11.0 - 14.0 * u
+        u = float(np.clip((t - self.REVEAL_T0) / (self.REVEAL_T1 - self.REVEAL_T0), 0.0, 1.0))
+        x_light = self.REVEAL_X0 + (self.REVEAL_X1 - self.REVEAL_X0) * u
         for spec in self.story["letters"]:
             r = (spec["wall_x"] - x_light) / 2.6
             out.append(smoothstep(r))
@@ -332,9 +363,9 @@ class Film:
 
     def reveal_light(self, t):
         """Position/intensity of the light that travels along the carved word."""
-        u = float(np.clip((t - 6.0) / 7.0, 0.0, 1.0))
-        x_light = 11.0 - 14.0 * u
-        i = 1.05 * smoothstep((t - 5.4) / 1.2) * (1.0 - smoothstep((t - 13.4) / 1.6))
+        u = float(np.clip((t - self.REVEAL_T0) / (self.REVEAL_T1 - self.REVEAL_T0), 0.0, 1.0))
+        x_light = self.REVEAL_X0 + (self.REVEAL_X1 - self.REVEAL_X0) * u
+        i = 1.25 * smoothstep((t - 3.6) / 1.2) * (1.0 - smoothstep((t - 11.9) / 1.6))
         return x_light, i
 
     # ------------------------------------------------------------------ scene
@@ -354,6 +385,9 @@ class Film:
         op = w["wall_opening"]
         stone_mat = R.Material(base=tuple(pal["stone"]), spec=0.07, shininess=18.0,
                                texture=self.stone, texture_uv=(1.0, 1.0))
+        # the wall carries the word: it must read as lit stone, not as a void
+        wall_mat = R.Material(base=tuple(pal["wall"]), spec=0.09, shininess=20.0,
+                              texture=self.stone, texture_uv=(3.0, 3.0))
 
         # ---- floor
         q = quad([-46, 0, 30], [46, 0, 30], [46, 0, -40], [-46, 0, -40],
@@ -372,7 +406,7 @@ class Film:
              [(0, 0), (1.0, 0), (1.0, 2.6), (0, 2.6)]),
         ]:
             q = quad(*p, normal=(0, 0, 1), uv=uvs)
-            scene.meshes.append((q[0], q[1], q[2], q[3], stone_mat, False))
+            scene.meshes.append((q[0], q[1], q[2], q[3], wall_mat, False))
 
         # ---- piers flanking the hall
         pier_mat = R.Material(base=tuple(pal["stone_light"]), spec=0.05, shininess=14.0,
@@ -398,37 +432,57 @@ class Film:
                              R.Material(base=(0, 0, 0),
                                         emissive=tuple(np.array(slot["color"]) * slot["intensity"])), False))
 
-        # ---- the chamber behind the arch
-        q = quad([-14, 0, -30], [14, 0, -30], [14, 12, -30], [-14, 12, -30], normal=(0, 0, 1),
-                 uv=[(0, 0), (4, 0), (4, 1.2), (0, 1.2)])
+        # ---- the chamber behind the arch: a room, not a lit card
+        cz = w.get("chamber_z", -34.0)
+        cx = w.get("chamber_x", 20.0)
+        ch_h = w.get("chamber_h", 13.0)
+        chamber_mat = R.Material(base=tuple(pal["stone"]), spec=0.05, shininess=14.0,
+                                 texture=self.stone, texture_uv=(1.0, 1.0),
+                                 emissive=(0.030, 0.017, 0.008))
+        # the back wall of the chamber is graded: the room recedes into darkness
+        back_mat = R.Material(base=tuple(pal["stone"]), spec=0.05, shininess=14.0,
+                              texture=self.chamber_tex, texture_uv=(1.0, 1.0),
+                              emissive=(0.020, 0.011, 0.005))
+        q = quad([-cx, 0, cz], [cx, 0, cz], [cx, ch_h, cz], [-cx, ch_h, cz], normal=(0, 0, 1),
+                 uv=[(0, 0), (1, 0), (1, 1), (0, 1)])
+        scene.meshes.append((q[0], q[1], q[2], q[3], back_mat, False))
+        # two piers behind the plinth: the final image needs a middle plane
+        for x_p in (-9.6, 9.6):
+            scene.meshes.append((*box_mesh(x_p, 4.4, -20.0, 1.7, 8.8, 1.7),
+                                 R.Material(base=tuple(pal["stone_light"]), spec=0.05,
+                                            shininess=14.0, texture=self.stone,
+                                            texture_uv=(1.0, 1.0)), False))
+        for x_s in (-cx, cx):
+            q = quad([x_s, 0, cz], [x_s, 0, -4], [x_s, ch_h, -4], [x_s, ch_h, cz],
+                     normal=(-1 if x_s > 0 else 1, 0, 0), uv=[(0, 0), (8, 0), (8, ch_h), (0, ch_h)])
+            scene.meshes.append((q[0], q[1], q[2], q[3], chamber_mat, False))
+        q = quad([-cx, ch_h, cz], [cx, ch_h, cz], [cx, ch_h, -4], [-cx, ch_h, -4],
+                 normal=(0, -1, 0), uv=[(0, 0), (cx, 0), (cx, 8), (0, 8)])
         scene.meshes.append((q[0], q[1], q[2], q[3],
-                             R.Material(base=tuple(pal["stone"]), spec=0.05, shininess=14.0,
-                                        texture=self.stone, texture_uv=(2.0, 1.0),
-                                        emissive=(0.085, 0.050, 0.026)), False))
-        for x_s in (-14.0, 14.0):
-            q = quad([x_s, 0, -30], [x_s, 0, -4], [x_s, 12, -4], [x_s, 12, -30],
-                     normal=(-1 if x_s > 0 else 1, 0, 0), uv=[(0, 0), (4, 0), (4, 1.2), (0, 1.2)])
-            scene.meshes.append((q[0], q[1], q[2], q[3],
-                                 R.Material(base=tuple(pal["stone"]), spec=0.04, shininess=12.0,
-                                            texture=self.stone, texture_uv=(2.0, 1.0),
-                                            emissive=(0.085, 0.050, 0.026)), False))
-        q = quad([-14, 12, -30], [14, 12, -30], [14, 12, -4], [-14, 12, -4], normal=(0, -1, 0),
-                 uv=[(0, 0), (4, 0), (4, 2.0), (0, 2.0)])
+                             R.Material(base=tuple(pal["stone"]), spec=0.02, shininess=8.0,
+                                        emissive=(0.020, 0.011, 0.005)), False))
+        # floor of the chamber, catching the warm light
+        q = quad([-cx, 0.01, cz], [cx, 0.01, cz], [cx, 0.01, -4], [-cx, 0.01, -4],
+                 normal=(0, 1, 0), uv=[(0, 0), (cx, 0), (cx, 8), (0, 8)])
         scene.meshes.append((q[0], q[1], q[2], q[3],
-                             R.Material(base=tuple(pal["stone"]), spec=0.02, shininess=8.0), False))
+                             R.Material(base=tuple(pal["stone"]), spec=0.10, shininess=26.0,
+                                        texture=self.stone, texture_uv=(1.0, 1.0)), False))
 
-        # ---- warm glow deep in the chamber (seen through the arch)
-        q = quad([-13, 0, -29.9], [13, 0, -29.9], [13, 11, -29.9], [-13, 11, -29.9],
+        # ---- graded warm glow deep in the chamber (seen through the arch)
+        q = quad([-cx + 1, 0, cz + 0.12], [cx - 1, 0, cz + 0.12],
+                 [cx - 1, ch_h - 1, cz + 0.12], [-cx + 1, ch_h - 1, cz + 0.12],
                  normal=(0, 0, 1), uv=[(0, 0), (1, 0), (1, 1), (0, 1)])
         scene.meshes.append((q[0], q[1], q[2], q[3],
-                             R.Material(base=(0, 0, 0), emissive=(0.55, 0.31, 0.15),
-                                        texture=self.glow_tex, additive=True, alpha=0.30), False))
+                             R.Material(base=(0, 0, 0), emissive=(0, 0, 0),
+                                        texture=self.chamber_tex, additive=True,
+                                        alpha=0.26, double_sided=True), False))
 
         # ---- the plinth the row lands on
         pz0, pz1 = w["plinth_z"]
         scene.meshes.append((*box_mesh(0.0, w["plinth_h"] / 2, (pz0 + pz1) / 2,
                                        13.4, w["plinth_h"], pz1 - pz0),
-                             R.Material(base=tuple(pal["stone_light"]), spec=0.08, shininess=20.0,
+                             R.Material(base=tuple(pal.get("plinth", pal["stone_light"])),
+                                        spec=0.08, shininess=20.0,
                                         texture=self.stone, texture_uv=(1.0, 1.0)), False))
 
         # ---- pool of light on the floor under the slot
@@ -447,6 +501,23 @@ class Film:
                                         texture=self.shaft_tex, additive=True,
                                         alpha=0.045, double_sided=True), False))
 
+        # ---- the travelling band of light on the carved wall
+        if "band" in self._band_cache:
+            band_tex = self._band_cache["band"]
+        else:
+            band_tex = band_texture()
+            self._band_cache["band"] = band_tex
+        x_band, i_band = self.reveal_light(t)
+        bw = 6.4
+        q = quad([x_band - bw / 2, 0.0, z + 0.03], [x_band + bw / 2, 0.0, z + 0.03],
+                 [x_band + bw / 2, 8.4, z + 0.03], [x_band - bw / 2, 8.4, z + 0.03],
+                 normal=(0, 0, 1), uv=[(0, 0), (1, 0), (1, 1), (0, 1)])
+        scene.meshes.append((q[0], q[1], q[2], q[3],
+                             R.Material(base=(0, 0, 0), emissive=(0, 0, 0),
+                                        texture=band_tex, additive=True,
+                                        alpha=0.115 * min(1.0, i_band / 1.25),
+                                        double_sided=True), False))
+
         # ---- the carved letters
         rev = self.reveal(t)
         for i, (m, pose) in enumerate(zip(self.letter_meshes, self.letter_poses(t))):
@@ -454,7 +525,7 @@ class Film:
             v = m.verts.astype(np.float64) @ R3.T + pose["pos"]
             k = 0.34 + 0.66 * rev[i]
             mat = R.Material(base=tuple(np.array(pal["letter"]) * k), spec=0.14, shininess=30.0,
-                             texture=self.stone, texture_uv=(0.0016, 0.0016))
+                             texture=self.stone, texture_uv=(1.2, 1.2))
             scene.meshes.append((v.astype(np.float32),
                                  (m.normals.astype(np.float64) @ R3.T).astype(np.float32),
                                  m.uvs, m.tris, mat))
@@ -465,6 +536,13 @@ class Film:
                 continue
             fade = min(ease(0, 1, (t - c["t_in"]) / 0.9, "out"),
                        ease(0, 1, (c["t_out"] - t) / 0.9, "out"))
+            if cam is not None:
+                # copy written on stone is unreadable when the lens is on top of
+                # it: fade it out before it can smear across the frame
+                d = float(np.linalg.norm(np.asarray(cam.eye, float)
+                                         - np.asarray(c["pos"], float)))
+                if d < 4.2:
+                    fade *= float(np.clip((d - 2.4) / 1.8, 0.0, 1.0))
             tex = self.copy_textures[(c["text"], c.get("small", False))]
             h, wpx = tex.shape[:2]
             quad_w = c["width"]
@@ -501,21 +579,25 @@ class Film:
                                     intensity=float(fill["intensity"]), direction=tuple(fill["dir"])))
         scene.lights.append(R.Light(kind="directional", color=tuple(wash["color"]),
                                     intensity=wash["intensity"], direction=tuple(wash["dir"])))
+        # a grazing light along the wall: gives the stone a value gradient and
+        # lets the carved letters throw long shadows across it
+        scene.lights.append(R.Light(kind="directional", color=(1.0, 0.80, 0.58),
+                                    intensity=0.45, direction=(0.94, 0.15, 0.30)))
         xl, xi = self.reveal_light(t)
         if xi > 0.01:
             scene.lights.append(R.Light(kind="point", color=tuple(slot["color"]),
                                         intensity=xi, position=(xl, 1.35, -1.10)))
         arch = pr["arch"]
-        arch_i = arch["intensity"] * (0.35 + 0.65 * min(1.0, max(0.0, (t - 18.0) / 6.0)))
+        arch_i = arch["intensity"] * (0.35 + 0.65 * min(1.0, max(0.0, (t - 15.5) / 5.0)))
         scene.lights.append(R.Light(kind="point", color=tuple(arch["color"]),
                                     intensity=arch_i, position=tuple(arch["pos"])))
         rel = pr["release"]
-        rel_i = rel["intensity"] * (1.0 if 15.0 <= t <= 24.0
-                                    else max(0.0, 1.0 - abs(t - 19.5) / 5.0) * 0.5)
+        rel_i = rel["intensity"] * (1.0 if 12.2 <= t <= 21.0
+                                    else max(0.0, 1.0 - abs(t - 16.6) / 4.5) * 0.5)
         scene.lights.append(R.Light(kind="point", color=tuple(rel["color"]),
                                     intensity=max(rel_i, 0.0), position=tuple(rel["pos"])))
         ch = pr["chamber"]
-        ch_i = ch["intensity"] * max(0.0, min(1.0, (t - 27.0) / 4.0))
+        ch_i = ch["intensity"] * max(0.0, min(1.0, (t - 24.0) / 4.0))
         scene.lights.append(R.Light(kind="point", color=tuple(ch["color"]),
                                     intensity=ch_i, position=tuple(ch["pos"])))
         return scene
@@ -545,6 +627,8 @@ class Film:
         op = w["wall_opening"]
         stone_mat = R.Material(base=tuple(pal["stone"]), spec=0.07, shininess=18.0,
                                texture=self.stone, texture_uv=(1.0, 1.0))
+        wall_mat = R.Material(base=tuple(pal["wall"]), spec=0.09, shininess=20.0,
+                              texture=self.stone, texture_uv=(3.0, 3.0))
         q = quad([-46, 0, 30], [46, 0, 30], [46, 0, -40], [-46, 0, -40],
                  normal=(0, 1, 0), uv=[(0, 0), (26, 0), (26, 35), (0, 35)])
         scene.meshes.append((q[0], q[1], q[2], q[3],
@@ -559,7 +643,7 @@ class Film:
              [(0, 0), (1.0, 0), (1.0, 2.6), (0, 2.6)]),
         ]:
             q = quad(*p, normal=(0, 0, 1), uv=uvs)
-            scene.meshes.append((q[0], q[1], q[2], q[3], stone_mat, False))
+            scene.meshes.append((q[0], q[1], q[2], q[3], wall_mat, False))
         pier_mat = R.Material(base=tuple(pal["stone_light"]), spec=0.05, shininess=14.0,
                               texture=self.stone, texture_uv=(1.0, 1.0))
         for z_p in (20.0, 12.0, 4.0):
@@ -578,8 +662,20 @@ class Film:
         scene.meshes.append((q[0], q[1], q[2], q[3],
                              R.Material(base=(0, 0, 0),
                                         emissive=tuple(np.array(slot["color"]) * slot["intensity"])), False))
+        if "band" in self._band_cache:
+            band_tex = self._band_cache["band"]
+        else:
+            band_tex = band_texture()
+            self._band_cache["band"] = band_tex
+        q = quad([3.0, 0.0, z + 0.03], [10.4, 0.0, z + 0.03], [10.4, 8.4, z + 0.03],
+                 [3.0, 8.4, z + 0.03], normal=(0, 0, 1),
+                 uv=[(0, 0), (1, 0), (1, 1), (0, 1)])
+        scene.meshes.append((q[0], q[1], q[2], q[3],
+                             R.Material(base=(0, 0, 0), emissive=(0, 0, 0),
+                                        texture=band_tex, additive=True, alpha=0.085,
+                                        double_sided=True), False))
         letter_mat = R.Material(base=tuple(pal["letter"]), spec=0.14, shininess=30.0,
-                                texture=self.stone, texture_uv=(0.0016, 0.0016))
+                                texture=self.stone, texture_uv=(1.2, 1.2))
         for m, spec in zip(self.letter_meshes, self.story["letters"]):
             v = m.verts.astype(np.float64) + np.array([spec["wall_x"], w["bench_h"], w["wall_z"]])
             scene.meshes.append((v.astype(np.float32), m.normals, m.uvs, m.tris, letter_mat))
@@ -597,6 +693,8 @@ class Film:
                                     shadow_center=(4.0, 2.0, -3.4), shadow_res=2048))
         scene.lights.append(R.Light(kind="directional", color=(0.32, 0.44, 0.66), intensity=0.24,
                                     direction=(0.55, -0.26, -0.79)))
+        scene.lights.append(R.Light(kind="directional", color=(1.0, 0.80, 0.58), intensity=0.78,
+                                    direction=(0.94, 0.15, 0.30)))
         scene.lights.append(R.Light(kind="directional", color=(0.62, 0.60, 0.58), intensity=0.08,
                                     direction=(0.10, 0.16, 0.98)))
         xl = 4.0 + 4.2 * math.cos(a)
