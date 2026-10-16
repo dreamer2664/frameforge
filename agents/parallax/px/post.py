@@ -63,7 +63,10 @@ def depth_of_field(color, depth, focus, aperture=0.9, max_coc=18.0):
 def bloom(color, threshold=0.85, strength=0.16, radius=26):
     lum = color.max(axis=2)
     mask = np.clip((lum - threshold) / max(1e-6, 1.0 - threshold), 0.0, 1.0)
-    b = blur(color * mask[..., None], radius)
+    h, w = color.shape[:2]
+    small = color[::4, ::4] * mask[::4, ::4, None]          # a wide blur is cheap
+    b = blur(small, radius / 4.0)
+    b = np.repeat(np.repeat(b, 4, axis=0), 4, axis=1)[:h, :w]
     return color + b * strength
 
 
@@ -100,8 +103,8 @@ def chromatic(color, amount=1.1):
     return out
 
 
-def finish(linear, depth, frame_index, exposure=1.0, focus=7.0, aperture=0.9,
-           dof=True, bloom_strength=0.16, grain_amount=0.020, vignette_amount=0.36,
+def finish(linear, depth, frame_index, exposure=0.78, focus=7.0, aperture=0.9,
+           dof=True, bloom_strength=0.14, grain_amount=0.018, vignette_amount=0.46,
            chroma=1.1, shadow_lift=0.0):
     """Linear HDR frame -> finished 8-bit-ish float image in [0,1]."""
     img = linear * exposure

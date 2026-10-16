@@ -20,7 +20,12 @@ F32 = np.float32
 def normalize(v):
     v = np.asarray(v, dtype=F32)
     n = np.linalg.norm(v, axis=-1, keepdims=True)
-    return v / np.maximum(n, 1e-9)
+    out = v / np.maximum(n, 1e-9)
+    bad = (n < 1e-6).reshape(-1)
+    if np.any(bad):
+        out = np.array(out, copy=True)
+        out[bad] = np.array([0.0, 0.0, 1.0], dtype=F32)
+    return out
 
 
 def look_at(eye, target, up=(0.0, 1.0, 0.0)):
@@ -259,6 +264,8 @@ class Raster:
             return
         # backface cull
         area = (x1 - x0) * (y2 - y0) - (x2 - x0) * (y1 - y0)
+        if abs(area) < 1e-9:
+            return
         # screen y points down, so a front-facing triangle (world normal toward
         # the camera) has a NEGATIVE signed area here
         if area >= 0 and not mat.double_sided:
@@ -278,7 +285,7 @@ class Raster:
         wsum = l0 * iw0 + l1 * iw1 + l2 * iw2
         zz = 1.0 / np.maximum(wsum, 1e-9)  # perspective-correct depth
         dbuf = self.depth[miny:maxy + 1, minx:maxx + 1]
-        upd = inside & (zz < dbuf)
+        upd = inside & (zz < dbuf) & (wsum > 1e-6)
         if not upd.any():
             return
         l0u, l1u, l2u = l0[upd], l1[upd], l2[upd]
@@ -291,7 +298,9 @@ class Raster:
                + pw2[:, None] * normals[i2]) / iws[:, None]
         uv = (pw0[:, None] * uvs[i0] + pw1[:, None] * uvs[i1]
               + pw2[:, None] * uvs[i2]) / iws[:, None]
-        dbuf[upd] = zz[upd]
+        if not (mat.additive or mat.blend):
+            # transparent geometry must never occlude what is behind it
+            dbuf[upd] = zz[upd]
         self.world[miny:maxy + 1, minx:maxx + 1][upd] = wp
         self.normal[miny:maxy + 1, minx:maxx + 1][upd] = nrm
         self.uv[miny:maxy + 1, minx:maxx + 1][upd] = uv
@@ -344,6 +353,7 @@ class Raster:
             out[:, :3] += spec[:, None] * lc
         em = np.asarray(mat.emissive, dtype=F32)
         out[:, :3] += em[None, :]
+        out[:, 3] = 1.0
         if mat.texture is not None:
             tex = mat.texture
             th, tw = tex.shape[:2]
@@ -353,10 +363,18 @@ class Raster:
             yi = np.clip((v * th).astype(np.int32), 0, th - 1)
             t = tex[yi, xi]
             if t.shape[1] == 4:
-                out[:, :3] *= t[:, :3]
+                if mat.additive:
+                    # an additive surface carries its own colour: the texture
+                    # is the light, not a multiplier of it
+                    out[:, :3] = out[:, :3] + t[:, :3]
+                else:
+                    out[:, :3] *= t[:, :3]
                 out[:, 3] = out[:, 3] * t[:, 3]
             else:
-                out[:, :3] *= t
+                if mat.additive:
+                    out[:, :3] = out[:, :3] + t
+                else:
+                    out[:, :3] *= t
         out[:, 3] = out[:, 3] * mat.alpha
         return out
 
@@ -367,7 +385,7 @@ def build_shadow(light: Light, scene: Scene, meshes, res=1024):
         return None
     d = normalize(np.asarray(light.direction, dtype=F32))
     c = np.asarray(light.shadow_center, dtype=F32)
-    eye = c - d * 30.0
+    eye = c + d * 30.0
     view = look_at(eye, c, (0.0, 1.0, 0.0) if abs(d[1]) < 0.9 else (0.0, 0.0, 1.0))
     e = light.shadow_extent
     proj = ortho(-e, e, -e, e, 0.1, 60.0)
@@ -376,8 +394,8 @@ def build_shadow(light: Light, scene: Scene, meshes, res=1024):
     r.shadow_pass(meshes, view, proj, res)
     sdepth = r.depth
     mvp = mat4_mul(proj, view)
-    return {"depth": sdepth, "mvp": mvp, "res": res, "bias": 0.0022,
-            "extent": light.shadow_extent}
+    return {"depth": sdepth, "mvp": mvp, "res": res, "bias": 0.02,
+            "extent": light.shadow_extent, "view": view}
 
     # (shadow sampling closure is attached by make_shadow_factor)
 
@@ -388,28 +406,28 @@ def make_shadow_factor(sh):
     res = sh["res"]
     bias = sh["bias"]
     extent = sh["extent"]
+    view = sh["view"]
 
     def factor(wp, n, light):
-        ndl = np.clip(np.sum(n * normalize(np.asarray(light.direction, dtype=F32)), axis=1), 0.0, None)
+        d = normalize(np.asarray(light.direction, dtype=F32))
+        ndl = np.clip(np.sum(n * d, axis=1), 0.0, None)
         texel = 2.0 * extent / res
-        wp = wp + n * (texel * 1.8 / np.maximum(ndl, 0.22))[:, None]
+        wp = wp + n * (texel * 2.6 / np.maximum(ndl, 0.20))[:, None]
         p = xform(mvp, wp)
-        w = np.ones(len(wp), dtype=F32)  # orthographic shadow camera
-        x = p[:, 0] / w * 0.5 + 0.5
-        y = 0.5 - p[:, 1] / w * 0.5
+        x = p[:, 0] * 0.5 + 0.5
+        y = 0.5 - p[:, 1] * 0.5
         xi = np.clip((x * res).astype(np.int32), 0, res - 1)
         yi = np.clip((y * res).astype(np.int32), 0, res - 1)
+        cur = -xform(view, wp)[:, 2]
+        b = bias * (0.6 + 3.0 * (1.0 - ndl))
+        step = 2  # PCF radius in shadow-map texels
         ref = depth[yi, xi]
-        cur = w
-        # slope-scaled bias
-        ndl = np.clip(np.sum(n * normalize(np.asarray(light.direction, dtype=F32)), axis=1), 0, None)
-        b = bias * (0.35 + 1.65 * (1.0 - ndl)) * res * 0.01
         lit = (cur - b) <= ref
         # 3x3 PCF
         acc = lit.astype(F32)
         cnt = 1.0
-        for dx in (-1, 0, 1):
-            for dy in (-1, 0, 1):
+        for dx in (-2, -1, 0, 1, 2):
+            for dy in (-2, -1, 0, 1, 2):
                 if dx == 0 and dy == 0:
                     continue
                 x2 = np.clip(xi + dx, 0, res - 1)
@@ -423,7 +441,8 @@ def make_shadow_factor(sh):
 
 
 def render(scene: Scene, camera: Camera, width: int, height: int, subframes=1,
-           sub_time=0.0, sub_shutter=0.0, exposure=1.0, shadow_res=1024):
+           sub_time=0.0, sub_shutter=0.0, exposure=1.0, shadow_res=1024,
+           jitter=(0.0, 0.0)):
     """Render one frame. Returns (linear HDR colour, linear depth)."""
     r = Raster(width, height)
     r._near = camera.near
@@ -437,7 +456,8 @@ def render(scene: Scene, camera: Camera, width: int, height: int, subframes=1,
             shadows.append(sh)
         else:
             shadows.append(None)
-    r.draw(scene.meshes, view, proj, width, height, scene.lights, scene, shadows)
+    r.draw(scene.meshes, view, proj, width, height, scene.lights, scene, shadows,
+           jitter=jitter)
     return r
 
 

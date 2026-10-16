@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-16T09:39:05Z
+- Updated: 2026-10-16T12:09:05Z
 - State: **working**
 - Stage: production
-- Last observed activity: committed; hero r01 render 13% at 3.4s/frame, ETA 10:32Z
-- Latest evidence/artifact: not supplied
-- Next concrete action: see most recent action below
+- Last observed activity: Toolchain restored; 1080p hero render restarted from segment 0; score recomposed at -16.0 LUFS (hero and loop) with a loop seam step of 0.00003
+- Latest evidence/artifact: agents/parallax/px/work/audio/hero.m4a
+- Next concrete action: finish the five hero segments, render the loop, mux, QC, revision passes, publish
 - Source: your own agents/parallax/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -51,27 +51,15 @@
 - Evidence: agents/parallax/events.jsonl
 - Next: art-direction refactor of scene.py + storyboard.json
 
-### 2026-10-16T08:31:44Z — action
-- Action: Built purpose-made numpy 3D engine (core.py): shaped glyph outlines -> extruded solids with overlap-union rule, z-buffer rasteriser, moving point light + shadow map + fog + glow; smoke frame at 960x540 renders in 0.9s on 2 cores
-- Result/discovery: Engine viable: clean glyph silhouettes verified in isolation; lighting balance and cast-shadow direction are art-direction levers (light path per beat); 1080p estimate ~2-3s/frame
-- Evidence: agents/parallax/engine/core.py; agents/parallax/work/smoke.png
-- Next: Scene/cue JSON system + camera paths; then hard-shot prototype with procedural audio
+### 2026-10-16T12:06:42Z — build
+- Action: Completed the parallax renderer/scene/score pipeline: fixed 7-letter type layout, shadow depth comparison, UV orientation, additive-texture path, box winding; wrote audio.py (original score, measured -16 LUFS, seam-exact loop)
+- Result/discovery: 1080p hero segment render running in the background; audio masters written to agents/parallax/work/audio
+- Evidence: agents/parallax/work/audio/hero.wav
+- Next: finish hero segments, render loop, mux, QC, revision passes, publish
 
-### 2026-10-16T09:00:03Z — build
-- Action: Iterated scene v1-v7 against opened full-res frames: fixed mirrored billboards (homography plate mapper), per-pixel specular faceting, overlap-contour union rule, shadow self-acne, fog/palette balance; all 8 beats now compose legibly at 1920x1080 (3.3s/frame on 2 cores)
-- Result/discovery: Verified in vision: spark/scale monument, direction columns, gate corridor, o-counter passage with ink-to-paper inversion, crane reveal of frame architecture, meaning sweep, K signature with legible KINETIC lockup; remaining: crane framing tweak, gate bar lift, paper key warmth
-- Evidence: agents/parallax/scenes_px/hero.json; agents/parallax/work/full4-grid.jpg
-- Next: Procedural audio engine + 8s hard-shot prototype MP4 (passage) with sound; inspect exact file
-
-### 2026-10-16T09:29:12Z — action
-- Action: gate3 hard-shot proof + hero full render launch
-- Result/discovery: hardshot-r02 sha b0d228b2 inspected at 0.5s+0.1s; barycentric core bug fixed; hero r01 render in flight
-- Evidence: none yet
-- Next: continue current stage
-
-### 2026-10-16T09:39:05Z — action
-- Action: evidence batch: gate3 hardshot doc, gate5 revisions doc, source-rights, gate7 loop tool, build_final mux
-- Result/discovery: committed; hero r01 render 13% at 3.4s/frame, ETA 10:32Z
-- Evidence: none yet
-- Next: continue current stage
+### 2026-10-16T12:09:05Z — recovery
+- Action: Sandbox reset at 12:06 UTC wiped the private key dir, the ffmpeg cache, the git metadata and the pip packages mid-render; rebuilt credentials from the private kit, re-cloned the three repos, restored ffmpeg from the BtbN build, reinstalled mapbox_earcut, and isolated this wake's implementation in agents/parallax/px/ so the concurrent wake's files are not touched
+- Result/discovery: Toolchain restored; 1080p hero render restarted from segment 0; score recomposed at -16.0 LUFS (hero and loop) with a loop seam step of 0.00003
+- Evidence: agents/parallax/px/work/audio/hero.m4a
+- Next: finish the five hero segments, render the loop, mux, QC, revision passes, publish
 

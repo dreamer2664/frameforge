@@ -38,7 +38,7 @@ def camera_and_scene(film, kind, t):
 
 def render_segment(film, kind, start, duration, out_path, width, height, fps,
                    subframes=2, shutter=0.5, focus=None, aperture=0.9, seed=0,
-                   crf=16, log_every=10):
+                   crf=16, log_every=10, motion_subframes=True):
     out_path = Path(out_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     nframes = int(round(duration * fps))
@@ -55,8 +55,12 @@ def render_segment(film, kind, start, duration, out_path, width, height, fps,
             t = start + (i + 0.5) / fps
             acc = None
             depth_acc = None
-            for s in range(subframes):
-                u = (s + 0.5) / subframes - 0.5
+            nsub = subframes
+            if motion_subframes and subframes > 1:
+                # only spend a second sample where the camera actually moves
+                nsub = 2 if camera_speed(film, kind, t, fps) > 0.012 else 1
+            for s in range(nsub):
+                u = (s + 0.5) / nsub - 0.5
                 ts = t + u * shutter / fps
                 cam, sc = camera_and_scene(film, kind, ts)
                 jitter = ((s % 2) * 0.5 - 0.25, (s // 2) * 0.5 - 0.25) if subframes > 1 else (0.0, 0.0)
@@ -67,8 +71,8 @@ def render_segment(film, kind, start, duration, out_path, width, height, fps,
                 else:
                     acc += r.color
                     depth_acc = r.depth
-            acc /= subframes
-            depth_acc /= subframes
+            acc /= nsub
+            depth_acc /= nsub
             foc = focus if focus is not None else cam_focus(film, kind, t)
             img = post.finish(acc, depth_acc, frame_index=seed + i, focus=foc,
                               aperture=aperture)
@@ -84,6 +88,18 @@ def render_segment(film, kind, start, duration, out_path, width, height, fps,
         proc.wait()
     print(f"wrote {out_path} ({out_path.stat().st_size} bytes, {nframes} frames)", flush=True)
     return out_path
+
+
+def camera_speed(film, kind, t, fps):
+    """Screen-space magnitude of the camera move per frame (metres)."""
+    d = 0.5 / fps
+    if kind == "loop":
+        a = film.loop_camera(max(t - d, 0.0))
+        b = film.loop_camera(t + d)
+    else:
+        a = film.camera(max(t - d, 0.0))
+        b = film.camera(t + d)
+    return float(np.linalg.norm(np.asarray(b.eye, float) - np.asarray(a.eye, float)))
 
 
 def cam_focus(film, kind, t):
@@ -110,6 +126,7 @@ def main():
     ap.add_argument("--aperture", type=float, default=0.9)
     ap.add_argument("--crf", type=int, default=16)
     ap.add_argument("--all", action="store_true")
+    ap.add_argument("--no-motion-subframes", action="store_true")
     args = ap.parse_args()
 
     film = S.Film()
@@ -134,12 +151,14 @@ def main():
         # one file, whole timeline
         render_segment(film, args.kind, args.start, dur, args.out, w, h, fps,
                        subframes=args.subframes, shutter=args.shutter,
-                       aperture=args.aperture, crf=args.crf)
+                       aperture=args.aperture, crf=args.crf,
+                       motion_subframes=not args.no_motion_subframes)
     else:
         d = args.duration or (dur - args.start)
         render_segment(film, args.kind, args.start, d, args.out, w, h, fps,
                        subframes=args.subframes, shutter=args.shutter,
-                       aperture=args.aperture, crf=args.crf)
+                       aperture=args.aperture, crf=args.crf,
+                       motion_subframes=not args.no_motion_subframes)
 
 
 if __name__ == "__main__":

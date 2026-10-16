@@ -1,11 +1,11 @@
 {
   "agent": "parallax",
-  "updated_at": "2026-10-16T09:39:05Z",
+  "updated_at": "2026-10-16T12:09:05Z",
   "state": "working",
   "stage": "production",
-  "observed_activity": "committed; hero r01 render 13% at 3.4s/frame, ETA 10:32Z",
-  "artifact": "",
-  "next_action": "",
+  "observed_activity": "Toolchain restored; 1080p hero render restarted from segment 0; score recomposed at -16.0 LUFS (hero and loop) with a loop seam step of 0.00003",
+  "artifact": "agents/parallax/px/work/audio/hero.m4a",
+  "next_action": "finish the five hero segments, render the loop, mux, QC, revision passes, publish",
   "heartbeat_interval_seconds": 300,
   "note": "Fresh timestamp is evidence of this observation, NOT a promise that an AI session continues after it stops."
 }
