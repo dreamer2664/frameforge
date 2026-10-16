@@ -1,0 +1,76 @@
+{
+  "agent": "glyphcraft",
+  "published_at": "2026-10-16T12:16:02Z",
+  "revision": "r04",
+  "code_sha": "1b45c6a20dc412162875340dce0cf53be39622ff",
+  "release": "https://github.com/dreamer2664/storagecode/releases/tag/frameforge/glyphcraft/r04-48b981b37ce0",
+  "tag": "frameforge/glyphcraft/r04-48b981b37ce0",
+  "assets": [
+    {
+      "name": "hero.mp4",
+      "bytes": 6921201,
+      "sha256": "48b981b37ce0149d87edc668dee7f70ca453b8393fb66a9af8970385d9910838",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/glyphcraft/r04-48b981b37ce0/hero.mp4",
+      "remote_digest": "sha256:48b981b37ce0149d87edc668dee7f70ca453b8393fb66a9af8970385d9910838",
+      "remote_size": 6921201
+    },
+    {
+      "name": "final-technical.json",
+      "bytes": 3676,
+      "sha256": "b495e3090254008ca0504918fad83b58fbc1cfa7a2780e4d3b201d35aeb06757",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/glyphcraft/r04-48b981b37ce0/final-technical.json",
+      "remote_digest": "sha256:b495e3090254008ca0504918fad83b58fbc1cfa7a2780e4d3b201d35aeb06757",
+      "remote_size": 3676
+    },
+    {
+      "name": "loop.mp4",
+      "bytes": 712891,
+      "sha256": "cdb9276ea2fe0aee58ad92251aaf09bd3ac0673ea0e4f8b4fafdd473993ed248",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/glyphcraft/r04-48b981b37ce0/loop.mp4",
+      "remote_digest": "sha256:cdb9276ea2fe0aee58ad92251aaf09bd3ac0673ea0e4f8b4fafdd473993ed248",
+      "remote_size": 712891
+    },
+    {
+      "name": "poster.png",
+      "bytes": 391846,
+      "sha256": "1069228fd746aa71dad14658d2238e2e0cb3789a8dfd6e3c2df56f237ea1a3a1",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/glyphcraft/r04-48b981b37ce0/poster.png",
+      "remote_digest": "sha256:1069228fd746aa71dad14658d2238e2e0cb3789a8dfd6e3c2df56f237ea1a3a1",
+      "remote_size": 391846
+    },
+    {
+      "name": "final-visual-review.txt",
+      "bytes": 2693,
+      "sha256": "7b28030882eab5ae56efb5003425c0b8be9922e67a02343703c8a7f4f429b192",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/glyphcraft/r04-48b981b37ce0/final-visual-review.txt",
+      "remote_digest": "sha256:7b28030882eab5ae56efb5003425c0b8be9922e67a02343703c8a7f4f429b192",
+      "remote_size": 2693
+    },
+    {
+      "name": "creative-direction.txt",
+      "bytes": 4487,
+      "sha256": "cb0ded78edcb92e5d9b937420eb3db0dca6e20d06215ab13c9d8408118ad9531",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/glyphcraft/r04-48b981b37ce0/creative-direction.txt",
+      "remote_digest": "sha256:cb0ded78edcb92e5d9b937420eb3db0dca6e20d06215ab13c9d8408118ad9531",
+      "remote_size": 4487
+    },
+    {
+      "name": "source-rights.txt",
+      "bytes": 1401,
+      "sha256": "98d27cca4b822028e5ef2f8e10964ce32507bad1ec9fde23acc55656782b07c0",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/glyphcraft/r04-48b981b37ce0/source-rights.txt",
+      "remote_digest": "sha256:98d27cca4b822028e5ef2f8e10964ce32507bad1ec9fde23acc55656782b07c0",
+      "remote_size": 1401
+    },
+    {
+      "name": "loop-design.txt",
+      "bytes": 1601,
+      "sha256": "5af4cad52d999f169bc26f7a59288b6dbcee57af55d9f7f9688bc4d8a5e138f6",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/glyphcraft/r04-48b981b37ce0/loop-design.txt",
+      "remote_digest": "sha256:5af4cad52d999f169bc26f7a59288b6dbcee57af55d9f7f9688bc4d8a5e138f6",
+      "remote_size": 1601
+    }
+  ],
+  "acceptance": "Published candidate; refer to actual reviews. Not an old-campaign acceptance.",
+  "primary_archive": "https://github.com/dreamer2664/storagecode/tree/main/data/frameforge/glyphcraft/r04-48b981b37ce0"
+}

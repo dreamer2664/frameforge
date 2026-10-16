@@ -1,8 +1,8 @@
 {
   "file": "loop.mp4",
   "agent": "glyphcraft",
-  "sha256": "9e5ee7ecaad0938b4e2fc7743fdf94ec928b688a682fde6b57d09c70cef92130",
-  "bytes": 710212,
+  "sha256": "cdb9276ea2fe0aee58ad92251aaf09bd3ac0673ea0e4f8b4fafdd473993ed248",
+  "bytes": 712891,
   "duration_seconds": 10.0,
   "streams": [
     {
@@ -37,7 +37,7 @@
       "start_time": "0.000000",
       "duration_ts": 153600,
       "duration": "10.000000",
-      "bit_rate": "363272",
+      "bit_rate": "365416",
       "bits_per_raw_sample": "8",
       "nb_frames": "300",
       "extradata_size": 48,

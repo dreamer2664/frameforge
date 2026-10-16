@@ -1,8 +1,8 @@
 {
   "file": "hero.mp4",
   "agent": "glyphcraft",
-  "sha256": "589da7b8fddb1ab88406f08a8d9db4b8ccf4df84849eccfb88b0af5927c874b1",
-  "bytes": 6630038,
+  "sha256": "48b981b37ce0149d87edc668dee7f70ca453b8393fb66a9af8970385d9910838",
+  "bytes": 6921201,
   "duration_seconds": 42.0,
   "streams": [
     {
@@ -37,7 +37,7 @@
       "start_time": "0.000000",
       "duration_ts": 645120,
       "duration": "42.000000",
-      "bit_rate": "1058675",
+      "bit_rate": "1113462",
       "bits_per_raw_sample": "8",
       "nb_frames": "1260",
       "extradata_size": 48,
@@ -90,7 +90,7 @@
       "start_time": "0.000000",
       "duration_ts": 2016000,
       "duration": "42.000000",
-      "bit_rate": "195246",
+      "bit_rate": "195933",
       "nb_frames": "1970",
       "extradata_size": 5,
       "disposition": {
@@ -121,16 +121,16 @@
     }
   ],
   "loudness": {
-    "input_i": "-16.66",
-    "input_tp": "-1.06",
-    "input_lra": "9.10",
-    "input_thresh": "-26.78",
-    "output_i": "-16.27",
+    "input_i": "-16.79",
+    "input_tp": "-1.27",
+    "input_lra": "9.50",
+    "input_thresh": "-27.04",
+    "output_i": "-16.18",
     "output_tp": "-1.00",
-    "output_lra": "7.70",
-    "output_thresh": "-26.38",
+    "output_lra": "8.00",
+    "output_thresh": "-26.42",
     "normalization_type": "dynamic",
-    "target_offset": "0.27"
+    "target_offset": "0.18"
   },
   "technical_pass": true,
   "violations": [],
