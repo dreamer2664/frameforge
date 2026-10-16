@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-16T18:20:51Z
-- State: **working**
-- Stage: production
-- Last observed activity: work/evidence/hardshot-8s-1080p.mp4 = 8.000 s, 1920x1080, 24 fps, AAC 48 kHz 190 kbit/s, 85 Mbit/s video; the decoded frame at t=2.6 s shows the caption 'A word is a heavy thing.' now fully inside the frame above the carved word (the revision-3 fix), the amber doorway at frame left, the slot of light at frame right and the light pool on the floor; no missing glyphs and no black tail
-- Latest evidence/artifact: agents/parallax/px/work/evidence/hardshot-8s-1080p.mp4
-- Next concrete action: Finish hero segments 2-4, the loop, the QC and the publication
+- Updated: 2026-10-16T20:02:32Z
+- State: **delivered**
+- Stage: delivery
+- Last observed activity: Release https://github.com/dreamer2664/storagecode/releases/tag/frameforge/parallax/r01-ce4424a3fb16 ; hero-master.mp4 = 428,176,773 B, SHA256 ce4424a3fb1615cfce3c23610e1dfab406e0853b1dbf64b672d965e99f532cec, 1920x1080 H.264 yuv420p 24 fps 960 frames, AAC 48 kHz 207 kbit/s, -16.1 LUFS, -6.9 dBTP, faststart, audio and video tails both 40.000 s (mismatch 0.000 s); loop-master.mp4 = 100,886,150 B, SHA256 cd7efe7e08aa92ea0ed5e66101148e5eceb4c21b0247fc3b42c4685835edbe54, 1920x1080 25 fps 240 frames, -16.1 LUFS, -11.1 dBTP; all 13 assets re-verified by re-download and SHA comparison; house QC ops/media_qc.py technical_pass=true with zero violations; loop gate on the encoded MP4 green (wrap mean abs diff 5.396 inside the interior range 5.373-5.405, wrap motion 0.92 px vs interior 0.88-0.94 px, wrap luminance step -0.014 vs interior max 0.062, source audio seam 2.8e-05 over 460800 samples); durable archive at https://github.com/dreamer2664/storagecode/tree/main/data/frameforge/parallax/r01-ce4424a3fb16 with the concept commitment, the three revision passes, the review method and findings, the licence manifest and both QC reports; code at dreamer2664/frameforge 03d3f31 in agents/parallax/px
+- Latest evidence/artifact: https://github.com/dreamer2664/storagecode/releases/tag/frameforge/parallax/r01-ce4424a3fb16
+- Next concrete action: Board card t-20261016-8735 to review with the real links; the candidate is published, not accepted by a human
 - Source: your own agents/parallax/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -104,4 +104,10 @@
 - Result/discovery: work/evidence/hardshot-8s-1080p.mp4 = 8.000 s, 1920x1080, 24 fps, AAC 48 kHz 190 kbit/s, 85 Mbit/s video; the decoded frame at t=2.6 s shows the caption 'A word is a heavy thing.' now fully inside the frame above the carved word (the revision-3 fix), the amber doorway at frame left, the slot of light at frame right and the light pool on the floor; no missing glyphs and no black tail
 - Evidence: agents/parallax/px/work/evidence/hardshot-8s-1080p.mp4
 - Next: Finish hero segments 2-4, the loop, the QC and the publication
+
+### 2026-10-16T20:02:32Z — delivery
+- Action: Published the parallax candidate 'KINETIC - Give language a body' to storagecode: the 40.000 s hero, the 9.600 s seamless loop, the poster, both 960x540 rough-cut proxies, the measured technical QC (own tool + house tool), and the five contact sheets of the exact-file review
+- Result/discovery: Release https://github.com/dreamer2664/storagecode/releases/tag/frameforge/parallax/r01-ce4424a3fb16 ; hero-master.mp4 = 428,176,773 B, SHA256 ce4424a3fb1615cfce3c23610e1dfab406e0853b1dbf64b672d965e99f532cec, 1920x1080 H.264 yuv420p 24 fps 960 frames, AAC 48 kHz 207 kbit/s, -16.1 LUFS, -6.9 dBTP, faststart, audio and video tails both 40.000 s (mismatch 0.000 s); loop-master.mp4 = 100,886,150 B, SHA256 cd7efe7e08aa92ea0ed5e66101148e5eceb4c21b0247fc3b42c4685835edbe54, 1920x1080 25 fps 240 frames, -16.1 LUFS, -11.1 dBTP; all 13 assets re-verified by re-download and SHA comparison; house QC ops/media_qc.py technical_pass=true with zero violations; loop gate on the encoded MP4 green (wrap mean abs diff 5.396 inside the interior range 5.373-5.405, wrap motion 0.92 px vs interior 0.88-0.94 px, wrap luminance step -0.014 vs interior max 0.062, source audio seam 2.8e-05 over 460800 samples); durable archive at https://github.com/dreamer2664/storagecode/tree/main/data/frameforge/parallax/r01-ce4424a3fb16 with the concept commitment, the three revision passes, the review method and findings, the licence manifest and both QC reports; code at dreamer2664/frameforge 03d3f31 in agents/parallax/px
+- Evidence: https://github.com/dreamer2664/storagecode/releases/tag/frameforge/parallax/r01-ce4424a3fb16
+- Next: Board card t-20261016-8735 to review with the real links; the candidate is published, not accepted by a human
 

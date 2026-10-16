@@ -1,0 +1,116 @@
+{
+  "agent": "parallax",
+  "published_at": "2026-10-16T20:01:36Z",
+  "revision": "r01",
+  "code_sha": "03d3f31f5d821d58c793ca0cd6ea1d2420c7fab7",
+  "release": "https://github.com/dreamer2664/storagecode/releases/tag/frameforge/parallax/r01-ce4424a3fb16",
+  "tag": "frameforge/parallax/r01-ce4424a3fb16",
+  "assets": [
+    {
+      "name": "hero-master.mp4",
+      "bytes": 428176773,
+      "sha256": "ce4424a3fb1615cfce3c23610e1dfab406e0853b1dbf64b672d965e99f532cec",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/parallax/r01-ce4424a3fb16/hero-master.mp4",
+      "remote_digest": "sha256:ce4424a3fb1615cfce3c23610e1dfab406e0853b1dbf64b672d965e99f532cec",
+      "remote_size": 428176773
+    },
+    {
+      "name": "loop-master.mp4",
+      "bytes": 100886150,
+      "sha256": "cd7efe7e08aa92ea0ed5e66101148e5eceb4c21b0247fc3b42c4685835edbe54",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/parallax/r01-ce4424a3fb16/loop-master.mp4",
+      "remote_digest": "sha256:cd7efe7e08aa92ea0ed5e66101148e5eceb4c21b0247fc3b42c4685835edbe54",
+      "remote_size": 100886150
+    },
+    {
+      "name": "poster.png",
+      "bytes": 2499550,
+      "sha256": "eb5b9698ccd4499c9a143e7542290296486e522c4ff9a151f8452a58f0a7e7f7",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/parallax/r01-ce4424a3fb16/poster.png",
+      "remote_digest": "sha256:eb5b9698ccd4499c9a143e7542290296486e522c4ff9a151f8452a58f0a7e7f7",
+      "remote_size": 2499550
+    },
+    {
+      "name": "hero-rough-cut.mp4",
+      "bytes": 8509925,
+      "sha256": "1d5ce3933b1d3509613d7b414d930245db186229b695872701599a7d389426f2",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/parallax/r01-ce4424a3fb16/hero-rough-cut.mp4",
+      "remote_digest": "sha256:1d5ce3933b1d3509613d7b414d930245db186229b695872701599a7d389426f2",
+      "remote_size": 8509925
+    },
+    {
+      "name": "loop-rough-cut.mp4",
+      "bytes": 1899655,
+      "sha256": "a97a464c89073f4891f27f000a3f232925cb70fef4a8640cd51c09a54225b350",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/parallax/r01-ce4424a3fb16/loop-rough-cut.mp4",
+      "remote_digest": "sha256:a97a464c89073f4891f27f000a3f232925cb70fef4a8640cd51c09a54225b350",
+      "remote_size": 1899655
+    },
+    {
+      "name": "technical.json",
+      "bytes": 5216,
+      "sha256": "d9059cafce5b6b1c3942ee5cf51171497cb813cf6af82cd2489e242451fe3cc1",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/parallax/r01-ce4424a3fb16/technical.json",
+      "remote_digest": "sha256:d9059cafce5b6b1c3942ee5cf51171497cb813cf6af82cd2489e242451fe3cc1",
+      "remote_size": 5216
+    },
+    {
+      "name": "media-qc-hero.json",
+      "bytes": 3610,
+      "sha256": "c509e23369cc0e6317d2bada57d7338dcf1db0740d08444264b1a1adfad0e723",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/parallax/r01-ce4424a3fb16/media-qc-hero.json",
+      "remote_digest": "sha256:c509e23369cc0e6317d2bada57d7338dcf1db0740d08444264b1a1adfad0e723",
+      "remote_size": 3610
+    },
+    {
+      "name": "sheet-00.png",
+      "bytes": 2038160,
+      "sha256": "cde142f0422a69459b34b637eedabb3a6382eacd622996a89c1dab94e0429cc1",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/parallax/r01-ce4424a3fb16/sheet-00.png",
+      "remote_digest": "sha256:cde142f0422a69459b34b637eedabb3a6382eacd622996a89c1dab94e0429cc1",
+      "remote_size": 2038160
+    },
+    {
+      "name": "sheet-01.png",
+      "bytes": 2398911,
+      "sha256": "de66f672edb9b5a2e0de12a7616039071ae60476caddc5c8585111db9a2f28d7",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/parallax/r01-ce4424a3fb16/sheet-01.png",
+      "remote_digest": "sha256:de66f672edb9b5a2e0de12a7616039071ae60476caddc5c8585111db9a2f28d7",
+      "remote_size": 2398911
+    },
+    {
+      "name": "sheet-02.png",
+      "bytes": 2221397,
+      "sha256": "2d685316677eb3538d36358910a44cd7eddf3d7977982702a76c33050be825bf",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/parallax/r01-ce4424a3fb16/sheet-02.png",
+      "remote_digest": "sha256:2d685316677eb3538d36358910a44cd7eddf3d7977982702a76c33050be825bf",
+      "remote_size": 2221397
+    },
+    {
+      "name": "sheet-03.png",
+      "bytes": 2278114,
+      "sha256": "4810c473759e99d0231c39cf7e836bc9da6d401687a134e7be00c9619a013d46",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/parallax/r01-ce4424a3fb16/sheet-03.png",
+      "remote_digest": "sha256:4810c473759e99d0231c39cf7e836bc9da6d401687a134e7be00c9619a013d46",
+      "remote_size": 2278114
+    },
+    {
+      "name": "sheet-loop.png",
+      "bytes": 1534381,
+      "sha256": "d537238f052da8263c5f5464bbe24dd44ad168f4fb502d421c38c1dc219f7d5c",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/parallax/r01-ce4424a3fb16/sheet-loop.png",
+      "remote_digest": "sha256:d537238f052da8263c5f5464bbe24dd44ad168f4fb502d421c38c1dc219f7d5c",
+      "remote_size": 1534381
+    },
+    {
+      "name": "sheet-phone.png",
+      "bytes": 2244180,
+      "sha256": "d3c156e28827f0b4590b3d7317bba1d1914eeeb73c5f62d84705fd2787fe36f3",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/parallax/r01-ce4424a3fb16/sheet-phone.png",
+      "remote_digest": "sha256:d3c156e28827f0b4590b3d7317bba1d1914eeeb73c5f62d84705fd2787fe36f3",
+      "remote_size": 2244180
+    }
+  ],
+  "acceptance": "Published candidate; refer to actual reviews. Not an old-campaign acceptance.",
+  "primary_archive": "https://github.com/dreamer2664/storagecode/tree/main/data/frameforge/parallax/r01-ce4424a3fb16"
+}
