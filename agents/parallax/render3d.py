@@ -36,7 +36,8 @@ def look_at(eye, target, up=(0.0, 1.0, 0.0)):
     m[2, :3] = -f
     m[0, 3] = -float(s @ eye)
     m[1, 3] = -float(u @ eye)
-    m[2, 3] = -float(f @ eye)
+    # third row is -f, so the translation is -(-f).eye = f.eye
+    m[2, 3] = float(f @ eye)
     return m
 
 
@@ -79,12 +80,13 @@ class Material:
     spec: float = 0.05
     shininess: float = 24.0
     emissive: tuple = (0.0, 0.0, 0.0)
-    texture: np.ndarray | None = None  # (H,W,3) float32
+    texture: np.ndarray | None = None  # (H,W,3) or (H,W,4) float32
     texture_uv: tuple = (1.0, 1.0)  # uv scale
     texture_offset: tuple = (0.0, 0.0)
     double_sided: bool = False
     alpha: float = 1.0
     blend: bool = False  # alpha blended (no depth write)
+    additive: bool = False  # additive light writing
 
 
 @dataclass
@@ -148,10 +150,14 @@ class Raster:
     # ---- shadow pass: depth only, orthographic
     def shadow_pass(self, meshes, view, proj, res):
         depth = np.full((res, res), np.inf, dtype=F32)
-        for mi, (verts, normals, uvs, tris, mat) in enumerate(meshes):
+        for mi, mesh in enumerate(meshes):
+            verts, normals, uvs, tris, mat = mesh[0], mesh[1], mesh[2], mesh[3], mesh[4]
+            cast = mesh[5] if len(mesh) > 5 else True
+            if len(tris) == 0 or not cast:
+                continue
             vc = xform(view, verts)
             pc = xform(proj, vc)
-            w = -pc[:, 2]
+            w = -vc[:, 2]  # camera-space depth is the clip-space w
             sx = (pc[:, 0] / np.maximum(w, 1e-6) * 0.5 + 0.5) * res
             sy = (0.5 - pc[:, 1] / np.maximum(w, 1e-6) * 0.5) * res
             for t in tris:
@@ -188,12 +194,13 @@ class Raster:
     def draw(self, meshes, view, proj, width, height, lights, scene, shadows,
              jitter=(0.0, 0.0)):
         W, H = self.w, self.h
-        for mi, (verts, normals, uvs, tris, mat) in enumerate(meshes):
+        for mi, mesh in enumerate(meshes):
+            verts, normals, uvs, tris, mat = mesh[0], mesh[1], mesh[2], mesh[3], mesh[4]
             if len(tris) == 0:
                 continue
             vc = xform(view, verts)          # camera space
             pc = xform(proj, vc)
-            w = -pc[:, 2]
+            w = -vc[:, 2]  # camera-space depth == clip-space w
             with np.errstate(divide="ignore", invalid="ignore"):
                 ndc_x = pc[:, 0] / np.where(np.abs(w) > 1e-6, w, 1e-6)
                 ndc_y = pc[:, 1] / np.where(np.abs(w) > 1e-6, w, 1e-6)
@@ -292,7 +299,9 @@ class Raster:
         # shading
         col = self._shade(wp, nrm, uv, mat, lights, scene, shadows, mi)
         cbuf = self.color[miny:maxy + 1, minx:maxx + 1]
-        if mat.blend:
+        if mat.additive:
+            cbuf[upd] = cbuf[upd] + col[:, :3] * col[:, 3:4]
+        elif mat.blend:
             a = col[:, 3:4]
             cbuf[upd] = cbuf[upd] * (1.0 - a) + col[:, :3] * a
         else:
@@ -331,8 +340,8 @@ class Raster:
             if light.kind == "point":
                 atten = 1.0 / (1.0 + 0.06 * ld + 0.006 * ld * ld)
                 lc = lc * atten[:, None]
-            out[:, :3] += (diff[:, None] * lc[None, :]) * base
-            out[:, :3] += spec[:, None] * lc[None, :]
+            out[:, :3] += (diff[:, None] * lc) * base
+            out[:, :3] += spec[:, None] * lc
         em = np.asarray(mat.emissive, dtype=F32)
         out[:, :3] += em[None, :]
         if mat.texture is not None:
@@ -342,8 +351,13 @@ class Raster:
             v = (uv[:, 1] * mat.texture_uv[1] + mat.texture_offset[1]) % 1.0
             xi = np.clip((u * tw).astype(np.int32), 0, tw - 1)
             yi = np.clip((v * th).astype(np.int32), 0, th - 1)
-            out[:, :3] *= tex[yi, xi]
-        out[:, 3] = mat.alpha
+            t = tex[yi, xi]
+            if t.shape[1] == 4:
+                out[:, :3] *= t[:, :3]
+                out[:, 3] = out[:, 3] * t[:, 3]
+            else:
+                out[:, :3] *= t
+        out[:, 3] = out[:, 3] * mat.alpha
         return out
 
 
@@ -362,7 +376,8 @@ def build_shadow(light: Light, scene: Scene, meshes, res=1024):
     r.shadow_pass(meshes, view, proj, res)
     sdepth = r.depth
     mvp = mat4_mul(proj, view)
-    return {"depth": sdepth, "mvp": mvp, "res": res, "bias": 0.0016}
+    return {"depth": sdepth, "mvp": mvp, "res": res, "bias": 0.0022,
+            "extent": light.shadow_extent}
 
     # (shadow sampling closure is attached by make_shadow_factor)
 
@@ -372,8 +387,12 @@ def make_shadow_factor(sh):
     mvp = sh["mvp"]
     res = sh["res"]
     bias = sh["bias"]
+    extent = sh["extent"]
 
     def factor(wp, n, light):
+        ndl = np.clip(np.sum(n * normalize(np.asarray(light.direction, dtype=F32)), axis=1), 0.0, None)
+        texel = 2.0 * extent / res
+        wp = wp + n * (texel * 1.8 / np.maximum(ndl, 0.22))[:, None]
         p = xform(mvp, wp)
         w = np.ones(len(wp), dtype=F32)  # orthographic shadow camera
         x = p[:, 0] / w * 0.5 + 0.5

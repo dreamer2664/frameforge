@@ -1,0 +1,121 @@
+{
+  "project": "KINETIC — Give language a body",
+  "promise": "In a dark stone hall a word is set in stone; the stone lets go, the letters fly through the dark and become a doorway, and the camera walks through it into the light.",
+  "emotional_arc": ["scale", "reverence", "release", "acceleration", "arrival"],
+  "format": {"width": 1920, "height": 1080, "fps": 24, "duration_seconds": 40.0},
+  "loop": {"duration_seconds": 9.6, "fps": 25, "frames": 240, "audio_samples": 460800},
+  "palette": {
+    "void": [0.016, 0.020, 0.028],
+    "stone": [0.105, 0.098, 0.090],
+    "stone_light": [0.150, 0.140, 0.126],
+    "letter": [0.300, 0.280, 0.250],
+    "warm": [1.0, 0.72, 0.42],
+    "warm_soft": [1.0, 0.82, 0.60],
+    "cool": [0.34, 0.46, 0.66]
+  },
+  "type": {
+    "display": {"file": "fonts/Archivo-var.ttf", "wght": 700, "wdth": 100},
+    "caption": {"file": "fonts/Archivo-var.ttf", "wght": 450, "wdth": 100}
+  },
+  "world": {
+    "floor_y": 0.0,
+    "wall_z": -4.0,
+    "wall_opening": {"x0": -4.6, "x1": 4.6, "y1": 6.4},
+    "chamber_z": -14.0,
+    "plinth_h": 1.60,
+    "letter_cap": 2.2,
+    "letter_depth": 0.5,
+    "row_x": [-5.0, -3.0, -1.0, 1.0, 3.0, 5.0]
+  },
+  "letters": [
+    {"ch": "K", "wall_x": -4.45, "gate": [-3.7, 1.60, -4.1], "row": [-5.0, 0.0, -14.0]},
+    {"ch": "I", "wall_x": -2.67, "gate": [-3.7, 4.10, -4.1], "row": [-3.0, 0.0, -14.0]},
+    {"ch": "N", "wall_x": -0.89, "gate": [3.7, 1.60, -4.1], "row": [-1.0, 0.0, -14.0]},
+    {"ch": "E", "wall_x": 0.89, "gate": [3.7, 4.10, -4.1], "row": [1.0, 0.0, -14.0]},
+    {"ch": "T", "wall_x": 2.67, "gate": [-1.25, 6.60, -4.1], "row": [3.0, 0.0, -14.0]},
+    {"ch": "I", "wall_x": 4.45, "gate": [1.25, 6.60, -4.1], "row": [5.0, 0.0, -14.0]}
+  ],
+  "stages": {
+    "release": 15.0,
+    "release_stagger": 0.16,
+    "release_dur": 1.7,
+    "field": 17.4,
+    "assemble": 22.4,
+    "gate": 26.2,
+    "fly": 29.4,
+    "row": 32.2
+  },
+  "camera": {
+    "keys": [
+      {"t": 0.0,  "eye": [0.0, 1.60, 21.0], "target": [0.0, 2.60, -4.0], "fov": 36.0},
+      {"t": 3.6,  "eye": [0.5, 1.55, 15.2], "target": [0.0, 2.35, -4.0], "fov": 35.0},
+      {"t": 6.4,  "eye": [2.1, 1.50, 11.4], "target": [0.5, 2.05, -4.0], "fov": 34.0},
+      {"t": 9.6,  "eye": [3.3, 1.46, 10.2], "target": [0.0, 1.98, -4.0], "fov": 35.0},
+      {"t": 12.6, "eye": [1.4, 1.50, 7.8],  "target": [-0.4, 1.95, -4.0], "fov": 37.0},
+      {"t": 15.4, "eye": [-1.2, 1.56, 6.2], "target": [-0.2, 1.92, -4.0], "fov": 39.0},
+      {"t": 19.2, "eye": [-3.0, 1.64, 4.6], "target": [0.0, 2.00, -3.0], "fov": 43.0},
+      {"t": 23.0, "eye": [-1.6, 1.64, 2.1], "target": [0.0, 2.00, -4.0], "fov": 45.0},
+      {"t": 26.2, "eye": [0.0, 1.62, -0.6], "target": [0.0, 2.20, -4.2], "fov": 47.0},
+      {"t": 29.0, "eye": [0.0, 1.62, -4.9], "target": [0.0, 2.40, -12.0], "fov": 48.0},
+      {"t": 31.4, "eye": [0.0, 1.62, -6.8], "target": [0.0, 2.00, -14.0], "fov": 43.0},
+      {"t": 34.2, "eye": [0.0, 1.58, -7.6], "target": [0.0, 1.92, -14.0], "fov": 38.5},
+      {"t": 40.0, "eye": [0.0, 1.54, -8.1], "target": [0.0, 1.88, -14.0], "fov": 36.5}
+    ]
+  },
+  "lights": {
+    "key": {
+      "keys": [
+        {"t": 0.0,  "dir": [0.42, -0.40, 0.81], "color": [1.0, 0.74, 0.46], "intensity": 0.55},
+        {"t": 6.0,  "dir": [0.88, -0.26, 0.40], "color": [1.0, 0.76, 0.48], "intensity": 0.95},
+        {"t": 11.0, "dir": [0.84, -0.20, 0.50], "color": [1.0, 0.72, 0.44], "intensity": 1.05},
+        {"t": 15.0, "dir": [0.66, -0.28, 0.70], "color": [1.0, 0.74, 0.46], "intensity": 1.00},
+        {"t": 19.0, "dir": [0.34, -0.42, 0.84], "color": [1.0, 0.78, 0.52], "intensity": 1.15},
+        {"t": 24.0, "dir": [-0.22, -0.34, 0.91], "color": [1.0, 0.80, 0.56], "intensity": 1.05},
+        {"t": 29.0, "dir": [-0.36, -0.24, 0.90], "color": [1.0, 0.76, 0.50], "intensity": 0.80},
+        {"t": 33.0, "dir": [-0.32, -0.18, 0.93], "color": [1.0, 0.80, 0.58], "intensity": 0.95},
+        {"t": 40.0, "dir": [-0.32, -0.18, 0.93], "color": [1.0, 0.80, 0.58], "intensity": 0.85}
+      ]
+    },
+    "fill": {
+      "keys": [
+        {"t": 0.0,  "dir": [-0.5, -0.35, -0.79], "color": [0.32, 0.44, 0.66], "intensity": 0.22},
+        {"t": 6.0,  "dir": [-0.6, -0.30, -0.74], "color": [0.34, 0.46, 0.68], "intensity": 0.30},
+        {"t": 16.0, "dir": [-0.4, -0.55, -0.73], "color": [0.32, 0.44, 0.66], "intensity": 0.30},
+        {"t": 26.0, "dir": [-0.3, -0.50, -0.81], "color": [0.30, 0.42, 0.64], "intensity": 0.28},
+        {"t": 33.0, "dir": [-0.2, -0.60, -0.77], "color": [0.28, 0.40, 0.62], "intensity": 0.26},
+        {"t": 40.0, "dir": [-0.2, -0.60, -0.77], "color": [0.28, 0.40, 0.62], "intensity": 0.24}
+      ]
+    },
+    "wash": {"dir": [0.10, 0.16, 0.98], "color": [0.62, 0.60, 0.58], "intensity": 0.10},
+    "practicals": {
+      "slit": {"pos": [0.0, 7.4, -3.88], "size": [7.4, 0.26], "intensity": 2.6, "color": [1.0, 0.80, 0.55]},
+      "pool": {"pos": [0.0, 0.012, 1.2], "size": [7.4, 8.0], "intensity": 0.30},
+      "chamber": {"pos": [0.0, 5.4, -20.5], "intensity": 6.0, "color": [1.0, 0.76, 0.50]},
+      "release": {"pos": [-2.0, 3.6, 0.5], "intensity": 3.0, "color": [1.0, 0.80, 0.56]}
+    }
+  },
+  "fog": {
+    "keys": [
+      {"t": 0.0,  "color": [0.016, 0.020, 0.029], "density": 0.026},
+      {"t": 8.0,  "color": [0.026, 0.026, 0.032], "density": 0.024},
+      {"t": 16.0, "color": [0.040, 0.034, 0.032], "density": 0.021},
+      {"t": 26.0, "color": [0.055, 0.042, 0.035], "density": 0.019},
+      {"t": 31.0, "color": [0.075, 0.055, 0.038], "density": 0.017},
+      {"t": 40.0, "color": [0.065, 0.048, 0.035], "density": 0.015}
+    ]
+  },
+  "copy": [
+    {"t_in": 2.4, "t_out": 6.6, "text": "A word is a heavy thing.", "pos": [0.0, 0.95, -3.90], "width": 5.2, "align": "center", "surface": "wall"},
+    {"t_in": 7.4, "t_out": 13.4, "text": "We set it in stone.", "pos": [0.0, 0.95, -3.90], "width": 4.4, "align": "center", "surface": "wall"},
+    {"t_in": 16.6, "t_out": 22.6, "text": "And the stone lets go.", "pos": [-5.2, 1.05, -3.90], "width": 4.4, "align": "center", "surface": "wall"},
+    {"t_in": 24.8, "t_out": 29.2, "text": "Weight becomes motion.", "pos": [5.4, 1.05, -3.90], "width": 4.6, "align": "center", "surface": "wall"},
+    {"t_in": 35.4, "t_out": 40.0, "text": "Give language a body.", "pos": [0.0, 0.30, -13.35], "width": 4.4, "align": "center", "surface": "plinth"}
+  ],
+  "beats": [
+    {"id": "hall", "in": 0.0, "out": 6.0, "action": "A slow dolly down a dark stone hall; a warm slit of light burns above the doorway and lays a pool on the floor; piers pass in the near field."},
+    {"id": "wall", "in": 6.0, "out": 15.0, "action": "A raking light sweeps the wall and the carved word KINETIC emerges letter by letter, each casting a long shadow across the stone."},
+    {"id": "release", "in": 15.0, "out": 22.4, "action": "The letters hinge out of the stone and float into the hall as a field of monoliths at different depths; the nearest sweeps past the lens."},
+    {"id": "gate", "in": 22.4, "out": 29.4, "action": "The letters swing together into a monumental doorway of type; the camera accelerates and passes through the opening."},
+    {"id": "monument", "in": 29.4, "out": 40.0, "action": "Inside the chamber the letters fly past the camera and land as a row on a plinth; the promise is written in light on the stone."}
+  ]
+}

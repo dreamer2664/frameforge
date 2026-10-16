@@ -141,6 +141,34 @@ def glyph_contours(font, ch: str, tol=7.0):
     return _contours_from_recording(pen.value, tol=tol)
 
 
+def rdp(points, tol):
+    """Ramer-Douglas-Peucker simplification of a closed polyline."""
+    pts = np.asarray(points, dtype=np.float64)
+    if len(pts) < 3:
+        return pts
+    keep = np.zeros(len(pts), dtype=bool)
+    keep[0] = keep[-1] = True
+    stack = [(0, len(pts) - 1)]
+    while stack:
+        i, j = stack.pop()
+        if j <= i + 1:
+            continue
+        a, b = pts[i], pts[j]
+        ab = b - a
+        L = np.hypot(ab[0], ab[1])
+        seg = pts[i + 1:j]
+        if L < 1e-9:
+            d = np.hypot(seg[:, 0] - a[0], seg[:, 1] - a[1])
+        else:
+            d = np.abs(ab[0] * (a[1] - seg[:, 1]) - (a[0] - seg[:, 0]) * ab[1]) / L
+        k = int(np.argmax(d))
+        if d[k] > tol:
+            keep[i + 1 + k] = True
+            stack.append((i, i + 1 + k))
+            stack.append((i + 1 + k, j))
+    return pts[keep]
+
+
 def _signed_area(pts):
     x = pts[:, 0]
     y = pts[:, 1]
@@ -165,7 +193,8 @@ class Mesh:
         )
 
 
-def extrude_glyph(contours, depth=1.0, scale=1.0, origin=(0.0, 0.0), smooth=False):
+def extrude_glyph(contours, depth=1.0, scale=1.0, origin=(0.0, 0.0), smooth=False,
+                  cap_tol=4.0, wall_tol=9.0):
     """Extrude one glyph's contours into a closed solid mesh.
 
     Contours are in font units; the first (largest |area|) is the outer shell,
@@ -195,6 +224,9 @@ def extrude_glyph(contours, depth=1.0, scale=1.0, origin=(0.0, 0.0), smooth=Fals
         holes.append(pts)
 
     # ---- triangulate the 2D region (outer + holes) with earcut
+    if cap_tol:
+        outer = rdp(outer, cap_tol)
+        holes = [rdp(h, cap_tol) for h in holes]
     verts2d = [outer] + holes
     flat = np.concatenate([p for p in verts2d], axis=0)
     # mapbox_earcut wants the EXCLUSIVE end index of every ring
@@ -226,7 +258,8 @@ def extrude_glyph(contours, depth=1.0, scale=1.0, origin=(0.0, 0.0), smooth=Fals
     wall_tris = []
     base = n_tris * 6  # front cap + back cap vertices come first
     wall_count = 0
-    for p in [outer] + holes:
+    for p in ([rdp(outer, wall_tol)] if wall_tol else [outer]) + \
+             ([rdp(h, wall_tol) for h in holes] if wall_tol else holes):
         ccw = _signed_area(p) > 0
         n = len(p)
         for i in range(n):
