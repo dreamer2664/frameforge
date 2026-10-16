@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-16T09:00:03Z
+- Updated: 2026-10-16T09:39:05Z
 - State: **working**
-- Stage: prototype
-- Last observed activity: Verified in vision: spark/scale monument, direction columns, gate corridor, o-counter passage with ink-to-paper inversion, crane reveal of frame architecture, meaning sweep, K signature with legible KINETIC lockup; remaining: crane framing tweak, gate bar lift, paper key warmth
-- Latest evidence/artifact: agents/parallax/scenes_px/hero.json; agents/parallax/work/full4-grid.jpg
-- Next concrete action: Procedural audio engine + 8s hard-shot prototype MP4 (passage) with sound; inspect exact file
+- Stage: production
+- Last observed activity: committed; hero r01 render 13% at 3.4s/frame, ETA 10:32Z
+- Latest evidence/artifact: not supplied
+- Next concrete action: see most recent action below
 - Source: your own agents/parallax/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -62,4 +62,16 @@
 - Result/discovery: Verified in vision: spark/scale monument, direction columns, gate corridor, o-counter passage with ink-to-paper inversion, crane reveal of frame architecture, meaning sweep, K signature with legible KINETIC lockup; remaining: crane framing tweak, gate bar lift, paper key warmth
 - Evidence: agents/parallax/scenes_px/hero.json; agents/parallax/work/full4-grid.jpg
 - Next: Procedural audio engine + 8s hard-shot prototype MP4 (passage) with sound; inspect exact file
+
+### 2026-10-16T09:29:12Z — action
+- Action: gate3 hard-shot proof + hero full render launch
+- Result/discovery: hardshot-r02 sha b0d228b2 inspected at 0.5s+0.1s; barycentric core bug fixed; hero r01 render in flight
+- Evidence: none yet
+- Next: continue current stage
+
+### 2026-10-16T09:39:05Z — action
+- Action: evidence batch: gate3 hardshot doc, gate5 revisions doc, source-rights, gate7 loop tool, build_final mux
+- Result/discovery: committed; hero r01 render 13% at 3.4s/frame, ETA 10:32Z
+- Evidence: none yet
+- Next: continue current stage
 

@@ -37,21 +37,37 @@ class Scene:
         self._mesh_cache = {}
 
     # ---- tracks
-    def camera(self, t):
-        ks = self.d["camera"]
+    def _track(self, name, t, fields):
+        ks = self.d[name]
         ts = [k["t"] for k in ks]
-        pos = _catmull(ts, [k["pos"] for k in ks], t)
-        tgt = _catmull(ts, [k["target"] for k in ks], t)
-        fov = float(_catmull(ts, [[k.get("fov", 38)] for k in ks], t)[0])
-        roll = float(_catmull(ts, [[k.get("roll", 0.0)] for k in ks], t)[0])
-        return C.Camera(pos, tgt, fov=fov, roll=roll)
+        if self.d.get("periodic"):
+            n = len(ks)
+            def K(j):
+                return ks[j % (n - 1)]
+            T = ts[-1]
+            i = max(0, min(n - 2, int(t // (T / (n - 1)))))
+            u = (t - ts[i]) / (T / (n - 1))
+            out = []
+            for f, dflt in fields:
+                p0 = np.atleast_1d(np.asarray(K(i - 1).get(f, dflt), float))
+                p1 = np.atleast_1d(np.asarray(K(i).get(f, dflt), float))
+                p2 = np.atleast_1d(np.asarray(K(i + 1).get(f, dflt), float))
+                p3 = np.atleast_1d(np.asarray(K(i + 2).get(f, dflt), float))
+                out.append(0.5 * ((2 * p1) + (-p0 + p2) * u + (2 * p0 - 5 * p1 + 4 * p2 - p3) * u * u
+                                  + (-p0 + 3 * p1 - 3 * p2 + p3) * u ** 3))
+            return out
+        vals = []
+        for f, dflt in fields:
+            vals.append(np.atleast_1d(np.asarray(_catmull(ts, [k.get(f, dflt) for k in ks], t), float)))
+        return vals
+
+    def camera(self, t):
+        pos, tgt, fov, roll = self._track("camera", t, [("pos", [0, 0, 0]), ("target", [0, 0, -10]), ("fov", 38), ("roll", 0.0)])
+        return C.Camera(pos, tgt, fov=float(fov[0]), roll=float(roll[0]))
 
     def light(self, t):
-        ks = self.d["light"]
-        ts = [k["t"] for k in ks]
-        pos = _catmull(ts, [k["pos"] for k in ks], t)
-        energy = float(_catmull(ts, [[k.get("energy", 4.0)] for k in ks], t)[0])
-        return pos, energy
+        pos, energy = self._track("light", t, [("pos", [0, 5, -20]), ("energy", 3.0)])
+        return pos, float(energy[0])
 
     def paper(self, t):
         ks = self.d.get("paper_keys", [{"t": -1, "p": 0}, {"t": 1e9, "p": 0}])
@@ -80,7 +96,7 @@ class Scene:
                 m = C.portal_mesh(o["w"], o["h"], o.get("bar", 0.7), o.get("depth", 1.0))
             elif o["kind"] == "ground":
                 m = C.quad_mesh(o.get("size", 400), o.get("size", 400))
-                m = C.transform_mesh(m, pos=(0, 0, -60), rot_x=-math.pi / 2)
+                m = C.transform_mesh(m, rot_x=-math.pi / 2)
             elif o["kind"] == "box":
                 m = C.box_mesh(o["w"], o["h"], o.get("depth", 1.0))
             self._mesh_cache[key] = m

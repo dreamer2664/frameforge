@@ -458,7 +458,8 @@ def draw_triangles(fb, verts_w, tris, normals, cam, mat, light, fog, shadow,
             if not mask.any():
                 continue
             ia, ib, ic = 1 / za, 1 / zb, 1 / zc
-            wa_ = (w0 / d) * ia; wb_ = (w1 / d) * ib; wc_ = (w2 / d) * ic
+            # edge a->b is the barycentric of vertex c (cyclic)
+            wa_ = (w1 / d) * ia; wb_ = (w2 / d) * ib; wc_ = (w0 / d) * ic
             s = wa_ + wb_ + wc_
             la, lb, lc = wa_ / s, wb_ / s, wc_ / s
             zpix = 1.0 / s
@@ -630,7 +631,7 @@ class ShadowMap:
                     w0, w1, w2 = -w0, -w1, -w2
                 if not mask.any():
                     continue
-                s = (w0 / d) / za + (w1 / d) / zb + (w2 / d) / zc
+                s = (w1 / d) / za + (w2 / d) / zb + (w0 / d) / zc
                 zpix = 1.0 / s
                 ys_i, xs_i = np.nonzero(mask)
                 flat = (ys_i + miny) * S + (xs_i + minx)

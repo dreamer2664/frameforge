@@ -41,11 +41,12 @@ def plate_quad(p, cam, tex_shape):
     return q
 
 
-def render_frame(sc, t, W, H, samples=1):
+def render_frame(sc, t, W, H, samples=1, ssaa=1.0):
+    Wi, Hi = int(W * ssaa), int(H * ssaa)
     acc = None
     for s in range(samples):
         tt = t + (s / samples) / sc.fps if samples > 1 else t
-        fb = C.Frame(W, H)
+        fb = C.Frame(Wi, Hi)
         pal, paper = sc.palette(tt)
         cam = sc.camera(tt)
         lpos, energy = sc.light(tt)
@@ -60,16 +61,15 @@ def render_frame(sc, t, W, H, samples=1):
         lv = cam.to_cam(lpos[None])
         ls = None
         if lv[0, 2] > cam.near:
-            pr, _ = cam.project(lv, W, H)
-            ls = (pr[0, 0] / W, pr[0, 1] / H)
+            pr, _ = cam.project(lv, Wi, Hi)
+            ls = (pr[0, 0] / Wi, pr[0, 1] / Hi)
         C.background(fb, C.srgb_to_linear(pal["top"]), C.srgb_to_linear(pal["bottom"]),
                      ls, warm=(1.0, 0.55, 0.25), amt=sc.d.get("atmo", 0.10))
         objs = sc.objects(tt)
         solids = []
         for o, pos, ry, rx, scl in objs:
             m = sc.mesh_for(o)
-            if o["kind"] != "ground":
-                m = C.transform_mesh(m, pos=pos, rot_y=ry, rot_x=rx, scale=scl)
+            m = C.transform_mesh(m, pos=pos, rot_y=ry, rot_x=rx, scale=scl)
             solids.append((o, m))
         import os as _os
         sm = None
@@ -109,17 +109,21 @@ def render_frame(sc, t, W, H, samples=1):
                          cam, glow_amt=p.get("glow", 0.5), alpha=alpha)
         # light core
         if lv[0, 2] > cam.near:
-            pr, _ = cam.project(lv, W, H)
-            yy, xx = np.mgrid[0:H, 0:W]
+            pr, _ = cam.project(lv, Wi, Hi)
+            yy, xx = np.mgrid[0:Hi, 0:Wi]
             d2 = (xx - pr[0, 0]) ** 2 + (yy - pr[0, 1]) ** 2
-            r2 = (W / 960.0) ** 2
+            r2 = (Wi / 960.0) ** 2
             core = np.exp(-d2 / (90 * r2)) + 0.5 * np.exp(-d2 / (900 * r2))
             fb.glow += core[:, :, None] * C.srgb_to_linear((255, 190, 120))[None, None, :] * 1.6
             fb.col += core[:, :, None] * C.srgb_to_linear((255, 214, 160))[None, None, :] * 1.2
         img = C.post(fb, tt, grain=sc.d.get("grain", 1.3), vignette=sc.d.get("vignette", 0.16),
                      glow_strength=sc.d.get("glow_strength", 0.55), exposure=sc.d.get("exposure", 1.0))
         acc = img.astype(np.float32) if acc is None else acc + img.astype(np.float32)
-    return (acc / samples).astype(np.uint8)
+    img = (acc / samples)
+    if ssaa != 1.0:
+        im = Image.fromarray(img.astype(np.uint8)).resize((W, H), Image.BOX)
+        img = np.asarray(im).astype(np.float32)
+    return img.astype(np.uint8)
 
 
 def main():
@@ -133,6 +137,7 @@ def main():
     ap.add_argument("--samples", type=int, default=1)
     ap.add_argument("--only", default=None, help="comma list of frame indices")
     ap.add_argument("--workers", type=int, default=1)
+    ap.add_argument("--ssaa", type=float, default=1.0)
     a = ap.parse_args()
     sc = Scene(a.scene)
     fps = a.fps or sc.fps
@@ -148,11 +153,11 @@ def main():
     if a.workers > 1:
         import multiprocessing as mp
         chunks = [idxs[i::a.workers] for i in range(a.workers)]
-        with mp.Pool(a.workers, initializer=_wk_init, initargs=(a.scene, W, H, a.samples, fps)) as pool:
+        with mp.Pool(a.workers, initializer=_wk_init, initargs=(a.scene, W, H, a.samples, fps, a.ssaa)) as pool:
             for _ in pool.imap_unordered(_wk_run, [(c, str(out)) for c in chunks]):
                 pass
     else:
-        _wk_init(a.scene, W, H, a.samples, fps)
+        _wk_init(a.scene, W, H, a.samples, fps, a.ssaa)
         _wk_run((idxs, str(out)))
     dt = time.time() - t0
     print(f"rendered {len(idxs)} frames {W}x{H} in {dt:.1f}s ({dt/max(1,len(idxs)):.2f}s/frame)")
@@ -160,15 +165,15 @@ def main():
 
 _WK = {}
 
-def _wk_init(scene, W, H, samples, fps):
-    _WK.update(sc=Scene(scene), W=W, H=H, samples=samples, fps=fps)
+def _wk_init(scene, W, H, samples, fps, ssaa=1.0):
+    _WK.update(sc=Scene(scene), W=W, H=H, samples=samples, fps=fps, ssaa=ssaa)
 
 def _wk_run(args):
     idxs, out = args
-    sc, W, H, samples, fps = _WK["sc"], _WK["W"], _WK["H"], _WK["samples"], _WK["fps"]
+    sc, W, H, samples, fps, ssaa = _WK["sc"], _WK["W"], _WK["H"], _WK["samples"], _WK["fps"], _WK["ssaa"]
     for i in idxs:
         t = i / fps
-        img = render_frame(sc, t, W, H, samples)
+        img = render_frame(sc, t, W, H, samples, ssaa)
         Image.fromarray(img).save(f"{out}/f{i:05d}.png")
     return len(idxs)
 
