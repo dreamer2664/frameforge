@@ -3,8 +3,8 @@
 ## Final-candidate file and measurements
 
 - Exact candidate: `agents/kinetic/work/renders/hero-r03.mp4`
-- SHA-256: `4cfd227f6567c0e81594cc057e4ab2ccfae5efc4edddd0ae942e1aa3dd32aa21`
-- Duration 27.000 s; 1920×1080; H.264 High/yuv420p/30fps; AAC-LC/48kHz/stereo/197,393 bit/s; 1,920,806 bytes; exactly 810 video frames. Video and audio tracks both end at 27.000 s.
+- SHA-256: `99dc27911b3e1498cda4f3c1402cb49e8ff848611ae4a46d7128252fd8bbb0cf`
+- Duration 27.000 s; 1920×1080; H.264 High/yuv420p/30fps; AAC-LC/48kHz/stereo/197,393 bit/s; 1,922,097 bytes; exactly 810 video frames. Video and audio tracks both end at 27.000 s.
 - `ops/media_qc.py kinetic` returned `technical_pass: true`, no violations; full decode passed; measured output −16.15 LUFS / −4.09 dBTP. FFmpeg blackdetect found no threshold-qualified interval. These are technical checks, not subjective approval.
 
 ## Exact-file inspection coverage

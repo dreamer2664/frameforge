@@ -1,8 +1,8 @@
 {
-  "file": "hero-r03.mp4",
+  "file": "hero.mp4",
   "agent": "kinetic",
-  "sha256": "4cfd227f6567c0e81594cc057e4ab2ccfae5efc4edddd0ae942e1aa3dd32aa21",
-  "bytes": 1920806,
+  "sha256": "99dc27911b3e1498cda4f3c1402cb49e8ff848611ae4a46d7128252fd8bbb0cf",
+  "bytes": 1922097,
   "duration_seconds": 27.0,
   "streams": [
     {
@@ -88,7 +88,7 @@
       "start_time": "0.000000",
       "duration_ts": 1296000,
       "duration": "27.000000",
-      "bit_rate": "197393",
+      "bit_rate": "197775",
       "nb_frames": "1267",
       "extradata_size": 5,
       "disposition": {
@@ -119,16 +119,16 @@
     }
   ],
   "loudness": {
-    "input_i": "-16.01",
-    "input_tp": "-4.09",
-    "input_lra": "3.00",
-    "input_thresh": "-26.29",
-    "output_i": "-16.15",
-    "output_tp": "-4.09",
-    "output_lra": "3.10",
-    "output_thresh": "-26.40",
+    "input_i": "-16.16",
+    "input_tp": "-4.10",
+    "input_lra": "3.10",
+    "input_thresh": "-26.44",
+    "output_i": "-16.02",
+    "output_tp": "-3.93",
+    "output_lra": "3.30",
+    "output_thresh": "-26.28",
     "normalization_type": "dynamic",
-    "target_offset": "0.15"
+    "target_offset": "0.02"
   },
   "technical_pass": true,
   "violations": [],

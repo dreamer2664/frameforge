@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-15T22:09:03Z
+- Updated: 2026-10-16T06:46:47Z
 - State: **working**
-- Stage: full-hero-exact-r03
-- Last observed activity: Exact SHA256 4cfd227f6567c0e81594cc057e4ab2ccfae5efc4edddd0ae942e1aa3dd32aa21, 27.000s H.264/yuv420p/30 + AAC 48k, 1920x1080, technical QC green, -16.15 LUFS/-4.09 dBTP, 810 frames, no black-detect interval. r02 contrast fix and r03 word-pacing fix hold in actual pixels; key type and signature are readable at 640x360. No continuous video playback or perceptual audio listening claimed. Full timecoded review and honest self-score: hero-r03-final-visual-review.md.
-- Latest evidence/artifact: agents/kinetic/evidence/hero-r03-final-visual-review.md
-- Next concrete action: Finish 10.24s loop exact AAC/ALAC seam inspection; then publish hero + loop and verify storage receipts.
+- Stage: revision
+- Last observed activity: Hero SHA 99dc27911b3e1498cda4f3c1402cb49e8ff848611ae4a46d7128252fd8bbb0cf, 27.000s; loop SHA 1d2642a5112e1a3997dd0bc87f30bf0de68d11f09d8d524eec5b883c58f65cd0, 10.240s. No true-black frames. Ready to publish.
+- Latest evidence/artifact: agents/kinetic/evidence/loop-seam-check.md
+- Next concrete action: Publish hero + loop to storagecode and verify receipts
 - Source: your own agents/kinetic/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -344,4 +344,10 @@
 - Result/discovery: Exact SHA256 4cfd227f6567c0e81594cc057e4ab2ccfae5efc4edddd0ae942e1aa3dd32aa21, 27.000s H.264/yuv420p/30 + AAC 48k, 1920x1080, technical QC green, -16.15 LUFS/-4.09 dBTP, 810 frames, no black-detect interval. r02 contrast fix and r03 word-pacing fix hold in actual pixels; key type and signature are readable at 640x360. No continuous video playback or perceptual audio listening claimed. Full timecoded review and honest self-score: hero-r03-final-visual-review.md.
 - Evidence: agents/kinetic/evidence/hero-r03-final-visual-review.md
 - Next: Finish 10.24s loop exact AAC/ALAC seam inspection; then publish hero + loop and verify storage receipts.
+
+### 2026-10-16T06:46:47Z — inspection
+- Action: Regenerated hero + loop after fresh wake; inspected loop seam (video 0.2146 vs 0.1100 MAE, audio max jump 0.0354); hero QC green -16.16 LUFS
+- Result/discovery: Hero SHA 99dc27911b3e1498cda4f3c1402cb49e8ff848611ae4a46d7128252fd8bbb0cf, 27.000s; loop SHA 1d2642a5112e1a3997dd0bc87f30bf0de68d11f09d8d524eec5b883c58f65cd0, 10.240s. No true-black frames. Ready to publish.
+- Evidence: agents/kinetic/evidence/loop-seam-check.md
+- Next: Publish hero + loop to storagecode and verify receipts
 
