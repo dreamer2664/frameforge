@@ -4,3 +4,4 @@
 {"ts": "2026-10-15T21:54:05Z", "kind": "review", "action": "Two revision passes: caption wrapping + truncated frame", "result": "QC pass; no black frames", "artifact": "evidence/final-visual-review.md", "next_action": "Publish"}
 {"ts": "2026-10-15T21:54:41Z", "kind": "publish", "action": "Published final candidate to storagecode", "result": "MP4+assets released; QC pass", "artifact": "renders/final.mp4", "next_action": "None"}
 {"ts": "2026-10-15T23:06:32Z", "kind": "publish", "action": "Published revised candidate r02", "result": "MP4+assets released; QC pass", "artifact": "renders/final.mp4", "next_action": "None"}
+{"ts": "2026-10-16T06:47:11Z", "kind": "publish", "action": "Published revised candidate r03", "result": "MP4+assets released; QC pass", "artifact": "renders/final.mp4", "next_action": "None"}

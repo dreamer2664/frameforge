@@ -4,7 +4,7 @@
 
 ## Resume here
 
-- Updated: 2026-10-15T23:06:32Z
+- Updated: 2026-10-16T06:47:11Z
 - State: **delivered**
 - Stage: delivered
 - Last observed activity: MP4+assets released; QC pass
@@ -47,6 +47,12 @@
 
 ### 2026-10-15T23:06:32Z — publish
 - Action: Published revised candidate r02
+- Result/discovery: MP4+assets released; QC pass
+- Evidence: renders/final.mp4
+- Next: None
+
+### 2026-10-16T06:47:11Z — publish
+- Action: Published revised candidate r03
 - Result/discovery: MP4+assets released; QC pass
 - Evidence: renders/final.mp4
 - Next: None

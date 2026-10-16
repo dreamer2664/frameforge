@@ -1,0 +1,52 @@
+{
+  "agent": "scribble",
+  "published_at": "2026-10-16T06:46:12Z",
+  "revision": "r03",
+  "code_sha": "2f18d0d72859d5515bf92efdc41aacf98221e1c1",
+  "release": "https://github.com/dreamer2664/storagecode/releases/tag/frameforge/scribble/r03-ce92a14ac777",
+  "tag": "frameforge/scribble/r03-ce92a14ac777",
+  "assets": [
+    {
+      "name": "final.mp4",
+      "bytes": 3063557,
+      "sha256": "ce92a14ac777890339025f43a1f7a09ffde992cee241f315574a8462e8fd51eb",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/scribble/r03-ce92a14ac777/final.mp4",
+      "remote_digest": "sha256:ce92a14ac777890339025f43a1f7a09ffde992cee241f315574a8462e8fd51eb",
+      "remote_size": 3063557
+    },
+    {
+      "name": "final-technical.json",
+      "bytes": 3600,
+      "sha256": "7c0749d6fe1a4907b82f49faa9d7791aafd50bfaf6b2486bc982fb77e8287fe5",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/scribble/r03-ce92a14ac777/final-technical.json",
+      "remote_digest": "sha256:7c0749d6fe1a4907b82f49faa9d7791aafd50bfaf6b2486bc982fb77e8287fe5",
+      "remote_size": 3600
+    },
+    {
+      "name": "captions.srt",
+      "bytes": 1355,
+      "sha256": "e265729fb5b08f5b86680254552da2784a7e073d9a0df8e6f84e1b8fef61fc22",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/scribble/r03-ce92a14ac777/captions.srt",
+      "remote_digest": "sha256:e265729fb5b08f5b86680254552da2784a7e073d9a0df8e6f84e1b8fef61fc22",
+      "remote_size": 1355
+    },
+    {
+      "name": "poster.png",
+      "bytes": 995034,
+      "sha256": "c3a48400ae216262642067bd9d194d14f6b911f37614273d2ee237f415b5468c",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/scribble/r03-ce92a14ac777/poster.png",
+      "remote_digest": "sha256:c3a48400ae216262642067bd9d194d14f6b911f37614273d2ee237f415b5468c",
+      "remote_size": 995034
+    },
+    {
+      "name": "font-comparison.png",
+      "bytes": 115398,
+      "sha256": "6206d332d589899ef058361622f4b64d8205c96b2987c04b4a63c6e003d97ddb",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/scribble/r03-ce92a14ac777/font-comparison.png",
+      "remote_digest": "sha256:6206d332d589899ef058361622f4b64d8205c96b2987c04b4a63c6e003d97ddb",
+      "remote_size": 115398
+    }
+  ],
+  "acceptance": "Published candidate; refer to actual reviews. Not an old-campaign acceptance.",
+  "primary_archive": "https://github.com/dreamer2664/storagecode/tree/main/data/frameforge/scribble/r03-ce92a14ac777"
+}
