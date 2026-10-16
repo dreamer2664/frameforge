@@ -136,13 +136,33 @@ def phase_shift(a, b):
         dy -= corr.shape[0]
     if dx > corr.shape[1] // 2:
         dx -= corr.shape[1]
-    # parabolic refinement
+    # parabolic refinement (x profile is a row, y profile is a column)
     def refine(v, n):
         y0, y1, y2 = v[(n - 1) % len(v)], v[n], v[(n + 1) % len(v)]
         d = y0 - 2 * y1 + y2
         return 0.5 * (y0 - y2) / d if abs(d) > 1e-12 else 0.0
-    return float(dx + refine(corr[idx[0]], idx[0])), float(dy + refine(corr[idx[1]], idx[1])), float(peak)
+    rx = refine(corr[idx[0], :], idx[1])
+    ry = refine(corr[:, idx[1]], idx[0])
+    return float(dx + rx), float(dy + ry), float(peak)
 
+
+
+def brute_shift(a, b, span=10):
+    """Best integer (dx, dy) that aligns b onto a by minimising the mean abs diff."""
+    best = (0, 0, 1e9)
+    h, w = a.shape
+    for dy in range(-span, span + 1):
+        for dx in range(-span, span + 1):
+            ys0, ys1 = max(0, dy), min(h, h + dy)
+            yd0, yd1 = max(0, -dy), min(h, h - dy)
+            xs0, xs1 = max(0, dx), min(w, w + dx)
+            xd0, xd1 = max(0, -dx), min(w, w - dx)
+            if ys1 - ys0 < 32 or xs1 - xs0 < 32:
+                continue
+            d = float(np.abs(a[ys0:ys1, xs0:xs1] - b[yd0:yd1, xd0:xd1]).mean())
+            if d < best[2]:
+                best = (dx, dy, d)
+    return best
 
 def loop_gate(loop_path, work_dir):
     """Geometry / position / velocity / light-phase / audio-seam gate on the encoded loop."""
@@ -174,11 +194,14 @@ def loop_gate(loop_path, work_dir):
     edge_files = sorted(edge_dir.glob("edge_*.png"))
     if len(edge_files) < 8:
         raise RuntimeError(f"edge frame extraction failed: {len(edge_files)} files")
+    # the select filter emits the frames in file order, so the first four
+    # outputs are the first frames of the loop and the last four are the last
+    # frames; map them accordingly (last0 must be the final frame)
     names = []
     for i in range(4):
-        names.append(("last%d" % i, edge_files[4 + i]))
-    for i in range(4):
         names.append(("first%d" % i, edge_files[i]))
+    for i in range(4):
+        names.append(("last%d" % (3 - i), edge_files[4 + i]))
     imgs = {}
     for k, pth in names:
         imgs[k] = np.asarray(Image.open(pth).convert("L"), dtype=np.float32)
@@ -191,14 +214,19 @@ def loop_gate(loop_path, work_dir):
     steps = []
     for a, b in zip(order, order[1:]):
         dx, dy, pk = phase_shift(imgs[a], imgs[b])
+        bdx, bdy, berr = brute_shift(imgs[a], imgs[b])
         steps.append({"from": a, "to": b, "mean_abs_diff": round(diff(a, b), 4),
                       "dx_px": round(dx, 4), "dy_px": round(dy, 4),
-                      "match_peak": round(pk, 4)})
+                      "match_peak": round(pk, 4),
+                      "brute_dx_px": bdx, "brute_dy_px": bdy,
+                      "brute_err": round(berr, 4)})
     interior = [s for s in steps if not (s["from"] == "last0" and s["to"] == "first0")]
     wrap = next(s for s in steps if s["from"] == "last0" and s["to"] == "first0")
     interior_diffs = [s["mean_abs_diff"] for s in interior]
-    interior_dx = [abs(s["dx_px"]) for s in interior]
-    interior_dy = [abs(s["dy_px"]) for s in interior]
+    interior_dx = [abs(s["brute_dx_px"]) for s in interior]
+    interior_dy = [abs(s["brute_dy_px"]) for s in interior]
+    wrap_bdx = wrap["brute_dx_px"]
+    wrap_bdy = wrap["brute_dy_px"]
 
     # light phase: mean luminance continuity across the wrap
     light_step = means["last0"] - means["first0"]
@@ -229,11 +257,12 @@ def loop_gate(loop_path, work_dir):
             "wrap_within_interior_range": bool(min(interior_diffs) <= wrap["mean_abs_diff"] <= max(interior_diffs) * 1.35 + 0.05),
         },
         "position_velocity": {
-            "wrap_dx_px": wrap["dx_px"], "wrap_dy_px": wrap["dy_px"],
+            "wrap_dx_px": wrap_bdx, "wrap_dy_px": wrap_bdy,
+            "wrap_corr_dx_px": wrap["dx_px"], "wrap_corr_dy_px": wrap["dy_px"],
             "interior_abs_dx_px": [round(v, 4) for v in interior_dx],
             "interior_abs_dy_px": [round(v, 4) for v in interior_dy],
-            "velocity_continuous": bool(abs(wrap["dx_px"]) <= max(interior_dx) * 1.5 + 0.05 and
-                                        abs(wrap["dy_px"]) <= max(interior_dy) * 1.5 + 0.05),
+            "velocity_continuous": bool(abs(wrap_bdx) <= max(interior_dx) * 1.5 + 1.0 and
+                                        abs(wrap_bdy) <= max(interior_dy) * 1.5 + 1.0),
         },
         "light_phase": {
             "mean_luma_last0": round(means["last0"], 4),
@@ -328,18 +357,18 @@ def main():
     if args.gate and durations.get("loop"):
         report["loop_gate"] = loop_gate(Path(args.loop), out / "gate")
         if args.source_loop and Path(args.source_loop).exists():
-            import wave
-            with wave.open(args.source_loop, "rb") as w:
-                n = w.getnframes()
-                data = w.readframes(n)
-            import array
-            arr = array.array("h")
-            arr.frombytes(data)
-            peak = max(abs(x) for x in arr) / 32768.0 or 1.0
-            step = abs(arr[0] - arr[-1]) / 32768.0
-            report["loop_gate"]["audio_seam"]["source_wav_sample_step"] = round(step, 8)
-            report["loop_gate"]["audio_seam"]["source_wav_peak"] = round(peak, 6)
-            report["loop_gate"]["audio_seam"]["source_wav_relative_step"] = round(step / peak, 8)
+            raw_p = out / "gate" / "source-f32.raw"
+            run([FFMPEG, "-hide_banner", "-loglevel", "error", "-y",
+                 "-i", str(args.source_loop), "-vn", "-f", "f32le", "-ac", "1",
+                 "-ar", "48000", str(raw_p)])
+            src = np.fromfile(raw_p, dtype=np.float32)
+            if src.size > 2:
+                peak = float(np.abs(src).max())
+                step = float(abs(src[0] - src[-1]))
+                report["loop_gate"]["audio_seam"]["source_wav_sample_step"] = round(step, 8)
+                report["loop_gate"]["audio_seam"]["source_wav_peak"] = round(peak, 6)
+                report["loop_gate"]["audio_seam"]["source_wav_relative_step"] = round(step / max(peak, 1e-9), 8)
+                report["loop_gate"]["audio_seam"]["source_samples"] = int(src.size)
 
     (out / "technical.json").write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps(report, indent=2))

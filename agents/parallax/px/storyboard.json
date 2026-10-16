@@ -845,13 +845,14 @@
       "t_out": 4.733,
       "text": "A word is a heavy thing.",
       "pos": [
-        -9.6,
-        1.7,
+        4.0,
+        3.75,
         -3.88
       ],
       "width": 4.6,
       "align": "center",
-      "surface": "wall"
+      "surface": "wall",
+      "note": "revision 3: moved from x=-9.6 (off-frame for the whole line) to the same wall position as the other lines, directly above the carved word"
     },
     {
       "t_in": 5.444,
@@ -868,16 +869,17 @@
     },
     {
       "t_in": 13.757,
-      "t_out": 19.6,
-      "text": "And the stone lets go.",
+      "t_out": 16.0,
+      "text": "The stone lets go.",
       "pos": [
         4.0,
         3.75,
         -3.88
       ],
-      "width": 4.4,
+      "width": 3.8,
       "align": "center",
-      "surface": "wall"
+      "surface": "wall",
+      "note": "revision 3: shortened and closed at 16.0 s so the line is fully inside the frame and clear of the swinging N; it previously ran off the right edge until 19.6 s"
     },
     {
       "t_in": 21.8,
@@ -1216,6 +1218,24 @@
           0.2
         ]
       }
-    ]
+    ],
+    "revision_3_delivery_qc": {
+      "revision": 3,
+      "name": "delivery QC - caption framing",
+      "when": "exact-file review of the 1920x1080 master (<=0.5 s grid)",
+      "trigger": "Two caption-framing defects: copy 1 ('A word is a heavy thing.') sat at x=-9.6 m and was cut off by the left edge of the frame for its entire 3.05 s life, and copy 3 ('And the stone lets go.') was crossed by the N as it swung out of the wall and then ran off the right edge of the frame while still at full alpha until 19.6 s.",
+      "changes": [
+        "copy 1 position -> [4.0, 3.75, -3.88] (above the carved word, the position the other lines use)",
+        "copy 3 text -> 'The stone lets go.', width 4.4 -> 3.8 m",
+        "copy 3 t_out 19.6 -> 16.0 s (the camera leaves the wall at 16-20 s, so the line now closes before it can leave the frame)"
+      ],
+      "segments_re_rendered": [
+        0,
+        1,
+        2
+      ],
+      "audio": "unchanged - the score is not keyed to the captions",
+      "picture_unchanged": "camera, lights, materials, choreography and the whole 16-40 s section are identical; only the two caption quads change"
+    }
   }
 }

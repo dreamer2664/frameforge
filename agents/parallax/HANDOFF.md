@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-16T12:46:37Z
+- Updated: 2026-10-16T15:04:26Z
 - State: **working**
-- Stage: production
-- Last observed activity: work/evidence/hardshot-8s-1080p.mp4 = 8.000 s, 1920x1080, 24 fps, AAC 48 kHz 192 kbps, 84.8 Mbit/s video; decoded frames show the carved word KINETIC in relief on a lit stone wall, the raking light travelling right to left, the copy 'We set it in stone.', the slot of light at frame right and the arch at frame left; no missing glyphs, no black tail
-- Latest evidence/artifact: agents/parallax/px/work/evidence/hardshot-8s-1080p.mp4
-- Next concrete action: Finish segments 1-4, then the loop, then the exact-file review
+- Stage: qc
+- Last observed activity: Both fixed in the storyboard (copy 1 moved above the carved word; copy 3 shortened to 'The stone lets go.' and closed at 16.0 s) and segments 0-2 re-rendered; the camera, lights, materials, choreography, type and the whole 16-40 s section are unchanged and the score is unchanged; the loop gate passed on the encoded MP4 (wrap mean abs diff 5.396 inside the interior range 5.373-5.405, wrap motion 0.92 px vs interior 0.88-0.94 px, wrap luminance step -0.014 vs interior max 0.062, source audio seam step 2.8e-05 over 460800 samples)
+- Latest evidence/artifact: agents/parallax/px/evidence/revision-3-caption-framing.md
+- Next concrete action: Re-mux, re-run the QC and the review grid on the corrected master, then publish
 - Source: your own agents/parallax/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -80,4 +80,16 @@
 - Result/discovery: work/evidence/hardshot-8s-1080p.mp4 = 8.000 s, 1920x1080, 24 fps, AAC 48 kHz 192 kbps, 84.8 Mbit/s video; decoded frames show the carved word KINETIC in relief on a lit stone wall, the raking light travelling right to left, the copy 'We set it in stone.', the slot of light at frame right and the arch at frame left; no missing glyphs, no black tail
 - Evidence: agents/parallax/px/work/evidence/hardshot-8s-1080p.mp4
 - Next: Finish segments 1-4, then the loop, then the exact-file review
+
+### 2026-10-16T14:23:54Z — build
+- Action: Rendered the final hero: five 1920x1080 8-second segments (960 frames, 24 fps, CRF 16) joined into hero-silent.mp4, then muxed with the re-synced score into hero-master.mp4
+- Result/discovery: hero-master.mp4 = 40.000 s, 1920x1080, H.264 yuv420p 24 fps, AAC 48 kHz stereo 192 kbps, video and audio both exactly 40.000 s (no tail mismatch), 427,918,562 bytes, SHA256 01d27eb834e0419b8f2511f92a7d91c78d9b0cbfe55d3fd00e99ec8c655cf162; house QC ops/media_qc.py reports technical_pass=true with zero violations; integrated loudness -16.04 LUFS, true peak -11.79 dBTP
+- Evidence: agents/parallax/px/work/renders/hero-master.mp4
+- Next: Render the 240-frame loop, then the exact-file review and the loop gate, then publish
+
+### 2026-10-16T15:04:26Z — revision
+- Action: Exact-file review of the 1920x1080 master (0.5 s decode grid read frame by frame, dense 0.1-0.2 s samples, 640x360 phone check, full decode) found two caption-framing defects: the opening line sat at x=-9.6 m, outside the frame for its whole 3.05 s life, and the release line was crossed by the swinging N and then ran off the right edge while still at full alpha until 19.6 s
+- Result/discovery: Both fixed in the storyboard (copy 1 moved above the carved word; copy 3 shortened to 'The stone lets go.' and closed at 16.0 s) and segments 0-2 re-rendered; the camera, lights, materials, choreography, type and the whole 16-40 s section are unchanged and the score is unchanged; the loop gate passed on the encoded MP4 (wrap mean abs diff 5.396 inside the interior range 5.373-5.405, wrap motion 0.92 px vs interior 0.88-0.94 px, wrap luminance step -0.014 vs interior max 0.062, source audio seam step 2.8e-05 over 460800 samples)
+- Evidence: agents/parallax/px/evidence/revision-3-caption-framing.md
+- Next: Re-mux, re-run the QC and the review grid on the corrected master, then publish
 
