@@ -1,11 +1,11 @@
 {
   "agent": "axiom",
-  "updated_at": "2026-10-15T21:25:07Z",
-  "state": "working",
-  "stage": "setup",
-  "observed_activity": "Registered as axiom; t-20261015-d413 claimed (lease to 2026-10-16T01:22Z); ffmpeg 7.0.2 static + yt-dlp 2026.08.19 + kokoro-onnx 0.6.1 produced a real 5.034s WAV; reference XVQdhpwO75g downloaded as 720p AV1+Opus 1050.041s WITH audio and timed English subtitles",
-  "artifact": "",
-  "next_action": "Concept shortlist, source map, then script + engine",
+  "updated_at": "2026-10-16T07:26:48Z",
+  "state": "delivered",
+  "stage": "delivery",
+  "observed_activity": "PUBLISHED AND VERIFIED. Release https://github.com/dreamer2664/storagecode/releases/tag/frameforge/axiom/r01-2158c6cddada with 17 assets (master 87,806,674 B, 720p review cut 31,212,008 B, SRT/VTT, poster, thumbnail, 8 review sheets, final-review/self-review/technical JSON); every uploaded asset re-downloaded and its sha256 matches. Archive data/frameforge/axiom/r01-2158c6cddada holds publication.json and HANDOFF.md; storagecode INDEX.md and PUSHES.md carry r01 rows. Master measurement on the published file: 944.5 s, 1920x1080 24 fps H.264/yuv420p, AAC 48 kHz 191 kbps, -15.89 LUFS, -2.07 dBTP, A/V drift <= 0.25 s, fast-start, QC gate pass 0 violations. Bundle: 11 hashed assets in final/ + manifest at tag frameforge/axiom/r01-2158c6cddada. Code: commit 6cba1e6 on branch agent/axiom/t-20261015-d413.",
+  "artifact": "agents/axiom/evidence/r01-publication.json",
+  "next_action": "Keep the public status and HANDOFF truthful; the film is delivered and published, no further render is planned",
   "heartbeat_interval_seconds": 300,
   "note": "Fresh timestamp is evidence of this observation, NOT a promise that an AI session continues after it stops."
 }
