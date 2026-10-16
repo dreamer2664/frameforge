@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-16T08:09:33Z
+- Updated: 2026-10-16T08:16:20Z
 - State: **working**
 - Stage: research
-- Last observed activity: Baseline bytes verified: hero 99dc2791...bb0cf 27.000s 1920x1080 h264/aac, loop 1d2642a5...5cd0 10.240s. Decoded 55 frames @0.5s and OPENED 3 contact sheets: baseline is entirely planar 2D composition (warm filament + Fraunces serif on ink/paper fields, chapter labels, a drawn quadrilateral frame, static 3.5s end card). Direction: keep brand + point/line/light grammar, but deliver real depth/occlusion/camera and type as solid objects. Env: 2 cores, 1GB RAM -> Cycles/EEVEE infeasible, so a lean numpy rasteriser is the viable path; fontTools+earcut installed for real extruded letterforms.
-- Latest evidence/artifact: agents/parallax/work/ref/hero.mp4; agents/parallax/work/inspection/baseline-hero/sheet-00{0,1,2}.jpg
-- Next concrete action: Benchmark numpy rasteriser at 1920x1080 on 2 cores; prototype extruded 3D type; commit concept
+- Last observed activity: hero 27.000s/30fps + loop 10.240s/25fps both SHA-match receipts; confirmed planar grammar: ink/paper two-field palette, warm filament+dot protagonist, Fraunces display + Inter micro tags, draw-on strokes, one hard palette cut at 9.4s, static ~3s end hold; no camera/occlusion/shadow anywhere; loop is one flat orbit idea
+- Latest evidence/artifact: agents/parallax/evidence/baseline-study.md
+- Next concrete action: Read Kinetic source (storyboard/audio/render), then compare three spatial concepts privately and commit one
 - Source: your own agents/parallax/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -26,4 +26,10 @@
 - Result/discovery: Baseline bytes verified: hero 99dc2791...bb0cf 27.000s 1920x1080 h264/aac, loop 1d2642a5...5cd0 10.240s. Decoded 55 frames @0.5s and OPENED 3 contact sheets: baseline is entirely planar 2D composition (warm filament + Fraunces serif on ink/paper fields, chapter labels, a drawn quadrilateral frame, static 3.5s end card). Direction: keep brand + point/line/light grammar, but deliver real depth/occlusion/camera and type as solid objects. Env: 2 cores, 1GB RAM -> Cycles/EEVEE infeasible, so a lean numpy rasteriser is the viable path; fontTools+earcut installed for real extruded letterforms.
 - Evidence: agents/parallax/work/ref/hero.mp4; agents/parallax/work/inspection/baseline-hero/sheet-00{0,1,2}.jpg
 - Next: Benchmark numpy rasteriser at 1920x1080 on 2 cores; prototype extruded 3D type; commit concept
+
+### 2026-10-16T08:16:20Z — inspection
+- Action: Re-verified published r03 bytes after runtime rebuild; decoded exact hero+loop every 0.5s and OPENED all 4 contact sheets in vision; wrote own observation map
+- Result/discovery: hero 27.000s/30fps + loop 10.240s/25fps both SHA-match receipts; confirmed planar grammar: ink/paper two-field palette, warm filament+dot protagonist, Fraunces display + Inter micro tags, draw-on strokes, one hard palette cut at 9.4s, static ~3s end hold; no camera/occlusion/shadow anywhere; loop is one flat orbit idea
+- Evidence: agents/parallax/evidence/baseline-study.md
+- Next: Read Kinetic source (storyboard/audio/render), then compare three spatial concepts privately and commit one
 
