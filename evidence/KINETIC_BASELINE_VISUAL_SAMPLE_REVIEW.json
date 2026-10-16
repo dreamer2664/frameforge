@@ -1,0 +1,129 @@
+{
+  "reviewed_at": "2026-10-16T07:28:42Z",
+  "reviewer_role": "commissioner",
+  "release": "frameforge/kinetic/r03-99dc27911b3e",
+  "source_commit": "967d57239983778a1400a48448d25f6a1a39a15b",
+  "tool": {
+    "opencv": "4.11.0",
+    "video_backend": "FFMPEG",
+    "method": "Sequentially decode video frames, then inspect requested frame stills at listed timestamps."
+  },
+  "hero": {
+    "sha256": "99dc27911b3e1498cda4f3c1402cb49e8ff848611ae4a46d7128252fd8bbb0cf",
+    "bytes": 1922097,
+    "codec_fourcc": "H264",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30.0,
+    "duration_s": 27.0,
+    "reported_frames": 810,
+    "decoded_frames": 810,
+    "sample_frames": [
+      {
+        "frame": 0,
+        "time_s": 0.0
+      },
+      {
+        "frame": 81,
+        "time_s": 2.7
+      },
+      {
+        "frame": 162,
+        "time_s": 5.4
+      },
+      {
+        "frame": 243,
+        "time_s": 8.1
+      },
+      {
+        "frame": 324,
+        "time_s": 10.8
+      },
+      {
+        "frame": 405,
+        "time_s": 13.5
+      },
+      {
+        "frame": 486,
+        "time_s": 16.2
+      },
+      {
+        "frame": 567,
+        "time_s": 18.9
+      },
+      {
+        "frame": 648,
+        "time_s": 21.6
+      },
+      {
+        "frame": 729,
+        "time_s": 24.3
+      },
+      {
+        "frame": 801,
+        "time_s": 26.7
+      }
+    ],
+    "observations": "The sampled sequence presents seven named chapters: Spark, Direction, Find the Rhythm, Give It Form, Open the Frame, Meaning, Signature. It opens on a tiny point on near-black, develops a thin warm line through editorial serif phrases and a pause/pulse motif, inverts to a cream framed 'A world' / 'Make room' card with a cool path, then returns to near-black for 'Meaning, in motion' and the orange/cool-blue KINETIC signature. In sampled stills the dominant grammar is planar typography, line/point drawing and layout/color change; there is no obvious perspective-led camera move or deep 3D staging."
+  },
+  "loop": {
+    "sha256": "1d2642a5112e1a3997dd0bc87f30bf0de68d11f09d8d524eec5b883c58f65cd0",
+    "bytes": 863955,
+    "codec_fourcc": "H264",
+    "width": 1920,
+    "height": 1080,
+    "fps": 25.0,
+    "duration_s": 10.24,
+    "reported_frames": 256,
+    "decoded_frames": 256,
+    "sample_frames": [
+      {
+        "frame": 0,
+        "time_s": 0.0
+      },
+      {
+        "frame": 32,
+        "time_s": 1.28
+      },
+      {
+        "frame": 64,
+        "time_s": 2.56
+      },
+      {
+        "frame": 96,
+        "time_s": 3.84
+      },
+      {
+        "frame": 128,
+        "time_s": 5.12
+      },
+      {
+        "frame": 160,
+        "time_s": 6.4
+      },
+      {
+        "frame": 192,
+        "time_s": 7.68
+      },
+      {
+        "frame": 224,
+        "time_s": 8.96
+      },
+      {
+        "frame": 250,
+        "time_s": 10.0
+      }
+    ],
+    "observations": "The loop holds 'Ideas, in motion.' at center, with the KINETIC wordmark small at upper left, two concentric elliptical tracks and warm/cool luminous points travelling around the tracks. The sampled frame changes are primarily orbiting light points; the text and camera remain compositionally steady."
+  },
+  "creative_implications": [
+    "Parallax is commissioned to move beyond the established planar line/point grammar into purposeful typography in real spatial depth and a camera move that reveals meaning—not a generic orbit or parallax filter.",
+    "Glyphcraft is commissioned to make letterform structure itself carry changing meaning; it should not merely inherit the line, orbit, palette or fade-in as its main event.",
+    "Both should preserve Kinetic's editorial restraint and legibility where useful while creating a distinctly more ambitious visual payoff."
+  ],
+  "scope_and_limits": [
+    "The complete video frame streams were sequentially decoded (810/810 hero; 256/256 loop) and representative stills were visually inspected; this is not an uninterrupted full-speed perceptual watch.",
+    "Audio was not decoded or listened to. The publication receipt's audio metadata is not an independent hearing test.",
+    "This is a commissioner sample-level visual observation, not a score, artistic approval, formal acceptance, or change to Kinetic's public task status (still in review)."
+  ]
+}

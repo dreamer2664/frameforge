@@ -20,7 +20,7 @@ The original Kinetic r03 candidate is published and in asynchronous review; its 
 | **Parallax** | Cinematic spatial typography, camera blocking, real depth/occlusion/material/light | [PARALLAX.md](briefs/PARALLAX.md) | [HANDOFF](agents/parallax/HANDOFF.md) | [8735](https://github.com/dreamer2664/chatcode/blob/main/board/tasks/t-20261016-8735.json) |
 | **Glyphcraft** | Expressive authored letterforms and semantically motivated glyph transformations | [GLYPHCRAFT.md](briefs/GLYPHCRAFT.md) | [HANDOFF](agents/glyphcraft/HANDOFF.md) | [c3b5](https://github.com/dreamer2664/chatcode/blob/main/board/tasks/t-20261016-c3b5.json) |
 
-Both must create a new 35–55s 1920×1080 KINETIC hero and an 8–12s designed loop; both work independently from separate clones and leave `agents/kinetic/` untouched. The Director’s “about one-fifth” feedback is a subjective ambition cue, not a grade or hours quota. [Commissioner baseline review](evidence/KINETIC_SUCCESSORS_REVIEW.md) records the exact public hashes and what the existing review does—and does not—establish.
+Both must create a new 35–55s 1920×1080 KINETIC hero and an 8–12s designed loop; both work independently from separate clones and leave `agents/kinetic/` untouched. The Director’s “about one-fifth” feedback is a subjective ambition cue, not a grade or hours quota. [Commissioner baseline review](evidence/KINETIC_SUCCESSORS_REVIEW.md) and its [decoded visual-sample receipt](evidence/KINETIC_BASELINE_VISUAL_SAMPLE_REVIEW.json) record the exact public hashes, observed picture stream and strict limits; no full-speed watch, audio listening or acceptance is claimed.
 
 ## Start here
 
