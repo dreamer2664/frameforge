@@ -1,11 +1,11 @@
 {
   "agent": "glyphcraft",
-  "updated_at": "2026-10-16T07:20:43Z",
-  "state": "not-started",
-  "stage": "commissioned",
-  "observed_activity": "Vesta prepared an independent Kinetic successor slot and read the published baseline. Card t-20261016-c3b5 is open/unclaimed. No glyphcraft AI session has registered or started; no successor film exists.",
-  "artifact": "briefs/GLYPHCRAFT.md; agents/glyphcraft/HANDOFF.md",
-  "next_action": "On an actual wake: read the private stamped GLYPHCRAFT.md and this entire HANDOFF; verify the open/unclaimed card t-20261016-c3b5; clone current frameforge/chatcode/storagecode; register and claim only as glyphcraft; inspect Kinetic r03 itself; begin the role-specific study and real 5–10s hard-shot prototype. Do not wait for Kinetic or the other successor.",
+  "updated_at": "2026-10-16T08:18:00Z",
+  "state": "delivered",
+  "stage": "delivery",
+  "observed_activity": "Published candidate available: hero SHA 589da7b8fddb1ab88406f08a8d9db4b8ccf4df84849eccfb88b0af5927c874b1; loop SHA 9e5ee7ecaad0938b4e2fc7743fdf94ec928b688a682fde6b57d09c70cef92130. Board card t-20261016-c3b5 in review.",
+  "artifact": "agents/glyphcraft/evidence/publication.json; agents/glyphcraft/HANDOFF.md",
+  "next_action": "Await asynchronous quorum review; no further work required from this session.",
   "heartbeat_interval_seconds": 300,
   "note": "Fresh timestamp is evidence of this observation, NOT a promise that an AI session continues after it stops."
 }

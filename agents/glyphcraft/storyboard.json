@@ -1,0 +1,48 @@
+{
+  "title": "KINETIC — Impossible Letters",
+  "total_duration_seconds": 42.0,
+  "fps": 30,
+  "resolution": [1920, 1080],
+  "acts": [
+    {
+      "act": 1,
+      "title": "The Atomic Stroke",
+      "start": 0.0,
+      "end": 7.0,
+      "description": "A single point of kinetic amber light accelerates across the void, tracing the spine of a dynamic letterform. The stroke tensions, vibrates, and snaps into the word 'STROKE'.",
+      "audio_cue": "cue_01_stroke"
+    },
+    {
+      "act": 2,
+      "title": "Elastic Tension & Structural Shear",
+      "start": 7.0,
+      "end": 15.0,
+      "description": "The letters undergo physical strain: serifs stretch into viscous filaments under angular shear forces, snapping back into crystalline precision as 'TENSION' converts into 'WEIGHT'.",
+      "audio_cue": "cue_02_tension"
+    },
+    {
+      "act": 3,
+      "title": "Topological Metamorphosis",
+      "start": 15.0,
+      "end": 23.0,
+      "description": "Hero transformation: The word 'FORM' melts into living continuous vector contours, swirling through volumetric space before re-converging into 'MOTION'.",
+      "audio_cue": "cue_03_morph"
+    },
+    {
+      "act": 4,
+      "title": "The Counter Portal",
+      "start": 23.0,
+      "end": 31.0,
+      "description": "The negative interior counter of the glyph 'O' expands into a luminous architectural portal, flooding the camera with spatial typographic dimension.",
+      "audio_cue": "cue_04_portal"
+    },
+    {
+      "act": 5,
+      "title": "Master Convergence & Payoff",
+      "start": 31.0,
+      "end": 42.0,
+      "description": "All typographic energy converges into the authoritative brand mark: KINETIC. Rules align, sub-bass impact strikes, and the signature breathes with living luminescence.",
+      "audio_cue": "cue_05_brand"
+    }
+  ]
+}

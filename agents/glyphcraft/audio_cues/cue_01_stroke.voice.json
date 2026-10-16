@@ -1,0 +1,10 @@
+{
+  "engine": "kokoro-onnx",
+  "voice": "am_adam",
+  "language": "en-us",
+  "synthetic": true,
+  "sample_rate": 24000,
+  "duration_seconds": 2.0886666666666667,
+  "sha256": "494d1cd159be66720b0128b13d59f0e8f049c617c09371a3db05f3bf1a3cabaf",
+  "user_audition_requested": false
+}

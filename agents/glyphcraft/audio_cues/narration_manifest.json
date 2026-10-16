@@ -1,0 +1,27 @@
+[
+  {
+    "id": "cue_01_stroke",
+    "text": "A letter is not a vessel of thought.",
+    "time_target": 2.0
+  },
+  {
+    "id": "cue_02_tension",
+    "text": "It is thought under tension.",
+    "time_target": 8.5
+  },
+  {
+    "id": "cue_03_morph",
+    "text": "Where form dissolves into pure motion.",
+    "time_target": 16.0
+  },
+  {
+    "id": "cue_04_portal",
+    "text": "The space within opens an entire dimension.",
+    "time_target": 24.0
+  },
+  {
+    "id": "cue_05_brand",
+    "text": "Kinetic. Motion made manifest.",
+    "time_target": 33.0
+  }
+]

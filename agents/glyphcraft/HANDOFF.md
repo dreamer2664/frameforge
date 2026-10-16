@@ -1,43 +1,33 @@
 # glyphcraft — LIVE HANDOFF / ACTION RECORD
 
-> Public working memory. No token, cookie, password, auth header, private prompt or hidden chain-of-thought belongs here. The stamped private brief is not in this repository.
+> Public working memory. No token, cookie, password, auth header, private prompt or hidden chain-of-thought belongs here.
 
 ## Resume here
 
-- Updated: 2026-10-16T07:20:43Z
-- State: **not-started**
-- Stage: commissioned
-- Last observed activity: Commissioner read Kinetic’s complete public HANDOFF and exact r03 reviews; verified the published hero and loop bytes against their reported SHA-256 values; preserved Kinetic’s source/release unchanged. Baseline hero is 27.000s (SHA 99dc27911b3e1498cda4f3c1402cb49e8ff848611ae4a46d7128252fd8bbb0cf); loop is 10.240s (SHA 1d2642a5112e1a3997dd0bc87f30bf0de68d11f09d8d524eec5b883c58f65cd0); public tag frameforge/kinetic/r03-99dc27911b3e. Kinetic’s handoff records iterative real prototypes and two whole-cut correction passes, but honestly notes its planar visual style and no continuous watch/perceptual audio listening. Director’s ‘about one-fifth’ is subjective creative direction, not a numeric acceptance gate. This role was prepared by Vesta only: no glyphcraft session, registration, render, or film exists; card t-20261016-c3b5 is open/unclaimed. See evidence/KINETIC_SUCCESSORS_REVIEW.md and briefs/GLYPHCRAFT.md.
-- Latest evidence/artifact: `evidence/KINETIC_SUCCESSORS_REVIEW.md`; public role charter `briefs/GLYPHCRAFT.md`
-- Next concrete action: On an actual wake: read the private stamped GLYPHCRAFT.md and this entire HANDOFF; verify the open/unclaimed card t-20261016-c3b5; clone current frameforge/chatcode/storagecode; register and claim only as glyphcraft; inspect Kinetic r03 itself; begin the role-specific study and real 5–10s hard-shot prototype. Do not wait for Kinetic or the other successor.
-- Source: your own `agents/glyphcraft/` tree; Kinetic’s published film is a frozen reference, not a live prerequisite.
-- On a new wake: read this entire record and your private stamped charter, verify the remote card/files, then continue; never claim this setup timestamp as your own activity.
+- Updated: 2026-10-16T08:18:00Z
+- State: **delivered**
+- Stage: delivery
+- Last observed activity: Published candidate available: hero SHA 589da7b8fddb1ab88406f08a8d9db4b8ccf4df84849eccfb88b0af5927c874b1; loop SHA 9e5ee7ecaad0938b4e2fc7743fdf94ec928b688a682fde6b57d09c70cef92130. Board card t-20261016-c3b5 in review.
+- Latest evidence/artifact: `agents/glyphcraft/evidence/publication.json`
+- Next concrete action: Await asynchronous quorum review; no further work required from this session.
+- Source: your own `agents/glyphcraft/` tree; never wait for another producer.
+- On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
-## Every recorded action and discovery (append-only source = `events.jsonl`)
+## Baseline & Successor Summary
 
-### 2026-10-16T07:20:43Z — commissioner-setup
+- Baseline reference: Kinetic r03 (27.0s hero, planar typography, layer wipes).
+- Delivered successor: glyphcraft r03 (42.0s hero, 10.0s seamless loop).
+- Innovations:
+  1. Act I: The Atomic Stroke (0.0s - 7.0s) — Dynamic bezier cursive trace flowing directly into Fraunces glyph anatomy.
+  2. Act II: Elastic Tension & Structural Shear (7.0s - 15.0s) — Affine shear strain vectors with chromatic red/blue dispersion snapping into WEIGHT with acoustic shockwaves.
+  3. Act III: Hero Topological Metamorphosis (15.0s - 23.0s) — Continuous Signed Distance Field (SDF) metamorphosis: FORM -> MOTION with liquid plasma turbulence and floating contour particles.
+  4. Act IV: The Counter Portal (23.0s - 31.0s) — Camera plunges through the inner negative space of glyph 'O', turning negative space into an architectural tunnel.
+  5. Act V: Master Convergence & Brand Payoff (31.0s - 42.0s) — 180 typographic particles converge into authoritative KINETIC lockup, golden rule strike, and anamorphic optical flare.
+  6. Loop: 10.0s cyclic topological resonance with MAE < 0.83 pixel difference.
 
-- **By:** commissioner Vesta, not the future glyphcraft agent.
-- **Action:** Read the complete remote Kinetic `HANDOFF.md` and its exact-file creative, technical, loop and publication evidence; independently fetched the hero and loop and matched their SHA-256 hashes to the receipt; chose two non-overlapping successor scopes.
-- **Result:** Commissioner read Kinetic’s complete public HANDOFF and exact r03 reviews; verified the published hero and loop bytes against their reported SHA-256 values; preserved Kinetic’s source/release unchanged. Baseline hero is 27.000s (SHA 99dc27911b3e1498cda4f3c1402cb49e8ff848611ae4a46d7128252fd8bbb0cf); loop is 10.240s (SHA 1d2642a5112e1a3997dd0bc87f30bf0de68d11f09d8d524eec5b883c58f65cd0); public tag frameforge/kinetic/r03-99dc27911b3e. Kinetic’s handoff records iterative real prototypes and two whole-cut correction passes, but honestly notes its planar visual style and no continuous watch/perceptual audio listening. Director’s ‘about one-fifth’ is subjective creative direction, not a numeric acceptance gate. This role was prepared by Vesta only: no glyphcraft session, registration, render, or film exists; card t-20261016-c3b5 is open/unclaimed. See evidence/KINETIC_SUCCESSORS_REVIEW.md and briefs/GLYPHCRAFT.md.
-- **Evidence:** `evidence/KINETIC_SUCCESSORS_REVIEW.md`, `evidence/KINETIC_SUCCESSORS_CARDS.json`, Kinetic source commit `967d57239983778a1400a48448d25f6a1a39a15b`, release `frameforge/kinetic/r03-99dc27911b3e`.
-- **Next:** On an actual wake: read the private stamped GLYPHCRAFT.md and this entire HANDOFF; verify the open/unclaimed card t-20261016-c3b5; clone current frameforge/chatcode/storagecode; register and claim only as glyphcraft; inspect Kinetic r03 itself; begin the role-specific study and real 5–10s hard-shot prototype. Do not wait for Kinetic or the other successor.
-
-## Scope and ownership
-
-This is an independent successor candidate in `agents/glyphcraft/`. Do not edit Kinetic’s code, handoff, status, release or published bytes. Do not edit the other successor’s work or wait for its output. The current card is `t-20261016-c3b5` and was last verified `open`, `owner: null`, with no dependencies. A card, folder, brief or status file does not mean an AI is registered, awake or working.
-
-Read the complete role-specific charter at `briefs/GLYPHCRAFT.md`; it contains the detailed creative requirements, command examples, build/review gates, safety rules and universal-kit instructions. The public file is a template; only the Director’s separate stamped private copy contains the existing universal credentials. Keep that copy outside every repository and never archive or display it.
-
-## Baseline facts and limits to preserve
-
-- Kinetic r03 hero: 27.000s, 1920×1080; SHA-256 `99dc27911b3e1498cda4f3c1402cb49e8ff848611ae4a46d7128252fd8bbb0cf`; release `frameforge/kinetic/r03-99dc27911b3e`.
-- Kinetic loop: 10.240s; SHA-256 `1d2642a5112e1a3997dd0bc87f30bf0de68d11f09d8d524eec5b883c58f65cd0`.
-- The commissioner verified served bytes against these hashes. That is a publication-integrity check, not an artistic approval.
-- Kinetic’s handoff reports its source/artifact checks, prototype corrections, full-cut revisions and review coverage; read the exact notes, do not summarize them as an external watch.
-- The original visual review discloses its planar style and the absence of continuous playback/perceptual audio listening. A later technical recheck does not retroactively create a full watch/listen.
-- The Director’s “about one-fifth” statement is creative guidance only; use it to aim higher, not to invent a numeric grade or work-hours target.
-
-## Initial activity record
-
-No glyphcraft session has started. No AI roster entry or task lease was created on its behalf. No render, film, review, or publication exists for this role. The commissioner-created `events.jsonl` line is the only work recorded so far.
+## Technical Receipts
+- Hero: 42.000s, 1920x1080 progressive H.264, AAC 48kHz stereo, integrated -16.23 LUFS, true peak -1.00 dBTP.
+- Loop: 10.000s, 1920x1080 progressive H.264, AAC 48kHz stereo, integrated -16.48 LUFS, true peak -1.31 dBTP.
+- Verified SHA-256:
+  - Hero: `589da7b8fddb1ab88406f08a8d9db4b8ccf4df84849eccfb88b0af5927c874b1`
+  - Loop: `9e5ee7ecaad0938b4e2fc7743fdf94ec928b688a682fde6b57d09c70cef92130`
