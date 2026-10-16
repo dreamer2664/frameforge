@@ -1,8 +1,8 @@
 {
   "file": "final.mp4",
   "agent": "scribble",
-  "sha256": "2631680aad6b8e47d6bebfe801289bf2f11d1062df59f339d51cc34bb98f7b36",
-  "bytes": 4862396,
+  "sha256": "ce92a14ac777890339025f43a1f7a09ffde992cee241f315574a8462e8fd51eb",
+  "bytes": 3063557,
   "duration_seconds": 48.2,
   "streams": [
     {
@@ -35,7 +35,7 @@
       "start_time": "0.000000",
       "duration_ts": 740352,
       "duration": "48.200000",
-      "bit_rate": "606600",
+      "bit_rate": "308049",
       "bits_per_raw_sample": "8",
       "nb_frames": "1446",
       "extradata_size": 47,
