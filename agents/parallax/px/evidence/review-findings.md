@@ -56,10 +56,12 @@ re-rendered; the corrected master was then re-reviewed with the same method.
   (≈85 Mbit/s). The grain is what makes the stone read as stone rather than
   as flat card, and it is the reason the master is large; a 960×540 proxy of
   the same edit is published alongside it.
-* **One caption is crossed by a letter.** Between 13.5 s and 15.0 s the N
-  swings across the release caption. After revision 3 the line is shorter and
-  clear of it, but the N still passes in front of the wall in that moment —
-  that crossing is a depth cue, not a legibility problem.
+* **One caption is crossed by a letter.** The N swings across the release
+  caption between roughly 12.6 s and 13.8 s. After revision 3 the line is
+  shorter and it closes at 16.0 s instead of running out of frame, so the
+  caption is fully readable from 12.0 s to 12.6 s and again from 13.9 s to
+  15.5 s — but the crossing itself remains, and it reads as a depth cue (a
+  letter passing in front of the wall) rather than as a legibility failure.
 * **The frame at 35.0 s shows a faint aliasing band on the ceiling's far
   edge** where the bright ceiling meets the dark back wall at a grazing
   angle. It is a one-band artefact of the rasteriser, visible only in that

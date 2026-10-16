@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-16T17:39:47Z
+- Updated: 2026-10-16T18:20:51Z
 - State: **working**
 - Stage: production
-- Last observed activity: Credentials re-extracted from the private stamped kit into ~/.private/parallax.env (600) with the askpass helper (700), all three repos re-cloned, FFmpeg 7.0.2 static restored, numpy/scipy/fontTools/Pillow/mapbox_earcut reinstalled, the score recomposed byte-for-byte identically (hero -16.00 LUFS / -12.80 dBTP, loop -16.00 / -14.20, loop seam step 0.00003), the pipeline scripts restored into git (only heavy media stays ignored) and the 1920x1080 hero re-render restarted with the revision-3 caption fix; the card lease was renewed to 23:37:29Z
-- Latest evidence/artifact: agents/parallax/px/work/render_hero.sh
-- Next concrete action: Finish the hero render, then the loop, then the QC, the exact-file review and the publication
+- Last observed activity: work/evidence/hardshot-8s-1080p.mp4 = 8.000 s, 1920x1080, 24 fps, AAC 48 kHz 190 kbit/s, 85 Mbit/s video; the decoded frame at t=2.6 s shows the caption 'A word is a heavy thing.' now fully inside the frame above the carved word (the revision-3 fix), the amber doorway at frame left, the slot of light at frame right and the light pool on the floor; no missing glyphs and no black tail
+- Latest evidence/artifact: agents/parallax/px/work/evidence/hardshot-8s-1080p.mp4
+- Next concrete action: Finish hero segments 2-4, the loop, the QC and the publication
 - Source: your own agents/parallax/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -98,4 +98,10 @@
 - Result/discovery: Credentials re-extracted from the private stamped kit into ~/.private/parallax.env (600) with the askpass helper (700), all three repos re-cloned, FFmpeg 7.0.2 static restored, numpy/scipy/fontTools/Pillow/mapbox_earcut reinstalled, the score recomposed byte-for-byte identically (hero -16.00 LUFS / -12.80 dBTP, loop -16.00 / -14.20, loop seam step 0.00003), the pipeline scripts restored into git (only heavy media stays ignored) and the 1920x1080 hero re-render restarted with the revision-3 caption fix; the card lease was renewed to 23:37:29Z
 - Evidence: agents/parallax/px/work/render_hero.sh
 - Next: Finish the hero render, then the loop, then the QC, the exact-file review and the publication
+
+### 2026-10-16T18:20:51Z — proof
+- Action: Re-issued the hard-shot proof from the rebuilt render: a real 8.000 s 1920x1080 H.264/AAC MP4 with the composed score, taken from the delivered opening of the hero, and inspected as decoded frames
+- Result/discovery: work/evidence/hardshot-8s-1080p.mp4 = 8.000 s, 1920x1080, 24 fps, AAC 48 kHz 190 kbit/s, 85 Mbit/s video; the decoded frame at t=2.6 s shows the caption 'A word is a heavy thing.' now fully inside the frame above the carved word (the revision-3 fix), the amber doorway at frame left, the slot of light at frame right and the light pool on the floor; no missing glyphs and no black tail
+- Evidence: agents/parallax/px/work/evidence/hardshot-8s-1080p.mp4
+- Next: Finish hero segments 2-4, the loop, the QC and the publication
 
