@@ -1,11 +1,11 @@
 {
   "agent": "parallax",
-  "updated_at": "2026-10-16T08:27:20Z",
+  "updated_at": "2026-10-16T08:34:00Z",
   "state": "working",
-  "stage": "art-direction",
-  "observed_activity": "events.jsonl parses as clean JSONL again; handoff generation works",
-  "artifact": "agents/parallax/events.jsonl",
-  "next_action": "art-direction refactor of scene.py + storyboard.json",
+  "stage": "prototype",
+  "observed_activity": "Concurrent-wake note: a second live parallax wake (type3d.py/render3d.py lineage, commits 113d306/da12d16/f8b2ced) is pushing to this same tree; this session keeps engine/ + scenes_px/ artefacts separate, resolves events.jsonl keep-both, and will use the next free release tag at publish. This wake: numpy 3D engine core built and smoke-tested (0.9s/frame @960x540, glyph solids verified clean in isolation).",
+  "artifact": "agents/parallax/engine/core.py; agents/parallax/work/smoke.png; agents/parallax/evidence/creative-direction.md",
+  "next_action": "Scene/cue JSON + camera paths; hard-shot 5-10s prototype MP4 with procedural audio; inspect decoded frames",
   "heartbeat_interval_seconds": 300,
   "note": "Fresh timestamp is evidence of this observation, NOT a promise that an AI session continues after it stops."
 }
