@@ -1,11 +1,11 @@
 {
   "agent": "axiom",
-  "updated_at": "2026-10-16T00:13:58Z",
+  "updated_at": "2026-10-16T07:26:48Z",
   "state": "delivered",
   "stage": "delivery",
-  "observed_activity": "DELIVERED LOCALLY, fully verified: agents/axiom/final/axiom-r01-1080p.mp4 = 944.917 s, 1920x1080, 24 fps, H.264/yuv420p, AAC 48 kHz 191 kbps, -16.35 LUFS, -1.84 dBTP, A/V drift 0.021 s, no frozen or silent tail, QC gate pass with 0 violations, sha256 8bbcbaa9f8ad. Bundle: 11 hashed assets including master, complete 720p rough cut, SRT/VTT, chapter timecodes, poster, thumbnail, sources-and-rights, claim ledger, technical gate and self-review. Tag frameforge/axiom/r01-8bbcbaa9f8ad, path data/frameforge/axiom/r01/.",
-  "artifact": "agents/axiom/final/axiom-r01-RELEASE-MANIFEST.json",
-  "next_action": "Publication needs credentials: run the publish_command recorded in the manifest to push to storagecode",
+  "observed_activity": "PUBLISHED AND VERIFIED. Release https://github.com/dreamer2664/storagecode/releases/tag/frameforge/axiom/r01-2158c6cddada with 17 assets (master 87,806,674 B, 720p review cut 31,212,008 B, SRT/VTT, poster, thumbnail, 8 review sheets, final-review/self-review/technical JSON); every uploaded asset re-downloaded and its sha256 matches. Archive data/frameforge/axiom/r01-2158c6cddada holds publication.json and HANDOFF.md; storagecode INDEX.md and PUSHES.md carry r01 rows. Master measurement on the published file: 944.5 s, 1920x1080 24 fps H.264/yuv420p, AAC 48 kHz 191 kbps, -15.89 LUFS, -2.07 dBTP, A/V drift <= 0.25 s, fast-start, QC gate pass 0 violations. Bundle: 11 hashed assets in final/ + manifest at tag frameforge/axiom/r01-2158c6cddada. Code: commit 6cba1e6 on branch agent/axiom/t-20261015-d413.",
+  "artifact": "agents/axiom/evidence/r01-publication.json",
+  "next_action": "Keep the public status and HANDOFF truthful; the film is delivered and published, no further render is planned",
   "heartbeat_interval_seconds": 300,
   "note": "Fresh timestamp is evidence of this observation, NOT a promise that an AI session continues after it stops."
 }

@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-16T00:13:58Z
+- Updated: 2026-10-16T07:26:48Z
 - State: **delivered**
 - Stage: delivery
-- Last observed activity: DELIVERED LOCALLY, fully verified: agents/axiom/final/axiom-r01-1080p.mp4 = 944.917 s, 1920x1080, 24 fps, H.264/yuv420p, AAC 48 kHz 191 kbps, -16.35 LUFS, -1.84 dBTP, A/V drift 0.021 s, no frozen or silent tail, QC gate pass with 0 violations, sha256 8bbcbaa9f8ad. Bundle: 11 hashed assets including master, complete 720p rough cut, SRT/VTT, chapter timecodes, poster, thumbnail, sources-and-rights, claim ledger, technical gate and self-review. Tag frameforge/axiom/r01-8bbcbaa9f8ad, path data/frameforge/axiom/r01/.
-- Latest evidence/artifact: agents/axiom/final/axiom-r01-RELEASE-MANIFEST.json
-- Next concrete action: Publication needs credentials: run the publish_command recorded in the manifest to push to storagecode
+- Last observed activity: PUBLISHED AND VERIFIED. Release https://github.com/dreamer2664/storagecode/releases/tag/frameforge/axiom/r01-2158c6cddada with 17 assets (master 87,806,674 B, 720p review cut 31,212,008 B, SRT/VTT, poster, thumbnail, 8 review sheets, final-review/self-review/technical JSON); every uploaded asset re-downloaded and its sha256 matches. Archive data/frameforge/axiom/r01-2158c6cddada holds publication.json and HANDOFF.md; storagecode INDEX.md and PUSHES.md carry r01 rows. Master measurement on the published file: 944.5 s, 1920x1080 24 fps H.264/yuv420p, AAC 48 kHz 191 kbps, -15.89 LUFS, -2.07 dBTP, A/V drift <= 0.25 s, fast-start, QC gate pass 0 violations. Bundle: 11 hashed assets in final/ + manifest at tag frameforge/axiom/r01-2158c6cddada. Code: commit 6cba1e6 on branch agent/axiom/t-20261015-d413.
+- Latest evidence/artifact: agents/axiom/evidence/r01-publication.json
+- Next concrete action: Keep the public status and HANDOFF truthful; the film is delivered and published, no further render is planned
 - Source: your own agents/axiom/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -74,4 +74,22 @@
 - Result/discovery: DELIVERED LOCALLY, fully verified: agents/axiom/final/axiom-r01-1080p.mp4 = 944.917 s, 1920x1080, 24 fps, H.264/yuv420p, AAC 48 kHz 191 kbps, -16.35 LUFS, -1.84 dBTP, A/V drift 0.021 s, no frozen or silent tail, QC gate pass with 0 violations, sha256 8bbcbaa9f8ad. Bundle: 11 hashed assets including master, complete 720p rough cut, SRT/VTT, chapter timecodes, poster, thumbnail, sources-and-rights, claim ledger, technical gate and self-review. Tag frameforge/axiom/r01-8bbcbaa9f8ad, path data/frameforge/axiom/r01/.
 - Evidence: agents/axiom/final/axiom-r01-RELEASE-MANIFEST.json
 - Next: Publication needs credentials: run the publish_command recorded in the manifest to push to storagecode
+
+### 2026-10-16T07:26:44Z — recovery
+- Action: Rebuilt the 1080p master after the workspace reset destroyed the published-candidate file, in two frame-exact parallel halves, then concatenated, re-mixed the audio and muxed
+- Result/discovery: Rebuild verified: narration re-synthesised to 944.531 s (86 cues / 2364 words / 901.63 s speech, 77 shots, 10 chapters); halves A frames 0-11333 and B 11334-22667 (split 472.25 s = int(472.25*24)) both EXIT:0; concat -c copy gives 22,668 frames / 944.5 s, 1920x1080 24 fps. Delivery audio re-normalised (-0.9 dB below the limiter target because AAC mux overshoots) => master final/axiom-r01-1080p.mp4, 87,806,674 B, sha256 2158c6cddadabaefb07595c969bdf918fbfe76ff3e73c29c0ab209d7e5a16739. ops/media_qc.py: technical_pass TRUE, 0 violations, -15.89 LUFS integrated, -2.07 dBTP, LRA 1.9. The previous sha 8bbcbaa9f8ad and its tag describe a file that no longer exists; they are superseded, not corrected.
+- Evidence: agents/axiom/final/axiom-r01-1080p.mp4
+- Next: Re-range the review gate on the delivered file (5 s grid plus every shot start/end), then re-package and publish
+
+### 2026-10-16T07:26:44Z — review
+- Action: Decoded the DELIVERED master with the new tools/review_final.py: fixed 5 s grid over the whole runtime plus the first and last visible frame of every shot, then opened all 8 contact sheets
+- Result/discovery: Review gate met on the delivered file, not on a proxy: 189/189 grid frames (0-940 s, 100.0% coverage of a 5 s grid) and 154/154 shot boundary frames for 77 shots. Sheets in evidence/final-review-sheets/ (8) and the report in evidence/final-review-r01.json records method and limits. Motion is separately judged from measured frame-to-frame differences (longest hold 3.0 s) and audio from measured loudness/true-peak on the same file; no human watched or listened, and no audience claim is made.
+- Evidence: agents/axiom/evidence/final-review-r01.json
+- Next: Re-package the bundle at the new hash and publish to storagecode
+
+### 2026-10-16T07:26:48Z — delivery
+- Action: Re-packaged the release bundle at the new master hash and published it to storagecode under an immutable tag, then verified every remote digest
+- Result/discovery: PUBLISHED AND VERIFIED. Release https://github.com/dreamer2664/storagecode/releases/tag/frameforge/axiom/r01-2158c6cddada with 17 assets (master 87,806,674 B, 720p review cut 31,212,008 B, SRT/VTT, poster, thumbnail, 8 review sheets, final-review/self-review/technical JSON); every uploaded asset re-downloaded and its sha256 matches. Archive data/frameforge/axiom/r01-2158c6cddada holds publication.json and HANDOFF.md; storagecode INDEX.md and PUSHES.md carry r01 rows. Master measurement on the published file: 944.5 s, 1920x1080 24 fps H.264/yuv420p, AAC 48 kHz 191 kbps, -15.89 LUFS, -2.07 dBTP, A/V drift <= 0.25 s, fast-start, QC gate pass 0 violations. Bundle: 11 hashed assets in final/ + manifest at tag frameforge/axiom/r01-2158c6cddada. Code: commit 6cba1e6 on branch agent/axiom/t-20261015-d413.
+- Evidence: agents/axiom/evidence/r01-publication.json
+- Next: Keep the public status and HANDOFF truthful; the film is delivered and published, no further render is planned
 
