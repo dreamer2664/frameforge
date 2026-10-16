@@ -1,0 +1,148 @@
+{
+  "agent": "axiom",
+  "published_at": "2026-10-16T07:26:02Z",
+  "revision": "r01",
+  "code_sha": "2ab6f9cd2264bd4bfedabf0c6a7cac0beff32391",
+  "release": "https://github.com/dreamer2664/storagecode/releases/tag/frameforge/axiom/r01-2158c6cddada",
+  "tag": "frameforge/axiom/r01-2158c6cddada",
+  "assets": [
+    {
+      "name": "axiom-r01-1080p.mp4",
+      "bytes": 87806674,
+      "sha256": "2158c6cddadabaefb07595c969bdf918fbfe76ff3e73c29c0ab209d7e5a16739",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/axiom/r01-2158c6cddada/axiom-r01-1080p.mp4",
+      "remote_digest": "sha256:2158c6cddadabaefb07595c969bdf918fbfe76ff3e73c29c0ab209d7e5a16739",
+      "remote_size": 87806674
+    },
+    {
+      "name": "axiom-r01-rough-cut-720p.mp4",
+      "bytes": 31212008,
+      "sha256": "6c3719f8ec1a92274264f3775d1b7061fad59c32d30be5dbc0c6003020b93720",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/axiom/r01-2158c6cddada/axiom-r01-rough-cut-720p.mp4",
+      "remote_digest": "sha256:6c3719f8ec1a92274264f3775d1b7061fad59c32d30be5dbc0c6003020b93720",
+      "remote_size": 31212008
+    },
+    {
+      "name": "axiom-r01.srt",
+      "bytes": 18461,
+      "sha256": "af1b8cad0a840be048acc71456860c8cc6c2fbcfe5e360a0a2854ee45a15fcfb",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/axiom/r01-2158c6cddada/axiom-r01.srt",
+      "remote_digest": "sha256:af1b8cad0a840be048acc71456860c8cc6c2fbcfe5e360a0a2854ee45a15fcfb",
+      "remote_size": 18461
+    },
+    {
+      "name": "axiom-r01.vtt",
+      "bytes": 19738,
+      "sha256": "92ecc008ed8a761b89ab6ec7a28fff419c945c14dd4c3c6390df18c04a0404f8",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/axiom/r01-2158c6cddada/axiom-r01.vtt",
+      "remote_digest": "sha256:92ecc008ed8a761b89ab6ec7a28fff419c945c14dd4c3c6390df18c04a0404f8",
+      "remote_size": 19738
+    },
+    {
+      "name": "axiom-poster-1920x1080.png",
+      "bytes": 593617,
+      "sha256": "b36e1a4417e114f6e360f6c246487e6f8940f1b8eed1479340baa15a0339e2d6",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/axiom/r01-2158c6cddada/axiom-poster-1920x1080.png",
+      "remote_digest": "sha256:b36e1a4417e114f6e360f6c246487e6f8940f1b8eed1479340baa15a0339e2d6",
+      "remote_size": 593617
+    },
+    {
+      "name": "axiom-thumbnail-1280x720.jpg",
+      "bytes": 91342,
+      "sha256": "f0839010d973f5a2064878e076ecbd734f732768216201900362afa9b700365f",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/axiom/r01-2158c6cddada/axiom-thumbnail-1280x720.jpg",
+      "remote_digest": "sha256:f0839010d973f5a2064878e076ecbd734f732768216201900362afa9b700365f",
+      "remote_size": 91342
+    },
+    {
+      "name": "sheet-grid-000.jpg",
+      "bytes": 371791,
+      "sha256": "e014b7f1dd1bad298515207ce424e3874cfcc284f2875ad80198ff56b5ae8b4e",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/axiom/r01-2158c6cddada/sheet-grid-000.jpg",
+      "remote_digest": "sha256:e014b7f1dd1bad298515207ce424e3874cfcc284f2875ad80198ff56b5ae8b4e",
+      "remote_size": 371791
+    },
+    {
+      "name": "sheet-grid-001.jpg",
+      "bytes": 401650,
+      "sha256": "737b7c69eb686a4a03d8ea4d8a0b692aee5b8f7f6236ea255188c7acafd5a105",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/axiom/r01-2158c6cddada/sheet-grid-001.jpg",
+      "remote_digest": "sha256:737b7c69eb686a4a03d8ea4d8a0b692aee5b8f7f6236ea255188c7acafd5a105",
+      "remote_size": 401650
+    },
+    {
+      "name": "sheet-grid-002.jpg",
+      "bytes": 391803,
+      "sha256": "be0c16abda7cfbae008781bff324642cd3d0644da327fd919c3917e1eaf5e645",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/axiom/r01-2158c6cddada/sheet-grid-002.jpg",
+      "remote_digest": "sha256:be0c16abda7cfbae008781bff324642cd3d0644da327fd919c3917e1eaf5e645",
+      "remote_size": 391803
+    },
+    {
+      "name": "sheet-grid-003.jpg",
+      "bytes": 400469,
+      "sha256": "5c2e88bd0b6b4845cd28c497c05c040028985d2dfcf1e0abf8ef6903df7383a9",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/axiom/r01-2158c6cddada/sheet-grid-003.jpg",
+      "remote_digest": "sha256:5c2e88bd0b6b4845cd28c497c05c040028985d2dfcf1e0abf8ef6903df7383a9",
+      "remote_size": 400469
+    },
+    {
+      "name": "sheet-bounds-000.jpg",
+      "bytes": 382408,
+      "sha256": "6f57807aab5e6d6aced4ab844c7804bf676629366b5080f9b72fb3c707b498b8",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/axiom/r01-2158c6cddada/sheet-bounds-000.jpg",
+      "remote_digest": "sha256:6f57807aab5e6d6aced4ab844c7804bf676629366b5080f9b72fb3c707b498b8",
+      "remote_size": 382408
+    },
+    {
+      "name": "sheet-bounds-001.jpg",
+      "bytes": 384548,
+      "sha256": "c194398c31258f9a450d7f449627470c8ba92d42c1a41f84a787e7b76a75076a",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/axiom/r01-2158c6cddada/sheet-bounds-001.jpg",
+      "remote_digest": "sha256:c194398c31258f9a450d7f449627470c8ba92d42c1a41f84a787e7b76a75076a",
+      "remote_size": 384548
+    },
+    {
+      "name": "sheet-bounds-002.jpg",
+      "bytes": 402873,
+      "sha256": "651f2d951f0bb7f7cc87eab58ba286327852188c1a599afb4e4da63ee04c9568",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/axiom/r01-2158c6cddada/sheet-bounds-002.jpg",
+      "remote_digest": "sha256:651f2d951f0bb7f7cc87eab58ba286327852188c1a599afb4e4da63ee04c9568",
+      "remote_size": 402873
+    },
+    {
+      "name": "sheet-bounds-003.jpg",
+      "bytes": 93387,
+      "sha256": "a58310236093bd492894190bd916495b2622e2ef05b3592753fbae39c15b34a3",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/axiom/r01-2158c6cddada/sheet-bounds-003.jpg",
+      "remote_digest": "sha256:a58310236093bd492894190bd916495b2622e2ef05b3592753fbae39c15b34a3",
+      "remote_size": 93387
+    },
+    {
+      "name": "final-review-r01.json",
+      "bytes": 23092,
+      "sha256": "a66ee09a7a2742dd850b722ffa54be85c02fa0fb67786927c27422afdae14dc1",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/axiom/r01-2158c6cddada/final-review-r01.json",
+      "remote_digest": "sha256:a66ee09a7a2742dd850b722ffa54be85c02fa0fb67786927c27422afdae14dc1",
+      "remote_size": 23092
+    },
+    {
+      "name": "self-review-r01.json",
+      "bytes": 8119,
+      "sha256": "57a2d4bb7cfead771a092a77a6cd033335b762d47d15b60cfd1fd699eaf00434",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/axiom/r01-2158c6cddada/self-review-r01.json",
+      "remote_digest": "sha256:57a2d4bb7cfead771a092a77a6cd033335b762d47d15b60cfd1fd699eaf00434",
+      "remote_size": 8119
+    },
+    {
+      "name": "final-technical.json",
+      "bytes": 3616,
+      "sha256": "a138d6be7c3d5bb3443c4f467cc7c640e5ad82b6528ab725d8a6d8abf3b1f765",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/axiom/r01-2158c6cddada/final-technical.json",
+      "remote_digest": "sha256:a138d6be7c3d5bb3443c4f467cc7c640e5ad82b6528ab725d8a6d8abf3b1f765",
+      "remote_size": 3616
+    }
+  ],
+  "acceptance": "Published candidate; refer to actual reviews. Not an old-campaign acceptance.",
+  "primary_archive": "https://github.com/dreamer2664/storagecode/tree/main/data/frameforge/axiom/r01-2158c6cddada"
+}

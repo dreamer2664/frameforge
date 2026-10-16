@@ -12,15 +12,25 @@
       "activity": "rendered frames at 1 s steps compared by mean absolute pixel difference",
       "density": "per-shot content coverage of the frame against the modal background value"
     },
-    "final_file_sampling": "the DELIVERED master (final/axiom-r01-1080p.mp4) was decoded with FFmpeg every 15 s for its entire 944.917 s (63 frames, 2 contact sheets, both opened) and read chapter by chapter",
+    "final_file_sampling": "the DELIVERED master (final/axiom-r01-1080p.mp4) was decoded with FFmpeg twice by tools/review_final.py: a fixed 5 s grid over the whole runtime (189/189 frames decoded, 0-940 s) and the first and last visible frame of every shot seeked individually (154/154 frames). All 8 contact sheets were opened and read. Report: evidence/final-review-r01.json",
     "final_file_numbers": {
-      "sampled_frames": 63,
-      "sampling_interval_s": 15,
+      "grid_frames": 189,
+      "grid_interval_s": 5,
+      "grid_coverage_percent": 100.0,
+      "shot_boundary_frames": 154,
+      "shots": 77,
+      "boundary_coverage_percent": 100.0,
       "sheets": [
-        "work/review/final15/sheet-000.jpg",
-        "work/review/final15/sheet-001.jpg"
+        "work/review/final5/sheet-grid-000.jpg",
+        "work/review/final5/sheet-grid-001.jpg",
+        "work/review/final5/sheet-grid-002.jpg",
+        "work/review/final5/sheet-grid-003.jpg",
+        "work/review/final5/sheet-bounds-000.jpg",
+        "work/review/final5/sheet-bounds-001.jpg",
+        "work/review/final5/sheet-bounds-002.jpg",
+        "work/review/final5/sheet-bounds-003.jpg"
       ],
-      "coverage_note": "sampling every 15 s cannot certify motion quality or audio; motion is judged from measured frame differences (tools/holdcheck.py) and audio from measured loudness/peak. No human listened to or watched this film."
+      "coverage_note": "sampling cannot certify motion or audio: motion is judged from measured frame-to-frame differences and audio from measured loudness/true-peak on the same delivered file. No human watched or listened to this film."
     }
   },
   "measured_activity": {
@@ -176,8 +186,7 @@
     "Some scenes are stills with type reveals rather than continuous motion; motion lives in reveals, characters and camera moves.",
     "The score is synthesized and deliberately plain; it is not a produced soundtrack with live players.",
     "Every claim is sourced, but the film is narrated by a synthetic voice; there is no presenter on camera.",
-    "A human viewer may disagree with the pacing judgement; the numbers here show no hold longer than 3 s and a median action interval of 1.24 s, which is the evidence offered.",
-    "Publication to storagecode is blocked: no credentials and no .git metadata survived the sandbox reset. Assets are hashed and the exact command is in final/axiom-r01-RELEASE-MANIFEST.json."
+    "A human viewer may disagree with the pacing judgement; the numbers here show no hold longer than 3 s and a median action interval of 1.24 s, which is the evidence offered."
   ],
   "self_score": {
     "note": "Scored by the producer against the brief's criteria; evidence pointers are in the accompanying technical and activity files.",

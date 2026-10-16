@@ -1,0 +1,1115 @@
+{
+  "master": "/home/user/frameforge/agents/axiom/final/axiom-r01-1080p.mp4",
+  "master_bytes": 87806674,
+  "duration_s": 944.5,
+  "method": "frames decoded from the delivered MP4 with FFmpeg: a fixed 5.0s grid over the whole runtime, plus the first and last visible frame of every shot seeked individually",
+  "grid": {
+    "interval_s": 5.0,
+    "frames": 189,
+    "expected": 189,
+    "first_t": 0.0,
+    "last_t": 940.0,
+    "coverage_percent": 100.0
+  },
+  "shot_boundaries": {
+    "shots": 77,
+    "frames": 154,
+    "expected": 154,
+    "coverage_percent": 100.0,
+    "index": [
+      {
+        "shot": "s01",
+        "which": "start",
+        "t": 0.45,
+        "scene": "date_void",
+        "dur": 27.3
+      },
+      {
+        "shot": "s01",
+        "which": "end",
+        "t": 27.65,
+        "scene": "date_void",
+        "dur": 27.3
+      },
+      {
+        "shot": "s02",
+        "which": "start",
+        "t": 27.75,
+        "scene": "ussher_study",
+        "dur": 10.99
+      },
+      {
+        "shot": "s02",
+        "which": "end",
+        "t": 38.641,
+        "scene": "ussher_study",
+        "dur": 10.99
+      },
+      {
+        "shot": "s03",
+        "which": "start",
+        "t": 38.741,
+        "scene": "bible_margins",
+        "dur": 0.6
+      },
+      {
+        "shot": "s03",
+        "which": "end",
+        "t": 39.241,
+        "scene": "bible_margins",
+        "dur": 0.6
+      },
+      {
+        "shot": "s04",
+        "which": "start",
+        "t": 39.341,
+        "scene": "bible_row",
+        "dur": 11.41
+      },
+      {
+        "shot": "s04",
+        "which": "end",
+        "t": 50.647,
+        "scene": "bible_row",
+        "dur": 11.41
+      },
+      {
+        "shot": "s05",
+        "which": "start",
+        "t": 50.747,
+        "scene": "ussher_writing",
+        "dur": 9.68
+      },
+      {
+        "shot": "s05",
+        "which": "end",
+        "t": 60.323,
+        "scene": "ussher_writing",
+        "dur": 9.68
+      },
+      {
+        "shot": "s06",
+        "which": "start",
+        "t": 60.423,
+        "scene": "three_clocks_tease",
+        "dur": 9.69
+      },
+      {
+        "shot": "s06",
+        "which": "end",
+        "t": 70.008,
+        "scene": "three_clocks_tease",
+        "dur": 9.69
+      },
+      {
+        "shot": "s07",
+        "which": "start",
+        "t": 70.108,
+        "scene": "ussher_study",
+        "dur": 3.91
+      },
+      {
+        "shot": "s07",
+        "which": "end",
+        "t": 73.916,
+        "scene": "ussher_study",
+        "dur": 3.91
+      },
+      {
+        "shot": "s08",
+        "which": "start",
+        "t": 74.016,
+        "scene": "genealogy",
+        "dur": 14.75
+      },
+      {
+        "shot": "s08",
+        "which": "end",
+        "t": 88.667,
+        "scene": "genealogy",
+        "dur": 14.75
+      },
+      {
+        "shot": "s09",
+        "which": "start",
+        "t": 88.767,
+        "scene": "genealogy_anchor",
+        "dur": 14.88
+      },
+      {
+        "shot": "s09",
+        "which": "end",
+        "t": 103.551,
+        "scene": "genealogy_anchor",
+        "dur": 14.88
+      },
+      {
+        "shot": "s10",
+        "which": "start",
+        "t": 103.651,
+        "scene": "babylon",
+        "dur": 8.69
+      },
+      {
+        "shot": "s10",
+        "which": "end",
+        "t": 112.241,
+        "scene": "babylon",
+        "dur": 8.69
+      },
+      {
+        "shot": "s11",
+        "which": "start",
+        "t": 112.341,
+        "scene": "count_back",
+        "dur": 0.6
+      },
+      {
+        "shot": "s11",
+        "which": "end",
+        "t": 112.841,
+        "scene": "count_back",
+        "dur": 0.6
+      },
+      {
+        "shot": "s12",
+        "which": "start",
+        "t": 112.941,
+        "scene": "harvest",
+        "dur": 12.04
+      },
+      {
+        "shot": "s12",
+        "which": "end",
+        "t": 124.886,
+        "scene": "harvest",
+        "dur": 12.04
+      },
+      {
+        "shot": "s13",
+        "which": "start",
+        "t": 124.986,
+        "scene": "date_stamp",
+        "dur": 9.41
+      },
+      {
+        "shot": "s13",
+        "which": "end",
+        "t": 134.299,
+        "scene": "date_stamp",
+        "dur": 9.41
+      },
+      {
+        "shot": "s14",
+        "which": "start",
+        "t": 134.399,
+        "scene": "two_corrections",
+        "dur": 16.52
+      },
+      {
+        "shot": "s14",
+        "which": "end",
+        "t": 150.822,
+        "scene": "two_corrections",
+        "dur": 16.52
+      },
+      {
+        "shot": "s15",
+        "which": "start",
+        "t": 150.922,
+        "scene": "study_wide",
+        "dur": 5.86
+      },
+      {
+        "shot": "s15",
+        "which": "end",
+        "t": 156.684,
+        "scene": "study_wide",
+        "dur": 5.86
+      },
+      {
+        "shot": "s16",
+        "which": "start",
+        "t": 156.784,
+        "scene": "archive",
+        "dur": 20.85
+      },
+      {
+        "shot": "s16",
+        "which": "end",
+        "t": 177.537,
+        "scene": "archive",
+        "dur": 20.85
+      },
+      {
+        "shot": "s17",
+        "which": "start",
+        "t": 177.637,
+        "scene": "fossil_hill",
+        "dur": 8.89
+      },
+      {
+        "shot": "s17",
+        "which": "end",
+        "t": 186.428,
+        "scene": "fossil_hill",
+        "dur": 8.89
+      },
+      {
+        "shot": "s18",
+        "which": "start",
+        "t": 186.528,
+        "scene": "flood",
+        "dur": 19.64
+      },
+      {
+        "shot": "s18",
+        "which": "end",
+        "t": 206.063,
+        "scene": "flood",
+        "dur": 19.64
+      },
+      {
+        "shot": "s19",
+        "which": "start",
+        "t": 206.163,
+        "scene": "stretch_date",
+        "dur": 12.89
+      },
+      {
+        "shot": "s19",
+        "which": "end",
+        "t": 218.951,
+        "scene": "stretch_date",
+        "dur": 12.89
+      },
+      {
+        "shot": "s20",
+        "which": "start",
+        "t": 219.051,
+        "scene": "coast_1788",
+        "dur": 19.69
+      },
+      {
+        "shot": "s20",
+        "which": "end",
+        "t": 238.637,
+        "scene": "coast_1788",
+        "dur": 19.69
+      },
+      {
+        "shot": "s21",
+        "which": "start",
+        "t": 238.737,
+        "scene": "siccar_rock",
+        "dur": 15.72
+      },
+      {
+        "shot": "s21",
+        "which": "end",
+        "t": 254.362,
+        "scene": "siccar_rock",
+        "dur": 15.72
+      },
+      {
+        "shot": "s22",
+        "which": "start",
+        "t": 254.462,
+        "scene": "siccar_steps",
+        "dur": 22.02
+      },
+      {
+        "shot": "s22",
+        "which": "end",
+        "t": 276.382,
+        "scene": "siccar_steps",
+        "dur": 22.02
+      },
+      {
+        "shot": "s23",
+        "which": "start",
+        "t": 276.482,
+        "scene": "siccar_slow",
+        "dur": 9.75
+      },
+      {
+        "shot": "s23",
+        "which": "end",
+        "t": 286.13,
+        "scene": "siccar_slow",
+        "dur": 9.75
+      },
+      {
+        "shot": "s24",
+        "which": "start",
+        "t": 286.23,
+        "scene": "hutton_phrase",
+        "dur": 6.29
+      },
+      {
+        "shot": "s24",
+        "which": "end",
+        "t": 292.423,
+        "scene": "hutton_phrase",
+        "dur": 6.29
+      },
+      {
+        "shot": "s25",
+        "which": "start",
+        "t": 292.523,
+        "scene": "playfair_giddy",
+        "dur": 10.55
+      },
+      {
+        "shot": "s25",
+        "which": "end",
+        "t": 302.975,
+        "scene": "playfair_giddy",
+        "dur": 10.55
+      },
+      {
+        "shot": "s26",
+        "which": "start",
+        "t": 303.075,
+        "scene": "no_measurement",
+        "dur": 13.63
+      },
+      {
+        "shot": "s26",
+        "which": "end",
+        "t": 316.608,
+        "scene": "no_measurement",
+        "dur": 13.63
+      },
+      {
+        "shot": "s27",
+        "which": "start",
+        "t": 316.708,
+        "scene": "glasgow_board",
+        "dur": 17.11
+      },
+      {
+        "shot": "s27",
+        "which": "end",
+        "t": 333.723,
+        "scene": "glasgow_board",
+        "dur": 17.11
+      },
+      {
+        "shot": "s28",
+        "which": "start",
+        "t": 333.823,
+        "scene": "cooling_ball",
+        "dur": 15.26
+      },
+      {
+        "shot": "s28",
+        "which": "end",
+        "t": 348.981,
+        "scene": "cooling_ball",
+        "dur": 15.26
+      },
+      {
+        "shot": "s29",
+        "which": "start",
+        "t": 349.081,
+        "scene": "elegant_law",
+        "dur": 7.05
+      },
+      {
+        "shot": "s29",
+        "which": "end",
+        "t": 356.036,
+        "scene": "elegant_law",
+        "dur": 7.05
+      },
+      {
+        "shot": "s30",
+        "which": "start",
+        "t": 356.136,
+        "scene": "kelvin_number",
+        "dur": 14.01
+      },
+      {
+        "shot": "s30",
+        "which": "end",
+        "t": 370.044,
+        "scene": "kelvin_number",
+        "dur": 14.01
+      },
+      {
+        "shot": "s31",
+        "which": "start",
+        "t": 370.144,
+        "scene": "measure_heat",
+        "dur": 0.6
+      },
+      {
+        "shot": "s31",
+        "which": "end",
+        "t": 370.644,
+        "scene": "measure_heat",
+        "dur": 0.6
+      },
+      {
+        "shot": "s32",
+        "which": "start",
+        "t": 370.744,
+        "scene": "sun_budget",
+        "dur": 8.35
+      },
+      {
+        "shot": "s32",
+        "which": "end",
+        "t": 378.994,
+        "scene": "sun_budget",
+        "dur": 8.35
+      },
+      {
+        "shot": "s33",
+        "which": "start",
+        "t": 379.094,
+        "scene": "darwin_worry",
+        "dur": 13.26
+      },
+      {
+        "shot": "s33",
+        "which": "end",
+        "t": 392.254,
+        "scene": "darwin_worry",
+        "dur": 13.26
+      },
+      {
+        "shot": "s34",
+        "which": "start",
+        "t": 392.354,
+        "scene": "kelvin_honest",
+        "dur": 16.06
+      },
+      {
+        "shot": "s34",
+        "which": "end",
+        "t": 408.31,
+        "scene": "kelvin_honest",
+        "dur": 16.06
+      },
+      {
+        "shot": "s35",
+        "which": "start",
+        "t": 408.41,
+        "scene": "perry_office",
+        "dur": 17.68
+      },
+      {
+        "shot": "s35",
+        "which": "end",
+        "t": 425.992,
+        "scene": "perry_office",
+        "dur": 17.68
+      },
+      {
+        "shot": "s36",
+        "which": "start",
+        "t": 426.092,
+        "scene": "convection",
+        "dur": 10.63
+      },
+      {
+        "shot": "s36",
+        "which": "end",
+        "t": 436.622,
+        "scene": "convection",
+        "dur": 10.63
+      },
+      {
+        "shot": "s37",
+        "which": "start",
+        "t": 436.722,
+        "scene": "perry_number",
+        "dur": 11.78
+      },
+      {
+        "shot": "s37",
+        "which": "end",
+        "t": 448.405,
+        "scene": "perry_number",
+        "dur": 11.78
+      },
+      {
+        "shot": "s38",
+        "which": "start",
+        "t": 448.505,
+        "scene": "forgotten_paper",
+        "dur": 7.6
+      },
+      {
+        "shot": "s38",
+        "which": "end",
+        "t": 456.005,
+        "scene": "forgotten_paper",
+        "dur": 7.6
+      },
+      {
+        "shot": "s39",
+        "which": "start",
+        "t": 456.105,
+        "scene": "becquerel_drawer",
+        "dur": 13.48
+      },
+      {
+        "shot": "s39",
+        "which": "end",
+        "t": 469.485,
+        "scene": "becquerel_drawer",
+        "dur": 13.48
+      },
+      {
+        "shot": "s40",
+        "which": "start",
+        "t": 469.585,
+        "scene": "radioactive_rock",
+        "dur": 6.82
+      },
+      {
+        "shot": "s40",
+        "which": "end",
+        "t": 476.309,
+        "scene": "radioactive_rock",
+        "dur": 6.82
+      },
+      {
+        "shot": "s41",
+        "which": "start",
+        "t": 476.409,
+        "scene": "heat_correction",
+        "dur": 24.42
+      },
+      {
+        "shot": "s41",
+        "which": "end",
+        "t": 500.731,
+        "scene": "heat_correction",
+        "dur": 24.42
+      },
+      {
+        "shot": "s42",
+        "which": "start",
+        "t": 500.831,
+        "scene": "new_clock",
+        "dur": 9.17
+      },
+      {
+        "shot": "s42",
+        "which": "end",
+        "t": 509.904,
+        "scene": "new_clock",
+        "dur": 9.17
+      },
+      {
+        "shot": "s43",
+        "which": "start",
+        "t": 510.004,
+        "scene": "royal_institution",
+        "dur": 7.28
+      },
+      {
+        "shot": "s43",
+        "which": "end",
+        "t": 517.187,
+        "scene": "royal_institution",
+        "dur": 7.28
+      },
+      {
+        "shot": "s44",
+        "which": "start",
+        "t": 517.287,
+        "scene": "decay_steadfast",
+        "dur": 16.09
+      },
+      {
+        "shot": "s44",
+        "which": "end",
+        "t": 533.281,
+        "scene": "decay_steadfast",
+        "dur": 16.09
+      },
+      {
+        "shot": "s45",
+        "which": "start",
+        "t": 533.381,
+        "scene": "good_clock",
+        "dur": 8.7
+      },
+      {
+        "shot": "s45",
+        "which": "end",
+        "t": 541.982,
+        "scene": "good_clock",
+        "dur": 8.7
+      },
+      {
+        "shot": "s46",
+        "which": "start",
+        "t": 542.082,
+        "scene": "rutherford_sample",
+        "dur": 12.2
+      },
+      {
+        "shot": "s46",
+        "which": "end",
+        "t": 554.178,
+        "scene": "rutherford_sample",
+        "dur": 12.2
+      },
+      {
+        "shot": "s47",
+        "which": "start",
+        "t": 554.278,
+        "scene": "kelvin_asleep",
+        "dur": 21.69
+      },
+      {
+        "shot": "s47",
+        "which": "end",
+        "t": 575.864,
+        "scene": "kelvin_asleep",
+        "dur": 21.69
+      },
+      {
+        "shot": "s48",
+        "which": "start",
+        "t": 575.964,
+        "scene": "escape_line",
+        "dur": 14.69
+      },
+      {
+        "shot": "s48",
+        "which": "end",
+        "t": 590.555,
+        "scene": "escape_line",
+        "dur": 14.69
+      },
+      {
+        "shot": "s49",
+        "which": "start",
+        "t": 590.655,
+        "scene": "footnote",
+        "dur": 11.96
+      },
+      {
+        "shot": "s49",
+        "which": "end",
+        "t": 602.518,
+        "scene": "footnote",
+        "dur": 11.96
+      },
+      {
+        "shot": "s50",
+        "which": "start",
+        "t": 602.618,
+        "scene": "hourglass_start",
+        "dur": 10.38
+      },
+      {
+        "shot": "s50",
+        "which": "end",
+        "t": 612.898,
+        "scene": "hourglass_start",
+        "dur": 10.38
+      },
+      {
+        "shot": "s51",
+        "which": "start",
+        "t": 612.998,
+        "scene": "seal_crack",
+        "dur": 6.58
+      },
+      {
+        "shot": "s51",
+        "which": "end",
+        "t": 619.474,
+        "scene": "seal_crack",
+        "dur": 6.58
+      },
+      {
+        "shot": "s52",
+        "which": "start",
+        "t": 619.574,
+        "scene": "hourglass_honest",
+        "dur": 15.9
+      },
+      {
+        "shot": "s52",
+        "which": "end",
+        "t": 635.379,
+        "scene": "hourglass_honest",
+        "dur": 15.9
+      },
+      {
+        "shot": "s53",
+        "which": "start",
+        "t": 635.479,
+        "scene": "three_assumptions",
+        "dur": 12.74
+      },
+      {
+        "shot": "s53",
+        "which": "end",
+        "t": 648.119,
+        "scene": "three_assumptions",
+        "dur": 12.74
+      },
+      {
+        "shot": "s54",
+        "which": "start",
+        "t": 648.219,
+        "scene": "helium_leak",
+        "dur": 10.47
+      },
+      {
+        "shot": "s54",
+        "which": "end",
+        "t": 658.592,
+        "scene": "helium_leak",
+        "dur": 10.47
+      },
+      {
+        "shot": "s55",
+        "which": "start",
+        "t": 658.692,
+        "scene": "uranium_moves",
+        "dur": 0.6
+      },
+      {
+        "shot": "s55",
+        "which": "end",
+        "t": 659.192,
+        "scene": "uranium_moves",
+        "dur": 0.6
+      },
+      {
+        "shot": "s56",
+        "which": "start",
+        "t": 659.292,
+        "scene": "scatter_dates",
+        "dur": 10.31
+      },
+      {
+        "shot": "s56",
+        "which": "end",
+        "t": 669.498,
+        "scene": "scatter_dates",
+        "dur": 10.31
+      },
+      {
+        "shot": "s57",
+        "which": "start",
+        "t": 669.598,
+        "scene": "boltwood",
+        "dur": 17.63
+      },
+      {
+        "shot": "s57",
+        "which": "end",
+        "t": 687.129,
+        "scene": "boltwood",
+        "dur": 17.63
+      },
+      {
+        "shot": "s58",
+        "which": "start",
+        "t": 687.229,
+        "scene": "puzzle",
+        "dur": 5.58
+      },
+      {
+        "shot": "s58",
+        "which": "end",
+        "t": 692.709,
+        "scene": "puzzle",
+        "dur": 5.58
+      },
+      {
+        "shot": "s59",
+        "which": "start",
+        "t": 692.809,
+        "scene": "whole_system",
+        "dur": 7.49
+      },
+      {
+        "shot": "s59",
+        "which": "end",
+        "t": 700.202,
+        "scene": "whole_system",
+        "dur": 7.49
+      },
+      {
+        "shot": "s60",
+        "which": "start",
+        "t": 700.302,
+        "scene": "patterson_zircon",
+        "dur": 15.1
+      },
+      {
+        "shot": "s60",
+        "which": "end",
+        "t": 715.305,
+        "scene": "patterson_zircon",
+        "dur": 15.1
+      },
+      {
+        "shot": "s61",
+        "which": "start",
+        "t": 715.405,
+        "scene": "lead_everywhere",
+        "dur": 13.94
+      },
+      {
+        "shot": "s61",
+        "which": "end",
+        "t": 729.245,
+        "scene": "lead_everywhere",
+        "dur": 13.94
+      },
+      {
+        "shot": "s62",
+        "which": "start",
+        "t": 729.345,
+        "scene": "clean_room",
+        "dur": 13.24
+      },
+      {
+        "shot": "s62",
+        "which": "end",
+        "t": 742.481,
+        "scene": "clean_room",
+        "dur": 13.24
+      },
+      {
+        "shot": "s63",
+        "which": "start",
+        "t": 742.581,
+        "scene": "two_clocks",
+        "dur": 34.54
+      },
+      {
+        "shot": "s63",
+        "which": "end",
+        "t": 777.023,
+        "scene": "two_clocks",
+        "dur": 34.54
+      },
+      {
+        "shot": "s64",
+        "which": "start",
+        "t": 777.123,
+        "scene": "meteorite",
+        "dur": 11.53
+      },
+      {
+        "shot": "s64",
+        "which": "end",
+        "t": 788.555,
+        "scene": "meteorite",
+        "dur": 11.53
+      },
+      {
+        "shot": "s65",
+        "which": "start",
+        "t": 788.655,
+        "scene": "spectrometer",
+        "dur": 15.96
+      },
+      {
+        "shot": "s65",
+        "which": "end",
+        "t": 804.515,
+        "scene": "spectrometer",
+        "dur": 15.96
+      },
+      {
+        "shot": "s66",
+        "which": "start",
+        "t": 804.615,
+        "scene": "number_1956",
+        "dur": 0.6
+      },
+      {
+        "shot": "s66",
+        "which": "end",
+        "t": 805.115,
+        "scene": "number_1956",
+        "dur": 0.6
+      },
+      {
+        "shot": "s67",
+        "which": "start",
+        "t": 805.215,
+        "scene": "modern_number",
+        "dur": 10.5
+      },
+      {
+        "shot": "s67",
+        "which": "end",
+        "t": 815.612,
+        "scene": "modern_number",
+        "dur": 10.5
+      },
+      {
+        "shot": "s68",
+        "which": "start",
+        "t": 815.712,
+        "scene": "same_cloud",
+        "dur": 12.43
+      },
+      {
+        "shot": "s68",
+        "which": "end",
+        "t": 828.043,
+        "scene": "same_cloud",
+        "dur": 12.43
+      },
+      {
+        "shot": "s69",
+        "which": "start",
+        "t": 828.143,
+        "scene": "epilogue_open",
+        "dur": 3.39
+      },
+      {
+        "shot": "s69",
+        "which": "end",
+        "t": 831.437,
+        "scene": "epilogue_open",
+        "dur": 3.39
+      },
+      {
+        "shot": "s70",
+        "which": "start",
+        "t": 831.537,
+        "scene": "ocean_lead",
+        "dur": 17.39
+      },
+      {
+        "shot": "s70",
+        "which": "end",
+        "t": 848.83,
+        "scene": "ocean_lead",
+        "dur": 17.39
+      },
+      {
+        "shot": "s71",
+        "which": "start",
+        "t": 848.93,
+        "scene": "ice_core",
+        "dur": 0.6
+      },
+      {
+        "shot": "s71",
+        "which": "end",
+        "t": 849.43,
+        "scene": "ice_core",
+        "dur": 0.6
+      },
+      {
+        "shot": "s72",
+        "which": "start",
+        "t": 849.53,
+        "scene": "products",
+        "dur": 11.73
+      },
+      {
+        "shot": "s72",
+        "which": "end",
+        "t": 861.163,
+        "scene": "products",
+        "dur": 11.73
+      },
+      {
+        "shot": "s73",
+        "which": "start",
+        "t": 861.263,
+        "scene": "blood_lead",
+        "dur": 13.07
+      },
+      {
+        "shot": "s73",
+        "which": "end",
+        "t": 874.229,
+        "scene": "blood_lead",
+        "dur": 13.07
+      },
+      {
+        "shot": "s74",
+        "which": "start",
+        "t": 874.329,
+        "scene": "four_clocks_table",
+        "dur": 23.7
+      },
+      {
+        "shot": "s74",
+        "which": "end",
+        "t": 897.928,
+        "scene": "four_clocks_table",
+        "dur": 23.7
+      },
+      {
+        "shot": "s75",
+        "which": "start",
+        "t": 898.028,
+        "scene": "assumptions",
+        "dur": 19.15
+      },
+      {
+        "shot": "s75",
+        "which": "end",
+        "t": 917.076,
+        "scene": "assumptions",
+        "dur": 19.15
+      },
+      {
+        "shot": "s76",
+        "which": "start",
+        "t": 917.176,
+        "scene": "aging_question",
+        "dur": 16.48
+      },
+      {
+        "shot": "s76",
+        "which": "end",
+        "t": 933.561,
+        "scene": "aging_question",
+        "dur": 16.48
+      },
+      {
+        "shot": "s77",
+        "which": "start",
+        "t": 933.661,
+        "scene": "end_card",
+        "dur": 8.77
+      },
+      {
+        "shot": "s77",
+        "which": "end",
+        "t": 942.331,
+        "scene": "end_card",
+        "dur": 8.77
+      }
+    ]
+  },
+  "sheets": [
+    "work/review/final5/sheet-grid-000.jpg",
+    "work/review/final5/sheet-grid-001.jpg",
+    "work/review/final5/sheet-grid-002.jpg",
+    "work/review/final5/sheet-grid-003.jpg",
+    "work/review/final5/sheet-bounds-000.jpg",
+    "work/review/final5/sheet-bounds-001.jpg",
+    "work/review/final5/sheet-bounds-002.jpg",
+    "work/review/final5/sheet-bounds-003.jpg"
+  ],
+  "limits_recorded_honestly": [
+    "Sampled stills cannot certify motion, pacing continuity or audio; motion is judged from measured frame-to-frame differences (tools/holdcheck.py) and audio from measured loudness/true-peak on the same delivered file.",
+    "No human watched or listened to this film; no audience, engagement or approval claim is made.",
+    "Frames are decoded to contact sheets at reduced size for reading; full-resolution stills for the revised shots are kept separately in evidence/pass1 and evidence/pass2."
+  ]
+}

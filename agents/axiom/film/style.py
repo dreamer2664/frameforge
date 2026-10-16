@@ -347,7 +347,28 @@ def grain(w, h, strength=6, seed=7):
     return _grain_cache[key]
 
 
+# Backgrounds are pure functions of their arguments (grain is seeded, the vignette is a
+# deterministic blur), so identical calls can be computed once and copied per frame. This is
+# what makes a full 1080p render affordable on two cores. Returned images are always copies:
+# scenes draw on top of them.
+_BG_CACHE: dict = {}
+
+
+def _cached_bg(key, builder, limit=12):
+    img = _BG_CACHE.get(key)
+    if img is None:
+        if len(_BG_CACHE) >= limit:
+            _BG_CACHE.clear()
+        img = _BG_CACHE[key] = builder()
+    return img.copy()
+
+
 def paper_bg(w=1920, h=1080, base=PAPER, tint=None, vignette=0.06, grain_strength=5):
+    return _cached_bg(("paper", w, h, base, tint, vignette, grain_strength),
+                      lambda: _paper_bg_build(w, h, base, tint, vignette, grain_strength))
+
+
+def _paper_bg_build(w=1920, h=1080, base=PAPER, tint=None, vignette=0.06, grain_strength=5):
     img = Image.new("RGB", (w, h), base)
     if tint:
         grd = Image.new("L", (1, h))
@@ -368,6 +389,10 @@ def paper_bg(w=1920, h=1080, base=PAPER, tint=None, vignette=0.06, grain_strengt
 
 
 def night_bg(w=1920, h=1080, seed=3, stars=140):
+    return _cached_bg(("night", w, h, seed, stars), lambda: _night_bg_build(w, h, seed, stars))
+
+
+def _night_bg_build(w=1920, h=1080, seed=3, stars=140):
     img = Image.new("RGB", (w, h), NIGHT)
     d = ImageDraw.Draw(img)
     for y in range(h):
