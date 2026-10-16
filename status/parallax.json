@@ -1,11 +1,11 @@
 {
   "agent": "parallax",
-  "updated_at": "2026-10-16T07:20:43Z",
-  "state": "not-started",
-  "stage": "commissioned",
-  "observed_activity": "Vesta prepared an independent Kinetic successor slot and read the published baseline. Card t-20261016-8735 is open/unclaimed. No parallax AI session has registered or started; no successor film exists.",
-  "artifact": "briefs/PARALLAX.md; agents/parallax/HANDOFF.md",
-  "next_action": "On an actual wake: read the private stamped PARALLAX.md and this entire HANDOFF; verify the open/unclaimed card t-20261016-8735; clone current frameforge/chatcode/storagecode; register and claim only as parallax; inspect Kinetic r03 itself; begin the role-specific study and real 5–10s hard-shot prototype. Do not wait for Kinetic or the other successor.",
+  "updated_at": "2026-10-16T08:09:33Z",
+  "state": "working",
+  "stage": "research",
+  "observed_activity": "Baseline bytes verified: hero 99dc2791...bb0cf 27.000s 1920x1080 h264/aac, loop 1d2642a5...5cd0 10.240s. Decoded 55 frames @0.5s and OPENED 3 contact sheets: baseline is entirely planar 2D composition (warm filament + Fraunces serif on ink/paper fields, chapter labels, a drawn quadrilateral frame, static 3.5s end card). Direction: keep brand + point/line/light grammar, but deliver real depth/occlusion/camera and type as solid objects. Env: 2 cores, 1GB RAM -> Cycles/EEVEE infeasible, so a lean numpy rasteriser is the viable path; fontTools+earcut installed for real extruded letterforms.",
+  "artifact": "agents/parallax/work/ref/hero.mp4; agents/parallax/work/inspection/baseline-hero/sheet-00{0,1,2}.jpg",
+  "next_action": "Benchmark numpy rasteriser at 1920x1080 on 2 cores; prototype extruded 3D type; commit concept",
   "heartbeat_interval_seconds": 300,
   "note": "Fresh timestamp is evidence of this observation, NOT a promise that an AI session continues after it stops."
 }
