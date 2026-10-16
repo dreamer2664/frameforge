@@ -1,6 +1,6 @@
 # Frameforge
 
-**Three new independent code-first video producers. Not three links in a pipeline.**
+**Three original independent code-first video producers, plus two independent successors to Kinetic.**
 
 | Producer | Original film commission | Clean public charter | Working memory | Goal card |
 |---|---|---|---|---|
@@ -8,7 +8,19 @@
 | **Scribble** | 45–75s target vertical stickman explainer, expressive situations and deliberately researched caption typography | [SCRIBBLE.md](briefs/SCRIBBLE.md) | [HANDOFF](agents/scribble/HANDOFF.md) | [5856](https://github.com/dreamer2664/chatcode/blob/main/board/tasks/t-20261015-5856.json) |
 | **Axiom** | 14–18min landscape illustrated question film, situated characters/costumes/props, sparse keywords rather than full burned-in subtitles | [AXIOM.md](briefs/AXIOM.md) | [HANDOFF](agents/axiom/HANDOFF.md) | [d413](https://github.com/dreamer2664/chatcode/blob/main/board/tasks/t-20261015-d413.json) |
 
-**Status at commissioning:** all three slots prepared; cards open/unclaimed; no new agent registered/awake on their behalf; no commissioned film exists yet. A prepared brief, software test or successful TTS fixture is not a finished video.
+**Historical status at initial commissioning (2026-10-15):** the three original slots were prepared with open/unclaimed cards; no new identity was registered on their behalf. Current activity is always read from the live status files and task cards; the Kinetic r03 release is a published candidate, not an acceptance claim. A prepared brief, software test or successful TTS fixture is not a finished video.
+
+
+## Kinetic successor pair (commissioned 2026-10-16)
+
+The original Kinetic r03 candidate is published and in asynchronous review; its immutable code/media are the baseline, not a live dependency. These two new producers are separate, standalone candidates with non-overlapping craft focuses. Both new cards were verified open and unclaimed; neither producer is registered or awake because a folder/card exists.
+
+| Successor | Independent focus | Clean public charter | Starter handoff | Goal card |
+|---|---|---|---|---|
+| **Parallax** | Cinematic spatial typography, camera blocking, real depth/occlusion/material/light | [PARALLAX.md](briefs/PARALLAX.md) | [HANDOFF](agents/parallax/HANDOFF.md) | [8735](https://github.com/dreamer2664/chatcode/blob/main/board/tasks/t-20261016-8735.json) |
+| **Glyphcraft** | Expressive authored letterforms and semantically motivated glyph transformations | [GLYPHCRAFT.md](briefs/GLYPHCRAFT.md) | [HANDOFF](agents/glyphcraft/HANDOFF.md) | [c3b5](https://github.com/dreamer2664/chatcode/blob/main/board/tasks/t-20261016-c3b5.json) |
+
+Both must create a new 35–55s 1920×1080 KINETIC hero and an 8–12s designed loop; both work independently from separate clones and leave `agents/kinetic/` untouched. The Director’s “about one-fifth” feedback is a subjective ambition cue, not a grade or hours quota. [Commissioner baseline review](evidence/KINETIC_SUCCESSORS_REVIEW.md) records the exact public hashes and what the existing review does—and does not—establish.
 
 ## Start here
 
@@ -35,7 +47,7 @@ The two motion assets are 16:9; the three shorts 9:16. The long example uses exp
 - Rootless FFmpeg/ffprobe, including HEVC/AV1 decode.
 - Noninteractive local Kokoro ONNX voice generation: a real 9.076s WAV, no Director voice vote.
 - A clearly labelled **technical fixture**, TTS→1080p H.264/AAC→full decode/loudness/hash/contact sheets. Not a film; first AAC true-peak overshoot was rejected, headroom was increased and the output remeasured.
-- **18 offline safety/behaviour tests**, including independent concurrent Git publishing, truthful child-process observations, secret redaction/refusal, own-folder isolation and executable private credential bootstrap.
+- **20 offline safety/behaviour tests**: the initial 18 commissioning checks plus two regressions for the successor identities, status/dashboard coverage and 35–55s QC ranges ([exact run](evidence/KINETIC_SUCCESSOR_TESTS.txt)).
 
 [Exact setup receipts/limits](evidence/SETUP_VERIFICATION.json) · [Commissioner action/failure/handoff record](evidence/COMMISSIONER_HANDOFF.md)
 

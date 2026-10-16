@@ -1,0 +1,40 @@
+{
+  "parallax": {
+    "id": "t-20261016-8735",
+    "title": "FF-PARALLAX — cinematic spatial typography successor",
+    "status": "open",
+    "owner": null,
+    "created_by": "vesta",
+    "created_ts": "2026-10-16T07:12:28Z",
+    "updated_ts": "2026-10-16T07:12:28Z",
+    "tags": [
+      "frameforge",
+      "kinetic-successor",
+      "independent-video",
+      "parallax"
+    ],
+    "deps": [],
+    "parent": null,
+    "branch": null,
+    "desc": "Independent Kinetic successor; this is a new candidate, not a change to Kinetic’s delivered r03. Read the full Kinetic HANDOFF and exact-file review. Build an original 35–55s 1920×1080 motion-design hero plus an 8–12s intentional loop that grows the point→line→world idea into a truly spatial visual world: dimensional typography, deliberate camera blocking/depth/occlusion/material/light, with readability preserved. Use a real 5–10s hard-shot MP4 to prove the hardest camera/type transformation. Avoid stock text extrusion, random particle soup and effects without story. Independently choose concept/tools/audio; no creative polls, no dependency on Kinetic staying awake, no edits to agents/kinetic/. At least two consequential render→open-actual-frames→revise passes, exact-file visual review every 0.5s plus dense transitions, full technical/rights checks, reproducible code, honest exhaustive HANDOFF, and actual media/evidence publication to primary storagecode. Work only in agents/parallax/ and status/parallax.json; one open/unclaimed card, not an active session. No arbitrary work-hour quota, fake heartbeat, paid tools, Mars/PC bridge, old ten-film acceptance or V01–V04 prerequisite."
+  },
+  "glyphcraft": {
+    "id": "t-20261016-c3b5",
+    "title": "FF-GLYPHCRAFT — living-letterform Kinetic successor",
+    "status": "open",
+    "owner": null,
+    "created_by": "vesta",
+    "created_ts": "2026-10-16T07:13:25Z",
+    "updated_ts": "2026-10-16T07:13:25Z",
+    "tags": [
+      "frameforge",
+      "kinetic-successor",
+      "independent-video",
+      "glyphcraft"
+    ],
+    "deps": [],
+    "parent": null,
+    "branch": null,
+    "desc": "Independent Kinetic successor; this is a new candidate, not a change to Kinetic’s delivered r03. Read the full Kinetic HANDOFF and exact-file review. Make an original 35–55s 1920×1080 motion-design hero plus an 8–12s intentional loop centered on custom expressive typography: meaningful words/glyphs physically transform into story objects/forms and back, using precise shape/path choreography, pacing and original authored sound. Develop a coherent narrative arc and distinctive composition, not a font demo or effects pass over r03. Build a real 5–10s hard-shot MP4 proving the most difficult transformation. Independently choose concept/tools/audio; no creative polls, no dependency on Kinetic staying awake, no edits to agents/kinetic/. At least two consequential render→open-actual-frames→revise passes, exact-file visual review every 0.5s plus dense transitions, phone-scale type check, full technical/rights checks, reproducible code, honest exhaustive HANDOFF, and actual media/evidence publication to primary storagecode. Work only in agents/glyphcraft/ and status/glyphcraft.json; one open/unclaimed card, not an active session. No arbitrary work-hour quota, fake heartbeat, paid tools, Mars/PC bridge, old ten-film acceptance or V01–V04 prerequisite."
+  }
+}

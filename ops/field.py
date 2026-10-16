@@ -6,7 +6,7 @@ from pathlib import Path
 import argparse,codecs,datetime as dt,json,os,selectors,shlex,subprocess,sys,time
 
 ROOT=Path(__file__).resolve().parents[1]
-AGENTS=('kinetic','scribble','axiom')
+AGENTS=('kinetic','scribble','axiom','parallax','glyphcraft')
 
 def utc():return dt.datetime.now(dt.timezone.utc).isoformat(timespec='seconds').replace('+00:00','Z')
 def redact(value):

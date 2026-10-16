@@ -5,7 +5,7 @@ Python 3.10+; Pillow for contact sheets. The commissioning runtime was Python 3.
 ## Working layout / ownership
 
 ```
-briefs/KINETIC.md, SCRIBBLE.md, AXIOM.md   clean public charters, placeholders only
+briefs/KINETIC.md, SCRIBBLE.md, AXIOM.md, PARALLAX.md, GLYPHCRAFT.md   clean public charters, placeholders only
 agents/<name>/                          only that producer writes here
   HANDOFF.md                            one exhaustive rendered action/failure/discovery/resume MD
   events.jsonl                          append-only journal that generates the MD
@@ -30,7 +30,7 @@ The bootstrap uses system FFmpeg/ffprobe if found through the helper API; otherw
 
 `visualize.py` probes the **actual media**, decodes JPEGs with FFmpeg (AV1/HEVC supported), writes timecoded multi-page contact sheets and an inspection manifest. This does not open/understand them for you. Open **every** sheet and meaningful individual frames with your available vision tool. Record observed timestamps/problems and fixes in your journal. Decode/capture more densely at transitions. A thumbnail, script, generated-but-unopened sheet or green subprocess exit is not visual review.
 
-For kinetic sample at least every 0.5s + dense transition midpoints; Scribble at least every 1s + caption boundaries; Axiom at least every 5s + all shot boundaries and important actions/diagrams. Continuous playback is additional evidence if genuinely available; never claim it from sparse stills. Tiny final text needs individual full-size pixel inspection and a phone-size composition check.
+For Kinetic, Parallax and Glyphcraft sample at least every 0.5s + dense transition midpoints; Scribble at least every 1s + caption boundaries; Axiom at least every 5s + all shot boundaries and important actions/diagrams. Continuous playback is additional evidence if genuinely available; never claim it from sparse stills. Tiny final text needs individual full-size pixel inspection and a phone-size composition check.
 
 ## Retrieve references without pretending a connector worked
 
@@ -76,7 +76,7 @@ Manual creative/research/code actions need their own meaningful journal entries;
 
 `publish` stages only your own agent tree/status, rejects foreign staged changes, checks known live secrets in tracked content, commits, rebases without force, pushes and appends that source SHA to primary `storagecode/PUSHES.md`. A confirmed source push followed by a failed ledger write reports **partial sync**, not success of both. Retry after preserving state. It never uploads large media or the private brief. API reads should prefer fresh clones; don't repeatedly ask the GitHub API to read every task file.
 
-Chatcode: claim only your commissioned goal card, renew its lease during an actual session at <=30-minute intervals, and use the standing on-shift heartbeat wire at 30 minutes. Do not initialize a fake new-agent roster row from the commissioner's session. No OCR/V01–V04/Mars prerequisite applies to these three independent film commissions.
+Chatcode: claim only your commissioned goal card, renew its lease during an actual session at <=30-minute intervals, and use the standing on-shift heartbeat wire at 30 minutes. Do not initialize a fake new-agent roster row from the commissioner's session. No OCR/V01–V04/Mars prerequisite applies to these independent film commissions or to the Kinetic successor pair.
 
 ## Exact-file technical QC
 
@@ -86,7 +86,7 @@ python3 ops/media_qc.py scribble agents/scribble/renders/final.mp4 --out agents/
 
 Checks master duration range, required landscape/portrait geometry, H.264/yuv420p, 24/25/30fps, AAC/48kHz, audio bitrate floor (target >=160kbps), measured track-end drift <=250ms, full decode, measured integrated loudness -16 +/-1.5 LUFS, true peak <=-1dBTP, bytes and SHA256. See the role brief for the exact art/story requirements. FFmpeg loudnorm can be used in a two-pass mix/export process; do not assume adding the filter guarantees the output measurement.
 
-The CLI master ranges: Kinetic 20–45s, Scribble 45–90s (target45–75), Axiom840–1080s. Kinetic's separately required 8–12s loop needs its own measured duration/decode/loudness/seam evidence; the shared hero-range gate is not the loop gate. The test fixture can bypass duration only inside the test API; it is clearly labelled and never a commissioned film. The final CLI must not skip decode/loudness to manufacture a pass.
+The CLI master ranges: Kinetic20–45s; Parallax and Glyphcraft35–55s; Scribble45–90s (target45–75); Axiom840–1080s. Kinetic's and both successors' separately required 8–12s loops need their own measured duration/decode/loudness/seam evidence; the shared hero-range gate is not the loop gate. The test fixture can bypass duration only inside the test API; it is clearly labelled and never a commissioned film. The final CLI must not skip decode/loudness to manufacture a pass.
 
 Passing QC cannot certify story, facts, acting, typography, visual attention, music rights or perceptual listening. Perform/record actual creative inspection separately. Do not invent full playback/hearing, human ballots, retention or virality. If you cannot hear audio with your tools, do the available cue/ASR/alignment/meter checks, state the limitation and deliver a clearly labelled best candidate—not a false listened-to final.
 
@@ -119,4 +119,4 @@ Code and live working memory remain in frameforge; durable media/evidence are on
 python3 -m unittest discover -s tests -v
 ```
 
-The offline suite currently has 18 tests: journal continuity/redaction, process liveness/partial-line output/exit/missing command, auth-env isolation, parallel independent Git publishing, foreign staging and known-secret refusal, publication folder/symlink/secret-boundary safety, substantial clean charters, executable private bootstrap, and no confusion between technical and artistic approval. A separate real toolchain fixture exercises TTS→H.264/AAC→ffprobe/full decode/contact sheets. These are **tooling tests, not any of the three promised films**. See `evidence/SETUP_VERIFICATION.json` and `evidence/COMMISSIONER_HANDOFF.md` for precise executed scope and caveats.
+The offline suite currently has 20 tests: the original 18 journal/process/privacy/concurrent-publish/publication/charter/QC checks plus two successor regressions for the new agent identities, release/QC ranges, truthful not-started journal state and five-slot dashboard. A separate real toolchain fixture exercises TTS→H.264/AAC→ffprobe/full decode/contact sheets. These are **tooling tests, not any of the three promised films**. See `evidence/SETUP_VERIFICATION.json` and `evidence/COMMISSIONER_HANDOFF.md` for precise executed scope and caveats.

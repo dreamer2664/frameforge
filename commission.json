@@ -26,8 +26,41 @@
       "status": "status/axiom.json",
       "task": "t-20261015-d413",
       "independent": true
+    },
+    "parallax": {
+      "brief": "briefs/PARALLAX.md",
+      "workspace": "agents/parallax",
+      "handoff": "agents/parallax/HANDOFF.md",
+      "status": "status/parallax.json",
+      "task": "t-20261016-8735",
+      "independent": true,
+      "successor_of": "kinetic",
+      "initial_state": "not-started",
+      "baseline": "frameforge/kinetic/r03-99dc27911b3e"
+    },
+    "glyphcraft": {
+      "brief": "briefs/GLYPHCRAFT.md",
+      "workspace": "agents/glyphcraft",
+      "handoff": "agents/glyphcraft/HANDOFF.md",
+      "status": "status/glyphcraft.json",
+      "task": "t-20261016-c3b5",
+      "independent": true,
+      "successor_of": "kinetic",
+      "initial_state": "not-started",
+      "baseline": "frameforge/kinetic/r03-99dc27911b3e"
     }
   },
   "mars": "paused",
-  "not_an_old_campaign_acceptance": true
+  "not_an_old_campaign_acceptance": true,
+  "successor_pair": {
+    "commissioned_at": "2026-10-16",
+    "successor_of": "kinetic",
+    "baseline_release": "frameforge/kinetic/r03-99dc27911b3e",
+    "independent_candidates": [
+      "parallax",
+      "glyphcraft"
+    ],
+    "no_runtime_dependency_on_kinetic": true,
+    "status": "prepared; both cards open/unclaimed; no successor session registered or awake"
+  }
 }

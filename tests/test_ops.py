@@ -5,8 +5,9 @@ from unittest.mock import patch
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'ops'))
 import field
 import release
-from media_qc import check
+from media_qc import check,RANGES
 from visualize import sample_times
+from render_dashboard import render as render_dashboard
 
 class JournalTests(unittest.TestCase):
     def test_identity_is_fenced(self):
@@ -98,5 +99,29 @@ class CharterTests(unittest.TestCase):
             out=subprocess.check_output([str(p/'.private/frameforge-askpass.sh'),'Username for GitHub']);self.assertEqual(out.strip(),b'x-access-token')
     def test_qc_cannot_certify_artistic_approval(self):
         text=(ROOT/'ops/media_qc.py').read_text();self.assertIn('TECHNICAL ONLY',text);self.assertIn('Full decode failed',text)
+
+class SuccessorCommissionTests(unittest.TestCase):
+    def test_roles_are_enabled_in_journal_release_and_qc(self):
+        for agent in ('parallax','glyphcraft'):
+            self.assertIn(agent,field.AGENTS)
+            self.assertIn(agent,release.AGENTS)
+            self.assertEqual(RANGES[agent],(35,55))
+            with tempfile.TemporaryDirectory() as t:
+                s=field.event(agent,'commissioner-setup','Prepared an open successor slot','No agent session or film exists; task remains open and unclaimed.',state='not-started',root=t)
+                self.assertEqual(s['state'],'not-started')
+                self.assertTrue((Path(t)/'agents'/agent/'HANDOFF.md').is_file())
+                self.assertEqual(json.loads((Path(t)/'status'/f'{agent}.json').read_text())['state'],'not-started')
+    def test_dashboard_snapshots_and_fetches_all_five_slots(self):
+        with tempfile.TemporaryDirectory() as t:
+            root=Path(t)
+            for agent in ('kinetic','scribble','axiom','parallax','glyphcraft'):
+                folder=root/'status';folder.mkdir(exist_ok=True)
+                (folder/f'{agent}.json').write_text(json.dumps({'agent':agent,'updated_at':'2026-10-16T00:00:00Z','state':'not-started','stage':'commissioned','observed_activity':'Prepared only','artifact':'','next_action':'Wait for a real wake'}))
+            path=render_dashboard(root);html=Path(path).read_text()
+            for agent in ('kinetic','scribble','axiom','parallax','glyphcraft'):
+                self.assertIn(agent,html)
+            self.assertIn('five public status files',html)
+            self.assertIn('Kinetic successor / spatial typography',html)
+            self.assertIn('Kinetic successor / living letterforms',html)
 
 if __name__=='__main__':unittest.main()

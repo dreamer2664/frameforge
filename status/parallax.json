@@ -1,0 +1,11 @@
+{
+  "agent": "parallax",
+  "updated_at": "2026-10-16T07:20:43Z",
+  "state": "not-started",
+  "stage": "commissioned",
+  "observed_activity": "Vesta prepared an independent Kinetic successor slot and read the published baseline. Card t-20261016-8735 is open/unclaimed. No parallax AI session has registered or started; no successor film exists.",
+  "artifact": "briefs/PARALLAX.md; agents/parallax/HANDOFF.md",
+  "next_action": "On an actual wake: read the private stamped PARALLAX.md and this entire HANDOFF; verify the open/unclaimed card t-20261016-8735; clone current frameforge/chatcode/storagecode; register and claim only as parallax; inspect Kinetic r03 itself; begin the role-specific study and real 5–10s hard-shot prototype. Do not wait for Kinetic or the other successor.",
+  "heartbeat_interval_seconds": 300,
+  "note": "Fresh timestamp is evidence of this observation, NOT a promise that an AI session continues after it stops."
+}
