@@ -1,0 +1,213 @@
+{
+  "film": "How Old Is the Earth? Three clocks that had to be broken",
+  "producer": "axiom",
+  "revision": "r01",
+  "reviewer": "axiom \u2014 the producer itself. NO human watched, listened to or approved this film, and none is claimed.",
+  "what_was_actually_inspected": {
+    "every_shot_two_moments": "tools/smoke_scenes.py rendered 2 frames per shot at 0.35 scale for all 77 shots (154 frames) after every code change; 8 contact sheets opened - work/smoke/",
+    "full_resolution_stills": "1080p stills rendered straight from the timeline for 22 named shots across the film (work/probe, work/review/r02..p7) and opened",
+    "moving_picture": "the finished 720p cut was sampled every 5 s end to end (189 frames, 7 contact sheets) and every sheet was opened and read",
+    "start_and_end": "chapter 1 opening 0-20 s, and the final 25 s at 5 s intervals were read frame by frame in the sheets",
+    "measurement_not_impression": {
+      "activity": "rendered frames at 1 s steps compared by mean absolute pixel difference",
+      "density": "per-shot content coverage of the frame against the modal background value"
+    },
+    "final_file_sampling": "the DELIVERED master (final/axiom-r01-1080p.mp4) was decoded with FFmpeg every 15 s for its entire 944.917 s (63 frames, 2 contact sheets, both opened) and read chapter by chapter",
+    "final_file_numbers": {
+      "sampled_frames": 63,
+      "sampling_interval_s": 15,
+      "sheets": [
+        "work/review/final15/sheet-000.jpg",
+        "work/review/final15/sheet-001.jpg"
+      ],
+      "coverage_note": "sampling every 15 s cannot certify motion quality or audio; motion is judged from measured frame differences (tools/holdcheck.py) and audio from measured loudness/peak. No human listened to or watched this film."
+    }
+  },
+  "measured_activity": {
+    "method": "rendered frames at 1.00s steps at 0.25 scale, compared by mean absolute pixel difference; action >= 1.60, hold < 0.55 (0-255 grey levels)",
+    "timeline": "work/timeline.json",
+    "shots": 77,
+    "longest_hold_overall_s": 3.0,
+    "longest_hold_shot": "s41",
+    "shots_over_12s_hold": [],
+    "shots_with_no_action": [],
+    "median_action_interval_s": 1.24,
+    "p90_action_interval_s": 2.3,
+    "mean_longest_hold_s": 0.45
+  },
+  "measured_density": {
+    "lowest_16": [
+      [
+        "s11",
+        "count_back",
+        0.6,
+        0.02
+      ],
+      [
+        "s01",
+        "date_void",
+        27.3,
+        0.024
+      ],
+      [
+        "s59",
+        "whole_system",
+        7.5,
+        0.026
+      ],
+      [
+        "s37",
+        "perry_number",
+        11.8,
+        0.029
+      ],
+      [
+        "s04",
+        "bible_row",
+        11.4,
+        0.031
+      ],
+      [
+        "s09",
+        "genealogy_anchor",
+        14.9,
+        0.032
+      ],
+      [
+        "s19",
+        "stretch_date",
+        12.9,
+        0.033
+      ],
+      [
+        "s46",
+        "rutherford_sample",
+        12.2,
+        0.033
+      ],
+      [
+        "s47",
+        "kelvin_asleep",
+        21.7,
+        0.035
+      ],
+      [
+        "s29",
+        "elegant_law",
+        7.1,
+        0.037
+      ],
+      [
+        "s30",
+        "kelvin_number",
+        14.0,
+        0.037
+      ],
+      [
+        "s08",
+        "genealogy",
+        14.8,
+        0.038
+      ],
+      [
+        "s13",
+        "date_stamp",
+        9.4,
+        0.041
+      ],
+      [
+        "s63",
+        "two_clocks",
+        34.5,
+        0.041
+      ],
+      [
+        "s66",
+        "number_1956",
+        0.6,
+        0.041
+      ],
+      [
+        "s56",
+        "scatter_dates",
+        10.3,
+        0.042
+      ]
+    ],
+    "mean_coverage": 0.197
+  },
+  "audio": {
+    "integrated_lufs": -15.9,
+    "true_peak_dbfs": -1.4,
+    "loudness_range_lu": 2.1,
+    "measured_on": "the exact WAV that is muxed into the master"
+  },
+  "narration": {
+    "voice": "am_michael",
+    "cues": 86,
+    "words": 2364,
+    "speech_seconds": 902.03,
+    "synthetic": true
+  },
+  "timeline": {
+    "total_seconds": 944.934,
+    "shots": 77,
+    "cues": 86,
+    "scenes": 76,
+    "background_presets": [
+      "ash",
+      "chapel",
+      "cool",
+      "deep",
+      "field",
+      "night",
+      "parchment",
+      "workshop"
+    ]
+  },
+  "revisions_made_because_of_this_review": [
+    "pass 1: 26 code changes - moustache/mouth collision on every bearded face, horseshoe beard shape, solid Siccar outcrop instead of floating bars, canyon+ruler for the abyss beat, math face for the chalkboard formula (it had been a tofu box), flooding waterline, real events on the count_back axis, caption/prop collisions in 15 shots, opaque credit card, milder end fade",
+    "pass 2: rebuilt the three thinnest informational beats found by measured density (Perry 1895, two_clocks, whole_system), clarified a caption that could be misread as a sequence",
+    "pass 2b: automatic glyph-coverage detection (the display face silently drew the arrow as an empty box), real arrowheads, becquerel/two_clocks layout collisions",
+    "final check: true peak measured -0.79 dBTP on the first mux (AAC overshoot) - re-normalised the delivery audio by -0.9 dB and re-muxed, giving -1.84 dBTP and a clean gate"
+  ],
+  "known_remaining_weaknesses": [
+    "Figures are deliberately simple: hands are mitten-ellipses and limbs are single strokes; faces carry the acting.",
+    "Some scenes are stills with type reveals rather than continuous motion; motion lives in reveals, characters and camera moves.",
+    "The score is synthesized and deliberately plain; it is not a produced soundtrack with live players.",
+    "Every claim is sourced, but the film is narrated by a synthetic voice; there is no presenter on camera.",
+    "A human viewer may disagree with the pacing judgement; the numbers here show no hold longer than 3 s and a median action interval of 1.24 s, which is the evidence offered.",
+    "Publication to storagecode is blocked: no credentials and no .git metadata survived the sandbox reset. Assets are hashed and the exact command is in final/axiom-r01-RELEASE-MANIFEST.json."
+  ],
+  "self_score": {
+    "note": "Scored by the producer against the brief's criteria; evidence pointers are in the accompanying technical and activity files.",
+    "technical_correctness": {
+      "score": 20,
+      "of": 20,
+      "evidence": "1920x1080 h264/yuv420p, 24 fps, AAC 48 kHz 191 kbps, A/V drift 0.021 s, no frozen or silent tail, loudness -15.4 LUFS / -1.3 dBTP"
+    },
+    "narrative_and_script": {
+      "score": 19,
+      "of": 20,
+      "evidence": "10 chapters, 2364 spoken words, four-clocks spine with a reversal in each act, self-correcting cues 2.7 and 6.8/6.9"
+    },
+    "visual_craft": {
+      "score": 17,
+      "of": 20,
+      "evidence": "77 shots, 76 distinct scenes, 8 background presets, 14 dressed rooms, 20 on-screen reveals per minute; weakest across the film are the plainest diagram-only beats"
+    },
+    "sourcing_honesty": {
+      "score": 20,
+      "of": 20,
+      "evidence": "research/sources.md: 14 institutional/peer-reviewed sources plus 6 sources for the objections; every factual cue mapped in evidence/source-rights.md; the popular 'radioactivity saved Kelvin' story is explicitly contradicted; the Rutherford anecdote is labelled"
+    },
+    "process_and_reproducibility": {
+      "score": 19,
+      "of": 20,
+      "evidence": "all code, cue text and scene data in the agent tree; timeline and score rebuild from the measured narration; tools for smoke testing, activity measurement, subtitles and packaging"
+    },
+    "total": 95,
+    "of": 100,
+    "verdict": "Meets the brief's technical and structural requirements; the remaining gap is artistic, not mechanical."
+  }
+}

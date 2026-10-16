@@ -1,0 +1,47 @@
+{
+  "artifact": "/tmp/axiom-audio/master-norm.wav",
+  "chain": "mix_audio.py -> volume +4.5 dB -> alimiter(limit=0.85, attack=5ms, release=120ms, level=disabled, asc=1) -> 48 kHz s16",
+  "measured_with": "ffmpeg ebur128=peak=true (integrated, EBU R128) and loudnorm print_format=json",
+  "integrated_lufs": -15.9,
+  "loudness_range_lu": 2.1,
+  "true_peak_dbfs": -1.4,
+  "duration_s": 944.65,
+  "target": {
+    "integrated_lufs": "-16 +/- 1.5",
+    "true_peak_max_dbfs": -1.0
+  },
+  "pass": true,
+  "raw_mix": {
+    "integrated_lufs": -20.31,
+    "true_peak_dbfs": -1.31,
+    "peak_before_normalise": 0.5773,
+    "voice_rms": 0.09
+  },
+  "attempts": [
+    {
+      "chain": "volume=4.4dB,alimiter(level enabled)",
+      "i": -16.22,
+      "tp": 0.1,
+      "verdict": "rejected: limiter makeup pushed true peak over 0 dBFS"
+    },
+    {
+      "chain": "volume=3.0dB,alimiter(limit=0.77)",
+      "i": -15.1,
+      "tp": 0.1,
+      "verdict": "rejected: same makeup problem"
+    },
+    {
+      "chain": "volume=4.4dB,alimiter(level=disabled)",
+      "i": -15.9,
+      "tp": -0.9,
+      "verdict": "safe but peak margin thin"
+    },
+    {
+      "chain": "volume=4.5dB,alimiter(limit=0.85,level=disabled)",
+      "i": -15.9,
+      "tp": -1.4,
+      "verdict": "ACCEPTED"
+    }
+  ],
+  "note": "Integrated loudness is measured over the whole film including the music-only chapter cards and the tail; LRA 2.1 LU because the score is deliberately quiet under speech."
+}

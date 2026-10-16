@@ -1,0 +1,112 @@
+{
+  "film": "How Old Is the Earth? The clocks that had to be broken",
+  "producer": "axiom",
+  "revision": "r01",
+  "total_duration_s": 944.934,
+  "cues": 86,
+  "subtitle_blocks": 153,
+  "shots": 77,
+  "chapters": [
+    {
+      "chapter": 1,
+      "card": "A date in the margin",
+      "card_start": 0.45,
+      "story_start": 1.6,
+      "end": 70.049,
+      "length_s": 69.7,
+      "shots": 6,
+      "cue_from": "s01"
+    },
+    {
+      "chapter": 2,
+      "card": "Ussher's clock",
+      "card_start": 68.899,
+      "story_start": 70.049,
+      "end": 151.262,
+      "length_s": 80.81,
+      "shots": 8,
+      "cue_from": "s07"
+    },
+    {
+      "chapter": 3,
+      "card": "The world did not fit",
+      "card_start": 150.112,
+      "story_start": 151.262,
+      "end": 219.237,
+      "length_s": 68.17,
+      "shots": 5,
+      "cue_from": "s15"
+    },
+    {
+      "chapter": 4,
+      "card": "The clock in the rock",
+      "card_start": 218.087,
+      "story_start": 219.237,
+      "end": 316.738,
+      "length_s": 97.7,
+      "shots": 7,
+      "cue_from": "s20"
+    },
+    {
+      "chapter": 5,
+      "card": "Kelvin's cooling clock",
+      "card_start": 315.588,
+      "story_start": 316.738,
+      "end": 408.339,
+      "length_s": 91.6,
+      "shots": 8,
+      "cue_from": "s27"
+    },
+    {
+      "chapter": 6,
+      "card": "The heat inside",
+      "card_start": 407.189,
+      "story_start": 408.339,
+      "end": 510.171,
+      "length_s": 101.83,
+      "shots": 8,
+      "cue_from": "s35"
+    },
+    {
+      "chapter": 7,
+      "card": "Rutherford's hourglass",
+      "card_start": 509.021,
+      "story_start": 510.171,
+      "end": 619.777,
+      "length_s": 109.61,
+      "shots": 9,
+      "cue_from": "s43"
+    },
+    {
+      "chapter": 8,
+      "card": "A clock that leaks",
+      "card_start": 618.627,
+      "story_start": 619.777,
+      "end": 693.127,
+      "length_s": 73.35,
+      "shots": 7,
+      "cue_from": "s52"
+    },
+    {
+      "chapter": 9,
+      "card": "The clean room",
+      "card_start": 691.977,
+      "story_start": 693.127,
+      "end": 828.416,
+      "length_s": 135.29,
+      "shots": 10,
+      "cue_from": "s59"
+    },
+    {
+      "chapter": 10,
+      "card": "What a clock assumes",
+      "card_start": 827.266,
+      "story_start": 828.416,
+      "end": 937.934,
+      "length_s": 114.32,
+      "shots": 9,
+      "cue_from": "s69"
+    }
+  ],
+  "youtube_chapters": "00:00:00 1. A date in the margin\n00:01:08 2. Ussher's clock\n00:02:30 3. The world did not fit\n00:03:38 4. The clock in the rock\n00:05:15 5. Kelvin's cooling clock\n00:06:47 6. The heat inside\n00:08:29 7. Rutherford's hourglass\n00:10:18 8. A clock that leaks\n00:11:31 9. The clean room\n00:13:47 10. What a clock assumes"
+}

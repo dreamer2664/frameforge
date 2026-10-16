@@ -1,0 +1,1655 @@
+{
+  "film": "How Old Is the Earth? The clocks that had to be broken",
+  "producer": "axiom",
+  "voice": "smoke",
+  "revision": "r01",
+  "total_duration_s": 558.9,
+  "speech_end_s": 551.9,
+  "shots": 77,
+  "cues": 86,
+  "chapters": [
+    {
+      "n": 1,
+      "card": "A date in the margin",
+      "shots": 6,
+      "start": 0.45,
+      "story_start": 1.6,
+      "end": 40.25,
+      "length_s": 39.9
+    },
+    {
+      "n": 2,
+      "card": "Ussher's clock",
+      "shots": 8,
+      "start": 39.1,
+      "story_start": 40.25,
+      "end": 85.2,
+      "length_s": 44.5
+    },
+    {
+      "n": 3,
+      "card": "The world did not fit",
+      "shots": 5,
+      "start": 84.05,
+      "story_start": 85.2,
+      "end": 130.15,
+      "length_s": 45.1
+    },
+    {
+      "n": 4,
+      "card": "The clock in the rock",
+      "shots": 7,
+      "start": 129.0,
+      "story_start": 130.15,
+      "end": 200.3,
+      "length_s": 70.3
+    },
+    {
+      "n": 5,
+      "card": "Kelvin's cooling clock",
+      "shots": 8,
+      "start": 199.15,
+      "story_start": 200.3,
+      "end": 251.55,
+      "length_s": 51.2
+    },
+    {
+      "n": 6,
+      "card": "The heat inside",
+      "shots": 8,
+      "start": 250.4,
+      "story_start": 251.55,
+      "end": 315.4,
+      "length_s": 63.9
+    },
+    {
+      "n": 7,
+      "card": "Rutherford's hourglass",
+      "shots": 9,
+      "start": 314.25,
+      "story_start": 315.4,
+      "end": 379.25,
+      "length_s": 63.9
+    },
+    {
+      "n": 8,
+      "card": "A clock that leaks",
+      "shots": 7,
+      "start": 378.1,
+      "story_start": 379.25,
+      "end": 424.2,
+      "length_s": 45.0
+    },
+    {
+      "n": 9,
+      "card": "The clean room",
+      "shots": 10,
+      "start": 423.05,
+      "story_start": 424.2,
+      "end": 488.05,
+      "length_s": 63.9
+    },
+    {
+      "n": 10,
+      "card": "What a clock assumes",
+      "shots": 9,
+      "start": 486.9,
+      "story_start": 488.05,
+      "end": 551.9,
+      "length_s": 68.7
+    }
+  ],
+  "shot_table": [
+    {
+      "id": "s01",
+      "chapter": 1,
+      "scene": "date_void",
+      "bg": "night",
+      "cues": [
+        "1.1",
+        "1.2"
+      ],
+      "start": 0.4,
+      "end": 14.25,
+      "dur": 13.85
+    },
+    {
+      "id": "s02",
+      "chapter": 1,
+      "scene": "ussher_study",
+      "bg": "parchment",
+      "cues": [
+        "1.3"
+      ],
+      "start": 14.25,
+      "end": 19.95,
+      "dur": 5.7
+    },
+    {
+      "id": "s03",
+      "chapter": 1,
+      "scene": "bible_margins",
+      "bg": "parchment",
+      "cues": [
+        "1.3"
+      ],
+      "start": 19.95,
+      "end": 20.55,
+      "dur": 0.6
+    },
+    {
+      "id": "s04",
+      "chapter": 1,
+      "scene": "bible_row",
+      "bg": "parchment",
+      "cues": [
+        "1.4"
+      ],
+      "start": 20.55,
+      "end": 26.85,
+      "dur": 6.3
+    },
+    {
+      "id": "s05",
+      "chapter": 1,
+      "scene": "ussher_writing",
+      "bg": "parchment",
+      "cues": [
+        "1.5"
+      ],
+      "start": 26.85,
+      "end": 33.15,
+      "dur": 6.3
+    },
+    {
+      "id": "s06",
+      "chapter": 1,
+      "scene": "three_clocks_tease",
+      "bg": "parchment",
+      "cues": [
+        "1.6"
+      ],
+      "start": 33.15,
+      "end": 40.3,
+      "dur": 7.15
+    },
+    {
+      "id": "s07",
+      "chapter": 2,
+      "scene": "ussher_study",
+      "bg": "parchment",
+      "cues": [
+        "2.1"
+      ],
+      "start": 40.3,
+      "end": 46.6,
+      "dur": 6.3
+    },
+    {
+      "id": "s08",
+      "chapter": 2,
+      "scene": "genealogy",
+      "bg": "parchment",
+      "cues": [
+        "2.2"
+      ],
+      "start": 46.6,
+      "end": 52.9,
+      "dur": 6.3
+    },
+    {
+      "id": "s09",
+      "chapter": 2,
+      "scene": "genealogy_anchor",
+      "bg": "parchment",
+      "cues": [
+        "2.3"
+      ],
+      "start": 52.9,
+      "end": 59.2,
+      "dur": 6.3
+    },
+    {
+      "id": "s10",
+      "chapter": 2,
+      "scene": "babylon",
+      "bg": "parchment",
+      "cues": [
+        "2.4"
+      ],
+      "start": 59.2,
+      "end": 64.9,
+      "dur": 5.7
+    },
+    {
+      "id": "s11",
+      "chapter": 2,
+      "scene": "count_back",
+      "bg": "parchment",
+      "cues": [
+        "2.4"
+      ],
+      "start": 64.9,
+      "end": 65.5,
+      "dur": 0.6
+    },
+    {
+      "id": "s12",
+      "chapter": 2,
+      "scene": "harvest",
+      "bg": "field",
+      "cues": [
+        "2.5"
+      ],
+      "start": 65.5,
+      "end": 71.8,
+      "dur": 6.3
+    },
+    {
+      "id": "s13",
+      "chapter": 2,
+      "scene": "date_stamp",
+      "bg": "parchment",
+      "cues": [
+        "2.6"
+      ],
+      "start": 71.8,
+      "end": 78.1,
+      "dur": 6.3
+    },
+    {
+      "id": "s14",
+      "chapter": 2,
+      "scene": "two_corrections",
+      "bg": "parchment",
+      "cues": [
+        "2.7"
+      ],
+      "start": 78.1,
+      "end": 84.85,
+      "dur": 6.75
+    },
+    {
+      "id": "s15",
+      "chapter": 3,
+      "scene": "study_wide",
+      "bg": "parchment",
+      "cues": [
+        "3.1"
+      ],
+      "start": 84.85,
+      "end": 91.55,
+      "dur": 6.7
+    },
+    {
+      "id": "s16",
+      "chapter": 3,
+      "scene": "archive",
+      "bg": "workshop",
+      "cues": [
+        "3.2",
+        "3.3"
+      ],
+      "start": 91.55,
+      "end": 104.15,
+      "dur": 12.6
+    },
+    {
+      "id": "s17",
+      "chapter": 3,
+      "scene": "fossil_hill",
+      "bg": "field",
+      "cues": [
+        "3.4"
+      ],
+      "start": 104.15,
+      "end": 110.45,
+      "dur": 6.3
+    },
+    {
+      "id": "s18",
+      "chapter": 3,
+      "scene": "flood",
+      "bg": "ash",
+      "cues": [
+        "3.5",
+        "3.6"
+      ],
+      "start": 110.45,
+      "end": 123.05,
+      "dur": 12.6
+    },
+    {
+      "id": "s19",
+      "chapter": 3,
+      "scene": "stretch_date",
+      "bg": "parchment",
+      "cues": [
+        "3.7"
+      ],
+      "start": 123.05,
+      "end": 130.0,
+      "dur": 6.95
+    },
+    {
+      "id": "s20",
+      "chapter": 4,
+      "scene": "coast_1788",
+      "bg": "cool",
+      "cues": [
+        "4.1",
+        "4.2"
+      ],
+      "start": 130.0,
+      "end": 142.8,
+      "dur": 12.8
+    },
+    {
+      "id": "s21",
+      "chapter": 4,
+      "scene": "siccar_rock",
+      "bg": "cool",
+      "cues": [
+        "4.3",
+        "4.4"
+      ],
+      "start": 142.8,
+      "end": 155.4,
+      "dur": 12.6
+    },
+    {
+      "id": "s22",
+      "chapter": 4,
+      "scene": "siccar_steps",
+      "bg": "cool",
+      "cues": [
+        "4.5",
+        "4.6"
+      ],
+      "start": 155.4,
+      "end": 168.0,
+      "dur": 12.6
+    },
+    {
+      "id": "s23",
+      "chapter": 4,
+      "scene": "siccar_slow",
+      "bg": "cool",
+      "cues": [
+        "4.7"
+      ],
+      "start": 168.0,
+      "end": 174.3,
+      "dur": 6.3
+    },
+    {
+      "id": "s24",
+      "chapter": 4,
+      "scene": "hutton_phrase",
+      "bg": "cool",
+      "cues": [
+        "4.8"
+      ],
+      "start": 174.3,
+      "end": 180.6,
+      "dur": 6.3
+    },
+    {
+      "id": "s25",
+      "chapter": 4,
+      "scene": "playfair_giddy",
+      "bg": "cool",
+      "cues": [
+        "4.9"
+      ],
+      "start": 180.6,
+      "end": 186.9,
+      "dur": 6.3
+    },
+    {
+      "id": "s26",
+      "chapter": 4,
+      "scene": "no_measurement",
+      "bg": "parchment",
+      "cues": [
+        "4.10",
+        "4.11"
+      ],
+      "start": 186.9,
+      "end": 200.35,
+      "dur": 13.45
+    },
+    {
+      "id": "s27",
+      "chapter": 5,
+      "scene": "glasgow_board",
+      "bg": "chapel",
+      "cues": [
+        "5.1",
+        "5.2"
+      ],
+      "start": 200.35,
+      "end": 212.95,
+      "dur": 12.6
+    },
+    {
+      "id": "s28",
+      "chapter": 5,
+      "scene": "cooling_ball",
+      "bg": "deep",
+      "cues": [
+        "5.3"
+      ],
+      "start": 212.95,
+      "end": 219.25,
+      "dur": 6.3
+    },
+    {
+      "id": "s29",
+      "chapter": 5,
+      "scene": "elegant_law",
+      "bg": "parchment",
+      "cues": [
+        "5.4"
+      ],
+      "start": 219.25,
+      "end": 225.55,
+      "dur": 6.3
+    },
+    {
+      "id": "s30",
+      "chapter": 5,
+      "scene": "kelvin_number",
+      "bg": "parchment",
+      "cues": [
+        "5.5"
+      ],
+      "start": 225.55,
+      "end": 231.25,
+      "dur": 5.7
+    },
+    {
+      "id": "s31",
+      "chapter": 5,
+      "scene": "measure_heat",
+      "bg": "workshop",
+      "cues": [
+        "5.5"
+      ],
+      "start": 231.25,
+      "end": 231.85,
+      "dur": 0.6
+    },
+    {
+      "id": "s32",
+      "chapter": 5,
+      "scene": "sun_budget",
+      "bg": "night",
+      "cues": [
+        "5.6"
+      ],
+      "start": 231.85,
+      "end": 238.15,
+      "dur": 6.3
+    },
+    {
+      "id": "s33",
+      "chapter": 5,
+      "scene": "darwin_worry",
+      "bg": "parchment",
+      "cues": [
+        "5.7"
+      ],
+      "start": 238.15,
+      "end": 244.45,
+      "dur": 6.3
+    },
+    {
+      "id": "s34",
+      "chapter": 5,
+      "scene": "kelvin_honest",
+      "bg": "parchment",
+      "cues": [
+        "5.8"
+      ],
+      "start": 244.45,
+      "end": 251.6,
+      "dur": 7.15
+    },
+    {
+      "id": "s35",
+      "chapter": 6,
+      "scene": "perry_office",
+      "bg": "workshop",
+      "cues": [
+        "6.1",
+        "6.2"
+      ],
+      "start": 251.6,
+      "end": 264.2,
+      "dur": 12.6
+    },
+    {
+      "id": "s36",
+      "chapter": 6,
+      "scene": "convection",
+      "bg": "deep",
+      "cues": [
+        "6.3"
+      ],
+      "start": 264.2,
+      "end": 270.5,
+      "dur": 6.3
+    },
+    {
+      "id": "s37",
+      "chapter": 6,
+      "scene": "perry_number",
+      "bg": "parchment",
+      "cues": [
+        "6.4"
+      ],
+      "start": 270.5,
+      "end": 276.8,
+      "dur": 6.3
+    },
+    {
+      "id": "s38",
+      "chapter": 6,
+      "scene": "forgotten_paper",
+      "bg": "workshop",
+      "cues": [
+        "6.5"
+      ],
+      "start": 276.8,
+      "end": 283.1,
+      "dur": 6.3
+    },
+    {
+      "id": "s39",
+      "chapter": 6,
+      "scene": "becquerel_drawer",
+      "bg": "night",
+      "cues": [
+        "6.6"
+      ],
+      "start": 283.1,
+      "end": 289.4,
+      "dur": 6.3
+    },
+    {
+      "id": "s40",
+      "chapter": 6,
+      "scene": "radioactive_rock",
+      "bg": "deep",
+      "cues": [
+        "6.7"
+      ],
+      "start": 289.4,
+      "end": 295.7,
+      "dur": 6.3
+    },
+    {
+      "id": "s41",
+      "chapter": 6,
+      "scene": "heat_correction",
+      "bg": "parchment",
+      "cues": [
+        "6.8",
+        "6.9"
+      ],
+      "start": 295.7,
+      "end": 308.3,
+      "dur": 12.6
+    },
+    {
+      "id": "s42",
+      "chapter": 6,
+      "scene": "new_clock",
+      "bg": "deep",
+      "cues": [
+        "6.10"
+      ],
+      "start": 308.3,
+      "end": 315.45,
+      "dur": 7.15
+    },
+    {
+      "id": "s43",
+      "chapter": 7,
+      "scene": "royal_institution",
+      "bg": "chapel",
+      "cues": [
+        "7.1"
+      ],
+      "start": 315.45,
+      "end": 321.75,
+      "dur": 6.3
+    },
+    {
+      "id": "s44",
+      "chapter": 7,
+      "scene": "decay_steadfast",
+      "bg": "deep",
+      "cues": [
+        "7.2"
+      ],
+      "start": 321.75,
+      "end": 328.05,
+      "dur": 6.3
+    },
+    {
+      "id": "s45",
+      "chapter": 7,
+      "scene": "good_clock",
+      "bg": "parchment",
+      "cues": [
+        "7.3"
+      ],
+      "start": 328.05,
+      "end": 334.35,
+      "dur": 6.3
+    },
+    {
+      "id": "s46",
+      "chapter": 7,
+      "scene": "rutherford_sample",
+      "bg": "chapel",
+      "cues": [
+        "7.4"
+      ],
+      "start": 334.35,
+      "end": 340.65,
+      "dur": 6.3
+    },
+    {
+      "id": "s47",
+      "chapter": 7,
+      "scene": "kelvin_asleep",
+      "bg": "chapel",
+      "cues": [
+        "7.5",
+        "7.6"
+      ],
+      "start": 340.65,
+      "end": 353.25,
+      "dur": 12.6
+    },
+    {
+      "id": "s48",
+      "chapter": 7,
+      "scene": "escape_line",
+      "bg": "chapel",
+      "cues": [
+        "7.7"
+      ],
+      "start": 353.25,
+      "end": 359.55,
+      "dur": 6.3
+    },
+    {
+      "id": "s49",
+      "chapter": 7,
+      "scene": "footnote",
+      "bg": "parchment",
+      "cues": [
+        "7.8"
+      ],
+      "start": 359.55,
+      "end": 365.85,
+      "dur": 6.3
+    },
+    {
+      "id": "s50",
+      "chapter": 7,
+      "scene": "hourglass_start",
+      "bg": "deep",
+      "cues": [
+        "7.9"
+      ],
+      "start": 365.85,
+      "end": 372.15,
+      "dur": 6.3
+    },
+    {
+      "id": "s51",
+      "chapter": 7,
+      "scene": "seal_crack",
+      "bg": "deep",
+      "cues": [
+        "7.10"
+      ],
+      "start": 372.15,
+      "end": 379.3,
+      "dur": 7.15
+    },
+    {
+      "id": "s52",
+      "chapter": 8,
+      "scene": "hourglass_honest",
+      "bg": "parchment",
+      "cues": [
+        "8.1",
+        "8.2"
+      ],
+      "start": 379.3,
+      "end": 391.9,
+      "dur": 12.6
+    },
+    {
+      "id": "s53",
+      "chapter": 8,
+      "scene": "three_assumptions",
+      "bg": "parchment",
+      "cues": [
+        "8.3"
+      ],
+      "start": 391.9,
+      "end": 398.2,
+      "dur": 6.3
+    },
+    {
+      "id": "s54",
+      "chapter": 8,
+      "scene": "helium_leak",
+      "bg": "workshop",
+      "cues": [
+        "8.4"
+      ],
+      "start": 398.2,
+      "end": 403.9,
+      "dur": 5.7
+    },
+    {
+      "id": "s55",
+      "chapter": 8,
+      "scene": "uranium_moves",
+      "bg": "workshop",
+      "cues": [
+        "8.4"
+      ],
+      "start": 403.9,
+      "end": 404.5,
+      "dur": 0.6
+    },
+    {
+      "id": "s56",
+      "chapter": 8,
+      "scene": "scatter_dates",
+      "bg": "parchment",
+      "cues": [
+        "8.5"
+      ],
+      "start": 404.5,
+      "end": 410.8,
+      "dur": 6.3
+    },
+    {
+      "id": "s57",
+      "chapter": 8,
+      "scene": "boltwood",
+      "bg": "workshop",
+      "cues": [
+        "8.6"
+      ],
+      "start": 410.8,
+      "end": 417.1,
+      "dur": 6.3
+    },
+    {
+      "id": "s58",
+      "chapter": 8,
+      "scene": "puzzle",
+      "bg": "parchment",
+      "cues": [
+        "8.7"
+      ],
+      "start": 417.1,
+      "end": 424.25,
+      "dur": 7.15
+    },
+    {
+      "id": "s59",
+      "chapter": 9,
+      "scene": "whole_system",
+      "bg": "parchment",
+      "cues": [
+        "9.1"
+      ],
+      "start": 424.25,
+      "end": 430.55,
+      "dur": 6.3
+    },
+    {
+      "id": "s60",
+      "chapter": 9,
+      "scene": "patterson_zircon",
+      "bg": "workshop",
+      "cues": [
+        "9.2"
+      ],
+      "start": 430.55,
+      "end": 436.85,
+      "dur": 6.3
+    },
+    {
+      "id": "s61",
+      "chapter": 9,
+      "scene": "lead_everywhere",
+      "bg": "workshop",
+      "cues": [
+        "9.3"
+      ],
+      "start": 436.85,
+      "end": 443.15,
+      "dur": 6.3
+    },
+    {
+      "id": "s62",
+      "chapter": 9,
+      "scene": "clean_room",
+      "bg": "cool",
+      "cues": [
+        "9.4"
+      ],
+      "start": 443.15,
+      "end": 449.45,
+      "dur": 6.3
+    },
+    {
+      "id": "s63",
+      "chapter": 9,
+      "scene": "two_clocks",
+      "bg": "parchment",
+      "cues": [
+        "9.5",
+        "9.6"
+      ],
+      "start": 449.45,
+      "end": 462.05,
+      "dur": 12.6
+    },
+    {
+      "id": "s64",
+      "chapter": 9,
+      "scene": "meteorite",
+      "bg": "workshop",
+      "cues": [
+        "9.7"
+      ],
+      "start": 462.05,
+      "end": 468.35,
+      "dur": 6.3
+    },
+    {
+      "id": "s65",
+      "chapter": 9,
+      "scene": "spectrometer",
+      "bg": "workshop",
+      "cues": [
+        "9.8"
+      ],
+      "start": 468.35,
+      "end": 474.05,
+      "dur": 5.7
+    },
+    {
+      "id": "s66",
+      "chapter": 9,
+      "scene": "number_1956",
+      "bg": "parchment",
+      "cues": [
+        "9.8"
+      ],
+      "start": 474.05,
+      "end": 474.65,
+      "dur": 0.6
+    },
+    {
+      "id": "s67",
+      "chapter": 9,
+      "scene": "modern_number",
+      "bg": "parchment",
+      "cues": [
+        "9.9"
+      ],
+      "start": 474.65,
+      "end": 480.95,
+      "dur": 6.3
+    },
+    {
+      "id": "s68",
+      "chapter": 9,
+      "scene": "same_cloud",
+      "bg": "night",
+      "cues": [
+        "9.10"
+      ],
+      "start": 480.95,
+      "end": 488.1,
+      "dur": 7.15
+    },
+    {
+      "id": "s69",
+      "chapter": 10,
+      "scene": "epilogue_open",
+      "bg": "parchment",
+      "cues": [
+        "10.1"
+      ],
+      "start": 488.1,
+      "end": 494.4,
+      "dur": 6.3
+    },
+    {
+      "id": "s70",
+      "chapter": 10,
+      "scene": "ocean_lead",
+      "bg": "cool",
+      "cues": [
+        "10.2"
+      ],
+      "start": 494.4,
+      "end": 500.1,
+      "dur": 5.7
+    },
+    {
+      "id": "s71",
+      "chapter": 10,
+      "scene": "ice_core",
+      "bg": "cool",
+      "cues": [
+        "10.2"
+      ],
+      "start": 500.1,
+      "end": 500.7,
+      "dur": 0.6
+    },
+    {
+      "id": "s72",
+      "chapter": 10,
+      "scene": "products",
+      "bg": "workshop",
+      "cues": [
+        "10.3"
+      ],
+      "start": 500.7,
+      "end": 507.0,
+      "dur": 6.3
+    },
+    {
+      "id": "s73",
+      "chapter": 10,
+      "scene": "blood_lead",
+      "bg": "parchment",
+      "cues": [
+        "10.4"
+      ],
+      "start": 507.0,
+      "end": 513.3,
+      "dur": 6.3
+    },
+    {
+      "id": "s74",
+      "chapter": 10,
+      "scene": "four_clocks_table",
+      "bg": "parchment",
+      "cues": [
+        "10.5",
+        "10.6"
+      ],
+      "start": 513.3,
+      "end": 525.9,
+      "dur": 12.6
+    },
+    {
+      "id": "s75",
+      "chapter": 10,
+      "scene": "assumptions",
+      "bg": "parchment",
+      "cues": [
+        "10.7",
+        "10.8"
+      ],
+      "start": 525.9,
+      "end": 538.5,
+      "dur": 12.6
+    },
+    {
+      "id": "s76",
+      "chapter": 10,
+      "scene": "aging_question",
+      "bg": "night",
+      "cues": [
+        "10.9"
+      ],
+      "start": 538.5,
+      "end": 544.8,
+      "dur": 6.3
+    },
+    {
+      "id": "s77",
+      "chapter": 10,
+      "scene": "end_card",
+      "bg": "night",
+      "cues": [
+        "10.10"
+      ],
+      "start": 544.8,
+      "end": 556.75,
+      "dur": 11.95
+    }
+  ],
+  "cue_table": [
+    {
+      "id": "1.1",
+      "start": 1.6,
+      "end": 7.6,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "1.2",
+      "start": 7.9,
+      "end": 13.9,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "1.3",
+      "start": 14.2,
+      "end": 20.2,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "1.4",
+      "start": 20.5,
+      "end": 26.5,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "1.5",
+      "start": 26.8,
+      "end": 32.8,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "1.6",
+      "start": 33.1,
+      "end": 39.1,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "2.1",
+      "start": 40.25,
+      "end": 46.25,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "2.2",
+      "start": 46.55,
+      "end": 52.55,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "2.3",
+      "start": 52.85,
+      "end": 58.85,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "2.4",
+      "start": 59.15,
+      "end": 65.15,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "2.5",
+      "start": 65.45,
+      "end": 71.45,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "2.6",
+      "start": 71.75,
+      "end": 77.75,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "2.7",
+      "start": 78.05,
+      "end": 84.05,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "3.1",
+      "start": 85.2,
+      "end": 91.2,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "3.2",
+      "start": 91.5,
+      "end": 97.5,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "3.3",
+      "start": 97.8,
+      "end": 103.8,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "3.4",
+      "start": 104.1,
+      "end": 110.1,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "3.5",
+      "start": 110.4,
+      "end": 116.4,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "3.6",
+      "start": 116.7,
+      "end": 122.7,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "3.7",
+      "start": 123.0,
+      "end": 129.0,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "4.1",
+      "start": 130.15,
+      "end": 136.15,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "4.2",
+      "start": 136.45,
+      "end": 142.45,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "4.3",
+      "start": 142.75,
+      "end": 148.75,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "4.4",
+      "start": 149.05,
+      "end": 155.05,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "4.5",
+      "start": 155.35,
+      "end": 161.35,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "4.6",
+      "start": 161.65,
+      "end": 167.65,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "4.7",
+      "start": 167.95,
+      "end": 173.95,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "4.8",
+      "start": 174.25,
+      "end": 180.25,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "4.9",
+      "start": 180.55,
+      "end": 186.55,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "4.10",
+      "start": 186.85,
+      "end": 192.85,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "4.11",
+      "start": 193.15,
+      "end": 199.15,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "5.1",
+      "start": 200.3,
+      "end": 206.3,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "5.2",
+      "start": 206.6,
+      "end": 212.6,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "5.3",
+      "start": 212.9,
+      "end": 218.9,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "5.4",
+      "start": 219.2,
+      "end": 225.2,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "5.5",
+      "start": 225.5,
+      "end": 231.5,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "5.6",
+      "start": 231.8,
+      "end": 237.8,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "5.7",
+      "start": 238.1,
+      "end": 244.1,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "5.8",
+      "start": 244.4,
+      "end": 250.4,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "6.1",
+      "start": 251.55,
+      "end": 257.55,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "6.2",
+      "start": 257.85,
+      "end": 263.85,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "6.3",
+      "start": 264.15,
+      "end": 270.15,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "6.4",
+      "start": 270.45,
+      "end": 276.45,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "6.5",
+      "start": 276.75,
+      "end": 282.75,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "6.6",
+      "start": 283.05,
+      "end": 289.05,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "6.7",
+      "start": 289.35,
+      "end": 295.35,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "6.8",
+      "start": 295.65,
+      "end": 301.65,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "6.9",
+      "start": 301.95,
+      "end": 307.95,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "6.10",
+      "start": 308.25,
+      "end": 314.25,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "7.1",
+      "start": 315.4,
+      "end": 321.4,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "7.2",
+      "start": 321.7,
+      "end": 327.7,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "7.3",
+      "start": 328.0,
+      "end": 334.0,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "7.4",
+      "start": 334.3,
+      "end": 340.3,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "7.5",
+      "start": 340.6,
+      "end": 346.6,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "7.6",
+      "start": 346.9,
+      "end": 352.9,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "7.7",
+      "start": 353.2,
+      "end": 359.2,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "7.8",
+      "start": 359.5,
+      "end": 365.5,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "7.9",
+      "start": 365.8,
+      "end": 371.8,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "7.10",
+      "start": 372.1,
+      "end": 378.1,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "8.1",
+      "start": 379.25,
+      "end": 385.25,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "8.2",
+      "start": 385.55,
+      "end": 391.55,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "8.3",
+      "start": 391.85,
+      "end": 397.85,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "8.4",
+      "start": 398.15,
+      "end": 404.15,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "8.5",
+      "start": 404.45,
+      "end": 410.45,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "8.6",
+      "start": 410.75,
+      "end": 416.75,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "8.7",
+      "start": 417.05,
+      "end": 423.05,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "9.1",
+      "start": 424.2,
+      "end": 430.2,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "9.2",
+      "start": 430.5,
+      "end": 436.5,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "9.3",
+      "start": 436.8,
+      "end": 442.8,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "9.4",
+      "start": 443.1,
+      "end": 449.1,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "9.5",
+      "start": 449.4,
+      "end": 455.4,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "9.6",
+      "start": 455.7,
+      "end": 461.7,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "9.7",
+      "start": 462.0,
+      "end": 468.0,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "9.8",
+      "start": 468.3,
+      "end": 474.3,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "9.9",
+      "start": 474.6,
+      "end": 480.6,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "9.10",
+      "start": 480.9,
+      "end": 486.9,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "10.1",
+      "start": 488.05,
+      "end": 494.05,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "10.2",
+      "start": 494.35,
+      "end": 500.35,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "10.3",
+      "start": 500.65,
+      "end": 506.65,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "10.4",
+      "start": 506.95,
+      "end": 512.95,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "10.5",
+      "start": 513.25,
+      "end": 519.25,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "10.6",
+      "start": 519.55,
+      "end": 525.55,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "10.7",
+      "start": 525.85,
+      "end": 531.85,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "10.8",
+      "start": 532.15,
+      "end": 538.15,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "10.9",
+      "start": 538.45,
+      "end": 544.45,
+      "dur": 6.0,
+      "file": ""
+    },
+    {
+      "id": "10.10",
+      "start": 544.75,
+      "end": 550.75,
+      "dur": 6.0,
+      "file": ""
+    }
+  ],
+  "warnings": [
+    "s01: post trimmed 0.65s so s02's first cue lands after its cut",
+    "s02: post trimmed 1.05s so s03's first cue lands after its cut",
+    "s03: post trimmed 0.25s so s04's first cue lands after its cut",
+    "s04: post trimmed 0.45s so s05's first cue lands after its cut",
+    "s05: post trimmed 0.45s so s06's first cue lands after its cut"
+  ],
+  "warning_count": 147
+}
