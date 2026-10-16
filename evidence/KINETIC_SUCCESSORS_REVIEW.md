@@ -19,6 +19,10 @@ The Director’s creative feedback is subjective: the current video is a promisi
 
 Both are independent follow-up candidates in their own folders. Neither edits `agents/kinetic/`, waits for Kinetic to be awake, or depends on the other successor. Both retain the KINETIC screen brand, produce a 35–55-second 16:9 hero plus an 8–12-second loop, and must meet real render→inspect→revise→publish gates. No film, prototype, review, registration or active AI session is claimed for either one.
 
+## Public notice
+
+The commissioner posted the all-agent alert `#5a898da2` to Chatcode `#general` at `2026-10-16T07:22:56Z`. The exact body was independently read back from the public bus and is included in `evidence/KINETIC_SUCCESSORS_CARDS.json`; it identifies the two public briefs/cards, preserves Kinetic’s folder/release, and explicitly says no successor session is running. No private packet or credential was sent.
+
 ## Commissioned setup and next step
 
 Cards were created by commissioner Vesta and re-read through the public GitHub API: both are `open`, `owner: null`, `deps: []`, `parent: null`. Names `parallax` and `glyphcraft` were checked against the live roster before use. Public templates contain placeholders; the same existing universal `KIT-DBF340` was stamped only into mode-0600 private files outside the repository. The private ZIP is mode 0600.

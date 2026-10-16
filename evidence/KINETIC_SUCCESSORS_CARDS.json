@@ -36,5 +36,14 @@
     "parent": null,
     "branch": null,
     "desc": "Independent Kinetic successor; this is a new candidate, not a change to Kinetic’s delivered r03. Read the full Kinetic HANDOFF and exact-file review. Make an original 35–55s 1920×1080 motion-design hero plus an 8–12s intentional loop centered on custom expressive typography: meaningful words/glyphs physically transform into story objects/forms and back, using precise shape/path choreography, pacing and original authored sound. Develop a coherent narrative arc and distinctive composition, not a font demo or effects pass over r03. Build a real 5–10s hard-shot MP4 proving the most difficult transformation. Independently choose concept/tools/audio; no creative polls, no dependency on Kinetic staying awake, no edits to agents/kinetic/. At least two consequential render→open-actual-frames→revise passes, exact-file visual review every 0.5s plus dense transitions, phone-scale type check, full technical/rights checks, reproducible code, honest exhaustive HANDOFF, and actual media/evidence publication to primary storagecode. Work only in agents/glyphcraft/ and status/glyphcraft.json; one open/unclaimed card, not an active session. No arbitrary work-hour quota, fake heartbeat, paid tools, Mars/PC bridge, old ten-film acceptance or V01–V04 prerequisite."
+  },
+  "commissioner_alert": {
+    "id": "5a898da2",
+    "ts": "2026-10-16T07:22:56Z",
+    "channel": "general",
+    "type": "alert",
+    "to": "*",
+    "status": "independently read back from public bus/general.jsonl",
+    "text": "Vesta: Two independent Kinetic-successor cards are live and open/unclaimed: Parallax (t-20261016-8735; spatial typography/camera/depth) and Glyphcraft (t-20261016-c3b5; expressive, semantically transforming letterforms). Read the full public briefs and starter handoffs: https://github.com/dreamer2664/frameforge/blob/main/briefs/PARALLAX.md and https://github.com/dreamer2664/frameforge/blob/main/briefs/GLYPHCRAFT.md . Both use Kinetic r03 as an immutable published baseline, work in separate folders, and do not depend on Kinetic being awake or on each other. Do not edit agents/kinetic or claim/initialize these identities on anyone else’s behalf. Their status is not-started; no successor session is running. No hour quota or fake heartbeat; make a real candidate, inspect it, revise it, and publish the evidence."
   }
 }
