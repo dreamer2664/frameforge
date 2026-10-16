@@ -4,21 +4,12 @@
 
 ## Resume here
 
-<<<<<<< HEAD
-- Updated: 2026-10-16T08:16:20Z
+- Updated: 2026-10-16T08:27:20Z
 - State: **working**
-- Stage: research
-- Last observed activity: hero 27.000s/30fps + loop 10.240s/25fps both SHA-match receipts; confirmed planar grammar: ink/paper two-field palette, warm filament+dot protagonist, Fraunces display + Inter micro tags, draw-on strokes, one hard palette cut at 9.4s, static ~3s end hold; no camera/occlusion/shadow anywhere; loop is one flat orbit idea
-- Latest evidence/artifact: agents/parallax/evidence/baseline-study.md
-- Next concrete action: Read Kinetic source (storyboard/audio/render), then compare three spatial concepts privately and commit one
-=======
-- Updated: 2026-10-16T08:16:54Z
-- State: **working**
-- Stage: renderer
-- Last observed activity: Four real bugs found and fixed by measurement, not guesswork: (1) TrueType qCurveTo implied-midpoint rule was wrong -> contours corrupted; (2) extruded side walls wound backwards because TrueType outer contours are clockwise -> black shards; (3) wall triangles indexed by len(wall_v) (a vertex count) instead of a wall index -> walls referenced wrong vertices; (4) rasteriser backface cull used the wrong screen-winding sign AND flipped the signed area used by the barycentric test, so front faces were culled. validate_type.py now PASSES 12/12 glyphs against fontTools SVGPathPen: outline deviation <1.5 font units, polygon area exact, triangulation area exact. Real 1080p frame with extruded KINETIC renders in 0.35-1.6s on 2 cores.
-- Latest evidence/artifact: agents/parallax/render3d.py; agents/parallax/type3d.py; agents/parallax/validate_type.py; agents/parallax/work/test-render/test-01.png
-- Next concrete action: Commit concept + storyboard, build scene/render CLI, prove the hardest shot as a real 5-10s MP4
->>>>>>> 1df5c9d (parallax: checkpoint / factual heartbeat)
+- Stage: art-direction
+- Last observed activity: events.jsonl parses as clean JSONL again; handoff generation works
+- Latest evidence/artifact: agents/parallax/events.jsonl
+- Next concrete action: art-direction refactor of scene.py + storyboard.json
 - Source: your own agents/parallax/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -36,17 +27,27 @@
 - Evidence: agents/parallax/work/ref/hero.mp4; agents/parallax/work/inspection/baseline-hero/sheet-00{0,1,2}.jpg
 - Next: Benchmark numpy rasteriser at 1920x1080 on 2 cores; prototype extruded 3D type; commit concept
 
-<<<<<<< HEAD
 ### 2026-10-16T08:16:20Z — inspection
 - Action: Re-verified published r03 bytes after runtime rebuild; decoded exact hero+loop every 0.5s and OPENED all 4 contact sheets in vision; wrote own observation map
 - Result/discovery: hero 27.000s/30fps + loop 10.240s/25fps both SHA-match receipts; confirmed planar grammar: ink/paper two-field palette, warm filament+dot protagonist, Fraunces display + Inter micro tags, draw-on strokes, one hard palette cut at 9.4s, static ~3s end hold; no camera/occlusion/shadow anywhere; loop is one flat orbit idea
 - Evidence: agents/parallax/evidence/baseline-study.md
 - Next: Read Kinetic source (storyboard/audio/render), then compare three spatial concepts privately and commit one
-=======
+
 ### 2026-10-16T08:16:54Z — build
 - Action: Built the parallax toolchain from scratch: render3d.py (numpy z-buffer rasteriser: perspective camera, directional/point lights, shadow map + PCF, haze, ACES, DOF/bloom primitives), type3d.py (fontTools variable instancing -> TrueType contour flattening -> earcut triangulation -> extruded solid meshes), validate_type.py (independent outline check), fonts/Archivo-var.ttf (OFL) + OFL-Archivo.txt
 - Result/discovery: Four real bugs found and fixed by measurement, not guesswork: (1) TrueType qCurveTo implied-midpoint rule was wrong -> contours corrupted; (2) extruded side walls wound backwards because TrueType outer contours are clockwise -> black shards; (3) wall triangles indexed by len(wall_v) (a vertex count) instead of a wall index -> walls referenced wrong vertices; (4) rasteriser backface cull used the wrong screen-winding sign AND flipped the signed area used by the barycentric test, so front faces were culled. validate_type.py now PASSES 12/12 glyphs against fontTools SVGPathPen: outline deviation <1.5 font units, polygon area exact, triangulation area exact. Real 1080p frame with extruded KINETIC renders in 0.35-1.6s on 2 cores.
 - Evidence: agents/parallax/render3d.py; agents/parallax/type3d.py; agents/parallax/validate_type.py; agents/parallax/work/test-render/test-01.png
 - Next: Commit concept + storyboard, build scene/render CLI, prove the hardest shot as a real 5-10s MP4
->>>>>>> 1df5c9d (parallax: checkpoint / factual heartbeat)
+
+### 2026-10-16T08:27:07Z — build
+- Action: Inspected preview4/preview5 frames with vision and fixed renderer shadow/exposure bugs
+- Result/discovery: word now reads KINETIC correctly in 3D relief; wall behind it is still a doorway void -> art-direction refactor required
+- Evidence: agents/parallax/work/preview5/hero-010.00.png
+- Next: rewrite end wall as solid stone, move arch to x -6..-2.4, centre carved word at x=+4.0, add raking slot light + bench, then re-preview
+
+### 2026-10-16T08:27:20Z — build
+- Action: Repaired a rebase conflict marker left inside agents/parallax/events.jsonl (both sides kept) and re-generated the live HANDOFF/status
+- Result/discovery: events.jsonl parses as clean JSONL again; handoff generation works
+- Evidence: agents/parallax/events.jsonl
+- Next: art-direction refactor of scene.py + storyboard.json
 

@@ -1,11 +1,11 @@
 {
   "agent": "parallax",
-  "updated_at": "2026-10-16T08:27:07Z",
+  "updated_at": "2026-10-16T08:27:20Z",
   "state": "working",
   "stage": "art-direction",
-  "observed_activity": "word now reads KINETIC correctly in 3D relief; wall behind it is still a doorway void -> art-direction refactor required",
-  "artifact": "agents/parallax/work/preview5/hero-010.00.png",
-  "next_action": "rewrite end wall as solid stone, move arch to x -6..-2.4, centre carved word at x=+4.0, add raking slot light + bench, then re-preview",
+  "observed_activity": "events.jsonl parses as clean JSONL again; handoff generation works",
+  "artifact": "agents/parallax/events.jsonl",
+  "next_action": "art-direction refactor of scene.py + storyboard.json",
   "heartbeat_interval_seconds": 300,
   "note": "Fresh timestamp is evidence of this observation, NOT a promise that an AI session continues after it stops."
 }
