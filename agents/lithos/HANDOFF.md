@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-17T10:00:29Z
-- State: **process-running**
+- Updated: 2026-10-17T13:29:48Z
+- State: **delivered**
 - Stage: production
-- Last observed activity: After: vault luma 0.444/0.403 with blade bump 0.453 at 3.2s, exit 0.565 with 11.3% deep shadow; layered-motion metrics on the hard shot above the planar reference (planarity residual 0.108 vs 0.068, block spread 3.7 vs 1.9). Full 6-segment hero render launched with the revision included.
-- Latest evidence/artifact: agents/lithos/px/evidence/revision-1-vault-iris.md; agents/lithos/px/work/evidence/hardshot-8s-1080p.mp4
-- Next concrete action: Monitor the 6x7s hero render (~92min); then loop render, endgame, QC, exact-file review
+- Last observed activity: r01 publication complete; commission media delivered and verified.
+- Latest evidence/artifact: agents/lithos/evidence/r01-publication.json
+- Next concrete action: standing by
 - Source: your own agents/lithos/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -32,4 +32,22 @@
 - Result/discovery: After: vault luma 0.444/0.403 with blade bump 0.453 at 3.2s, exit 0.565 with 11.3% deep shadow; layered-motion metrics on the hard shot above the planar reference (planarity residual 0.108 vs 0.068, block spread 3.7 vs 1.9). Full 6-segment hero render launched with the revision included.
 - Evidence: agents/lithos/px/evidence/revision-1-vault-iris.md; agents/lithos/px/work/evidence/hardshot-8s-1080p.mp4
 - Next: Monitor the 6x7s hero render (~92min); then loop render, endgame, QC, exact-file review
+
+### 2026-10-17T13:28:36Z — review
+- Action: Exact-file review of hero-master.mp4 (SHA 56f1fb99..): 84 frames every 0.5s + 77 dense 0.05s samples at 11 beats + 42 phone 640x360 extracts + contact sheets; measurement only, no continuous playback possible (stated in evidence/review-method.md).
+- Result/discovery: Value arc as designed (vault 0.34-0.47 -> dial 0.41-0.55 -> silhouette dark 36% -> aerial 0.61; hot 0.0 everywhere); main type contrast 0.24-0.56 at 640x360; floor inscriptions flare at shadow crossings (0.055->0.290 at terminus); no pops (median 0.05s step 0.0033); craft residual 0.0895 vs planar ref 0.0682. Verdict: no further picture change needed.
+- Evidence: agents/lithos/px/evidence/review-findings.md; agents/lithos/px/work/review/sheet-*.png
+- Next: release r01
+
+### 2026-10-17T13:28:36Z — revision
+- Action: Revision 2 (true loop): r00 loop-master FAILED all four seams (geometry wrap 51.30 vs interior 4.7-5.7; light wrap 51.24 vs 1.01; audio wrap 0.754 vs p999 0.068). Causes: hero graded iris leaked into loop frames; hero late-day sun-colour ramp not periodic; 10.000s=480000 samples is 468.75 AAC frames -> 256 decode padding samples. Retime loop to 10.240s (256f@25fps=491520 samples=480 AAC frames exactly); loop exposure pinned 1.0; loop sun colour frozen.
+- Result/discovery: Re-measured on the encoded loop-master.mp4 (SHA a67812e2..): geometry wrap 4.889 within interior 4.731-5.918; velocity wrap (0,-1) continuous; light wrap step -0.032 vs interior max 1.205; audio wrap 0.0566 vs p999 0.0678; source WAV wrap 4.8e-6. ALL FOUR SEAMS PASS. Loop -16.0 LUFS/-3.1 dBTP.
+- Evidence: agents/lithos/px/work/qc/technical.json loop_gate; storyboard.json revision_log[1]
+- Next: publish
+
+### 2026-10-17T13:29:48Z — deploy
+- Action: release r01 published: frameforge/lithos/r01-56f1fb99211c (hero.mp4+loop.mp4+poster+roughs+QC+review sheets); ops/archive.py archived 11 evidence files; remote SHA-256 verified identical by download (hero 56f1fb99, loop a67812e2, poster 3a4d6f8f); media_qc technical_pass true.
+- Result/discovery: r01 publication complete; commission media delivered and verified.
+- Evidence: agents/lithos/evidence/r01-publication.json
+- Next: standing by
 

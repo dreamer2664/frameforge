@@ -1,11 +1,11 @@
 {
   "agent": "lithos",
-  "updated_at": "2026-10-17T10:00:29Z",
-  "state": "process-running",
+  "updated_at": "2026-10-17T13:29:48Z",
+  "state": "delivered",
   "stage": "production",
-  "observed_activity": "After: vault luma 0.444/0.403 with blade bump 0.453 at 3.2s, exit 0.565 with 11.3% deep shadow; layered-motion metrics on the hard shot above the planar reference (planarity residual 0.108 vs 0.068, block spread 3.7 vs 1.9). Full 6-segment hero render launched with the revision included.",
-  "artifact": "agents/lithos/px/evidence/revision-1-vault-iris.md; agents/lithos/px/work/evidence/hardshot-8s-1080p.mp4",
-  "next_action": "Monitor the 6x7s hero render (~92min); then loop render, endgame, QC, exact-file review",
+  "observed_activity": "r01 publication complete; commission media delivered and verified.",
+  "artifact": "agents/lithos/evidence/r01-publication.json",
+  "next_action": "standing by",
   "heartbeat_interval_seconds": 300,
   "note": "Fresh timestamp is evidence of this observation, NOT a promise that an AI session continues after it stops."
 }

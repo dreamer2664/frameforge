@@ -1,0 +1,132 @@
+{
+  "agent": "lithos",
+  "published_at": "2026-10-17T13:26:57Z",
+  "revision": "r01",
+  "code_sha": "eab2b1922aca0371718804f0480bf7083c63ab7e",
+  "release": "https://github.com/dreamer2664/storagecode/releases/tag/frameforge/lithos/r01-56f1fb99211c",
+  "tag": "frameforge/lithos/r01-56f1fb99211c",
+  "assets": [
+    {
+      "name": "hero.mp4",
+      "bytes": 402427378,
+      "sha256": "56f1fb99211c328b4e4d122d3a2d684722af0fe3c15bb984d4cc784722060d2a",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/lithos/r01-56f1fb99211c/hero.mp4",
+      "remote_digest": "sha256:56f1fb99211c328b4e4d122d3a2d684722af0fe3c15bb984d4cc784722060d2a",
+      "remote_size": 402427378
+    },
+    {
+      "name": "loop.mp4",
+      "bytes": 97217397,
+      "sha256": "a67812e2db069903b7616f91ae7a7eab4f13fe079a614d18eb1f2dacfe86fd71",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/lithos/r01-56f1fb99211c/loop.mp4",
+      "remote_digest": "sha256:a67812e2db069903b7616f91ae7a7eab4f13fe079a614d18eb1f2dacfe86fd71",
+      "remote_size": 97217397
+    },
+    {
+      "name": "poster.png",
+      "bytes": 2515601,
+      "sha256": "3a4d6f8f33eb8edc8cb38a2bb2281482a22b1527978b5519b19a8a056ff57474",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/lithos/r01-56f1fb99211c/poster.png",
+      "remote_digest": "sha256:3a4d6f8f33eb8edc8cb38a2bb2281482a22b1527978b5519b19a8a056ff57474",
+      "remote_size": 2515601
+    },
+    {
+      "name": "hero-rough-cut.mp4",
+      "bytes": 8995259,
+      "sha256": "3e998744692e7ae88064f576448822f352e8c57866a691553ec767b1ab0b3da4",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/lithos/r01-56f1fb99211c/hero-rough-cut.mp4",
+      "remote_digest": "sha256:3e998744692e7ae88064f576448822f352e8c57866a691553ec767b1ab0b3da4",
+      "remote_size": 8995259
+    },
+    {
+      "name": "loop-rough-cut.mp4",
+      "bytes": 1772532,
+      "sha256": "df9d855cbb27366eb9b7fe8424643fd8ef2dcb30f48b32fc4a8be14923e32b63",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/lithos/r01-56f1fb99211c/loop-rough-cut.mp4",
+      "remote_digest": "sha256:df9d855cbb27366eb9b7fe8424643fd8ef2dcb30f48b32fc4a8be14923e32b63",
+      "remote_size": 1772532
+    },
+    {
+      "name": "technical.json",
+      "bytes": 4961,
+      "sha256": "885310bfca07f039833ea24094d7d45ede13671a01570c064e3684b01419a7e1",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/lithos/r01-56f1fb99211c/technical.json",
+      "remote_digest": "sha256:885310bfca07f039833ea24094d7d45ede13671a01570c064e3684b01419a7e1",
+      "remote_size": 4961
+    },
+    {
+      "name": "media-qc-hero.json",
+      "bytes": 3610,
+      "sha256": "c70b6d6cf1093f3299db2f911d8d5c9f1fc16e3e319ed1bd53e9de96269bef1c",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/lithos/r01-56f1fb99211c/media-qc-hero.json",
+      "remote_digest": "sha256:c70b6d6cf1093f3299db2f911d8d5c9f1fc16e3e319ed1bd53e9de96269bef1c",
+      "remote_size": 3610
+    },
+    {
+      "name": "craft-hero.json",
+      "bytes": 44666,
+      "sha256": "4a5dfe283309c19a6a8d953823e0cf470cd49bbe05e3234da90fed691e2465d1",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/lithos/r01-56f1fb99211c/craft-hero.json",
+      "remote_digest": "sha256:4a5dfe283309c19a6a8d953823e0cf470cd49bbe05e3234da90fed691e2465d1",
+      "remote_size": 44666
+    },
+    {
+      "name": "sheet-00.png",
+      "bytes": 776259,
+      "sha256": "93bfe7e791b685671723c3a9e97e15697b18aad15aee16c953b70be75ea51b79",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/lithos/r01-56f1fb99211c/sheet-00.png",
+      "remote_digest": "sha256:93bfe7e791b685671723c3a9e97e15697b18aad15aee16c953b70be75ea51b79",
+      "remote_size": 776259
+    },
+    {
+      "name": "sheet-01.png",
+      "bytes": 739929,
+      "sha256": "7ef8527cc91d80ad32200540cec69ff3e08a4b53f56dc8a5c64d9410a214e0e1",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/lithos/r01-56f1fb99211c/sheet-01.png",
+      "remote_digest": "sha256:7ef8527cc91d80ad32200540cec69ff3e08a4b53f56dc8a5c64d9410a214e0e1",
+      "remote_size": 739929
+    },
+    {
+      "name": "sheet-02.png",
+      "bytes": 780890,
+      "sha256": "ddd46589e9c4b40e4c5bb5ab18dbe1505eaf2cbb3064447505fcda3bdd0cecac",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/lithos/r01-56f1fb99211c/sheet-02.png",
+      "remote_digest": "sha256:ddd46589e9c4b40e4c5bb5ab18dbe1505eaf2cbb3064447505fcda3bdd0cecac",
+      "remote_size": 780890
+    },
+    {
+      "name": "sheet-03.png",
+      "bytes": 1031418,
+      "sha256": "d52dcaa30ed1d3586192fa91f68639f6c40d93065de545002fa10c2d493b9057",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/lithos/r01-56f1fb99211c/sheet-03.png",
+      "remote_digest": "sha256:d52dcaa30ed1d3586192fa91f68639f6c40d93065de545002fa10c2d493b9057",
+      "remote_size": 1031418
+    },
+    {
+      "name": "sheet-dense.png",
+      "bytes": 1020376,
+      "sha256": "b8bb4e3218f8fa2469c5c3d62bb8ba47b628128d13e85115f35c8fbd5cf9836d",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/lithos/r01-56f1fb99211c/sheet-dense.png",
+      "remote_digest": "sha256:b8bb4e3218f8fa2469c5c3d62bb8ba47b628128d13e85115f35c8fbd5cf9836d",
+      "remote_size": 1020376
+    },
+    {
+      "name": "sheet-phone.png",
+      "bytes": 879194,
+      "sha256": "53a5fe189458fa7b8d1b96dba6af620ce4df23d993de80c5a3d4b0f71f080aea",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/lithos/r01-56f1fb99211c/sheet-phone.png",
+      "remote_digest": "sha256:53a5fe189458fa7b8d1b96dba6af620ce4df23d993de80c5a3d4b0f71f080aea",
+      "remote_size": 879194
+    },
+    {
+      "name": "sheet-loop.png",
+      "bytes": 531137,
+      "sha256": "255e7aacf55dea081ddbf4f1026d3fb2308caab02b442d363214fe6c1ee29838",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/lithos/r01-56f1fb99211c/sheet-loop.png",
+      "remote_digest": "sha256:255e7aacf55dea081ddbf4f1026d3fb2308caab02b442d363214fe6c1ee29838",
+      "remote_size": 531137
+    }
+  ],
+  "acceptance": "Published candidate; refer to actual reviews. Not an old-campaign acceptance.",
+  "primary_archive": "https://github.com/dreamer2664/storagecode/tree/main/data/frameforge/lithos/r01-56f1fb99211c"
+}
