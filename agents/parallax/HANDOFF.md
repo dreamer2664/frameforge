@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-16T20:02:32Z
+- Updated: 2026-10-17T08:07:39Z
 - State: **delivered**
 - Stage: delivery
-- Last observed activity: Release https://github.com/dreamer2664/storagecode/releases/tag/frameforge/parallax/r01-ce4424a3fb16 ; hero-master.mp4 = 428,176,773 B, SHA256 ce4424a3fb1615cfce3c23610e1dfab406e0853b1dbf64b672d965e99f532cec, 1920x1080 H.264 yuv420p 24 fps 960 frames, AAC 48 kHz 207 kbit/s, -16.1 LUFS, -6.9 dBTP, faststart, audio and video tails both 40.000 s (mismatch 0.000 s); loop-master.mp4 = 100,886,150 B, SHA256 cd7efe7e08aa92ea0ed5e66101148e5eceb4c21b0247fc3b42c4685835edbe54, 1920x1080 25 fps 240 frames, -16.1 LUFS, -11.1 dBTP; all 13 assets re-verified by re-download and SHA comparison; house QC ops/media_qc.py technical_pass=true with zero violations; loop gate on the encoded MP4 green (wrap mean abs diff 5.396 inside the interior range 5.373-5.405, wrap motion 0.92 px vs interior 0.88-0.94 px, wrap luminance step -0.014 vs interior max 0.062, source audio seam 2.8e-05 over 460800 samples); durable archive at https://github.com/dreamer2664/storagecode/tree/main/data/frameforge/parallax/r01-ce4424a3fb16 with the concept commitment, the three revision passes, the review method and findings, the licence manifest and both QC reports; code at dreamer2664/frameforge 03d3f31 in agents/parallax/px
-- Latest evidence/artifact: https://github.com/dreamer2664/storagecode/releases/tag/frameforge/parallax/r01-ce4424a3fb16
-- Next concrete action: Board card t-20261016-8735 to review with the real links; the candidate is published, not accepted by a human
+- Last observed activity: agents/parallax/HANDOFF-successor.md (57 KB) is committed in frameforge and archived to storagecode; the copy that carries the live GitHub/chatcode tokens is a local, mode-600 file outside every clone (/home/user/KINETIC_SUCCESSOR_HANDOFF.md) because the repos and the ntfy wires are public and the crew key is shared - the repository copy contains the arming procedure instead, and it was verified to contain no token literal
+- Latest evidence/artifact: agents/parallax/HANDOFF-successor.md
+- Next concrete action: Nothing outstanding: the candidate is published, verified, and the card is in review
 - Source: your own agents/parallax/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -110,4 +110,10 @@
 - Result/discovery: Release https://github.com/dreamer2664/storagecode/releases/tag/frameforge/parallax/r01-ce4424a3fb16 ; hero-master.mp4 = 428,176,773 B, SHA256 ce4424a3fb1615cfce3c23610e1dfab406e0853b1dbf64b672d965e99f532cec, 1920x1080 H.264 yuv420p 24 fps 960 frames, AAC 48 kHz 207 kbit/s, -16.1 LUFS, -6.9 dBTP, faststart, audio and video tails both 40.000 s (mismatch 0.000 s); loop-master.mp4 = 100,886,150 B, SHA256 cd7efe7e08aa92ea0ed5e66101148e5eceb4c21b0247fc3b42c4685835edbe54, 1920x1080 25 fps 240 frames, -16.1 LUFS, -11.1 dBTP; all 13 assets re-verified by re-download and SHA comparison; house QC ops/media_qc.py technical_pass=true with zero violations; loop gate on the encoded MP4 green (wrap mean abs diff 5.396 inside the interior range 5.373-5.405, wrap motion 0.92 px vs interior 0.88-0.94 px, wrap luminance step -0.014 vs interior max 0.062, source audio seam 2.8e-05 over 460800 samples); durable archive at https://github.com/dreamer2664/storagecode/tree/main/data/frameforge/parallax/r01-ce4424a3fb16 with the concept commitment, the three revision passes, the review method and findings, the licence manifest and both QC reports; code at dreamer2664/frameforge 03d3f31 in agents/parallax/px
 - Evidence: https://github.com/dreamer2664/storagecode/releases/tag/frameforge/parallax/r01-ce4424a3fb16
 - Next: Board card t-20261016-8735 to review with the real links; the candidate is published, not accepted by a human
+
+### 2026-10-17T08:07:39Z — handoff
+- Action: Wrote a full successor handoff for the next agent in this line (a second spatial-typography KINETIC film): every tool in the repo with its exact invocation, the complete copy-pasteable pipeline from a cold sandbox to a published release, the measured render/QC/upload timings, the three revision passes and their before/after evidence, the rasteriser/type/audio/QC bug ledger, the art-direction and realism lessons, the ntfy wire topics and shortcuts, the credential arming procedure, and an honest write-up of the one thing the reviewer noticed (the travelling light band on a flat wall reads as the wall moving) with four ranked fixes
+- Result/discovery: agents/parallax/HANDOFF-successor.md (57 KB) is committed in frameforge and archived to storagecode; the copy that carries the live GitHub/chatcode tokens is a local, mode-600 file outside every clone (/home/user/KINETIC_SUCCESSOR_HANDOFF.md) because the repos and the ntfy wires are public and the crew key is shared - the repository copy contains the arming procedure instead, and it was verified to contain no token literal
+- Evidence: agents/parallax/HANDOFF-successor.md
+- Next: Nothing outstanding: the candidate is published, verified, and the card is in review
 
