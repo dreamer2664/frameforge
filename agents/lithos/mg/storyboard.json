@@ -1,0 +1,73 @@
+{
+  "title": "KINETIC - Ideas in Motion (title machine)",
+  "format": {"width": 1920, "height": 1080, "fps": 30, "duration_seconds": 13.0},
+  "reference": "research/reference-analysis-zensu.md (structure/energy only; all text and color original)",
+  "palettes": {
+    "aurora": {
+      "bg_base": [10, 15, 30],
+      "ribbons": [[22, 224, 200], [63, 216, 255], [139, 92, 246], [49, 46, 129]],
+      "accent": [255, 179, 71],
+      "accent_hot": [255, 122, 60],
+      "type": [244, 246, 251],
+      "panel": [13, 18, 32],
+      "panel_line": [255, 255, 255, 26]
+    },
+    "molten": {
+      "bg_base": [26, 12, 8],
+      "ribbons": [[255, 154, 60], [255, 210, 122], [255, 94, 58], [122, 40, 20]],
+      "accent": [255, 226, 160],
+      "accent_hot": [255, 244, 210],
+      "type": [255, 248, 240],
+      "panel": [23, 14, 10],
+      "panel_line": [255, 220, 180, 30]
+    }
+  },
+  "flip": {"t_start": 8.5, "t_end": 8.7},
+  "beats": [
+    {"t": 0.0,  "id": "hook",         "note": "ribbons open + K-mark scales in"},
+    {"t": 0.55, "id": "wordmark",     "note": "KINETIC types (7 chars, 43ms/char)"},
+    {"t": 0.85, "id": "wordmark_end", "note": "wordmark settled"},
+    {"t": 1.25, "id": "whip_tools",   "note": "whip-smear morph to tool chips"},
+    {"t": 1.55, "id": "chips_land",   "note": "Shape/Score/Light/Cut/Loop land"},
+    {"t": 1.85, "id": "chip_ignite",  "note": "Cut chip ignites"},
+    {"t": 2.25, "id": "click",        "note": "cursor clicks Cut"},
+    {"t": 2.70, "id": "hard_cut",     "note": "HARD CUT to dark console"},
+    {"t": 2.80, "id": "prompt1",      "note": "typing: make a title that moves like light."},
+    {"t": 3.65, "id": "reframe",      "note": "console becomes bottom composer + lithos-1 chip"},
+    {"t": 4.25, "id": "prompt1_end",  "note": "prompt complete"},
+    {"t": 4.30, "id": "rain",         "note": "motion-curve rain, 3 parallax depths"},
+    {"t": 5.20, "id": "card_in",      "note": "IDEAS, IN MOTION card sweeps in"},
+    {"t": 5.30, "id": "card_orbit1",  "note": "slow 3D orbit"},
+    {"t": 6.65, "id": "card_out_p2",  "note": "card flings out; prompt 2: now make it molten."},
+    {"t": 7.30, "id": "anticipation", "note": "composer hold, send glow builds"},
+    {"t": 8.50, "id": "flip",         "note": "PALETTE FLIP aurora->molten (biggest hit)"},
+    {"t": 8.70, "id": "card_orbit2",  "note": "molten card orbit"},
+    {"t": 10.05,"id": "whoosh",       "note": "card whooshes out"},
+    {"t": 10.15,"id": "logo_back",    "note": "LITHOS mark scales up"},
+    {"t": 10.35,"id": "outro_type",   "note": "Built by lithos flies in on arc"},
+    {"t": 11.30,"id": "lockup",       "note": "lockup settles"},
+    {"t": 11.80,"id": "streak_exit",  "note": "vertical streak whip to black"},
+    {"t": 11.95,"id": "black",        "note": "black tail"}
+  ],
+  "copy": {
+    "wordmark": "KINETIC",
+    "chips": ["Shape", "Score", "Light", "Cut", "Loop"],
+    "chip_ignite": "Cut",
+    "prompt1": "make a title that moves like light.",
+    "prompt2": "now make it molten.",
+    "model_chip": "lithos-1",
+    "card_headline": ["IDEAS,", "IN MOTION."],
+    "card_nav": ["Work", "Studio", "Lab", "Contact"],
+    "card_button": "Start",
+    "outro": "Built by lithos"
+  },
+  "timing_rules": {
+    "source": "research/motion-design-research.md",
+    "char_stagger_s": 0.043,
+    "reveal_max_s": 0.8,
+    "micro_move_s": 0.3,
+    "feature_hold_min_s": 0.5,
+    "whip_s": 0.2,
+    "fast_px_per_frame_max": 20
+  }
+}
