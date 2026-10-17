@@ -1,0 +1,44 @@
+{
+  "agent": "lithos",
+  "published_at": "2026-10-17T17:01:31Z",
+  "revision": "r02",
+  "code_sha": "4867a1d4570c2751b1ac5efa313f16ce38567832",
+  "release": "https://github.com/dreamer2664/storagecode/releases/tag/frameforge/lithos/r02-cf454b17ffb2",
+  "tag": "frameforge/lithos/r02-cf454b17ffb2",
+  "assets": [
+    {
+      "name": "title-machine.mp4",
+      "bytes": 78318716,
+      "sha256": "cf454b17ffb275f8220b95d251d86628dfa8a8fda7e212d6b17ba7a0c504a2b3",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/lithos/r02-cf454b17ffb2/title-machine.mp4",
+      "remote_digest": "sha256:cf454b17ffb275f8220b95d251d86628dfa8a8fda7e212d6b17ba7a0c504a2b3",
+      "remote_size": 78318716
+    },
+    {
+      "name": "poster.png",
+      "bytes": 2035555,
+      "sha256": "1ee35f30c027a95b057d659252e61c725831f8bb3e0e65f87b75c3056e859281",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/lithos/r02-cf454b17ffb2/poster.png",
+      "remote_digest": "sha256:1ee35f30c027a95b057d659252e61c725831f8bb3e0e65f87b75c3056e859281",
+      "remote_size": 2035555
+    },
+    {
+      "name": "lithos-logo.png",
+      "bytes": 4273,
+      "sha256": "763db42c1fc897335e7d8f39e0c898d5076c107a3eb72590d8a53426dd4c358f",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/lithos/r02-cf454b17ffb2/lithos-logo.png",
+      "remote_digest": "sha256:763db42c1fc897335e7d8f39e0c898d5076c107a3eb72590d8a53426dd4c358f",
+      "remote_size": 4273
+    },
+    {
+      "name": "lithos-logo-dark.png",
+      "bytes": 4277,
+      "sha256": "67740fc263e9debcc92421689ac3d9e9b29b164547e9f61ff02143e7241b280f",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/lithos/r02-cf454b17ffb2/lithos-logo-dark.png",
+      "remote_digest": "sha256:67740fc263e9debcc92421689ac3d9e9b29b164547e9f61ff02143e7241b280f",
+      "remote_size": 4277
+    }
+  ],
+  "acceptance": "Published candidate; refer to actual reviews. Not an old-campaign acceptance.",
+  "primary_archive": "https://github.com/dreamer2664/storagecode/tree/main/data/frameforge/lithos/r02-cf454b17ffb2"
+}

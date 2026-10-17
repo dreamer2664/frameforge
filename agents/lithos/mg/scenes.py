@@ -213,8 +213,8 @@ def composer(pal, width=1360, h=120, send_glow=0.0):
     chip_im = text_rgba(COPY["model_chip"], fnt, tuple(int(c) for c in pal["type"]))
     cbox = rounded_rect((chip_im.size[0] + 44, 56), 28,
                         fill=tuple((np.array(pal["panel"], float) * 1.8).astype(int)), stroke=line, stroke_w=2)
-    im.alpha_composite(cbox, dest=(width - 420, (h - 56) // 2))
-    im.alpha_composite(chip_im, dest=(width - 420 + 22, (h - chip_im.size[1]) // 2))
+    im.alpha_composite(cbox, dest=(width - 285, (h - 56) // 2))
+    im.alpha_composite(chip_im, dest=(width - 285 + 22, (h - chip_im.size[1]) // 2))
     # send button
     acc = np.array(pal["accent"], float)
     btn = rounded_rect((64, 64), 18, fill=tuple((acc * (0.55 + 0.45 * send_glow)).astype(int)))

@@ -132,6 +132,8 @@ def render_frame(t):
             world_gain = 0.30
         if 5.20 <= t < 6.65:
             world_gain = 0.55
+        if 6.65 <= t < 7.30:
+            world_gain = 0.32
         if 7.30 <= t < 8.50:
             world_gain = 0.55 - 0.18 * smoothstep((t - 7.3) / 1.2)
         if 8.50 <= t:
@@ -156,29 +158,31 @@ def render_frame(t):
                                  stroke=tuple(int(c) for c in pal["panel_line"]), stroke_w=2)
             put_tl(cv, panel, px, py)
 
-        if p1 is not None and t < 6.65:
-            op = 1.0 - smoothstep((t - 4.30) / 0.25) if t >= 4.30 else 1.0
-            ty = (py + 170) if t < 3.65 else int(py + (ph - p1.size[1]) / 2)
-            put_tl(cv, p1, px + 90, ty, opacity=op)
-        if p2 is not None and not hidden and t < 10.05:
-            put_tl(cv, p2, px + 90, int(py + (ph - p2.size[1]) / 2))
-
+        # composer bar FIRST (opaque), then prompt type on top
         if rw > 0.2 and not hidden:
             glow = smoothstep((t - 7.3) / 1.2) if 7.3 <= t else (0.25 if t < 6.65 else 0.6)
             if 8.5 <= t:
                 glow = 1.0
             comp = SC.composer(pal, pw, ph if rw > 0.98 else 120, send_glow=glow)
             put_tl(cv, comp, px, py, opacity=smoothstep((t - 3.75) / 0.25))
-            if p1 is not None and t < 4.30:
-                cx = px + 90 + (p1.size[0] - 24)
-                cy = (py + 170) if t < 3.65 else int(py + ph / 2 - 29)
-                if int(t * 2.4) % 2 == 0:
-                    put_tl(cv, rounded_rect((20, 58), 4, fill=tuple(int(c) for c in pal["accent"])), cx, cy)
-            if p2 is not None and 6.70 <= t < 7.32:
-                cx = px + 90 + (p2.size[0] - 24)
-                if int(t * 2.4) % 2 == 0:
-                    put_tl(cv, rounded_rect((18, 50), 4, fill=tuple(int(c) for c in pal["accent"])),
-                           cx, int(py + ph / 2 - 25))
+
+        fit = 1.0 - 0.22 * rw  # refit: type shrinks as the panel becomes the bar
+        if p1 is not None and t < 6.65:
+            op = 1.0 - smoothstep((t - 4.30) / 0.25) if t >= 4.30 else 1.0
+            tw, th = int(p1.size[0] * fit), int(p1.size[1] * fit)
+            p1s = p1.resize((max(1, tw), max(1, th)), Image.LANCZOS) if fit < 0.999 else p1
+            ty = (py + 170) if t < 3.65 else int(py + (ph - p1s.size[1]) / 2)
+            put_tl(cv, p1s, px + 80, ty, opacity=op)
+            if t < 4.30 and int(t * 2.4) % 2 == 0:
+                cx = px + 80 + p1s.size[0] - 8
+                cy = ty + int(p1s.size[1] / 2) - int(29 * fit)
+                put_tl(cv, rounded_rect((int(18 * fit), int(58 * fit)), 4,
+                                        fill=tuple(int(c) for c in pal["accent"])), cx, cy)
+        if p2 is not None and not hidden and t < 10.05:
+            put_tl(cv, p2, px + 80, int(py + (ph - p2.size[1]) / 2))
+            if 6.70 <= t < 7.32 and int(t * 2.4) % 2 == 0:
+                put_tl(cv, rounded_rect((18, 50), 4, fill=tuple(int(c) for c in pal["accent"])),
+                       px + 80 + p2.size[0] - 8, int(py + ph / 2 - 25))
 
         if 4.30 <= t < 5.30:
             cam_y = (t - 4.3) * 130
