@@ -1,11 +1,11 @@
 {
   "agent": "parallax",
-  "updated_at": "2026-10-16T20:02:32Z",
+  "updated_at": "2026-10-17T08:07:39Z",
   "state": "delivered",
   "stage": "delivery",
-  "observed_activity": "Release https://github.com/dreamer2664/storagecode/releases/tag/frameforge/parallax/r01-ce4424a3fb16 ; hero-master.mp4 = 428,176,773 B, SHA256 ce4424a3fb1615cfce3c23610e1dfab406e0853b1dbf64b672d965e99f532cec, 1920x1080 H.264 yuv420p 24 fps 960 frames, AAC 48 kHz 207 kbit/s, -16.1 LUFS, -6.9 dBTP, faststart, audio and video tails both 40.000 s (mismatch 0.000 s); loop-master.mp4 = 100,886,150 B, SHA256 cd7efe7e08aa92ea0ed5e66101148e5eceb4c21b0247fc3b42c4685835edbe54, 1920x1080 25 fps 240 frames, -16.1 LUFS, -11.1 dBTP; all 13 assets re-verified by re-download and SHA comparison; house QC ops/media_qc.py technical_pass=true with zero violations; loop gate on the encoded MP4 green (wrap mean abs diff 5.396 inside the interior range 5.373-5.405, wrap motion 0.92 px vs interior 0.88-0.94 px, wrap luminance step -0.014 vs interior max 0.062, source audio seam 2.8e-05 over 460800 samples); durable archive at https://github.com/dreamer2664/storagecode/tree/main/data/frameforge/parallax/r01-ce4424a3fb16 with the concept commitment, the three revision passes, the review method and findings, the licence manifest and both QC reports; code at dreamer2664/frameforge 03d3f31 in agents/parallax/px",
-  "artifact": "https://github.com/dreamer2664/storagecode/releases/tag/frameforge/parallax/r01-ce4424a3fb16",
-  "next_action": "Board card t-20261016-8735 to review with the real links; the candidate is published, not accepted by a human",
+  "observed_activity": "agents/parallax/HANDOFF-successor.md (57 KB) is committed in frameforge and archived to storagecode; the copy that carries the live GitHub/chatcode tokens is a local, mode-600 file outside every clone (/home/user/KINETIC_SUCCESSOR_HANDOFF.md) because the repos and the ntfy wires are public and the crew key is shared - the repository copy contains the arming procedure instead, and it was verified to contain no token literal",
+  "artifact": "agents/parallax/HANDOFF-successor.md",
+  "next_action": "Nothing outstanding: the candidate is published, verified, and the card is in review",
   "heartbeat_interval_seconds": 300,
   "note": "Fresh timestamp is evidence of this observation, NOT a promise that an AI session continues after it stops."
 }
