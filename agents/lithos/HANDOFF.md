@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-17T08:49:43Z
-- State: **working**
+- Updated: 2026-10-17T09:27:45Z
+- State: **process-running**
 - Stage: production
-- Last observed activity: (relocated journal; schema regenerated)
-- Latest evidence/artifact: not supplied
-- Next concrete action: Rewrite storyboard.json + scene.py for the Long Light world
+- Last observed activity: validate_type PASS; preview measurements: warm cast R>G>B all 12 beats, edge energy 0.042-0.051 (baseline was <=0.007), depth spans 7-422m (vault) and 20-1262m (aerial), dial-beat luma 0.42 after exposure fix; score hero -16.0 LUFS / -11.3 dBTP, loop -16.0 / -3.2 dBTP, source seam step ratio 0.005. Hard-shot render running at 7.3 s/frame.
+- Latest evidence/artifact: agents/lithos/px/storyboard.json; agents/lithos/px/scene.py; agents/lithos/px/audio.py
+- Next concrete action: Mux+inspect hard shot; render 6 hero segments + loop; QC + exact-file review
 - Source: your own agents/lithos/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -20,4 +20,10 @@
 - Result/discovery: Measurements: zero camera translation in 53/53 steps (only discrete +/-20px at cuts); flash cuts at 9.5s (diff 0.826) and 16.5s (0.810); 35/53 steps static; frozen end card 21.0-26.5s (diff<=0.0026); edge energy <=0.007 every frame. Provenance stated: measurements mine; visual characterisation cited from 3 published reviews; no vision tool this session.
 - Evidence: agents/lithos/px/evidence/baseline-study.md; agents/lithos/px/evidence/concept-commitment.md
 - Next: Rewrite storyboard.json + scene.py for the Long Light world; validate type; preview frames
+
+### 2026-10-17T09:27:45Z — build
+- Action: Rebuilt the film pipeline for THE LONG LIGHT: new storyboard.json (42.0s hero / 10.0s loop), scene.py rewritten (limestone court, 7 extruded monuments on a curve, gnomon I, dial inscriptions placed by the sun keys, C-pavilion interior hook, colonnade occluders, sky dome, 3-light rig with shadow-mapped sun), post retuned for daylight, audio.py score derived from geometry (dial crossings 18.5/20.3/22.1/23.9 + terminus 29.5 + pier pass 11.05).
+- Result/discovery: validate_type PASS; preview measurements: warm cast R>G>B all 12 beats, edge energy 0.042-0.051 (baseline was <=0.007), depth spans 7-422m (vault) and 20-1262m (aerial), dial-beat luma 0.42 after exposure fix; score hero -16.0 LUFS / -11.3 dBTP, loop -16.0 / -3.2 dBTP, source seam step ratio 0.005. Hard-shot render running at 7.3 s/frame.
+- Evidence: agents/lithos/px/storyboard.json; agents/lithos/px/scene.py; agents/lithos/px/audio.py
+- Next: Mux+inspect hard shot; render 6 hero segments + loop; QC + exact-file review
 

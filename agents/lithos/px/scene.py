@@ -1,19 +1,26 @@
 #!/usr/bin/env python3
-"""Build the parallax film scene from storyboard.json, frame by frame.
+"""THE LONG LIGHT — KINETIC hero + loop scene builder (lithos).
 
-All creative decisions (camera path, light keys, letter choreography, copy
-placement) live in storyboard.json; this module only turns that data into
-geometry and transforms, so the film can be re-timed without touching code.
+A golden stone observatory court. The seven letters of KINETIC stand as
+monumental extruded type along a shallow curve; a taller gnomon I stands at
+the centre of a dial inscribed into the floor; one hard low sun sweeps ~35
+degrees across the film and the shadows write the rest of the sentence.
+
+The scene builder is a pure function of t: any frame can be regenerated.
+Everything is seeded and deterministic.
+
+Engine contract (kept from the px pipeline, rewired to this world):
+  Film().build(t) -> render3d.Scene     (hero)
+  Film().build_loop(t) -> render3d.Scene
+  Film().camera(t) / .loop_camera(t) -> render3d.Camera
 """
 from __future__ import annotations
 
 import json
 import math
-from functools import lru_cache
 from pathlib import Path
 
 import numpy as np
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 import render3d as R
 import type3d
@@ -22,7 +29,7 @@ HERE = Path(__file__).resolve().parent
 STORY = json.loads((HERE / "storyboard.json").read_text())
 
 
-# ----------------------------------------------------------------- interpolation
+# ---------------------------------------------------------------- sampling
 def sample_keys(keys, t, fields, smooth=True):
     """Piecewise cubic-Hermite sample of a keyed list of dicts."""
     times = [k["t"] for k in keys]
@@ -66,134 +73,52 @@ def sample_keys(keys, t, fields, smooth=True):
     return out
 
 
-def ease(a, b, t, kind="smooth"):
-    if t <= 0:
-        return 0.0
-    if t >= 1:
-        return 1.0
-    if kind == "linear":
-        return t
-    if kind == "in":
-        return t * t * t
-    if kind == "out":
-        return 1 - (1 - t) ** 3
-    return t * t * (3 - 2 * t)
-
-
 def smoothstep(x):
     x = float(np.clip(x, 0.0, 1.0))
-    return x * x * (3 - 2 * x)
+    return x * x * (3.0 - 2.0 * x)
 
 
-def lerp_pose(p0, p1, u):
-    return {
-        "pos": (1 - u) * np.asarray(p0["pos"], float) + u * np.asarray(p1["pos"], float),
-        "rot": (1 - u) * np.asarray(p0["rot"], float) + u * np.asarray(p1["rot"], float),
-    }
+# ---------------------------------------------------------------- textures
+def glow_texture(size=256):
+    y, x = np.mgrid[0:size, 0:size].astype(np.float32)
+    r = np.sqrt((x - size / 2) ** 2 + (y - size / 2) ** 2) / (size / 2)
+    g = np.clip(1.0 - r, 0.0, 1.0) ** 2.2
+    return np.stack([g, g * 0.72, g * 0.46], axis=2).astype(np.float32)
 
 
-def euler_matrix(rx, ry, rz):
-    cx, sx = math.cos(rx), math.sin(rx)
-    cy, sy = math.cos(ry), math.sin(ry)
-    cz, sz = math.cos(rz), math.sin(rz)
-    rxm = np.array([[1, 0, 0], [0, cx, -sx], [0, sx, cx]], float)
-    rym = np.array([[cy, 0, sy], [0, 1, 0], [-sy, 0, cy]], float)
-    rzm = np.array([[cz, -sz, 0], [sz, cz, 0], [0, 0, 1]], float)
-    return rzm @ rym @ rxm
+def sky_texture(size=64):
+    """Vertical gradient: warm gold horizon -> cool blue zenith (v = 0 bottom)."""
+    v = np.linspace(0.0, 1.0, size * 4, dtype=np.float32)
+    warm = np.stack([0.62 * np.ones_like(v), 0.42 * np.ones_like(v), 0.24 * np.ones_like(v)], axis=1)
+    cool = np.stack([0.10 * np.ones_like(v), 0.17 * np.ones_like(v), 0.34 * np.ones_like(v)], axis=1)
+    k = (v ** 0.7)[:, None]
+    grad = warm * (1 - k) + cool * k
+    band = np.clip((v - 0.30) * 1.8, 0, 1)[:, None]
+    grad = grad * (1 - band * 0.25)
+    return np.repeat(grad[None, :, :], size, axis=0).astype(np.float32)
 
 
-# ------------------------------------------------------------------ text texture
-@lru_cache(maxsize=64)
-def text_texture(text: str, size: int = 300, tracking: float = 0.0, weight: int = 450,
-                 width: int = 100, glow: float = 8.0,
-                 color: tuple = (1.0, 0.88, 0.70)) -> np.ndarray:
-    """Tinted RGBA lettering on transparent, returned as float32 (h,w,4).
-
-    The canvas is sized to the measured advance of the whole run, so long
-    lines are never clipped, and v = 0 is the TOP row of the image.
-    """
-    path = str(HERE / STORY["type"]["caption"]["file"])
-    font = ImageFont.truetype(path, size)
-    try:
-        font.set_variation_by_axes([float(weight), float(width)])
-    except Exception:
-        pass
-    probe = ImageDraw.Draw(Image.new("RGBA", (8, 8)))
-    widths = [probe.textlength(ch, font=font) for ch in text]
-    total = sum(widths) + tracking * size * max(len(text) - 1, 0)
-    pad = int(size * 0.35)
-    w_img = max(16, int(total) + 2 * pad)
-    img = Image.new("RGBA", (w_img, size), (0, 0, 0, 0))
-    d = ImageDraw.Draw(img)
-    x = pad
-    y = int(size * 0.78)
-    for ch, wch in zip(text, widths):
-        d.text((x, y), ch, fill=(255, 255, 255, 255), font=font, anchor="ls")
-        x += wch + tracking * size
-    bbox = img.getbbox()
-    if bbox:
-        img = img.crop(bbox)
-    rgb = np.asarray(img).astype(np.float32) / 255.0
-    if glow > 0:
-        blur = np.asarray(img.filter(ImageFilter.GaussianBlur(glow))).astype(np.float32) / 255.0
-        a = np.clip(rgb[:, :, 3] + blur[:, :, 3], 0, 1)
-        rgb = np.concatenate([np.repeat(np.asarray(color, np.float32)[None, None, :],
-                                         rgb.shape[0], axis=0).repeat(rgb.shape[1], axis=1),
-                              a[:, :, None]], axis=2)
-    return rgb.astype(np.float32)
+def stone_texture(seed=11, size=512):
+    """Deterministic procedural limestone: two scales of value noise plus grain."""
+    from scipy.ndimage import zoom
+    rng = np.random.default_rng(seed)
+    base = rng.random((size // 8, size // 8)).astype(np.float32)
+    img = zoom(base, size / base.shape[0], order=3)[:size, :size]
+    if img.shape != (size, size):
+        img = np.pad(img, ((0, max(0, size - img.shape[0])), (0, max(0, size - img.shape[1]))),
+                     mode="edge")[:size, :size]
+    img = np.clip(img, 0, 1)
+    blot = zoom(rng.random((size // 32 + 1, size // 32 + 1)).astype(np.float32),
+                size / (size // 32 + 1), order=3)[:size, :size]
+    grain = rng.normal(0, 0.006, (size, size)).astype(np.float32)
+    # faint horizontal courses: a static relief cue for the eye (handoff §2.4)
+    yy = np.arange(size, dtype=np.float32)[:, None]
+    course = 0.012 * (0.5 + 0.5 * np.sin(yy / (size / 9.0))) * (img > 0.45)
+    tex = np.clip(img * 0.20 + blot * 0.12 + 0.62 + grain + course, 0, 1.4)
+    return np.repeat(tex[:, :, None], 3, axis=2).astype(np.float32)
 
 
-@lru_cache(maxsize=8)
-def soft_rect_texture(size=256, feather=0.34, warm=(1.0, 0.74, 0.46)) -> np.ndarray:
-    """A soft-edged rectangle used for the pool of light on the floor."""
-    yy, xx = np.mgrid[0:size, 0:size].astype(np.float32)
-    u = np.abs((xx / (size - 1)) * 2 - 1)
-    v = np.abs((yy / (size - 1)) * 2 - 1)
-    m = np.clip(1.0 - (u * u + v * v) * 0.75, 0, 1)
-    m = m ** 2.4
-    tex = np.repeat(m[:, :, None], 3, axis=2) * np.asarray(warm, np.float32)[None, None, :]
-    return tex.astype(np.float32)
-
-
-@lru_cache(maxsize=8)
-def glow_texture(size=256) -> np.ndarray:
-    """Soft warm haze: bright low and centred, fading up and to the sides."""
-    yy, xx = np.mgrid[0:size, 0:size].astype(np.float32)
-    u = (xx / (size - 1)) * 2 - 1
-    v = yy / (size - 1)
-    h = np.clip(1.0 - u ** 2, 0, 1) ** 1.5
-    g = np.clip(1.0 - v * 0.85, 0, 1) ** 1.8
-    m = (h * g).astype(np.float32)
-    return np.repeat(m[:, :, None], 3, axis=2).astype(np.float32)
-
-
-@lru_cache(maxsize=8)
-def shaft_texture(size=256) -> np.ndarray:
-    """Vertical soft beam: bright at the top, fading to nothing at the floor."""
-    yy, xx = np.mgrid[0:size, 0:size].astype(np.float32)
-    u = np.abs((xx / (size - 1)) * 2 - 1)
-    v = (yy / (size - 1))  # 0 at the top (the slit), 1 at the floor
-    h = np.clip(1.0 - u ** 3, 0, 1) ** 2
-    g = np.clip(1.0 - v, 0, 1) ** 1.7
-    m = h * g
-    return np.repeat(m[:, :, None], 3, axis=2).astype(np.float32)
-
-
-# ----------------------------------------------------------------- letter meshes
-def build_letter_meshes():
-    w = STORY["world"]
-    out = []
-    for spec in STORY["letters"]:
-        m, _ = type3d.text_mesh(spec["ch"], str(HERE / STORY["type"]["display"]["file"]),
-                                wght=STORY["type"]["display"]["wght"],
-                                wdth=STORY["type"]["display"]["wdth"],
-                                cap_height=w["letter_cap"], depth=w["letter_depth"],
-                                tracking=0.02)
-        out.append(m)
-    return out
-
-
-# ------------------------------------------------------------------- geometry
+# ---------------------------------------------------------------- geometry
 def quad(v0, v1, v2, v3, normal=None, uv=None):
     v = np.array([v0, v1, v2, v3], dtype=np.float32)
     if normal is None:
@@ -206,58 +131,26 @@ def quad(v0, v1, v2, v3, normal=None, uv=None):
     return v, np.tile(n, (4, 1)), u, t
 
 
-def band_texture(size=256):
-    """A soft band of warm light: bright along the middle, fading in x and y."""
-    x = np.linspace(-1.0, 1.0, size, dtype=np.float32)
-    prof = np.exp(-3.4 * x * x)
-    prof = (prof - prof.min()) / max(prof.max() - prof.min(), 1e-6)
-    band = np.tile(prof, (size // 4, 1))
-    y = np.linspace(0.0, 1.0, size // 4, dtype=np.float32)
-    fall = (0.25 + 0.75 * (1.0 - y) ** 1.6)[:, None]
-    band = band * fall
-    rgb = np.stack([band * 1.0, band * 0.70, band * 0.42], axis=2)
-    return rgb.astype(np.float32)
-
-
-def stone_texture(seed=7, size=512):
-    """Deterministic procedural stone: two scales of value noise plus grain."""
-    from scipy.ndimage import zoom
-    rng = np.random.default_rng(seed)
-    base = rng.random((size // 8, size // 8)).astype(np.float32)
-    img = zoom(base, size / base.shape[0], order=3)[:size, :size]
-    if img.shape != (size, size):
-        img = np.pad(img, ((0, max(0, size - img.shape[0])), (0, max(0, size - img.shape[1]))),
-                     mode="edge")[:size, :size]
-    img = np.clip(img, 0, 1)
-    blot = zoom(rng.random((size // 32 + 1, size // 32 + 1)).astype(np.float32),
-                size / (size // 32 + 1), order=3)[:size, :size]
-    grain = rng.normal(0, 0.0045, (size, size)).astype(np.float32)
-    tex = np.clip(img * 0.22 + blot * 0.12 + 0.62 + grain, 0, 1.4)
-    return np.repeat(tex[:, :, None], 3, axis=2).astype(np.float32)
-
-
 def box_mesh(cx, cy, cz, sx, sy, sz):
-    """Axis-aligned box with outward-facing winding and per-face normals."""
+    """Axis-aligned box; world-scale UVs (metres) per face."""
     hx, hy, hz = sx / 2, sy / 2, sz / 2
     c = [(cx - hx, cy - hy, cz - hz), (cx + hx, cy - hy, cz - hz),
          (cx + hx, cy + hy, cz - hz), (cx - hx, cy + hy, cz - hz),
          (cx - hx, cy - hy, cz + hz), (cx + hx, cy - hy, cz + hz),
          (cx + hx, cy + hy, cz + hz), (cx - hx, cy + hy, cz + hz)]
     faces = [
-        (0, 3, 2, 1, (0, 0, -1)),    # back
-        (4, 5, 6, 7, (0, 0, 1)),     # front
-        (0, 4, 7, 3, (-1, 0, 0)),    # left
-        (1, 2, 6, 5, (1, 0, 0)),     # right
-        (0, 1, 5, 4, (0, -1, 0)),    # bottom
-        (3, 7, 6, 2, (0, 1, 0)),     # top
+        (0, 3, 2, 1, (0, 0, -1)),
+        (4, 5, 6, 7, (0, 0, 1)),
+        (0, 4, 7, 3, (-1, 0, 0)),
+        (1, 2, 6, 5, (1, 0, 0)),
+        (0, 1, 5, 4, (0, -1, 0)),
+        (3, 7, 6, 2, (0, 1, 0)),
     ]
     v, n, u, t = [], [], [], []
     for a, b, cc, d, nrm in faces:
         i = len(v)
         v.extend([c[a], c[b], c[cc], c[d]])
         n.extend([nrm] * 4)
-        # world-scale UVs (metres) so a texture tile is always the same physical
-        # size on every face: a stretched tile reads as smeared wood grain.
         nax = 0 if abs(nrm[0]) > 0.5 else (1 if abs(nrm[1]) > 0.5 else 2)
         ax, ay = [i for i in range(3) if i != nax]
         u.extend([(c[p][ax], c[p][ay]) for p in (a, b, cc, d)])
@@ -266,446 +159,317 @@ def box_mesh(cx, cy, cz, sx, sy, sz):
             np.array(u, dtype=np.float32), np.array(t, dtype=np.int32))
 
 
-def blade(a, b, width):
-    """A camera-agnostic ribbon between two points (used for light shafts)."""
-    a = np.asarray(a, float)
-    b = np.asarray(b, float)
-    d = b - a
-    side = np.cross(d, np.array([0.0, 1.0, 0.0]))
-    n = np.linalg.norm(side)
-    side = side / n if n > 1e-6 else np.array([1.0, 0.0, 0.0])
-    v = np.array([a - side * width / 2, b - side * width / 2,
-                  b + side * width / 2, a + side * width / 2], dtype=np.float32)
-    u = np.array([[0, 1], [0, 0], [1, 0], [1, 1]], dtype=np.float32)
-    t = np.array([[0, 1, 2], [0, 2, 3]], dtype=np.int32)
-    nrm = np.tile(np.cross(side, d).astype(np.float32), (4, 1))
-    return v, nrm, u, t
+def rot_xform(mesh, rx=0.0, ry=0.0, rz=0.0, offset=(0.0, 0.0, 0.0), about=None):
+    """Rotate a mesh about its own centroid (or `about` point), then translate."""
+    v, n, u, t = mesh
+    v = v.astype(np.float64).copy()
+    n = n.astype(np.float64).copy()
+    cx, cy, cz = about if about is not None else (
+        float(v[:, 0].mean()), float(v[:, 1].mean()), float(v[:, 2].mean()))
+    Rx = np.array([[1, 0, 0],
+                   [0, math.cos(rx), -math.sin(rx)],
+                   [0, math.sin(rx), math.cos(rx)]])
+    Ry = np.array([[math.cos(ry), 0, math.sin(ry)],
+                   [0, 1, 0],
+                   [-math.sin(ry), 0, math.cos(ry)]])
+    Rz = np.array([[math.cos(rz), -math.sin(rz), 0],
+                   [math.sin(rz), math.cos(rz), 0],
+                   [0, 0, 1]])
+    M = Rz @ Ry @ Rx
+    v -= (cx, cy, cz)
+    v = v @ M.T
+    n = n @ M.T
+    v += (cx, cy, cz) + np.asarray(offset, dtype=np.float64)
+    return (v.astype(np.float32), n.astype(np.float32), u, t)
 
 
-# ------------------------------------------------------------------ the film
+# ---------------------------------------------------------------- the sun
+def sun_az(t):
+    """Hero sun azimuth (radians) — the sundial's hand."""
+    k = sample_keys(STORY["sun"]["az_keys"], t, ["az"])
+    return float(k["az"])
+
+
+def sun_az_loop(t):
+    T = STORY["loop"]["duration_seconds"]
+    a = 2.0 * math.pi * t / T
+    return 0.10 + 0.05 * math.sin(a)
+
+
+def sun_dir(az):
+    """Travel direction of the sunlight (points FROM the sun TO the court)."""
+    el = math.radians(STORY["sun"]["elevation_deg"])
+    return np.array([math.sin(az) * math.cos(el), -math.sin(el),
+                     math.cos(az) * math.cos(el)], dtype=np.float64)
+
+
+def sun_intensity(t):
+    k = sample_keys(STORY["sun"]["intensity_keys"], t, ["i"])
+    return float(k["i"])
+
+
+# ---------------------------------------------------------------- dial math
+def gnomon_spec():
+    return STORY["world"]["gnomon"]
+
+
+def shadow_tip(az, height=None):
+    """World XZ where the shadow tip of a height-h post lands."""
+    g = gnomon_spec()
+    h = height if height is not None else g["cap"]
+    el = math.radians(STORY["sun"]["elevation_deg"])
+    L = h / math.tan(el)
+    return (g["x"] + math.sin(az) * L, g["z"] + math.cos(az) * L), L
+
+
+def dial_geometry():
+    """Station positions and crossing times (score sync is derived from this)."""
+    d = STORY["world"]["dial"]
+    out = []
+    for text, tk in zip(d["stations"], d["station_times"]):
+        az = sun_az(tk)
+        (x, z), L = shadow_tip(az)
+        out.append({"text": text, "t": tk, "az": az, "x": x, "z": z, "radius": L})
+    (x, z), L = shadow_tip(sun_az(d["terminus_time"]))
+    out.append({"text": d["terminus_text"], "t": d["terminus_time"],
+                "az": sun_az(d["terminus_time"]), "x": x, "z": z, "radius": L})
+    return out
+
+
+# ---------------------------------------------------------------- type
+FONT_DISPLAY = str(HERE / STORY["type"]["display"]["file"])
+FONT_INSCR = str(HERE / STORY["type"]["inscription"]["file"])
+
+
+def text_mesh(text, font_path, wght=700, wdth=100, depth=0.12, cap_height=None,
+              tracking=0.0):
+    return type3d.text_mesh(text, font_path, wght=wght, wdth=wdth,
+                            depth=depth, cap_height=cap_height, tracking=tracking)
+
+
+def word_layout():
+    """Lay the seven monuments out along a shallow curve with true advances."""
+    w = STORY["world"]
+    caps, depth, gap = w["letter_cap"], w["letter_depth"], w["letter_gap"]
+    specs = []
+    total = 0.0
+    for ch in "KINETIC":
+        m, adv = text_mesh(ch, FONT_DISPLAY, wght=STORY["type"]["display"]["wght"],
+                           wdth=STORY["type"]["display"]["wdth"],
+                           cap_height=caps, depth=depth)
+        specs.append({"ch": ch, "mesh": m, "adv": adv})
+        total += adv
+    total += gap * (len(specs) - 1)
+    x = -total / 2.0
+    for s in specs:
+        s["cx"] = x + s["adv"] / 2.0
+        x += s["adv"] + gap
+        s["cz"] = w["word_z"] - w["word_curve"] * s["cx"] ** 2
+        s["yaw"] = math.radians(-0.62 * s["cx"])
+    return specs
+
+
 class Film:
     def __init__(self):
         self.story = STORY
         self.w = STORY["world"]
         self.pal = STORY["palette"]
-        self.letter_meshes = build_letter_meshes()
         self.stone = stone_texture()
-        self.pool_tex = soft_rect_texture()
-        self.shaft_tex = shaft_texture()
+        self.sky_tex = sky_texture()
         self.glow_tex = glow_texture()
-        self._band_cache = {}
-        # the chamber light: bright at the floor, falling away into the dark
-        gx = np.linspace(0.0, 1.0, 64, dtype=np.float32)
-        gy = np.linspace(0.0, 1.0, 64, dtype=np.float32)
-        fall = np.exp(-2.2 * gy)[:, None] * (0.55 + 0.45 * (1.0 - np.abs(gx - 0.5) * 2.0) ** 2)[None, :]
-        self.chamber_tex = np.stack([fall * 1.0, fall * 0.62, fall * 0.30], axis=2).astype(np.float32)
-        self.copy_textures = {}
-        for c in STORY["copy"]:
-            key = (c["text"], c.get("small", False))
-            if key not in self.copy_textures:
-                self.copy_textures[key] = text_texture(
-                    c["text"], size=260, tracking=0.17, weight=450, glow=9.0)
+        self.word = word_layout()
+        g = self.w["gnomon"]
+        self.gnomon_mesh, _ = text_mesh("I", FONT_DISPLAY,
+                                        wght=STORY["type"]["display"]["wght"],
+                                        wdth=STORY["type"]["display"]["wdth"],
+                                        cap_height=g["cap"], depth=g["depth"])
+        self._inscr_cache = {}
 
-    # ---------------------------------------------------------------- letters
-    def letter_poses(self, t):
-        s = self.story["stages"]
-        w = self.w
-        poses = []
-        for i, spec in enumerate(self.story["letters"]):
-            t_rel = s["release"] + i * s["release_stagger"]
-            wall = {"pos": np.array([spec["wall_x"], w["bench_h"], w["wall_z"]]),
-                    "rot": np.array([0.0, 0.0, 0.0])}
-            tip = {"pos": np.array([spec["wall_x"], w["bench_h"] + 0.10, w["wall_z"] + 1.45]),
-                   "rot": np.array([math.radians(52.0), math.radians(-7.0 + 2.6 * i), 0.0])}
-            field = {"pos": np.array(spec["field"], float),
-                     "rot": np.array([math.radians(a) for a in spec["field_rot"]])}
-            gate = {"pos": np.array(spec["gate"], float), "rot": np.array([0.0, 0.0, 0.0])}
-            row = {"pos": np.array(spec["row"], float), "rot": np.array([0.0, 0.0, 0.0])}
-            if t < t_rel:
-                p = wall
-            elif t < t_rel + s["release_dur"]:
-                p = lerp_pose(wall, tip, ease(0, 1, (t - t_rel) / s["release_dur"], "in"))
-            elif t < s["field"] + 0.9:
-                u = ease(0, 1, (t - t_rel - s["release_dur"])
-                         / max(s["field"] - t_rel - s["release_dur"], 1e-3))
-                p = lerp_pose(tip, field, u)
-            elif t < s["assemble"]:
-                u = ease(0, 1, (t - s["field"] - 0.9)
-                         / max(s["assemble"] - s["field"] - 0.9, 1e-3))
-                p = lerp_pose(field, gate, u)
-            elif t < s["fly"]:
-                p = gate
-            elif t < s["row"]:
-                p = lerp_pose(gate, row, ease(0, 1, (t - s["fly"]) / max(s["row"] - s["fly"], 1e-3), "in"))
-            else:
-                p = row
-            poses.append(p)
-        return poses
+    # -------------------------------------------------------------- helpers
+    def _inscription_mesh(self, text, cap, depth):
+        key = (text, cap, depth)
+        if key not in self._inscr_cache:
+            self._inscr_cache[key] = text_mesh(
+                text, FONT_INSCR, wght=STORY["type"]["inscription"]["wght"],
+                wdth=STORY["type"]["inscription"]["wdth"],
+                cap_height=cap, depth=depth, tracking=0.04)
+        return self._inscr_cache[key]
 
-    # ------------------------------------------------------------------ reveal
-    # The raking light enters at the slot end of the word and travels to the far
-    # end, so every letter is fully lit at some point (revision 1: the sweep now
-    # spans the whole word, the first letter included).
-    REVEAL_T0 = 4.2
-    REVEAL_T1 = 11.3
-    REVEAL_X0 = 11.5
-    REVEAL_X1 = -5.0
+    def sun(self, t, loop=False):
+        az = sun_az_loop(t) if loop else sun_az(t)
+        d = sun_dir(az)
+        if loop:
+            i = 2.15
+        else:
+            i = sun_intensity(t)
+        col = np.array(self.pal["sun"], float) * (1.0 - 0.22 * smoothstep((t - 4.0) / 38.0)) + \
+            np.array(self.pal["sun_late"], float) * (0.22 * smoothstep((t - 4.0) / 38.0))
+        return d, tuple(col), i
 
-    def reveal(self, t):
-        """0..1 per letter: how much of the raking light has reached it."""
-        out = []
-        u = float(np.clip((t - self.REVEAL_T0) / (self.REVEAL_T1 - self.REVEAL_T0), 0.0, 1.0))
-        x_light = self.REVEAL_X0 + (self.REVEAL_X1 - self.REVEAL_X0) * u
-        for spec in self.story["letters"]:
-            r = (spec["wall_x"] - x_light) / 2.6
-            out.append(smoothstep(r))
-        return out
-
-    def reveal_light(self, t):
-        """Position/intensity of the light that travels along the carved word."""
-        u = float(np.clip((t - self.REVEAL_T0) / (self.REVEAL_T1 - self.REVEAL_T0), 0.0, 1.0))
-        x_light = self.REVEAL_X0 + (self.REVEAL_X1 - self.REVEAL_X0) * u
-        i = 1.25 * smoothstep((t - 3.6) / 1.2) * (1.0 - smoothstep((t - 11.9) / 1.6))
-        return x_light, i
-
-    # ------------------------------------------------------------------ scene
-    def build(self, t, cam=None):
-        st = self.story
-        w = self.w
-        pal = self.pal
-        pr = st["lights"]["practicals"]
+    # --------------------------------------------------------------- world
+    def build_world(self, t, loop=False):
+        st, w, pal = self.story, self.w, self.pal
         scene = R.Scene()
-        scene.ambient_sky = (0.020, 0.024, 0.036)
-        scene.ambient_ground = (0.012, 0.009, 0.007)
+        scene.ambient_sky = tuple(st["lights"]["ambient_sky"])
+        scene.ambient_ground = tuple(st["lights"]["ambient_ground"])
         fog = sample_keys(st["fog"]["keys"], t, ["color", "density"])
         scene.fog_color = tuple(float(x) for x in fog["color"])
         scene.fog_density = float(fog["density"])
 
-        z = w["wall_z"]
-        op = w["wall_opening"]
-        stone_mat = R.Material(base=tuple(pal["stone"]), spec=0.07, shininess=18.0,
-                               texture=self.stone, texture_uv=(1.0, 1.0))
-        # the wall carries the word: it must read as lit stone, not as a void
-        wall_mat = R.Material(base=tuple(pal["wall"]), spec=0.09, shininess=20.0,
-                              texture=self.stone, texture_uv=(3.0, 3.0))
+        stone_mat = R.Material(base=tuple(pal["limestone"]), spec=0.10, shininess=26.0,
+                               texture=self.stone, texture_uv=(0.35, 0.35))
+        letter_mat = R.Material(base=tuple(pal["letter_stone"]), spec=0.12, shininess=30.0,
+                                texture=self.stone, texture_uv=(0.55, 0.55))
+        basalt_mat = R.Material(base=tuple(pal["basalt"]), spec=0.16, shininess=40.0)
+        valley_mat = R.Material(base=tuple(pal["valley"]), spec=0.03, shininess=8.0)
 
-        # ---- floor
-        q = quad([-46, 0, 30], [46, 0, 30], [46, 0, -40], [-46, 0, -40],
-                 normal=(0, 1, 0), uv=[(0, 0), (26, 0), (26, 35), (0, 35)])
-        scene.meshes.append((q[0], q[1], q[2], q[3],
-                             R.Material(base=tuple(pal["stone"]), spec=0.10, shininess=26.0,
-                                        texture=self.stone, texture_uv=(1.0, 1.0)), False))
+        # ---- valley below the platform (far ground)
+        q = quad([-460, w["valley_y"], -420], [460, w["valley_y"], -420],
+                 [460, w["valley_y"], 420], [-460, w["valley_y"], 420], normal=(0, 1, 0),
+                 uv=[(0, 0), (60, 0), (60, 60), (0, 60)])
+        scene.meshes.append((q[0], q[1], q[2], q[3], valley_mat, False))
 
-        # ---- end wall, solid apart from the arch
-        for p, uvs in [
-            (([-30, 0, z], [op["x0"], 0, z], [op["x0"], 16, z], [-30, 16, z]),
-             [(0, 0), (6.0, 0), (6.0, 4.2), (0, 4.2)]),
-            (([op["x1"], 0, z], [30, 0, z], [30, 16, z], [op["x1"], 16, z]),
-             [(0, 0), (8.5, 0), (8.5, 4.2), (0, 4.2)]),
-            (([op["x0"], op["y1"], z], [op["x1"], op["y1"], z], [op["x1"], 16, z], [op["x0"], 16, z]),
-             [(0, 0), (1.0, 0), (1.0, 2.6), (0, 2.6)]),
+        # ---- the court platform
+        px0, px1 = w["platform"]["x"]
+        pz0, pz1 = w["platform"]["z"]
+        eh = w["platform"]["edge_h"]
+        scene.meshes.append((*box_mesh((px0 + px1) / 2, -eh / 2, (pz0 + pz1) / 2,
+                                       px1 - px0, eh, pz1 - pz0), stone_mat, False))
+
+        # ---- distant hills: three hazed ridges
+        for hx, hz, hh in w["hills"]:
+            scene.meshes.append((*box_mesh(hx, w["valley_y"] + hh / 2 - 1.0, hz,
+                                           260.0, hh, 26.0), valley_mat, False))
+
+        # ---- sky dome (inverted box, emissive gradient)
+        s = w["sky_size"]
+        sky_mat = R.Material(base=(0, 0, 0), emissive=(0.30, 0.26, 0.23),
+                             texture=self.sky_tex, texture_uv=(1.0, 1.0),
+                             double_sided=True)
+        for nrm, pts in [
+            ((0, -1, 0), [(-s, s, s), (s, s, s), (s, s, -s), (-s, s, -s)]),          # ceiling
+            ((0, 0, 1), [(-s, -s, -s), (s, -s, -s), (s, s, -s), (-s, s, -s)]),       # north
+            ((0, 0, -1), [(s, -s, s), (-s, -s, s), (-s, s, s), (s, s, s)]),          # south
+            ((1, 0, 0), [(-s, -s, s), (-s, -s, -s), (-s, s, -s), (-s, s, s)]),       # west
+            ((-1, 0, 0), [(s, -s, -s), (s, -s, s), (s, s, s), (s, s, -s)]),          # east
         ]:
-            q = quad(*p, normal=(0, 0, 1), uv=uvs)
-            scene.meshes.append((q[0], q[1], q[2], q[3], wall_mat, False))
+            q = quad(*pts, normal=nrm, uv=[(0, 0), (1, 0), (1, 1), (0, 1)])
+            scene.meshes.append((q[0], q[1], q[2], q[3], sky_mat, False))
 
-        # ---- piers flanking the hall
-        pier_mat = R.Material(base=tuple(pal["stone_light"]), spec=0.05, shininess=14.0,
-                              texture=self.stone, texture_uv=(1.0, 1.0))
-        for z_p in (20.0, 12.0, 4.0):
-            for x_p in (-w["pier_x"], w["pier_x"]):
-                scene.meshes.append((*box_mesh(x_p, 4.2, z_p, 1.4, 8.4, 1.3), pier_mat))
-
-        # ---- bench carrying the carved word
-        bx0, bx1 = w["bench_x"]
-        bz0, bz1 = w["bench_z"]
-        scene.meshes.append((*box_mesh((bx0 + bx1) / 2, w["bench_h"] / 2, (bz0 + bz1) / 2,
-                                       bx1 - bx0, w["bench_h"], bz1 - bz0),
-                             R.Material(base=tuple(pal["stone_light"]), spec=0.07, shininess=20.0), False))
-
-        # ---- the slot of light
-        slot = pr["slot"]
-        q = quad([slot["x"] - 0.14, slot["y"][0], slot["z"]],
-                 [slot["x"] + 0.14, slot["y"][0], slot["z"]],
-                 [slot["x"] + 0.14, slot["y"][1], slot["z"]],
-                 [slot["x"] - 0.14, slot["y"][1], slot["z"]], normal=(0, 0, 1))
-        scene.meshes.append((q[0], q[1], q[2], q[3],
-                             R.Material(base=(0, 0, 0),
-                                        emissive=tuple(np.array(slot["color"]) * slot["intensity"])), False))
-
-        # ---- the chamber behind the arch: a room, not a lit card
-        cz = w.get("chamber_z", -34.0)
-        cx = w.get("chamber_x", 20.0)
-        ch_h = w.get("chamber_h", 13.0)
-        chamber_mat = R.Material(base=tuple(pal["stone"]), spec=0.05, shininess=14.0,
-                                 texture=self.stone, texture_uv=(1.0, 1.0),
-                                 emissive=(0.030, 0.017, 0.008))
-        # the back wall of the chamber is graded: the room recedes into darkness
-        back_mat = R.Material(base=tuple(pal["stone"]), spec=0.05, shininess=14.0,
-                              texture=self.chamber_tex, texture_uv=(1.0, 1.0),
-                              emissive=(0.020, 0.011, 0.005))
-        q = quad([-cx, 0, cz], [cx, 0, cz], [cx, ch_h, cz], [-cx, ch_h, cz], normal=(0, 0, 1),
-                 uv=[(0, 0), (1, 0), (1, 1), (0, 1)])
-        scene.meshes.append((q[0], q[1], q[2], q[3], back_mat, False))
-        # two piers behind the plinth: the final image needs a middle plane
-        for x_p in (-9.6, 9.6):
-            scene.meshes.append((*box_mesh(x_p, 4.4, -20.0, 1.7, 8.8, 1.7),
-                                 R.Material(base=tuple(pal["stone_light"]), spec=0.05,
-                                            shininess=14.0, texture=self.stone,
-                                            texture_uv=(1.0, 1.0)), False))
-        for x_s in (-cx, cx):
-            q = quad([x_s, 0, cz], [x_s, 0, -4], [x_s, ch_h, -4], [x_s, ch_h, cz],
-                     normal=(-1 if x_s > 0 else 1, 0, 0), uv=[(0, 0), (8, 0), (8, ch_h), (0, ch_h)])
-            scene.meshes.append((q[0], q[1], q[2], q[3], chamber_mat, False))
-        q = quad([-cx, ch_h, cz], [cx, ch_h, cz], [cx, ch_h, -4], [-cx, ch_h, -4],
-                 normal=(0, -1, 0), uv=[(0, 0), (cx, 0), (cx, 8), (0, 8)])
-        scene.meshes.append((q[0], q[1], q[2], q[3],
-                             R.Material(base=tuple(pal["stone"]), spec=0.02, shininess=8.0,
-                                        emissive=(0.020, 0.011, 0.005)), False))
-        # floor of the chamber, catching the warm light
-        q = quad([-cx, 0.01, cz], [cx, 0.01, cz], [cx, 0.01, -4], [-cx, 0.01, -4],
-                 normal=(0, 1, 0), uv=[(0, 0), (cx, 0), (cx, 8), (0, 8)])
-        scene.meshes.append((q[0], q[1], q[2], q[3],
-                             R.Material(base=tuple(pal["stone"]), spec=0.10, shininess=26.0,
-                                        texture=self.stone, texture_uv=(1.0, 1.0)), False))
-
-        # ---- graded warm glow deep in the chamber (seen through the arch)
-        q = quad([-cx + 1, 0, cz + 0.12], [cx - 1, 0, cz + 0.12],
-                 [cx - 1, ch_h - 1, cz + 0.12], [-cx + 1, ch_h - 1, cz + 0.12],
-                 normal=(0, 0, 1), uv=[(0, 0), (1, 0), (1, 1), (0, 1)])
+        # ---- sun glow (restrained additive billboard at the sun direction)
+        d, col, inten = self.sun(t, loop=loop)
+        sun_pos = -d * 300.0 + np.array([0.0, 40.0, 0.0])
+        gz = 70.0
+        q = quad([sun_pos[0] - gz, sun_pos[1] - gz, sun_pos[2]],
+                 [sun_pos[0] + gz, sun_pos[1] - gz, sun_pos[2]],
+                 [sun_pos[0] + gz, sun_pos[1] + gz, sun_pos[2]],
+                 [sun_pos[0] - gz, sun_pos[1] + gz, sun_pos[2]], normal=(0, 0, 1))
         scene.meshes.append((q[0], q[1], q[2], q[3],
                              R.Material(base=(0, 0, 0), emissive=(0, 0, 0),
-                                        texture=self.chamber_tex, additive=True,
-                                        alpha=0.26, double_sided=True), False))
+                                        texture=self.glow_tex, additive=True,
+                                        alpha=0.12, double_sided=True), False))
 
-        # ---- the plinth the row lands on
-        pz0, pz1 = w["plinth_z"]
-        scene.meshes.append((*box_mesh(0.0, w["plinth_h"] / 2, (pz0 + pz1) / 2,
-                                       13.4, w["plinth_h"], pz1 - pz0),
-                             R.Material(base=tuple(pal.get("plinth", pal["stone_light"])),
-                                        spec=0.08, shininess=20.0,
-                                        texture=self.stone, texture_uv=(1.0, 1.0)), False))
+        # ---- colonnade: piers + lintel (near occluders)
+        pier_x, pier_z = w["colonnade"]["x"], w["colonnade"]["z"]
+        pw, ph, pd = w["colonnade"]["pier"]
+        for x_p in pier_x:
+            scene.meshes.append((*box_mesh(x_p, ph / 2, pier_z, pw, ph, pd), stone_mat, True))
+        for x_p in (min(pier_x), max(pier_x)):
+            span = max(pier_x) - min(pier_x) + 8.0
+        # lintel beams over each run
+        scene.meshes.append((*box_mesh(-21.0, w["colonnade"]["lintel_y"], pier_z,
+                                       16.5, 1.3, 2.4), stone_mat, True))
+        scene.meshes.append((*box_mesh(21.0, w["colonnade"]["lintel_y"], pier_z,
+                                       16.5, 1.3, 2.4), stone_mat, True))
 
-        # ---- pool of light on the floor under the slot
-        q = quad([3.0, 0.012, -1.2], [10.0, 0.012, -1.2], [10.0, 0.012, 4.4], [3.0, 0.012, 4.4],
-                 normal=(0, 1, 0))
-        scene.meshes.append((q[0], q[1], q[2], q[3],
-                             R.Material(base=(0, 0, 0), emissive=(0, 0, 0),
-                                        texture=self.pool_tex, additive=True,
-                                        alpha=0.10, double_sided=True), False))
+        # ---- low parapet behind the colonnade line (camera-side edge)
+        scene.meshes.append((*box_mesh(0.0, 0.45, pz1 - 2.0, px1 - px0, 0.9, 0.8),
+                             stone_mat, True))
 
-        # ---- blade of light falling from the slot
-        v, n, u, t2 = blade((slot["x"], slot["y"][1], slot["z"]),
-                            (4.2, 0.0, 1.6), 2.6)
-        scene.meshes.append((v, n, u, t2,
-                             R.Material(base=(0, 0, 0), emissive=(0, 0, 0),
-                                        texture=self.shaft_tex, additive=True,
-                                        alpha=0.045, double_sided=True), False))
+        # ---- the seven monuments
+        for s in self.word:
+            m = s["mesh"]
+            mesh = rot_xform((m.verts, m.normals, m.uvs, m.tris),
+                             ry=s["yaw"], about=(float(m.verts[:, 0].mean()),
+                                                 float(m.verts[:, 1].mean()),
+                                                 float(m.verts[:, 2].mean())))
+            v = mesh[0].copy()
+            # centre the glyph footprint on (cx, cz), stand it on the floor
+            v[:, 0] += s["cx"] - float(v[:, 0].mean())
+            v[:, 2] += s["cz"] - float(v[:, 2].mean())
+            v[:, 1] -= float(v[:, 1].min())
+            scene.meshes.append((v, mesh[1], mesh[2], mesh[3], letter_mat, True))
 
-        # ---- the travelling band of light on the carved wall
-        if "band" in self._band_cache:
-            band_tex = self._band_cache["band"]
-        else:
-            band_tex = band_texture()
-            self._band_cache["band"] = band_tex
-        x_band, i_band = self.reveal_light(t)
-        bw = 6.4
-        q = quad([x_band - bw / 2, 0.0, z + 0.03], [x_band + bw / 2, 0.0, z + 0.03],
-                 [x_band + bw / 2, 8.4, z + 0.03], [x_band - bw / 2, 8.4, z + 0.03],
-                 normal=(0, 0, 1), uv=[(0, 0), (1, 0), (1, 1), (0, 1)])
-        scene.meshes.append((q[0], q[1], q[2], q[3],
-                             R.Material(base=(0, 0, 0), emissive=(0, 0, 0),
-                                        texture=band_tex, additive=True,
-                                        alpha=0.115 * min(1.0, i_band / 1.25),
-                                        double_sided=True), False))
+        # ---- the gnomon I
+        g = w["gnomon"]
+        m = self.gnomon_mesh
+        v = m.verts.copy()
+        v[:, 0] += g["x"] - float((v[:, 0].min() + v[:, 0].max()) / 2)
+        v[:, 2] += g["z"] - float((v[:, 2].min() + v[:, 2].max()) / 2)
+        v[:, 1] -= float(v[:, 1].min())
+        scene.meshes.append((v, m.normals, m.uvs, m.tris, letter_mat, True))
 
-        # ---- the carved letters
-        rev = self.reveal(t)
-        for i, (m, pose) in enumerate(zip(self.letter_meshes, self.letter_poses(t))):
-            R3 = euler_matrix(*pose["rot"])
-            v = m.verts.astype(np.float64) @ R3.T + pose["pos"]
-            k = 0.34 + 0.66 * rev[i]
-            mat = R.Material(base=tuple(np.array(pal["letter"]) * k), spec=0.14, shininess=30.0,
-                             texture=self.stone, texture_uv=(1.2, 1.2))
-            scene.meshes.append((v.astype(np.float32),
-                                 (m.normals.astype(np.float64) @ R3.T).astype(np.float32),
-                                 m.uvs, m.tris, mat))
+        # ---- dial inscriptions (basalt inlay, shallow, flat on the floor)
+        for stn in dial_geometry():
+            cap = (w["dial"]["terminus_cap"] if "in motion" in stn["text"]
+                   else w["dial"]["station_cap"])
+            m, adv = self._inscription_mesh(stn["text"], cap, w["dial"]["station_depth"])
+            mesh = rot_xform((m.verts, m.normals, m.uvs, m.tris),
+                             rx=math.radians(-90.0),
+                             about=(float(m.verts[:, 0].mean()),
+                                    float(m.verts[:, 1].mean()),
+                                    float(m.verts[:, 2].mean())))
+            v = mesh[0].copy()
+            v[:, 0] += stn["x"] - float(v[:, 0].mean())
+            v[:, 2] += stn["z"] - float(v[:, 2].mean())
+            v[:, 1] += 0.02 - float(v[:, 1].mean())
+            scene.meshes.append((v, mesh[1], mesh[2], mesh[3], basalt_mat, False))
 
-        # ---- copy written in light on the stone
-        for c in st["copy"]:
-            if not (c["t_in"] <= t <= c["t_out"]):
-                continue
-            fade = min(ease(0, 1, (t - c["t_in"]) / 0.9, "out"),
-                       ease(0, 1, (c["t_out"] - t) / 0.9, "out"))
-            if cam is not None:
-                # copy written on stone is unreadable when the lens is on top of
-                # it: fade it out before it can smear across the frame
-                d = float(np.linalg.norm(np.asarray(cam.eye, float)
-                                         - np.asarray(c["pos"], float)))
-                if d < 4.2:
-                    fade *= float(np.clip((d - 2.4) / 1.8, 0.0, 1.0))
-            tex = self.copy_textures[(c["text"], c.get("small", False))]
-            h, wpx = tex.shape[:2]
-            quad_w = c["width"]
-            quad_h = quad_w * h / wpx
-            px, py, pz = c["pos"]
-            v = np.array([[px - quad_w / 2, py - quad_h / 2, pz],
-                          [px + quad_w / 2, py - quad_h / 2, pz],
-                          [px + quad_w / 2, py + quad_h / 2, pz],
-                          [px - quad_w / 2, py + quad_h / 2, pz]], dtype=np.float32)
-            # v = 0 is the BOTTOM row of the texture: the image must not flip
-            u = np.array([[0, 1], [1, 1], [1, 0], [0, 0]], dtype=np.float32)
-            t2 = np.array([[0, 1, 2], [0, 2, 3]], dtype=np.int32)
-            n = np.tile(np.array([0, 0, 1], np.float32), (4, 1))
-            scene.meshes.append((v, n, u, t2,
-                                 R.Material(base=(0, 0, 0), emissive=(0, 0, 0), texture=tex,
-                                            additive=True, alpha=float(fade) * 0.42,
-                                            double_sided=True), False))
+        # ---- the C pavilion: type as a building (we start inside its bite)
+        cp = w["cpavilion"]
+        m, adv = text_mesh("C", FONT_DISPLAY, wght=STORY["type"]["display"]["wght"],
+                           wdth=STORY["type"]["display"]["wdth"],
+                           cap_height=cp["cap"], depth=cp["depth"])
+        mesh = rot_xform((m.verts, m.normals, m.uvs, m.tris),
+                         ry=math.radians(cp["yaw_deg"]),
+                         about=(float(m.verts[:, 0].mean()), float(m.verts[:, 1].mean()),
+                                float(m.verts[:, 2].mean())))
+        v = mesh[0].copy()
+        v[:, 0] += cp["x"] - float(v[:, 0].mean())
+        v[:, 2] += cp["z"] - float(v[:, 2].mean())
+        v[:, 1] -= float(v[:, 1].min())
+        scene.meshes.append((v, mesh[1], mesh[2], mesh[3], letter_mat, True))
 
         # ---- lights
-        # the shadow volume follows the letters so the map stays dense
-        lp = np.array([p_["pos"] for p_ in self.letter_poses(t)])
-        ctr = lp.mean(axis=0)
-        spread = float(max(lp[:, 0].max() - lp[:, 0].min(),
-                           lp[:, 1].max() - lp[:, 1].min()))
-        extent = max(7.0, spread * 0.75 + 2.5)
-        key = sample_keys(st["lights"]["key"]["keys"], t, ["dir", "color", "intensity"])
-        fill = sample_keys(st["lights"]["fill"]["keys"], t, ["dir", "color", "intensity"])
-        wash = st["lights"]["wash"]
-        scene.lights.append(R.Light(kind="directional", color=tuple(key["color"]),
-                                    intensity=float(key["intensity"]), direction=tuple(key["dir"]),
-                                    cast_shadow=True, shadow_extent=extent,
-                                    shadow_center=tuple(float(x) for x in ctr), shadow_res=2048))
-        scene.lights.append(R.Light(kind="directional", color=tuple(fill["color"]),
-                                    intensity=float(fill["intensity"]), direction=tuple(fill["dir"])))
-        scene.lights.append(R.Light(kind="directional", color=tuple(wash["color"]),
-                                    intensity=wash["intensity"], direction=tuple(wash["dir"])))
-        # a grazing light along the wall: gives the stone a value gradient and
-        # lets the carved letters throw long shadows across it
-        scene.lights.append(R.Light(kind="directional", color=(1.0, 0.80, 0.58),
-                                    intensity=0.45, direction=(0.94, 0.15, 0.30)))
-        xl, xi = self.reveal_light(t)
-        if xi > 0.01:
-            scene.lights.append(R.Light(kind="point", color=tuple(slot["color"]),
-                                        intensity=xi, position=(xl, 1.35, -1.10)))
-        arch = pr["arch"]
-        arch_i = arch["intensity"] * (0.35 + 0.65 * min(1.0, max(0.0, (t - 15.5) / 5.0)))
-        scene.lights.append(R.Light(kind="point", color=tuple(arch["color"]),
-                                    intensity=arch_i, position=tuple(arch["pos"])))
-        rel = pr["release"]
-        rel_i = rel["intensity"] * (1.0 if 12.2 <= t <= 21.0
-                                    else max(0.0, 1.0 - abs(t - 16.6) / 4.5) * 0.5)
-        scene.lights.append(R.Light(kind="point", color=tuple(rel["color"]),
-                                    intensity=max(rel_i, 0.0), position=tuple(rel["pos"])))
-        ch = pr["chamber"]
-        ch_i = ch["intensity"] * max(0.0, min(1.0, (t - 24.0) / 4.0))
-        scene.lights.append(R.Light(kind="point", color=tuple(ch["color"]),
-                                    intensity=ch_i, position=tuple(ch["pos"])))
+        scene.lights.append(R.Light(kind="directional", color=col, intensity=inten,
+                                    direction=tuple(d), cast_shadow=True,
+                                    shadow_extent=50.0, shadow_center=(0.0, 2.0, 4.0),
+                                    shadow_res=2048))
+        fl = st["lights"]["sky_fill"]
+        scene.lights.append(R.Light(kind="directional", color=tuple(fl["color"]),
+                                    intensity=fl["intensity"], direction=tuple(fl["dir"])))
+        bo = st["lights"]["bounce"]
+        scene.lights.append(R.Light(kind="directional", color=tuple(bo["color"]),
+                                    intensity=bo["intensity"], direction=tuple(bo["dir"])))
         return scene
 
-    # ---------------------------------------------------------------- camera
+    def build(self, t, cam=None):
+        return self.build_world(t, loop=False)
+
+    def build_loop(self, t, cam=None):
+        return self.build_world(t, loop=True)
+
+    # -------------------------------------------------------------- camera
     def camera(self, t):
         k = sample_keys(self.story["camera"]["keys"], t, ["eye", "target", "fov"])
         return R.Camera(eye=tuple(float(x) for x in k["eye"]),
                         target=tuple(float(x) for x in k["target"]),
-                        fov=float(k["fov"]), near=0.05, far=260.0)
-
-    # ------------------------------------------------------------------ loop
-    def build_loop(self, t, cam=None):
-        st = self.story
-        w = self.w
-        pal = self.pal
-        pr = st["lights"]["practicals"]
-        T = st["loop"]["duration_seconds"]
-        a = 2.0 * math.pi * t / T
-        scene = R.Scene()
-        scene.ambient_sky = (0.020, 0.025, 0.036)
-        scene.ambient_ground = (0.012, 0.009, 0.007)
-        scene.fog_color = (0.030, 0.024, 0.021)
-        scene.fog_density = 0.024
-
-        z = w["wall_z"]
-        op = w["wall_opening"]
-        stone_mat = R.Material(base=tuple(pal["stone"]), spec=0.07, shininess=18.0,
-                               texture=self.stone, texture_uv=(1.0, 1.0))
-        wall_mat = R.Material(base=tuple(pal["wall"]), spec=0.09, shininess=20.0,
-                              texture=self.stone, texture_uv=(3.0, 3.0))
-        q = quad([-46, 0, 30], [46, 0, 30], [46, 0, -40], [-46, 0, -40],
-                 normal=(0, 1, 0), uv=[(0, 0), (26, 0), (26, 35), (0, 35)])
-        scene.meshes.append((q[0], q[1], q[2], q[3],
-                             R.Material(base=tuple(pal["stone"]), spec=0.10, shininess=26.0,
-                                        texture=self.stone, texture_uv=(1.0, 1.0)), False))
-        for p, uvs in [
-            (([-30, 0, z], [op["x0"], 0, z], [op["x0"], 16, z], [-30, 16, z]),
-             [(0, 0), (6.0, 0), (6.0, 4.2), (0, 4.2)]),
-            (([op["x1"], 0, z], [30, 0, z], [30, 16, z], [op["x1"], 16, z]),
-             [(0, 0), (8.5, 0), (8.5, 4.2), (0, 4.2)]),
-            (([op["x0"], op["y1"], z], [op["x1"], op["y1"], z], [op["x1"], 16, z], [op["x0"], 16, z]),
-             [(0, 0), (1.0, 0), (1.0, 2.6), (0, 2.6)]),
-        ]:
-            q = quad(*p, normal=(0, 0, 1), uv=uvs)
-            scene.meshes.append((q[0], q[1], q[2], q[3], wall_mat, False))
-        pier_mat = R.Material(base=tuple(pal["stone_light"]), spec=0.05, shininess=14.0,
-                              texture=self.stone, texture_uv=(1.0, 1.0))
-        for z_p in (20.0, 12.0, 4.0):
-            for x_p in (-w["pier_x"], w["pier_x"]):
-                scene.meshes.append((*box_mesh(x_p, 4.2, z_p, 1.4, 8.4, 1.3), pier_mat))
-        bx0, bx1 = w["bench_x"]
-        bz0, bz1 = w["bench_z"]
-        scene.meshes.append((*box_mesh((bx0 + bx1) / 2, w["bench_h"] / 2, (bz0 + bz1) / 2,
-                                       bx1 - bx0, w["bench_h"], bz1 - bz0),
-                             R.Material(base=tuple(pal["stone_light"]), spec=0.07, shininess=20.0), False))
-        slot = pr["slot"]
-        q = quad([slot["x"] - 0.14, slot["y"][0], slot["z"]],
-                 [slot["x"] + 0.14, slot["y"][0], slot["z"]],
-                 [slot["x"] + 0.14, slot["y"][1], slot["z"]],
-                 [slot["x"] - 0.14, slot["y"][1], slot["z"]], normal=(0, 0, 1))
-        scene.meshes.append((q[0], q[1], q[2], q[3],
-                             R.Material(base=(0, 0, 0),
-                                        emissive=tuple(np.array(slot["color"]) * slot["intensity"])), False))
-        if "band" in self._band_cache:
-            band_tex = self._band_cache["band"]
-        else:
-            band_tex = band_texture()
-            self._band_cache["band"] = band_tex
-        q = quad([3.0, 0.0, z + 0.03], [10.4, 0.0, z + 0.03], [10.4, 8.4, z + 0.03],
-                 [3.0, 8.4, z + 0.03], normal=(0, 0, 1),
-                 uv=[(0, 0), (1, 0), (1, 1), (0, 1)])
-        scene.meshes.append((q[0], q[1], q[2], q[3],
-                             R.Material(base=(0, 0, 0), emissive=(0, 0, 0),
-                                        texture=band_tex, additive=True, alpha=0.085,
-                                        double_sided=True), False))
-        letter_mat = R.Material(base=tuple(pal["letter"]), spec=0.14, shininess=30.0,
-                                texture=self.stone, texture_uv=(1.2, 1.2))
-        for m, spec in zip(self.letter_meshes, self.story["letters"]):
-            v = m.verts.astype(np.float64) + np.array([spec["wall_x"], w["bench_h"], w["wall_z"]])
-            scene.meshes.append((v.astype(np.float32), m.normals, m.uvs, m.tris, letter_mat))
-        v, n, u, t2 = blade((slot["x"], slot["y"][1], slot["z"]), (4.2, 0.0, 1.6), 2.6)
-        scene.meshes.append((v, n, u, t2,
-                             R.Material(base=(0, 0, 0), emissive=(0, 0, 0),
-                                        texture=self.shaft_tex, additive=True,
-                                        alpha=0.045, double_sided=True), False))
-
-        th = 0.62 + 0.30 * math.sin(a)
-        scene.lights.append(R.Light(kind="directional", color=(1.0, 0.76, 0.48),
-                                    intensity=1.05,
-                                    direction=(-math.sin(th), -0.26, -math.cos(th)),
-                                    cast_shadow=True, shadow_extent=11.0,
-                                    shadow_center=(4.0, 2.0, -3.4), shadow_res=2048))
-        scene.lights.append(R.Light(kind="directional", color=(0.32, 0.44, 0.66), intensity=0.24,
-                                    direction=(0.55, -0.26, -0.79)))
-        scene.lights.append(R.Light(kind="directional", color=(1.0, 0.80, 0.58), intensity=0.78,
-                                    direction=(0.94, 0.15, 0.30)))
-        scene.lights.append(R.Light(kind="directional", color=(0.62, 0.60, 0.58), intensity=0.08,
-                                    direction=(0.10, 0.16, 0.98)))
-        xl = 4.0 + 4.2 * math.cos(a)
-        scene.lights.append(R.Light(kind="point", color=tuple(slot["color"]),
-                                    intensity=1.6, position=(xl, 2.45, -2.30)))
-        return scene
+                        fov=float(k["fov"]), near=0.08, far=900.0)
 
     def loop_camera(self, t):
         T = self.story["loop"]["duration_seconds"]
         a = 2.0 * math.pi * t / T
-        eye = (3.6 + 1.30 * math.sin(a), 2.05 + 0.22 * math.sin(2 * a + 0.5),
-               10.6 + 1.10 * math.cos(a))
-        target = (3.6 + 0.35 * math.sin(a), 2.05, self.w["wall_z"])
-        return R.Camera(eye=eye, target=target, fov=38.0, near=0.05, far=260.0)
+        eye = (-11.2 + 1.15 * math.sin(a), 3.1 + 0.30 * math.sin(2 * a),
+               13.8 + 1.05 * math.cos(a))
+        target = (0.6 + 0.25 * math.sin(a), 1.6, 6.0 + 0.35 * math.cos(a))
+        return R.Camera(eye=eye, target=target, fov=42.0, near=0.08, far=900.0)

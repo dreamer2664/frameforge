@@ -103,8 +103,8 @@ def chromatic(color, amount=1.1):
     return out
 
 
-def finish(linear, depth, frame_index, exposure=0.78, focus=7.0, aperture=0.9,
-           dof=True, bloom_strength=0.14, grain_amount=0.018, vignette_amount=0.46,
+def finish(linear, depth, frame_index, exposure=3.5, focus=7.0, aperture=0.9,
+           dof=True, bloom_strength=0.12, grain_amount=0.014, vignette_amount=0.38,
            chroma=1.1, shadow_lift=0.0):
     """Linear HDR frame -> finished 8-bit-ish float image in [0,1]."""
     img = linear * exposure

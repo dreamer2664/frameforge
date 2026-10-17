@@ -1,528 +1,419 @@
 #!/usr/bin/env python3
-"""Original composed score for the parallax KINETIC film.
+"""THE LONG LIGHT — score synthesiser (lithos).
 
-Everything is synthesised: no samples, no external audio assets.
+Everything here is synthesised: no samples, no stock loops, no third-party
+recordings. Cue times are DERIVED from the picture's geometry:
 
-hero  : 40.0 s, 48 kHz, five movements matched to the storyboard beats.
-loop  : 9.6 s, 48 kHz, strictly periodic so the audio seam is exact.
+  - dial ticks: the exact times the gnomon shadow's edge crosses each
+    inscribed station (scene.dial_geometry(), computed from the sun keys);
+  - colonnade ticks: the times the camera passes each pier (sampled from the
+    camera keys);
+  - the terminus landing: the moment the shadow tip reaches "ideas, in motion."
 
-The mix is deliberately sparse: a low stone drone, dry percussive taps
-synced to the reveal of each carved letter, hinge scrapes when the stone
-lets go, a rising cluster for the gate, and one warm chord for the
-monument.  A synthetic room is applied to place everything in a hall.
+If the picture is retimed, re-derive this score from the storyboard.
+
+Usage:
+  python3 audio.py --out work/audio
 """
 from __future__ import annotations
 
 import argparse
-import json
 import math
 import subprocess
 import wave
 from pathlib import Path
 
 import numpy as np
-from scipy.signal import butter, lfilter
 
+import scene as S
+
+HERE = Path(__file__).resolve().parent
 SR = 48000
-
-# --- sync points, derived from storyboard.json (revision 2: the score follows
-#     the picture instead of guessing at it)
-STORY = json.loads((Path(__file__).resolve().parent / "storyboard.json").read_text())
-STAGES = STORY["stages"]
-_REV_T0, _REV_T1 = 4.2, 11.3
-_REV_X0, _REV_X1 = 11.5, -5.0
-_REVEAL = []
-for _spec in STORY["letters"]:
-    _u = (_REV_X0 - (_spec["wall_x"] - 2.6)) / (_REV_X0 - _REV_X1)
-    _REVEAL.append((round(_REV_T0 + _u * (_REV_T1 - _REV_T0), 3), _spec["wall_x"]))
-REVEAL_TAPS = [t for t, _x in sorted(_REVEAL, key=lambda p: p[0])]
-REVEAL_PANS = [min(max((x + 2.0) / 10.0, 0.0), 1.0) for _t, x in sorted(_REVEAL, key=lambda p: p[0])]
 FFMPEG = str(Path.home() / ".cache" / "frameforge" / "bin" / "ffmpeg")
 FFPROBE = str(Path.home() / ".cache" / "frameforge" / "bin" / "ffprobe")
 
 
-# ----------------------------------------------------------------- utilities
-def noise(n, rng):
-    return rng.standard_normal(n).astype(np.float32)
+# ------------------------------------------------------------------ helpers
+def write_wav24(path, L, R):
+    """Hand-rolled 24-bit stereo WAV (the stdlib wave module writes 24-bit wrong)."""
+    L = np.clip(L, -1.0, 1.0)
+    R = np.clip(R, -1.0, 1.0)
+    n = len(L)
+    il = (L * 8388607.0).astype(np.int32)
+    ir = (R * 8388607.0).astype(np.int32)
+    inter = np.empty((n, 2), dtype=np.int32)
+    inter[:, 0] = il
+    inter[:, 1] = ir
+    raw4 = inter.tobytes()
+    # pack true 24-bit: the low 3 bytes of each int32 (sign-safe for our range)
+    b = np.frombuffer(raw4, dtype=np.uint8).reshape(-1, 4)[:, :3].tobytes()
+    data_rate = SR * 2 * 3
+    hdr = b"RIFF" + (36 + len(b)).to_bytes(4, "little") + b"WAVEfmt " + \
+        (16).to_bytes(4, "little") + (1).to_bytes(2, "little") + (2).to_bytes(2, "little") + \
+        SR.to_bytes(4, "little") + data_rate.to_bytes(4, "little") + (6).to_bytes(2, "little") + \
+        (24).to_bytes(2, "little") + b"data" + len(b).to_bytes(4, "little")
+    Path(path).write_bytes(hdr + b)
 
 
-def lowpass(x, cutoff, order=2, sr=SR):
-    b, a = butter(order, cutoff / (sr * 0.5), btype="low")
-    return lfilter(b, a, x).astype(np.float32)
+def read_wav_f32(path):
+    """Decode any wav to float32 stereo via ffmpeg (never parse 24-bit by hand)."""
+    out = subprocess.check_output([
+        FFMPEG, "-v", "error", "-i", str(path), "-f", "f32le", "-ac", "2", "-ar", str(SR), "-"])
+    x = np.frombuffer(out, dtype=np.float32).reshape(-1, 2)
+    return x[:, 0].copy(), x[:, 1].copy()
 
 
-def highpass(x, cutoff, order=2, sr=SR):
-    b, a = butter(order, cutoff / (sr * 0.5), btype="high")
-    return lfilter(b, a, x).astype(np.float32)
+def noise(n, seed, lo=None, hi=None):
+    rng = np.random.default_rng(seed)
+    x = rng.normal(0, 1, n).astype(np.float64)
+    if lo or hi:
+        X = np.fft.rfft(x)
+        f = np.fft.rfftfreq(n, 1 / SR)
+        if lo:
+            X[f < lo] = 0
+        if hi:
+            X[f > hi] = 0
+        x = np.fft.irfft(X, n)
+    return x / max(np.abs(x).max(), 1e-9)
 
 
-def bandpass(x, lo, hi, order=2, sr=SR):
-    b, a = butter(order, [lo / (sr * 0.5), hi / (sr * 0.5)], btype="band")
-    return lfilter(b, a, x).astype(np.float32)
+def env_ad(n, attack, decay, sr=SR):
+    a = int(attack * sr)
+    d = int(decay * sr)
+    e = np.zeros(n)
+    a = min(a, n)
+    e[:a] = np.linspace(0, 1, a) ** 1.5
+    rest = n - a
+    if rest > 0:
+        d = min(d, rest)
+        e[a:a + d] = np.exp(-np.linspace(0, 5, d))
+    return e
 
 
-def env(n, attack, decay, sustain=0.0, hold=0.0, release=0.0, sr=SR):
-    """Simple ADSR over n samples."""
-    a = max(int(attack * sr), 1)
-    d = max(int(decay * sr), 1)
-    h = max(int(hold * sr), 0)
-    r = max(int(release * sr), 0)
-    s = max(n - a - d - h - r, 0)
-    parts = []
-    parts.append(np.linspace(0.0, 1.0, a, dtype=np.float32))
-    parts.append(np.linspace(1.0, sustain, d, dtype=np.float32))
-    if h:
-        parts.append(np.full(h, sustain, dtype=np.float32))
-    if s:
-        parts.append(np.full(s, sustain, dtype=np.float32))
-    if r:
-        parts.append(np.linspace(sustain, 0.0, r, dtype=np.float32))
-    e = np.concatenate(parts)
-    if len(e) < n:
-        e = np.concatenate([e, np.zeros(n - len(e), dtype=np.float32)])
-    return e[:n]
-
-
-def sine(freq, n, sr=SR, phase=0.0):
-    t = np.arange(n, dtype=np.float32) / sr
-    return np.sin(2 * np.pi * freq * t + phase).astype(np.float32)
-
-
-def add_at(buf, x, pos):
-    """Mix x into buf at sample pos, clipping the tail."""
-    pos = int(pos)
-    if pos >= len(buf):
+def place(buf, sig, t0, gain=1.0, pan=0.0):
+    """pan: -1 left .. +1 right"""
+    i = int(t0 * SR)
+    n = len(sig)
+    if i < 0:
+        sig = sig[-i:]
+        n = len(sig)
+        i = 0
+    j = min(i + n, buf.shape[0])
+    m = j - i
+    if m <= 0:
         return
-    m = min(len(x), len(buf) - pos)
-    buf[pos:pos + m] += x[:m]
+    gl = gain * math.sqrt(0.5 * (1 - pan))
+    gr = gain * math.sqrt(0.5 * (1 + pan))
+    buf[i:j, 0] += sig[:m] * gl
+    buf[i:j, 1] += sig[:m] * gr
 
 
-# ------------------------------------------------------------------ the room
-def room_ir(dur=2.2, seed=5, sr=SR):
-    """Synthetic hall: exponentially decaying noise with a few early taps."""
+def hall_ir(tail=1.1, seed=5):
+    """Open-air court impulse: a few early reflections + a short warm tail."""
+    n = int(tail * SR)
+    ir = np.zeros((n, 2))
     rng = np.random.default_rng(seed)
-    n = int(dur * sr)
-    t = np.arange(n, dtype=np.float32) / sr
-    decay = np.exp(-t * 2.6).astype(np.float32)
-    ir = noise(n, rng) * decay
-    for delay_ms, gain in ((17, 0.5), (29, 0.38), (43, 0.3), (67, 0.22), (101, 0.16)):
-        d = int(delay_ms * sr / 1000)
-        ir[d] += gain
-    ir = lowpass(ir, 5200)
-    ir = highpass(ir, 60)
-    ir /= np.maximum(np.abs(ir).max(), 1e-9)
-    return ir
+    # early reflections (floor + parapet + piers)
+    for dt, g, pan in [(0.017, 0.42, -0.25), (0.023, 0.38, 0.30), (0.031, 0.30, -0.55),
+                       (0.043, 0.26, 0.55), (0.061, 0.20, 0.0)]:
+        i = int(dt * SR)
+        ir[i, 0] += g * math.sqrt(0.5 * (1 - pan))
+        ir[i, 1] += g * math.sqrt(0.5 * (1 + pan))
+    # diffuse tail
+    t = np.arange(n) / SR
+    decay = np.exp(-t * 4.2) * (1 - np.exp(-t * 260))
+    tailn = rng.normal(0, 1, (n, 2)) * decay[:, None]
+    # gentle low-pass on the tail
+    X = np.fft.rfft(tailn, axis=0)
+    f = np.fft.rfftfreq(n, 1 / SR)
+    X[f > 4200] *= 0.25
+    tailn = np.fft.irfft(X, n, axis=0)
+    ir += tailn * 0.055
+    ir[0, :] += 0.62  # direct
+    return ir / np.abs(ir[0]).max()  # normalise on the DIRECT tap, not the tail
 
 
-def convolve(x, ir):
-    n = len(x) + len(ir) - 1
-    nfft = 1 << int(math.ceil(math.log2(n)))
-    y = np.fft.irfft(np.fft.rfft(x, nfft) * np.fft.rfft(ir, nfft), nfft)
-    return y[:len(x)].astype(np.float32)
-
-
-# ----------------------------------------------------------------- elements
-def drone(dur, sr=SR, seed=11):
-    """The stone room tone: a low fifth with a slow beating detune."""
-    n = int(dur * sr)
-    t = np.arange(n, dtype=np.float32) / sr
-    out = np.zeros(n, dtype=np.float32)
-    for f, g, det in ((55.0, 0.55, 0.13), (82.5, 0.30, 0.19), (110.0, 0.16, 0.07)):
-        for d in (-det, det):
-            ph = 2 * np.pi * (f + d) * t
-            out += g * 0.5 * np.sin(ph).astype(np.float32)
-    # a very slow breathing amplitude
-    out *= (0.75 + 0.25 * np.sin(2 * np.pi * 0.045 * t)).astype(np.float32)
-    out = lowpass(out, 400)
+def convolve(buf, ir):
+    n = buf.shape[0]
+    m = n + len(ir) - 1
+    nf = 1 << (m - 1).bit_length()
+    out = np.zeros((n, 2))
+    for c in (0, 1):
+        y = np.fft.irfft(np.fft.rfft(buf[:, c], nf) * np.fft.rfft(ir[:, c], nf), nf)
+        out[:, c] = y[:n]
     return out
 
 
-def stone_tap(sr=SR, seed=3, dur=0.5, bright=900.0):
-    """A dry struck-stone tick."""
-    n = int(dur * sr)
-    rng = np.random.default_rng(seed)
-    x = noise(n, rng)
-    x = bandpass(x, 180, bright)
-    x *= env(n, 0.0008, dur, sr=sr) ** 2.2
-    body = sine(132.0, n) * env(n, 0.002, 0.20, sr=sr) * 0.5
-    return (x * 0.9 + body).astype(np.float32)
-
-
-def hinge_scrape(dur, seed=7, sr=SR):
-    """Stone sliding on stone."""
-    n = int(dur * sr)
-    rng = np.random.default_rng(seed)
-    x = noise(n, rng)
-    x = bandpass(x, 260, 2400)
-    e = env(n, 0.18, 0.1, sustain=0.7, hold=dur * 0.45, release=dur * 0.35, sr=sr)
-    x *= e
-    # a rubbing amplitude modulation
-    t = np.arange(n, dtype=np.float32) / sr
-    x *= (0.6 + 0.4 * np.sin(2 * np.pi * 7.5 * t + seed)).astype(np.float32)
-    return x
-
-
-def sub_swell(dur, f0=38.0, f1=26.0, sr=SR):
-    """A slow descending sub for the release."""
-    n = int(dur * sr)
-    t = np.arange(n, dtype=np.float32) / sr
-    k = t / max(dur, 1e-6)
-    phase = 2 * np.pi * (f0 * t + (f1 - f0) * t * t / (2 * max(dur, 1e-6)))
-    x = np.sin(phase).astype(np.float32)
-    x *= env(n, 1.2, 0.8, sustain=0.85, hold=dur * 0.4, release=dur * 0.25, sr=sr)
-    return x
-
-
-def rising_cluster(dur, seed=9, sr=SR):
-    """A harmonic cluster that tightens as the gate assembles."""
-    n = int(dur * sr)
-    t = np.arange(n, dtype=np.float32) / sr
-    k = np.clip(t / max(dur, 1e-6), 0, 1)
-    out = np.zeros(n, dtype=np.float32)
-    base = 220.0
-    for i, mult in enumerate((1, 1.5, 2, 3, 4, 5, 6)):
-        f = base * mult * (1.0 + 0.06 * k * i)
-        amp = (0.16 / (1 + 0.5 * i)) * (0.25 + 0.75 * k)
-        out += amp * np.sin(2 * np.pi * f * t).astype(np.float32)
-    # a tremolo that speeds up
-    trem = 0.75 + 0.25 * np.sin(2 * np.pi * (1.2 + 5.5 * k) * t).astype(np.float32)
-    out *= trem
-    out = lowpass(out, 5200)
+def convolve_circular(buf, ir, period):
+    """Circular convolution on `period` samples — keeps a loop periodic."""
+    out = np.zeros_like(buf)
+    n = period
+    nf = n  # the transform length MUST equal the loop length (periodicity)
+    for c in (0, 1):
+        seg = np.zeros(nf)
+        seg[:n] = buf[:n, c]
+        h = np.zeros(nf)
+        h[:len(ir)] = ir[:nf, c] if len(ir) > nf else ir[:, c]
+        y = np.fft.irfft(np.fft.rfft(seg) * np.fft.rfft(h), nf)
+        out[:n, c] = y[:n]
     return out
 
 
-def impact(dur=2.4, seed=13, sr=SR):
-    """The camera passing through the gate: a body hit with a long tail."""
-    n = int(dur * sr)
-    rng = np.random.default_rng(seed)
-    x = noise(n, rng)
-    x = lowpass(x, 2600)
-    x *= env(n, 0.002, dur, sr=sr) ** 1.6
-    body = sine(58.0, n) * env(n, 0.003, 1.2, sr=sr) * 0.8
-    body += sine(87.0, n) * env(n, 0.003, 0.7, sr=sr) * 0.35
-    return (x * 0.7 + body).astype(np.float32)
+def soft_limit(x, ceiling=0.32):
+    return np.tanh(x / ceiling) * ceiling
 
 
-def chord(dur, freqs=(220.0, 329.63, 415.30, 659.26), sr=SR):
-    """The monument: one warm chord that breathes."""
-    n = int(dur * sr)
-    t = np.arange(n, dtype=np.float32) / sr
-    out = np.zeros(n, dtype=np.float32)
-    for i, f in enumerate(freqs):
-        for d in (-0.09, 0.09):
-            amp = 0.30 / (1 + 0.45 * i)
-            out += amp * np.sin(2 * np.pi * (f + d) * t).astype(np.float32)
-    out *= (0.72 + 0.28 * np.sin(2 * np.pi * 0.08 * t)).astype(np.float32)
-    out = lowpass(out, 3200)
-    return out
+def measure_lufs(path):
+    out = subprocess.check_output([FFMPEG, "-hide_banner", "-i", str(path),
+                                   "-filter_complex", "ebur128=peak=true", "-f", "null", "-"],
+                                  stderr=subprocess.STDOUT).decode()
+    i = out.rfind("Summary:")
+    chunk = out[i:]
+    lufs = None
+    tp = None
+    for line in chunk.splitlines():
+        if "I:" in line and "LUFS" in line and lufs is None:
+            try:
+                lufs = float(line.split("I:")[1].split("LUFS")[0].strip())
+            except Exception:
+                pass
+        if "Peak:" in line and tp is None:
+            try:
+                tp = float(line.split("Peak:")[1].split("dBFS")[0].strip())
+            except Exception:
+                pass
+    return lufs, tp
 
 
-def shimmer(dur, cycles, sr=SR, seed=17):
-    """A periodic band of air that opens and closes once per loop."""
-    n = int(dur * sr)
-    t = np.arange(n, dtype=np.float32) / sr
-    rng = np.random.default_rng(seed)
-    x = noise(n, rng)
-    x = bandpass(x, 2400, 7000)
-    x *= (0.35 + 0.65 * np.sin(2 * np.pi * cycles * t / dur)).astype(np.float32)
-    return x
+# ------------------------------------------------------- picture-derived cues
+def cue_times():
+    """Every hit time in the score, computed from the storyboard geometry."""
+    dial = S.dial_geometry()
+    station_ts = [d["t"] for d in dial[:-1]]
+    terminus_t = dial[-1]["t"]
+    # colonnade ticks: camera x(t) crossing each pier x during the walk
+    keys = S.STORY["camera"]["keys"]
+    pier_ts = []
+    for px in S.STORY["world"]["colonnade"]["x"]:
+        if px > 0:
+            continue
+        prev_x = None
+        for i in range(800):
+            t = 8.0 + (17.0 - 8.0) * i / 799
+            k = S.sample_keys(keys, t, ["eye"])
+            x = float(k["eye"][0])
+            if prev_x is not None and prev_x < px <= x:
+                pier_ts.append(round(t, 3))
+                break
+            if prev_x is not None and prev_x > px >= x:
+                pier_ts.append(round(t, 3))
+                break
+            prev_x = x
+    return {"stations": station_ts, "terminus": terminus_t,
+            "piers": sorted(pier_ts), "exit": 3.55, "vault_blade": 2.15}
 
 
-def limit(x, knee=0.22, ceiling=0.72):
-    """Soft-knee limiter: keeps transients from pushing the true peak over
-    the delivery limit, so the mix can still sit at the target loudness."""
-    a = np.abs(x)
-    over = np.maximum(a - knee, 0.0)
-    comp = knee + over / (1.0 + over / max(ceiling - knee, 1e-6))
-    y = np.sign(x) * np.minimum(a, comp)
-    return y.astype(np.float32)
+# ------------------------------------------------------------------- voices
+def tick(seed, tone=1450.0, dur=0.5, bright=1.0):
+    n = int(dur * SR)
+    t = np.arange(n) / SR
+    body = np.sin(2 * math.pi * tone * t) * np.exp(-t * 22)
+    body += 0.55 * np.sin(2 * math.pi * tone * 1.48 * t) * np.exp(-t * 30)
+    nz = noise(n, seed, lo=900, hi=6500) * np.exp(-t * 42) * 0.5 * bright
+    return (body * 0.55 + nz) * env_ad(n, 0.001, dur)
 
 
-# --------------------------------------------------------------------- mix
-def hero(dur=40.0, sr=SR):
-    n = int(dur * sr)
-    rng = np.random.default_rng(2024)
-    L = np.zeros(n, dtype=np.float32)
-    R = np.zeros(n, dtype=np.float32)
-
-    # --- movement 1: the room tone, quiet
-    d = drone(dur, sr)
-    env1 = env(n, 2.2, 1.0, sustain=0.55, hold=dur * 0.5, release=3.0, sr=sr)
-    d = d * env1 * 0.5
-    L += d
-    R += d * 0.97
-
-    # --- movement 2: one dry tap per revealed letter
-    for i, t0 in enumerate(REVEAL_TAPS):
-        tap = stone_tap(sr=sr, seed=30 + i, bright=700 + 120 * i) * 0.55
-        pan = (REVEAL_PANS[i] - 0.5) * 0.5
-        add_at(L, tap * (0.5 - pan * 0.5), t0 * sr)
-        add_at(R, tap * (0.5 + pan * 0.5), t0 * sr)
-
-    # --- movement 3: the stone lets go
-    sw = sub_swell(4.6, sr=sr) * 0.85
-    add_at(L, sw, 11.6 * sr)
-    add_at(R, sw, 11.6 * sr)
-    for i in range(7):
-        sc = hinge_scrape(1.9, seed=40 + i, sr=sr) * (0.30 - 0.02 * i)
-        t0 = STAGES["release"] + i * STAGES["release_stagger"]
-        pan = (i / 6.0 - 0.5) * 0.8
-        add_at(L, sc * (0.5 - pan * 0.5), t0 * sr)
-        add_at(R, sc * (0.5 + pan * 0.5), t0 * sr)
-
-    # --- movement 4: the gate
-    cl = rising_cluster(7.4, sr=sr) * 0.55
-    add_at(L, cl, 19.0 * sr)
-    add_at(R, cl * 0.96, 19.0 * sr)
-    for i, t0 in enumerate((19.4, 21.2, 22.6, 23.8, 24.8, 25.6)):
-        tap = stone_tap(sr=sr, seed=60 + i, bright=520 + 150 * i) * 0.4
-        add_at(L, tap, t0 * sr)
-        add_at(R, tap, t0 * sr)
-
-    # --- the passage through
-    im = impact(sr=sr) * 0.9
-    add_at(L, im, 26.3 * sr)
-    add_at(R, im, 26.3 * sr)
-
-    # --- movement 5: the monument
-    ch = chord(dur - 26.0, sr=sr) * 0.85
-    ce = env(n - int(26.0 * sr), 2.0, 1.0, sustain=0.75, hold=4.0, release=3.5, sr=sr)
-    ch = ch * ce
-    add_at(L, ch, 26.0 * sr)
-    add_at(R, ch * 0.95, 26.0 * sr)
-    for i, t0 in enumerate((28.75, 30.3, 31.85, 33.4)):
-        tap = stone_tap(sr=sr, seed=80 + i, bright=420 + 90 * i) * 0.30
-        add_at(L, tap, t0 * sr)
-        add_at(R, tap, t0 * sr)
-
-    # --- a breath of air in the last movement
-    sh = shimmer(dur - 27.2, cycles=1, sr=sr) * 0.05
-    add_at(L, sh, 27.2 * sr)
-    add_at(R, sh * 0.9, 27.2 * sr)
-
-    # --- the hall
-    ir = room_ir()
-    wetL = convolve(L, ir) * 0.34
-    wetR = convolve(R, ir * 0.93) * 0.34
-    L = L * 0.86 + wetL
-    R = R * 0.86 + wetR
-    L = limit(L)
-    R = limit(R)
-
-    # fade the very first and last instants so nothing clicks
-    fade = int(0.05 * sr)
-    L[:fade] *= np.linspace(0, 1, fade).astype(np.float32)
-    R[:fade] *= np.linspace(0, 1, fade).astype(np.float32)
-    L[-fade:] *= np.linspace(1, 0, fade).astype(np.float32)
-    R[-fade:] *= np.linspace(1, 0, fade).astype(np.float32)
-    return np.stack([L, R], axis=1)
+def whoosh(dur=1.2, seed=9, rise=True):
+    n = int(dur * SR)
+    t = np.arange(n) / SR
+    nz = noise(n, seed, lo=180, hi=2400)
+    e = (t / dur) ** 2.2 if rise else (1 - t / dur) ** 1.6
+    return nz * e
 
 
-def loop(dur=9.6, sr=SR):
-    """A strictly periodic score: every partial completes whole cycles, the
-    noise is synthesised from periodic partials, and the reverb is circular,
-    so the last sample flows into the first with no discontinuity."""
-    n = int(dur * sr)
-    t = np.arange(n, dtype=np.float32) / sr
-    L = np.zeros(n, dtype=np.float32)
-    R = np.zeros(n, dtype=np.float32)
-
-    def add_wrap(buf, x, pos):
-        pos = int(pos) % len(buf)
-        m = min(len(x), len(buf) - pos)
-        buf[pos:pos + m] += x[:m]
-        if m < len(x):
-            buf[:len(x) - m] += x[m:]
-
-    base = 1.0 / dur                       # the fundamental of the loop
-    # the drone: partials that are exact multiples of 1/dur
-    for mult, g in ((55, 0.42), (82.5, 0.24), (110, 0.15), (165, 0.07), (220, 0.05)):
-        f = base * round(mult / base)
-        det = base * 1.0
-        for d in (-det, det):
-            L += g * 0.5 * np.sin(2 * np.pi * (f + d) * t).astype(np.float32)
-            R += g * 0.5 * np.sin(2 * np.pi * (f - d) * t + 0.4).astype(np.float32)
-
-    # a raking band of air, built from periodic partials (no noise)
-    for k, g in ((3, 0.030), (5, 0.022), (7, 0.016), (11, 0.010), (13, 0.007)):
-        f = base * round(2600.0 / base) * 0 + base * round((2600.0 * k / 97.0) / base)
-        for d in (0, 1, 2):
-            L += g * np.sin(2 * np.pi * (f + d * base) * t + k).astype(np.float32)
-            R += g * np.sin(2 * np.pi * (f - d * base) * t + k + 0.7).astype(np.float32)
-
-    # a stone tick four times per loop, its tail wrapping past the seam
-    for i, off in enumerate((0.6, 3.0, 5.4, 7.8)):
-        tap = stone_tap(sr=sr, seed=90 + i, bright=620 + 90 * i) * 0.42
-        add_wrap(L, tap, int(off * sr))
-        add_wrap(R, tap, int(off * sr))
-
-    # a sub pulse twice per loop
-    for off in (1.2, 6.0):
-        n0 = int(dur / 2 * sr)
-        x = sine(41.0, n0) * env(n0, 0.25, 0.6, sustain=0.5, hold=0.4, release=0.5, sr=sr) * 0.5
-        add_wrap(L, x, int(off * sr))
-        add_wrap(R, x, int(off * sr))
-
-    # circular reverb: the tail wraps into the head of the loop
-    ir = room_ir(dur=1.6, seed=21)
-    L = L * 0.85 + circular_convolve(L, ir) * 0.30
-    R = R * 0.85 + circular_convolve(R, ir * 0.94) * 0.30
-    L = limit(L, knee=0.26, ceiling=0.78)
-    R = limit(R, knee=0.26, ceiling=0.78)
-    return np.stack([L, R], axis=1)
+def pad_chord(freqs, dur, attack=1.2, release=2.0, seed=1, detune=0.004):
+    n = int(dur * SR)
+    t = np.arange(n) / SR
+    x = np.zeros(n)
+    for k, f in enumerate(freqs):
+        for d in (-detune, 0.0, detune):
+            ph = (k * 1.7 + d * 100) % (2 * math.pi)
+            x += np.sin(2 * math.pi * f * (1 + d) * t + ph) / len(freqs)
+        x += 0.22 * np.sin(2 * math.pi * 2 * f * t + k) / len(freqs)
+    e = np.minimum(1.0, t / attack) * np.exp(-np.maximum(0, t - (dur - release)) / (release / 3))
+    return x * e * 0.30
 
 
-def circular_convolve(x, ir):
-    """Convolution on a circle: the tail of the impulse response wraps to the
-    head, which is what makes a loop seamless."""
-    n = len(x)
-    # the transform length IS the loop length, so the result is exactly
-    # periodic: the impulse tail wraps into the head
-    nfft = n
-    irf = np.zeros(nfft, dtype=np.float64)
-    m = min(len(ir), n)
-    irf[:m] = ir[:m]
-    y = np.fft.irfft(np.fft.rfft(x.astype(np.float64), nfft) * np.fft.rfft(irf), nfft)
-    return y.astype(np.float32)
+def sub_pulse(dur=1.6, f0=62.0, f1=41.0, seed=3):
+    n = int(dur * SR)
+    t = np.arange(n) / SR
+    f = f1 + (f0 - f1) * np.exp(-t * 2.2)
+    ph = 2 * math.pi * np.cumsum(f) / SR
+    return np.sin(ph) * np.exp(-t * 1.35)
 
 
-# ------------------------------------------------------------------- output
-def write_wav(path, data, sr=SR, normalise_peak=True):
-    """Write a 24-bit PCM WAV (hand-rolled header: the wave module mishandles
-    24-bit frames)."""
-    import struct
-    path = Path(path)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    if normalise_peak:
-        peak = float(np.abs(data).max())
-        if peak > 0:
-            data = data / peak * 0.98
-    pcm = np.clip(data, -1.0, 1.0)
-    flat = (pcm.reshape(-1) * 8388607.0).astype(np.int32)
-    b = np.empty((flat.size, 3), dtype=np.uint8)
-    b[:, 0] = flat & 0xFF
-    b[:, 1] = (flat >> 8) & 0xFF
-    b[:, 2] = (flat >> 16) & 0xFF
-    raw = b.tobytes()
-    ch = data.shape[1]
-    hdr = (b"RIFF" + struct.pack("<I", 36 + len(raw)) + b"WAVE"
-           + b"fmt " + struct.pack("<IHHIIHH", 16, 1, ch, sr, sr * ch * 3, ch * 3, 24)
-           + b"data" + struct.pack("<I", len(raw)))
-    path.write_bytes(hdr + raw)
-    return path
+# -------------------------------------------------------------------- hero
+def build_hero():
+    st = S.STORY
+    dur = st["format"]["duration_seconds"]
+    n = int(dur * SR)
+    buf = np.zeros((n, 2))
+    cues = cue_times()
+    print("cue times:", cues, flush=True)
+
+    # air bed: wind + rumble, following the light
+    air = noise(n, 21, lo=220, hi=1500) * 0.030
+    t = np.arange(n) / SR
+    air *= (0.75 + 0.25 * np.sin(2 * math.pi * t / 17.0))
+    rumble = noise(n, 22, lo=28, hi=90) * 0.055
+    buf[:, 0] += air * 0.9 + rumble
+    buf[:, 1] += air * 1.1 + rumble
+
+    # the light's drone: a warm open fifth that grows with the sun
+    drone = pad_chord([110.0, 164.8, 220.0, 329.6], dur, attack=3.5, release=6.0)
+    swell = 0.35 + 0.65 * np.clip((t - 2.0) / 26.0, 0, 1) ** 1.4
+    drone *= swell
+    place(buf, drone, 0.0, gain=0.42, pan=-0.12)
+    place(buf, drone * 0.85, 0.012, gain=0.36, pan=0.16)
+
+    # vault: the blade of sun sweeping the C's interior
+    place(buf, whoosh(1.9, seed=31, rise=True), 0.9, gain=0.16)
+    place(buf, sub_pulse(2.2, 78, 52), 1.9, gain=0.30)
+
+    # exit through the mouth of the C
+    place(buf, whoosh(1.5, seed=32, rise=True), cues["exit"] - 0.75, gain=0.30)
+    place(buf, sub_pulse(2.6, 92, 47), cues["exit"], gain=0.42)
+    place(buf, tick(41, tone=980.0, dur=0.9, bright=0.7), cues["exit"] + 0.05, gain=0.16)
+
+    # colonnade: dry ticks as the piers pass (derived from camera x(t))
+    for i, pt in enumerate(cues["piers"]):
+        place(buf, tick(50 + i, tone=1180 + 90 * i, dur=0.42, bright=0.8), pt,
+              gain=0.15, pan=-0.35 + 0.25 * i)
+
+    # the dial: the shadow's edge crosses each station (exact geometry)
+    for i, st_t in enumerate(cues["stations"]):
+        place(buf, tick(60 + i, tone=1320 + 120 * i, dur=0.55), st_t,
+              gain=0.30, pan=-0.30 + 0.20 * i)
+        place(buf, sub_pulse(1.1, 70 + 4 * i, 48), st_t, gain=0.16)
+
+    # the sentence completes
+    place(buf, sub_pulse(3.2, 84, 44), cues["terminus"], gain=0.50)
+    place(buf, pad_chord([146.8, 220.0, 277.2, 369.9], 7.0, attack=1.6, release=3.0),
+          cues["terminus"] - 0.4, gain=0.46, pan=0.05)
+    place(buf, tick(70, tone=1760.0, dur=1.1, bright=1.2), cues["terminus"], gain=0.14)
+    shimmer = noise(n, 77, lo=3200, hi=9000) * np.clip((t - cues["terminus"]) / 2.0, 0, 1) * \
+        np.exp(-np.maximum(0, t - cues["terminus"] - 2.0) / 3.0) * 0.045
+    buf[:, 0] += shimmer
+    buf[:, 1] += shimmer * 0.9
+
+    # the close: a warm sustained third
+    place(buf, pad_chord([220.0, 277.2, 329.6], 9.0, attack=2.5, release=5.0), 33.0,
+          gain=0.34, pan=-0.08)
+
+    # the courtyard
+    buf = convolve(buf, hall_ir())
+    return buf, cues
 
 
-def measure(path):
-    """Integrated LUFS and true peak via ffmpeg's ebur128 filter."""
-    out = subprocess.run(
-        [FFMPEG, "-hide_banner", "-nostats", "-i", str(path),
-         "-filter_complex", "ebur128=peak=true", "-f", "null", "-"],
-        capture_output=True, text=True)
-    txt = out.stderr
-    lufs = tp = None
-    lines = txt.splitlines()
-    # the summary block is the authoritative reading
-    try:
-        k = next(i for i, l in enumerate(lines) if l.strip() == "Summary:")
-    except StopIteration:
-        k = 0
-    for line in lines[k:]:
-        parts = line.split()
-        for i, tok in enumerate(parts):
-            if tok == "I:" and i + 1 < len(parts):
-                try:
-                    lufs = float(parts[i + 1])
-                except ValueError:
-                    pass
-            if tok == "Peak:" and i + 1 < len(parts):
-                try:
-                    tp = float(parts[i + 1])
-                except ValueError:
-                    pass
-    if lufs is None:                       # fall back to the last live reading
-        for line in reversed(lines):
-            if "LUFS" in line and " I:" in line:
-                try:
-                    lufs = float(line.split("I:")[1].split()[0])
-                    break
-                except (IndexError, ValueError):
-                    pass
-    return lufs, tp, txt
+# -------------------------------------------------------------------- loop
+def build_loop():
+    st = S.STORY
+    T = st["loop"]["duration_seconds"]
+    n = int(T * SR)
+    t = np.arange(n) / SR
+    a = 2 * math.pi * t / T
+    buf = np.zeros((n, 2))
+
+    # periodic air: only integer cycles over T
+    for k, (f, g) in enumerate([(1 / T, 0.028), (2 / T, 0.018), (3 / T, 0.010)]):
+        buf[:, 0] += np.sin(2 * math.pi * f * t * 1 + k) * g
+        buf[:, 1] += np.sin(2 * math.pi * f * t * 1 + k + 1.1) * g
+    # irfft(rfft(x, n), n) output is exactly periodic over n — no blending needed
+    air = noise(n, 23, lo=220, hi=1400) * 0.065
+    air_hi = noise(n, 24, lo=800, hi=2600) * 0.028
+    buf[:, 0] += air + air_hi
+    buf[:, 1] += air * 1.05 + air_hi * 0.92
+
+    # the shadow's metronome: two soft ticks per period (transients away from 0)
+    for tt, tone, pan in [(0.6, 1240.0, -0.3), (5.4, 1480.0, 0.3)]:
+        sig = tick(80 + int(tt * 10), tone=tone, dur=0.8)
+        place(buf, sig, tt, gain=0.055, pan=pan)
+
+    # wrapped sub pulse at 3.0 and 7.8
+    for tt, f0 in [(3.0, 66.0), (7.8, 58.0)]:
+        sig = sub_pulse(1.2, f0, 44.0)
+        place(buf, sig, tt, gain=0.045)
+
+    # warm pad on the loop's period (integer harmonics)
+    for k, (h, g) in enumerate([(2, 0.095), (3, 0.066), (4, 0.046), (6, 0.028)]):
+        buf[:, 0] += np.sin(2 * math.pi * h * t / T + k * 1.3) * g
+        buf[:, 1] += np.sin(2 * math.pi * h * t / T + k * 1.3 + 0.4) * g
+
+    ir = hall_ir()
+    buf = convolve_circular(buf, ir, n)
+    return buf
 
 
-def normalise(path, target_lufs=-16.0, target_tp=-1.5):
-    """Measure once, apply one static gain (a static gain shifts integrated
-    loudness and true peak by exactly the same amount), write once, verify."""
-    data = read_wav(path)
-    lufs, tp, _txt = measure(path)
-    if lufs is None or tp is None:
-        return lufs, tp
-    gain_db = target_lufs - lufs
-    if tp + gain_db > target_tp:
-        gain_db = target_tp - tp
-    data = data * (10 ** (gain_db / 20.0))
-    write_wav(path, data, normalise_peak=False)
-    lufs2, tp2, _ = measure(path)
-    return lufs2, tp2
+# ------------------------------------------------------------------- main
+def normalise_and_encode(buf, wav_path, m4a_path, target_lufs=-16.0, peak_ceiling=-2.0):
+    wav_path = Path(wav_path)
+    m4a_path = Path(m4a_path)
+    wav_path.parent.mkdir(parents=True, exist_ok=True)
+    # soft limit, then at most 3 STATIC gain passes (one gain applied per pass,
+    # never re-normalising the peak silently — the handoff's audio lesson)
+    buf = soft_limit(buf, ceiling=0.32)
+    lufs, tp = None, None
+    total_gain_db = 0.0
+    for pass_i in range(3):
+        write_wav24(wav_path, buf[:, 0], buf[:, 1])
+        encode(wav_path, m4a_path)
+        lufs, tp = measure_lufs(m4a_path)
+        print(f"pass {pass_i}: {lufs} LUFS, true peak {tp} dBTP", flush=True)
+        if abs(lufs - target_lufs) <= 0.4 and tp <= peak_ceiling:
+            break
+        gain_db = target_lufs - lufs
+        if tp + gain_db > peak_ceiling:
+            gain_db = peak_ceiling - tp
+        if abs(gain_db) < 0.05:
+            break
+        total_gain_db += gain_db
+        gain = 10 ** (gain_db / 20.0)
+        print(f"  static gain {gain_db:+.2f} dB (cumulative {total_gain_db:+.2f} dB)", flush=True)
+        buf = buf * gain
+    print(f"final: {lufs} LUFS, true peak {tp} dBTP", flush=True)
+    return lufs, tp
 
 
-def read_wav(path):
-    import array
-    with wave.open(str(path), "rb") as w:
-        ch, sw, sr, n = w.getnchannels(), w.getsampwidth(), w.getframerate(), w.getnframes()
-        raw = w.readframes(n)
-    if sw == 3:
-        usable = len(raw) - (len(raw) % 3)
-        b = np.frombuffer(raw[:usable], dtype=np.uint8).reshape(-1, 3)
-        ints = (b[:, 0].astype(np.int32)
-                | (b[:, 1].astype(np.int32) << 8)
-                | (b[:, 2].astype(np.int32) << 16))
-        ints = np.where(ints & 0x800000, ints - (1 << 24), ints)
-        out = ints.astype(np.float32) / 8388608.0
-    elif sw == 4:
-        a = array.array("i")
-        a.frombytes(raw)
-        out = np.array(a, dtype=np.float32) / 2147483648.0
-    else:
-        a = array.array("h")
-        a.frombytes(raw)
-        out = np.array(a, dtype=np.float32) / 32768.0
-    return out.reshape(-1, ch)
-
-
-def encode(src, dst, bitrate=192000):
-    subprocess.run(
-        [FFMPEG, "-hide_banner", "-loglevel", "error", "-y", "-i", str(src),
-         "-c:a", "aac", "-b:a", str(bitrate), "-ar", "48000", "-ac", "2",
-         "-movflags", "+faststart", str(dst)], check=True)
+def encode(wav_path, m4a_path):
+    subprocess.check_call([FFMPEG, "-y", "-v", "error", "-i", str(wav_path),
+                           "-c:a", "aac", "-b:a", "224k", "-ar", "48000",
+                           "-movflags", "+faststart", str(m4a_path)])
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="work/audio")
-    ap.add_argument("--bitrate", type=int, default=192000)
     args = ap.parse_args()
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
 
-    print("composing hero score ...", flush=True)
-    h = hero()
-    write_wav(out / "hero.wav", h)
-    lufs, tp = normalise(out / "hero.wav")
-    print(f"  hero: {lufs:.2f} LUFS, true peak {tp:.2f} dBTP", flush=True)
-    encode(out / "hero.wav", out / "hero.m4a", args.bitrate)
+    hero, cues = build_hero()
+    print("building hero score...", flush=True)
+    normalise_and_encode(hero, out / "hero.wav", out / "hero.m4a")
 
-    print("composing loop score ...", flush=True)
-    lp = loop()
-    write_wav(out / "loop.wav", lp)
-    lufs, tp = normalise(out / "loop.wav")
-    print(f"  loop: {lufs:.2f} LUFS, true peak {tp:.2f} dBTP", flush=True)
-    encode(out / "loop.wav", out / "loop.m4a", args.bitrate)
+    print("building loop score...", flush=True)
+    loop = build_loop()
+    normalise_and_encode(loop, out / "loop.wav", out / "loop.m4a")
 
-    # seam check: the loop's last samples must continue into its first
-    d = read_wav(out / "loop.wav")
-    step = float(np.abs(d[0] - d[-1]).max())
-    print(f"  loop seam step: {step:.5f} (peak {np.abs(d).max():.3f})", flush=True)
+    # seam measurement on the source (sample-exact)
+    L, R = read_wav_f32(out / "loop.wav")
+    step = float(np.hypot(L[0] - L[-1], R[0] - R[-1]))
+    inner = float(np.mean(np.hypot(np.diff(L), np.diff(R))))
+    print(f"loop seam step {step:.6f} vs interior mean step {inner:.6f} "
+          f"(ratio {step / max(inner, 1e-9):.3f})")
+    (out / "cues.json").write_text(
+        __import__("json").dumps(cues, indent=2))
+    print("wrote", out)
 
 
 if __name__ == "__main__":
