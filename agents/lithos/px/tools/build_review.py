@@ -1,76 +1,47 @@
 #!/usr/bin/env python3
-"""Assemble the exact-file review material for the final masters.
-
-Produces, from the delivered MP4s (not from the renderer):
-
-  work/qc/technical.json      measured technical report (codec, loudness, gate)
-  work/qc/frames/              the <= 0.5 s review grid at full size
-  work/qc/dense/               dense 0.1-0.2 s samples around the transitions
-  work/qc/phone/               640x360 phone check
-  work/review/sheet-*.png      contact sheets of the grid, for visual review
-  work/review/loop-frames/     the loop's own grid (one frame per 0.4 s)
-"""
-import json
-import subprocess
+"""Build review contact sheets from the QC extractions (reproducible)."""
 import sys
 from pathlib import Path
+from PIL import Image, ImageDraw
 
-HERE = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(HERE))
-import sheet  # noqa: E402
+ROOT = Path(__file__).resolve().parents[1]
+QC = ROOT / "work" / "qc"
+OUT = ROOT / "work" / "review"
 
-FFMPEG = str(Path.home() / ".cache" / "frameforge" / "bin" / "ffmpeg")
+
+def sheet(files, cols, cell_w, out, title):
+    if not files:
+        return
+    rows = (len(files) + cols - 1) // cols
+    im0 = Image.open(files[0])
+    ar = im0.height / im0.width
+    cw, ch = cell_w, int(cell_w * ar)
+    pad, top = 6, 34
+    s = Image.new("RGB", (cols * cw + pad * (cols + 1), rows * ch + pad * (rows + 1) + top), (18, 18, 18))
+    d = ImageDraw.Draw(s)
+    d.text((10, 9), f"{title}   ({len(files)} frames; full-size PNGs are in work/qc/)", fill=(230, 230, 230))
+    for i, f in enumerate(files):
+        r, c = divmod(i, cols)
+        th = Image.open(f).resize((cw, ch), Image.LANCZOS)
+        x, y = pad + c * (cw + pad), top + pad + r * (ch + pad)
+        s.paste(th, (x, y))
+        d.text((x + 3, y + 3), f.stem[1:], fill=(255, 220, 120))
+    s.save(out)
+    print("wrote", out)
 
 
 def main():
-    hero = HERE / "work/renders/hero-master.mp4"
-    loop = HERE / "work/renders/loop-master.mp4"
-    if not hero.exists() or not loop.exists():
-        raise SystemExit("masters missing")
-    qc = HERE / "work/qc"
-    cmd = [sys.executable, str(HERE / "qc.py"),
-           "--hero", str(hero), "--loop", str(loop),
-           "--out", str(qc), "--frames", "--dense", "--gate",
-           "--source-loop", str(HERE / "work/audio/loop.wav")]
-    subprocess.run(cmd, check=True)
-
-    # the loop's own grid
-    ldir = HERE / "work/review/loop-frames"
-    ldir.mkdir(parents=True, exist_ok=True)
-    times = [round(0.4 * i, 2) for i in range(25)]
-    for t in times:
-        out = ldir / f"t{t:06.2f}.png"
-        if out.exists():
-            continue
-        subprocess.run([FFMPEG, "-hide_banner", "-loglevel", "error", "-y",
-                        "-ss", f"{t:.2f}", "-i", str(loop), "-frames:v", "1",
-                        "-update", "1", str(out)], check=False)
-
-    # contact sheets of the review grid (20 frames each)
-    frames = sorted((qc / "frames").glob("t*.png"))
-    review = HERE / "work/review"
-    review.mkdir(parents=True, exist_ok=True)
-    per = 20
-    for i in range(0, len(frames), per):
-        chunk = frames[i:i + per]
-        tmp = review / f"_chunk{i}"
-        tmp.mkdir(exist_ok=True)
-        for f in chunk:
-            (tmp / f.name).write_bytes(f.read_bytes())
-        import subprocess as sp
-        sp.run([sys.executable, str(HERE / "sheet.py"), "--src", str(tmp),
-                "--out", str(review / f"sheet-{i // per:02d}.png"),
-                "--cols", "4", "--cell", "440"], check=True)
-        for f in tmp.glob("*.png"):
-            f.unlink()
-        tmp.rmdir()
-    import subprocess as sp
-    sp.run([sys.executable, str(HERE / "sheet.py"), "--src", str(ldir),
-            "--out", str(review / "sheet-loop.png"), "--cols", "5", "--cell", "360"], check=False)
-    sp.run([sys.executable, str(HERE / "sheet.py"), "--src", str(qc / "phone"),
-            "--out", str(review / "sheet-phone.png"), "--cols", "6", "--cell", "300"], check=False)
-    print(json.dumps({"frames": len(frames),
-                      "sheets": sorted(p.name for p in review.glob("sheet-*.png"))}, indent=2))
+    OUT.mkdir(exist_ok=True)
+    frames = sorted((QC / "frames").glob("t*.png"))
+    for i in range(0, len(frames), 21):
+        sheet(frames[i:i + 21], 7, 260, OUT / f"sheet-{i // 21:02d}.png",
+              f"KINETIC hero r01 — every 0.5 s, frames {i}-{min(i + 21, len(frames)) - 1}")
+    sheet(sorted((QC / "phone").glob("t*.png")), 7, 180, OUT / "sheet-phone.png",
+          "KINETIC hero r01 — 640x360 phone check (every 1.0 s)")
+    sheet(sorted((QC / "dense").glob("t*.png")), 11, 150, OUT / "sheet-dense.png",
+          "KINETIC hero r01 — dense 0.05 s samples at beat centres")
+    sheet(sorted((QC / "gate" / "edge").glob("edge_*.png")), 4, 300, OUT / "sheet-loop.png",
+          "KINETIC loop r01 — encoded loop edge frames (last 4, first 4) + numeric gate in work/qc/technical.json")
 
 
 if __name__ == "__main__":

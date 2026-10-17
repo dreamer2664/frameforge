@@ -15,7 +15,7 @@
     "duration_seconds": 42.0
   },
   "loop": {
-    "duration_seconds": 10.0,
+    "duration_seconds": 10.24,
     "fps": 25,
     "frames": 250,
     "audio_samples": 480000
@@ -487,13 +487,22 @@
       "action": "High golden three-quarter of the word keeping time; the sun settles, the haze breathes, the frame holds."
     }
   ],
-  "revision_log": {
-    "revision": 1,
-    "name": "graded iris / vault chiaroscuro",
-    "before": "hard-shot r00 measured vault beat (t=0-3.5) at luma 0.41-0.66 with dark% 0.0 \u2014 no mystery, no chiaroscuro; the sunlit bite reads flat",
-    "change": "exposure_keys on the timeline: 0.58x through the vault, ramping to 1.0 by 6.5s (the eye adapts on exit); post.finish now takes the keyed exposure from scene.exposure_at(t)",
-    "after_target": "vault luma ~0.35-0.42, exit rising through 0.55+"
-  },
+  "revision_log": [
+    {
+      "revision": 1,
+      "name": "graded iris / vault chiaroscuro",
+      "before": "hard-shot r00 measured vault beat (t=0-3.5) at luma 0.41-0.66 with dark% 0.0 \u2014 no mystery, no chiaroscuro; the sunlit bite reads flat",
+      "change": "exposure_keys on the timeline: 0.58x through the vault, ramping to 1.0 by 6.5s (the eye adapts on exit); post.finish now takes the keyed exposure from scene.exposure_at(t)",
+      "after_target": "vault luma ~0.35-0.42, exit rising through 0.55+"
+    },
+    {
+      "revision": 2,
+      "name": "true loop: retimed 10.240 s + hero-only iris + frozen loop sun colour",
+      "before": "r00 loop-master.mp4: geometry wrap mean_abs_diff 51.30 vs interior 4.68-5.68 (FAIL); light phase wrap luma step 51.24 vs interior max 1.01 (FAIL); audio wrap sample step 0.754 vs local p999 0.068 (FAIL). Causes: (a) the hero's graded iris leaked into loop frames (exposure 0.42 at t=0 vs 1.0 at t=10 - the 51-level luma jump), (b) the hero's late-day sun-colour ramp is not periodic in the loop, (c) 10.000 s = 480000 samples is not a whole number of AAC frames (468.75) so the decode carries 256 padding samples that break the audio wrap.",
+      "change": "Loop period retimed to 10.240 s: 256 frames @25 fps = 491520 samples = exactly 480 AAC frames (zero encoder padding). Loop exposure pinned at 1.0 (iris is hero-only); loop sun colour frozen at the loop's own constant. Loop camera and loop sun azimuth were already exactly periodic in T (verified); all loop audio oscillators are integer-cycle in T (verified in build_loop).",
+      "after_target": "loop_gate on the re-encoded loop-master.mp4: wrap metrics inside interior ranges for geometry, light phase, and audio seam."
+    }
+  ],
   "exposure_keys": [
     {
       "t": 0.0,

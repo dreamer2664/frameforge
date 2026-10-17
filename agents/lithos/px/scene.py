@@ -310,8 +310,13 @@ class Film:
             i = 2.15
         else:
             i = sun_intensity(t)
-        col = np.array(self.pal["sun"], float) * (1.0 - 0.22 * smoothstep((t - 4.0) / 38.0)) + \
-            np.array(self.pal["sun_late"], float) * (0.22 * smoothstep((t - 4.0) / 38.0))
+        if loop:
+            # colour is frozen in the loop: the hero's late-day colour ramp is
+            # not periodic and broke the loop's light-phase seam (rev 2)
+            col = np.array(self.pal["sun"], float)
+        else:
+            col = np.array(self.pal["sun"], float) * (1.0 - 0.22 * smoothstep((t - 4.0) / 38.0)) + \
+                np.array(self.pal["sun_late"], float) * (0.22 * smoothstep((t - 4.0) / 38.0))
         return d, tuple(col), i
 
     # --------------------------------------------------------------- world
