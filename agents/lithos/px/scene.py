@@ -203,6 +203,14 @@ def sun_dir(az):
                      math.cos(az) * math.cos(el)], dtype=np.float64)
 
 
+def exposure_at(t):
+    """Timeline exposure multiplier (revision 1: the graded iris)."""
+    if "exposure_keys" not in STORY:
+        return 1.0
+    k = sample_keys(STORY["exposure_keys"], t, ["e"])
+    return float(k["e"])
+
+
 def sun_intensity(t):
     k = sample_keys(STORY["sun"]["intensity_keys"], t, ["i"])
     return float(k["i"])

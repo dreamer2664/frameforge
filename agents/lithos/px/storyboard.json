@@ -1,96 +1,519 @@
 {
-  "project": "KINETIC — The Long Light",
-  "promise": "In a golden stone court, language stands as architecture and light writes the rest: the camera wakes inside the curve of a giant C, walks a colonnade of shadows, and rises to see a word keeping time on a sundial floor until the shadow of the I lands on the promise — ideas, in motion.",
-  "emotional_arc": ["mystery", "scale", "inquiry", "arrival", "stillness"],
-  "format": { "width": 1920, "height": 1080, "fps": 24, "duration_seconds": 42.0 },
-  "loop": { "duration_seconds": 10.0, "fps": 25, "frames": 250, "audio_samples": 480000 },
+  "project": "KINETIC \u2014 The Long Light",
+  "promise": "In a golden stone court, language stands as architecture and light writes the rest: the camera wakes inside the curve of a giant C, walks a colonnade of shadows, and rises to see a word keeping time on a sundial floor until the shadow of the I lands on the promise \u2014 ideas, in motion.",
+  "emotional_arc": [
+    "mystery",
+    "scale",
+    "inquiry",
+    "arrival",
+    "stillness"
+  ],
+  "format": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "duration_seconds": 42.0
+  },
+  "loop": {
+    "duration_seconds": 10.0,
+    "fps": 25,
+    "frames": 250,
+    "audio_samples": 480000
+  },
   "palette": {
-    "limestone": [0.36, 0.315, 0.25],
-    "letter_stone": [0.43, 0.375, 0.30],
-    "basalt": [0.075, 0.072, 0.078],
-    "valley": [0.115, 0.10, 0.088],
-    "platform_edge": [0.20, 0.175, 0.14],
-    "sun": [1.0, 0.62, 0.34],
-    "sun_late": [1.0, 0.50, 0.26],
-    "sky_fill": [0.30, 0.42, 0.65],
-    "bounce": [0.75, 0.50, 0.32],
-    "haze": [0.185, 0.135, 0.095]
+    "limestone": [
+      0.36,
+      0.315,
+      0.25
+    ],
+    "letter_stone": [
+      0.43,
+      0.375,
+      0.3
+    ],
+    "basalt": [
+      0.075,
+      0.072,
+      0.078
+    ],
+    "valley": [
+      0.115,
+      0.1,
+      0.088
+    ],
+    "platform_edge": [
+      0.2,
+      0.175,
+      0.14
+    ],
+    "sun": [
+      1.0,
+      0.62,
+      0.34
+    ],
+    "sun_late": [
+      1.0,
+      0.5,
+      0.26
+    ],
+    "sky_fill": [
+      0.3,
+      0.42,
+      0.65
+    ],
+    "bounce": [
+      0.75,
+      0.5,
+      0.32
+    ],
+    "haze": [
+      0.185,
+      0.135,
+      0.095
+    ]
   },
   "type": {
-    "display": { "file": "fonts/Archivo-var.ttf", "wght": 700, "wdth": 100 },
-    "inscription": { "file": "fonts/Archivo-var.ttf", "wght": 500, "wdth": 100 }
+    "display": {
+      "file": "fonts/Archivo-var.ttf",
+      "wght": 700,
+      "wdth": 100
+    },
+    "inscription": {
+      "file": "fonts/Archivo-var.ttf",
+      "wght": 500,
+      "wdth": 100
+    }
   },
   "world": {
     "floor_y": 0.0,
-    "platform": { "x": [-44.0, 44.0], "z": [-32.0, 32.0], "edge_h": 0.7 },
+    "platform": {
+      "x": [
+        -44.0,
+        44.0
+      ],
+      "z": [
+        -32.0,
+        32.0
+      ],
+      "edge_h": 0.7
+    },
     "letter_cap": 6.5,
     "letter_depth": 2.6,
     "letter_gap": 1.9,
     "word_z": -6.0,
     "word_curve": 0.004,
-    "gnomon": { "x": 0.0, "z": 2.0, "cap": 7.2, "depth": 2.2 },
+    "gnomon": {
+      "x": 0.0,
+      "z": 2.0,
+      "cap": 7.2,
+      "depth": 2.2
+    },
     "dial": {
       "station_cap": 0.52,
       "station_depth": 0.16,
       "radius": 23.5,
-      "stations": ["point", "line", "form", "world"],
-      "station_times": [18.5, 20.3, 22.1, 23.9],
+      "stations": [
+        "point",
+        "line",
+        "form",
+        "world"
+      ],
+      "station_times": [
+        18.5,
+        20.3,
+        22.1,
+        23.9
+      ],
       "terminus_text": "ideas, in motion.",
       "terminus_time": 29.5,
       "terminus_cap": 0.95
     },
-    "colonnade": { "x": [-28.0, -21.0, -14.0, 14.0, 21.0, 28.0], "z": 10.5, "pier": [1.7, 10.5, 1.7], "lintel_y": 11.1 },
-    "cpavilion": { "x": -34.0, "z": 6.0, "cap": 20.0, "depth": 7.0, "yaw_deg": 28.0 },
-    "hills": [[-220, -120, 30], [240, -170, 44], [0, -230, 60]],
+    "colonnade": {
+      "x": [
+        -28.0,
+        -21.0,
+        -14.0,
+        14.0,
+        21.0,
+        28.0
+      ],
+      "z": 10.5,
+      "pier": [
+        1.7,
+        10.5,
+        1.7
+      ],
+      "lintel_y": 11.1
+    },
+    "cpavilion": {
+      "x": -34.0,
+      "z": 6.0,
+      "cap": 20.0,
+      "depth": 7.0,
+      "yaw_deg": 28.0
+    },
+    "hills": [
+      [
+        -220,
+        -120,
+        30
+      ],
+      [
+        240,
+        -170,
+        44
+      ],
+      [
+        0,
+        -230,
+        60
+      ]
+    ],
     "valley_y": -2.2,
     "sky_size": 420.0
   },
   "sun": {
     "elevation_deg": 17.0,
     "az_keys": [
-      {"t": 0.0, "az": -0.36}, {"t": 8.0, "az": -0.30}, {"t": 17.0, "az": -0.18},
-      {"t": 22.0, "az": -0.05}, {"t": 25.0, "az": 0.06}, {"t": 29.5, "az": 0.22},
-      {"t": 33.0, "az": 0.27}, {"t": 42.0, "az": 0.285}
+      {
+        "t": 0.0,
+        "az": -0.36
+      },
+      {
+        "t": 8.0,
+        "az": -0.3
+      },
+      {
+        "t": 17.0,
+        "az": -0.18
+      },
+      {
+        "t": 22.0,
+        "az": -0.05
+      },
+      {
+        "t": 25.0,
+        "az": 0.06
+      },
+      {
+        "t": 29.5,
+        "az": 0.22
+      },
+      {
+        "t": 33.0,
+        "az": 0.27
+      },
+      {
+        "t": 42.0,
+        "az": 0.285
+      }
     ],
     "intensity_keys": [
-      {"t": 0.0, "i": 1.35}, {"t": 20.0, "i": 1.28}, {"t": 34.0, "i": 1.18}, {"t": 42.0, "i": 1.12}
+      {
+        "t": 0.0,
+        "i": 1.35
+      },
+      {
+        "t": 20.0,
+        "i": 1.28
+      },
+      {
+        "t": 34.0,
+        "i": 1.18
+      },
+      {
+        "t": 42.0,
+        "i": 1.12
+      }
     ]
   },
   "camera": {
     "keys": [
-      {"t": 0.0,  "eye": [-30.2, 2.55, 6.6],  "target": [-21.0, 3.6, 3.2],  "fov": 42.0},
-      {"t": 3.5,  "eye": [-26.8, 2.60, 8.8],  "target": [-13.0, 3.4, 0.5],  "fov": 41.0},
-      {"t": 8.0,  "eye": [-21.0, 2.85, 18.2], "target": [-7.0, 3.2, -3.5],  "fov": 38.0},
-      {"t": 13.0, "eye": [-9.0, 2.85, 19.0],  "target": [1.0, 3.0, -4.5],   "fov": 36.0},
-      {"t": 17.0, "eye": [1.5, 2.70, 17.8],   "target": [2.0, 2.6, -2.0],   "fov": 36.0},
-      {"t": 21.5, "eye": [-10.5, 2.60, 12.0], "target": [1.0, 1.2, 21.0],   "fov": 42.0},
-      {"t": 26.0, "eye": [-12.0, 3.10, 13.2], "target": [1.5, 1.0, 22.5],   "fov": 42.0},
-      {"t": 30.0, "eye": [-13.0, 12.5, 22.5], "target": [0.5, 1.8, 9.0],    "fov": 44.0},
-      {"t": 34.0, "eye": [-15.5, 27.0, 33.5], "target": [0.0, 1.2, 1.5],    "fov": 46.0},
-      {"t": 42.0, "eye": [-13.0, 24.5, 29.5], "target": [0.0, 1.2, 1.5],    "fov": 44.0}
+      {
+        "t": 0.0,
+        "eye": [
+          -30.2,
+          2.55,
+          6.6
+        ],
+        "target": [
+          -21.0,
+          3.6,
+          3.2
+        ],
+        "fov": 42.0
+      },
+      {
+        "t": 3.5,
+        "eye": [
+          -26.8,
+          2.6,
+          8.8
+        ],
+        "target": [
+          -13.0,
+          3.4,
+          0.5
+        ],
+        "fov": 41.0
+      },
+      {
+        "t": 8.0,
+        "eye": [
+          -21.0,
+          2.85,
+          18.2
+        ],
+        "target": [
+          -7.0,
+          3.2,
+          -3.5
+        ],
+        "fov": 38.0
+      },
+      {
+        "t": 13.0,
+        "eye": [
+          -9.0,
+          2.85,
+          19.0
+        ],
+        "target": [
+          1.0,
+          3.0,
+          -4.5
+        ],
+        "fov": 36.0
+      },
+      {
+        "t": 17.0,
+        "eye": [
+          1.5,
+          2.7,
+          17.8
+        ],
+        "target": [
+          2.0,
+          2.6,
+          -2.0
+        ],
+        "fov": 36.0
+      },
+      {
+        "t": 21.5,
+        "eye": [
+          -10.5,
+          2.6,
+          12.0
+        ],
+        "target": [
+          1.0,
+          1.2,
+          21.0
+        ],
+        "fov": 42.0
+      },
+      {
+        "t": 26.0,
+        "eye": [
+          -12.0,
+          3.1,
+          13.2
+        ],
+        "target": [
+          1.5,
+          1.0,
+          22.5
+        ],
+        "fov": 42.0
+      },
+      {
+        "t": 30.0,
+        "eye": [
+          -13.0,
+          12.5,
+          22.5
+        ],
+        "target": [
+          0.5,
+          1.8,
+          9.0
+        ],
+        "fov": 44.0
+      },
+      {
+        "t": 34.0,
+        "eye": [
+          -15.5,
+          27.0,
+          33.5
+        ],
+        "target": [
+          0.0,
+          1.2,
+          1.5
+        ],
+        "fov": 46.0
+      },
+      {
+        "t": 42.0,
+        "eye": [
+          -13.0,
+          24.5,
+          29.5
+        ],
+        "target": [
+          0.0,
+          1.2,
+          1.5
+        ],
+        "fov": 44.0
+      }
     ]
   },
   "lights": {
-    "sky_fill": { "dir": [-0.35, -0.82, -0.45], "color": [0.30, 0.42, 0.65], "intensity": 0.42 },
-    "bounce": { "dir": [0.18, 0.92, 0.34], "color": [0.75, 0.50, 0.32], "intensity": 0.30 },
-    "ambient_sky": [0.105, 0.135, 0.195],
-    "ambient_ground": [0.115, 0.088, 0.062]
+    "sky_fill": {
+      "dir": [
+        -0.35,
+        -0.82,
+        -0.45
+      ],
+      "color": [
+        0.3,
+        0.42,
+        0.65
+      ],
+      "intensity": 0.42
+    },
+    "bounce": {
+      "dir": [
+        0.18,
+        0.92,
+        0.34
+      ],
+      "color": [
+        0.75,
+        0.5,
+        0.32
+      ],
+      "intensity": 0.3
+    },
+    "ambient_sky": [
+      0.105,
+      0.135,
+      0.195
+    ],
+    "ambient_ground": [
+      0.115,
+      0.088,
+      0.062
+    ]
   },
   "fog": {
     "keys": [
-      {"t": 0.0, "color": [0.155, 0.115, 0.082], "density": 0.0075},
-      {"t": 20.0, "color": [0.185, 0.135, 0.095], "density": 0.0082},
-      {"t": 34.0, "color": [0.215, 0.145, 0.092], "density": 0.0092},
-      {"t": 42.0, "color": [0.215, 0.140, 0.088], "density": 0.0095}
+      {
+        "t": 0.0,
+        "color": [
+          0.155,
+          0.115,
+          0.082
+        ],
+        "density": 0.0075
+      },
+      {
+        "t": 20.0,
+        "color": [
+          0.185,
+          0.135,
+          0.095
+        ],
+        "density": 0.0082
+      },
+      {
+        "t": 34.0,
+        "color": [
+          0.215,
+          0.145,
+          0.092
+        ],
+        "density": 0.0092
+      },
+      {
+        "t": 42.0,
+        "color": [
+          0.215,
+          0.14,
+          0.088
+        ],
+        "density": 0.0095
+      }
     ]
   },
   "beats": [
-    {"id": "vault", "in": 0.0, "out": 3.5, "action": "Inside the bite of a giant stone C: a blade of low sun sweeps the curved inner vault; a slice of golden court is framed by the letter's mouth."},
-    {"id": "exit", "in": 3.5, "out": 8.0, "action": "The camera exits through the mouth of the C — the reveal that we were inside a letter — and the standing word appears across the court, shadows raking toward the lens."},
-    {"id": "colonnade", "in": 8.0, "out": 17.0, "action": "A lateral walk behind a colonnade: piers sweep the near field and occlude the monuments; shadow edges crawl across the inscribed floor."},
-    {"id": "dial", "in": 17.0, "out": 26.0, "action": "Low oblique past the gnomon I: its long shadow tip sweeps the dial stations — point, line, form, world — each crossing ticked in the score."},
-    {"id": "rise", "in": 26.0, "out": 34.0, "action": "Crane up and back: the court reads as an instrument; the shadow tip lands on the terminus inscription and the sentence completes — ideas, in motion."},
-    {"id": "still", "in": 34.0, "out": 42.0, "action": "High golden three-quarter of the word keeping time; the sun settles, the haze breathes, the frame holds."}
+    {
+      "id": "vault",
+      "in": 0.0,
+      "out": 3.5,
+      "action": "Inside the bite of a giant stone C: a blade of low sun sweeps the curved inner vault; a slice of golden court is framed by the letter's mouth."
+    },
+    {
+      "id": "exit",
+      "in": 3.5,
+      "out": 8.0,
+      "action": "The camera exits through the mouth of the C \u2014 the reveal that we were inside a letter \u2014 and the standing word appears across the court, shadows raking toward the lens."
+    },
+    {
+      "id": "colonnade",
+      "in": 8.0,
+      "out": 17.0,
+      "action": "A lateral walk behind a colonnade: piers sweep the near field and occlude the monuments; shadow edges crawl across the inscribed floor."
+    },
+    {
+      "id": "dial",
+      "in": 17.0,
+      "out": 26.0,
+      "action": "Low oblique past the gnomon I: its long shadow tip sweeps the dial stations \u2014 point, line, form, world \u2014 each crossing ticked in the score."
+    },
+    {
+      "id": "rise",
+      "in": 26.0,
+      "out": 34.0,
+      "action": "Crane up and back: the court reads as an instrument; the shadow tip lands on the terminus inscription and the sentence completes \u2014 ideas, in motion."
+    },
+    {
+      "id": "still",
+      "in": 34.0,
+      "out": 42.0,
+      "action": "High golden three-quarter of the word keeping time; the sun settles, the haze breathes, the frame holds."
+    }
   ],
-  "revision_log": {"revision": 0, "name": "initial storyboard"}
+  "revision_log": {
+    "revision": 1,
+    "name": "graded iris / vault chiaroscuro",
+    "before": "hard-shot r00 measured vault beat (t=0-3.5) at luma 0.41-0.66 with dark% 0.0 \u2014 no mystery, no chiaroscuro; the sunlit bite reads flat",
+    "change": "exposure_keys on the timeline: 0.58x through the vault, ramping to 1.0 by 6.5s (the eye adapts on exit); post.finish now takes the keyed exposure from scene.exposure_at(t)",
+    "after_target": "vault luma ~0.35-0.42, exit rising through 0.55+"
+  },
+  "exposure_keys": [
+    {
+      "t": 0.0,
+      "e": 0.42
+    },
+    {
+      "t": 2.8,
+      "e": 0.44
+    },
+    {
+      "t": 4.6,
+      "e": 0.78
+    },
+    {
+      "t": 6.5,
+      "e": 1.0
+    },
+    {
+      "t": 42.0,
+      "e": 1.0
+    }
+  ]
 }

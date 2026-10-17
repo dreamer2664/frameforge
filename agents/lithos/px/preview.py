@@ -48,7 +48,7 @@ def main():
         dacc /= args.subframes
         k = S.sample_keys(film.story["camera"]["keys"], t, ["eye", "target"])
         focus = float(np.linalg.norm(np.asarray(k["target"], float) - np.asarray(k["eye"], float)))
-        img = post.finish(acc, dacc, frame_index=int(t * 100), focus=focus)
+        img = post.finish(acc, dacc, frame_index=int(t * 100), focus=focus, exposure=3.5 * S.exposure_at(t))
         p = out / f"{args.kind}-{t:06.2f}.png"
         Image.fromarray((np.clip(img, 0, 1) * 255 + 0.5).astype(np.uint8)).save(p)
         print(f"{p}  ({time.time()-t0:.1f}s)")

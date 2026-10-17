@@ -348,7 +348,7 @@ def main():
                                                  width=640, height=360)
     if args.dense and durations.get("hero"):
         dense = []
-        for centre in (2.0, 6.0, 10.0, 14.0, 18.0, 22.0, 26.0, 30.0, 34.0, 38.0):
+        for centre in (3.5, 8.0, 11.05, 17.0, 18.5, 20.3, 22.1, 23.9, 26.0, 29.5, 34.0):
             for k in range(-3, 4):
                 t = round(centre + k * 0.05, 2)
                 if 0 <= t <= durations["hero"]:

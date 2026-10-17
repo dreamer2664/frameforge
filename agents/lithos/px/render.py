@@ -75,7 +75,7 @@ def render_segment(film, kind, start, duration, out_path, width, height, fps,
             depth_acc /= nsub
             foc = focus if focus is not None else cam_focus(film, kind, t)
             img = post.finish(acc, depth_acc, frame_index=seed + i, focus=foc,
-                              aperture=aperture)
+                              aperture=aperture, exposure=3.5 * S.exposure_at(t))
             proc.stdin.write((np.clip(img, 0, 1) * 255.0 + 0.5).astype(np.uint8).tobytes())
             if (i + 1) % log_every == 0 or i == nframes - 1:
                 el = time.time() - t_start

@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-17T09:27:45Z
+- Updated: 2026-10-17T10:00:29Z
 - State: **process-running**
 - Stage: production
-- Last observed activity: validate_type PASS; preview measurements: warm cast R>G>B all 12 beats, edge energy 0.042-0.051 (baseline was <=0.007), depth spans 7-422m (vault) and 20-1262m (aerial), dial-beat luma 0.42 after exposure fix; score hero -16.0 LUFS / -11.3 dBTP, loop -16.0 / -3.2 dBTP, source seam step ratio 0.005. Hard-shot render running at 7.3 s/frame.
-- Latest evidence/artifact: agents/lithos/px/storyboard.json; agents/lithos/px/scene.py; agents/lithos/px/audio.py
-- Next concrete action: Mux+inspect hard shot; render 6 hero segments + loop; QC + exact-file review
+- Last observed activity: After: vault luma 0.444/0.403 with blade bump 0.453 at 3.2s, exit 0.565 with 11.3% deep shadow; layered-motion metrics on the hard shot above the planar reference (planarity residual 0.108 vs 0.068, block spread 3.7 vs 1.9). Full 6-segment hero render launched with the revision included.
+- Latest evidence/artifact: agents/lithos/px/evidence/revision-1-vault-iris.md; agents/lithos/px/work/evidence/hardshot-8s-1080p.mp4
+- Next concrete action: Monitor the 6x7s hero render (~92min); then loop render, endgame, QC, exact-file review
 - Source: your own agents/lithos/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -26,4 +26,10 @@
 - Result/discovery: validate_type PASS; preview measurements: warm cast R>G>B all 12 beats, edge energy 0.042-0.051 (baseline was <=0.007), depth spans 7-422m (vault) and 20-1262m (aerial), dial-beat luma 0.42 after exposure fix; score hero -16.0 LUFS / -11.3 dBTP, loop -16.0 / -3.2 dBTP, source seam step ratio 0.005. Hard-shot render running at 7.3 s/frame.
 - Evidence: agents/lithos/px/storyboard.json; agents/lithos/px/scene.py; agents/lithos/px/audio.py
 - Next: Mux+inspect hard shot; render 6 hero segments + loop; QC + exact-file review
+
+### 2026-10-17T10:00:29Z — revision
+- Action: Hard-shot r00 (8.000s 1080p, SHA 93bb967a7188..) rendered+muxed with the score and measured; found the vault beat flat (luma 0.41-0.66, dark% 0.0). Revision 1: graded iris via exposure_keys (0.42x in the vault ramping to 1.0 by 6.5s), wired through scene.exposure_at -> post.finish.
+- Result/discovery: After: vault luma 0.444/0.403 with blade bump 0.453 at 3.2s, exit 0.565 with 11.3% deep shadow; layered-motion metrics on the hard shot above the planar reference (planarity residual 0.108 vs 0.068, block spread 3.7 vs 1.9). Full 6-segment hero render launched with the revision included.
+- Evidence: agents/lithos/px/evidence/revision-1-vault-iris.md; agents/lithos/px/work/evidence/hardshot-8s-1080p.mp4
+- Next: Monitor the 6x7s hero render (~92min); then loop render, endgame, QC, exact-file review
 
