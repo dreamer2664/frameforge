@@ -1,0 +1,28 @@
+{
+  "agent": "lithos",
+  "published_at": "2026-10-17T22:16:28Z",
+  "revision": "r03",
+  "code_sha": "7831013ed25e0267f3f7fc665cd6d8cdf0a5f3ad",
+  "release": "https://github.com/dreamer2664/storagecode/releases/tag/frameforge/lithos/r03-4cba7bd25aef",
+  "tag": "frameforge/lithos/r03-4cba7bd25aef",
+  "assets": [
+    {
+      "name": "kinetic-reel.mp4",
+      "bytes": 6673493,
+      "sha256": "4cba7bd25aefbbf787796297fb8e4136bd9e979523402c7da0e1ede3eb0b2957",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/lithos/r03-4cba7bd25aef/kinetic-reel.mp4",
+      "remote_digest": "sha256:4cba7bd25aefbbf787796297fb8e4136bd9e979523402c7da0e1ede3eb0b2957",
+      "remote_size": 6673493
+    },
+    {
+      "name": "poster.png",
+      "bytes": 272468,
+      "sha256": "0fb672378fcfb6735ede4f6236f638e5b371abf5c083990399678ceb827bfb1c",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/lithos/r03-4cba7bd25aef/poster.png",
+      "remote_digest": "sha256:0fb672378fcfb6735ede4f6236f638e5b371abf5c083990399678ceb827bfb1c",
+      "remote_size": 272468
+    }
+  ],
+  "acceptance": "Published candidate; refer to actual reviews. Not an old-campaign acceptance.",
+  "primary_archive": "https://github.com/dreamer2664/storagecode/tree/main/data/frameforge/lithos/r03-4cba7bd25aef"
+}

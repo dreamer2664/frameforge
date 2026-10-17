@@ -1,0 +1,46 @@
+{
+  "project": "KINETIC MOTION REEL 2026 (reel)",
+  "replaces_ref": "vm.tiktok.com/ZN8StAsTQ",
+  "format": {"w": 1080, "h": 1920, "fps": 60, "dur": 12.8},
+  "audio": {"bpm": 157, "grid16": 0.09554, "intro_hits": [0.08, 0.33], "pulse_start": 2.38},
+  "copy": {
+    "headline": "kinetic thinks in motion.",
+    "brandline": "KINETIC / MOTION REEL 2026",
+    "end_wordmark": "kinetic.",
+    "end_tagline": "motion, engineered."
+  },
+  "camera": "slow orbit + push-in all 12.8s; faster pushes at 1.55, 3.2, 3.95, 11.2",
+  "acts": [
+    {"t0": 0.00, "t1": 1.55, "chapter": "00 / THE DOT", "content": "elastic ruler + glowing pill pops (squash&stretch), labels FIG.01 SQUASH + STRETCH"},
+    {"t0": 1.55, "t1": 1.95, "chapter": "01 / TYPE", "content": "letters whip in (tumble) -> 'motion'"},
+    {"t0": 1.95, "t1": 2.40, "chapter": "01 / TYPE", "content": "white sphere invert flash -> flip settle dark-on-white"},
+    {"t0": 2.40, "t1": 3.20, "chapter": "01 / TYPE", "content": "'design' flies in -> two-line lockup, orange i-tittles"},
+    {"t0": 3.20, "t1": 3.95, "chapter": "01 / TYPE", "content": "split-flap letter cycles + push-in defocus"},
+    {"t0": 3.95, "t1": 4.35, "chapter": "01 / TYPE", "content": "zoom-through tittle -> orange sun floods screen"},
+    {"t0": 4.35, "t1": 5.20, "chapter": "02 / SHAPE", "content": "extruded bauhaus relief tiles rearranging"},
+    {"t0": 5.20, "t1": 5.60, "chapter": "03 / PATTERN", "content": "squiggle maze morph + drifting dot"},
+    {"t0": 5.60, "t1": 6.00, "chapter": "03 / PATTERN", "content": "vertical slit-scan smear to black"},
+    {"t0": 6.00, "t1": 6.35, "chapter": "04 / PARTICLE", "content": "dot ignites -> starburst"},
+    {"t0": 6.35, "t1": 7.20, "chapter": "04 / PARTICLE", "content": "sphere shell -> armillary rings vortex -> collapse"},
+    {"t0": 7.20, "t1": 7.60, "chapter": "04 / PARTICLE", "content": "wave terrain field"},
+    {"t0": 7.60, "t1": 8.00, "chapter": "04 / PARTICLE", "content": "spiral galaxy -> implosion flash"},
+    {"t0": 8.00, "t1": 8.80, "chapter": "05 / ORGANIC", "content": "clay blobs bloom on royal blue"},
+    {"t0": 8.80, "t1": 9.20, "chapter": "05 / ORGANIC", "content": "metaball merge to one circle"},
+    {"t0": 9.20, "t1": 9.60, "chapter": "05 / ORGANIC", "content": "mitosis 1->2->4->5 with squash&stretch"},
+    {"t0": 9.60, "t1": 10.00, "chapter": "05 / ORGANIC", "content": "dots multiply to row -> stretch into capsule bars"},
+    {"t0": 10.00, "t1": 11.20, "chapter": "06 / DATA", "content": "live dashboard: rolling KPIs, sparkline w/ dot head, spectrum bars"},
+    {"t0": 11.20, "t1": 11.55, "chapter": "06 / DATA", "content": "defocus rack-out"},
+    {"t0": 11.55, "t1": 11.95, "chapter": "07 / RECAP", "content": "rapid montage flashes (wordmark/bauhaus/spiral/blobs) on 16th grid"},
+    {"t0": 12.00, "t1": 12.80, "chapter": "08 / END", "content": "end card: wordmark + caret becomes period + typed tagline"}
+  ],
+  "palette": {
+    "coral": [224, 120, 86],
+    "blue": [27, 63, 216],
+    "amber": [245, 166, 35],
+    "vermilion": [232, 84, 42],
+    "cream": [242, 233, 216],
+    "ink": [12, 12, 14],
+    "screen_dark": [26, 22, 20],
+    "type_white": [240, 240, 238]
+  }
+}
