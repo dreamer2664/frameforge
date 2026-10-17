@@ -4,7 +4,7 @@ from pathlib import Path
 import argparse,hashlib,json,re,subprocess,sys
 from bootstrap_media import binary
 
-RANGES={'kinetic':(20,45),'scribble':(45,90),'axiom':(840,1080),'parallax':(35,55),'glyphcraft':(35,55)}
+RANGES={'kinetic':(20,45),'scribble':(45,90),'axiom':(840,1080),'parallax':(35,55),'glyphcraft':(35,55),'lithos':(35,55)}
 
 def probe(video):
     return json.loads(subprocess.check_output([binary('ffprobe'),'-v','error','-show_format','-show_streams','-of','json',str(video)]))
