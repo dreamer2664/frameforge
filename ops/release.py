@@ -6,7 +6,7 @@ Never uploads the private stamped brief. No credential appears in a URL.
 from pathlib import Path
 import argparse,base64,datetime,hashlib,http.client,json,mimetypes,os,re,subprocess,sys,urllib.error,urllib.parse,urllib.request
 
-ROOT=Path(__file__).resolve().parents[1];REPO='dreamer2664/storagecode';AGENTS=('kinetic','scribble','axiom','parallax','glyphcraft')
+ROOT=Path(__file__).resolve().parents[1];REPO='dreamer2664/storagecode';AGENTS=('kinetic','scribble','axiom','parallax','glyphcraft','lithos')
 def now():return datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds').replace('+00:00','Z')
 def token():
     value=os.environ.get('GITHUB_TOKEN') or os.environ.get('GH_TOKEN') or os.environ.get('CHATCODE_TOKEN')
