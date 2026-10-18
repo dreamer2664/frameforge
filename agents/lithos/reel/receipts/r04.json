@@ -1,0 +1,34 @@
+{
+  "release": "frameforge/lithos/r04-8579c3ae5e2e",
+  "published_at": "2026-10-18T23:14:06Z",
+  "code_sha": "fa958c0e29ff555b819e6efa44379b47c162f0f2",
+  "assets": {
+    "kinetic-reel.mp4": "sha256:8579c3ae5e2e81ede58e4ee5a19f64c9a5e33e6e8fa39187e905338c4e717ba6",
+    "poster.png": "sha256:7ef695b68a5b27639d1d1f4daeca26c57d60c6e83cd7b29e1f75fd738c9a3ae4"
+  },
+  "review_state": {
+    "verdict": "candidate - watch + quality pass done by agent + human comparison sheets; not an acceptance; refer to actual reviews",
+    "visual_review": {
+      "reviewed": "2026-10-18 (agent watch, full pass)",
+      "sheet": "30-frame watch at 2 sheets + full-res end card + earlier per-act sheets",
+      "what_holds": "real 3D laptop (Cycles+AgX): screen emission lights room dynamically (cream tiles warm desk, organic blue washes desk + peach refraction), desk reflections real (r03 watermark bug gone), close framed like ref (gap 0.02-0.08), display type crisp with bobbing tittles + whip ghosts, act content rich in every act, end card kinetic./motion, engineered. clean, roll -5deg drift + punch-ins on cuts",
+      "gaps": "type act is white-on-dark (ref is black-on-cream) - own twist; whole reel 12.8 s locked to beat map; score produced-house 157 BPM at -16 LUFS"
+    },
+    "visual_review_v2": {
+      "reviewed": "2026-10-18 (agent watch after full build)",
+      "outcome": "sheets 1+2 read clean end-to-end; no clipping; no failed act; camera never clips geometry (lid/keyboard fully visible in all 30 samples)"
+    }
+  },
+  "rework_of": "r03-4cba7bd25aef (REJECTED 2026-10-18: cheap stop-motion look, bad sound, amateur acts)",
+  "fixes_all_6_autopsy_defects": {
+    "far_square_on_camera": "close oblique framing, 70mm, roll -5deg, handheld drift, punch-in on every cut, end push-in (fixes both 'far' and 'static')",
+    "floor_reflection_watermark": "real glossy desk, no compositor tricks",
+    "amateur_acts": "acts2 engine: whip-in type with ghosts + zoom-through, bauhaus tiles, serpentine ribbons, smear stack, particle suite (burst/sphere/rings/terrain/rose), clay metaballs on sky, dashboard, montage, end card",
+    "soft_type": "display type baked into emission screen at full res; grade bloom gated at >195 so type stays crisp",
+    "black_margins": "content fills 1920x1080 screen of a 302x189mm display; camera crops tight on the laptop",
+    "dead_room": "screen drives scene light: every act's palette colors the keyboard + desk + wall in real GI"
+  },
+  "score": "score2.py produced 157 BPM F-minor house (kicks/claps/hats/sub/arp/pad/impacts), spectrally tamed (HF-noise kill), -16.1 LUFS / -5.9 dBTP",
+  "frames": "384 JPEG q93 -> grade (shadow denoise, gated bloom, vignette, grain) -> libx264 crf17 + AAC 192k",
+  "duration_s": 12.8
+}
