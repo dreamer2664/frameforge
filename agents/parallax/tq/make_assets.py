@@ -145,7 +145,7 @@ def cream_backdrop(w: int = 1920, h: int = 1080) -> Image.Image:
     yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
     u = xx / w
     v = yy / h
-    base = np.array([0xE8, 0xE4, 0xDB], np.float32)
+    base = np.array([0xED, 0xE9, 0xE0], np.float32)
     img = np.broadcast_to(base, (h, w, 3)).copy()
     img += (5.0 * (1.0 - v))[..., None]
 
@@ -154,7 +154,7 @@ def cream_backdrop(w: int = 1920, h: int = 1080) -> Image.Image:
     d.rounded_rectangle([150, 70, w - 120, h - 30], radius=150, fill=255)
     card = card.filter(ImageFilter.GaussianBlur(26))
     c = np.asarray(card).astype(np.float32) / 255.0
-    img = img * (1 - c[..., None] * 0.18) + np.array([0xF5, 0xF2, 0xEC], np.float32)[None, None, :] * c[..., None] * 0.18
+    img = img * (1 - c[..., None] * 0.20) + np.array([0xF8, 0xF5, 0xEF], np.float32)[None, None, :] * c[..., None] * 0.20
 
     sh = Image.new("L", (w, h), 0)
     d = ImageDraw.Draw(sh)
@@ -164,7 +164,7 @@ def cream_backdrop(w: int = 1920, h: int = 1080) -> Image.Image:
     img *= (1.0 - 0.07 * s)[..., None]
 
     r = np.sqrt((u - 0.5) ** 2 + (v - 0.5) ** 2)
-    img *= (1.0 - 0.06 * np.clip(r * 1.5, 0, 1) ** 2)[..., None]
+    img *= (1.0 - 0.05 * np.clip(r * 1.5, 0, 1) ** 2)[..., None]
     img = _blur(img, 2.0)
     rng = np.random.default_rng(9)
     img += rng.normal(0, 1.5, img.shape[:2])[..., None]

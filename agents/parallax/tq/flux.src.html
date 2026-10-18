@@ -591,9 +591,9 @@ function seek(t){
   /* --- the chrome word --- */
   const typeA=smooth(T.typeIn,T.typeIn+0.16,t)*(1-smooth(T.typeOut-0.30,T.typeOut,t));
   letters.forEach((L,i)=>{
-    const st=T.typeIn+i*0.055;
-    const k=easeOut(inv(t,st,st+0.62));
-    const fromX=-760-i*36, fromY=70+i*9;
+    const st=T.typeIn+i*0.10;
+    const k=easeOut(inv(t,st,st+0.55));
+    const fromX=-620-i*30, fromY=62+i*8;
     const x=lerp(fromX,0,k);
     const rotY=lerp(-58,0,k);
     const rotX=lerp(16,0,k);
@@ -773,11 +773,11 @@ function seek(t){
   /* --- wordmark --- */
   const wmA=smooth(T.mark,T.mark+0.30,t);
   wmLetters.forEach((L,i)=>{
-    const st=T.mark+i*0.075;
+    const st=T.mark+i*0.09;
     const k=easeOut(inv(t,st,st+0.72));
-    const dx=(i%2?1:-1)*(1-k)*(140+i*26);
+    const dx=(i%2?1:-1)*(1-k)*(175+i*30);
     const dy=(1-k)*(-90-i*16);
-    const blur=(1-k)*34;
+    const blur=(1-k)*40;
     tf(L.node,`translate3d(${dx.toFixed(1)}px,${dy.toFixed(1)}px,0) rotate(${(dx*0.05).toFixed(2)}deg)`);
     fl(L.node,blur);
     op(L.node,wmA*k);
