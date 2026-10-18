@@ -1,46 +1,38 @@
 {
-  "project": "KINETIC MOTION REEL 2026 (reel)",
-  "replaces_ref": "vm.tiktok.com/ZN8StAsTQ",
-  "format": {"w": 1080, "h": 1920, "fps": 60, "dur": 12.8},
-  "audio": {"bpm": 157, "grid16": 0.09554, "intro_hits": [0.08, 0.33], "pulse_start": 2.38},
-  "copy": {
+  "title": "KINETIC MOTION REEL 2026 (v2)",
+  "source_reference": "https://vm.tiktok.com/ZN8StAsTQ/ (motionlovee, 12.79s portrait, real ~30fps)",
+  "revision": "v2 — ground-up rebuild after human rejection of r03 ('1800s look', 'sound horrible')",
+  "format": {"w": 1080, "h": 1920, "fps": 30, "dur_s": 12.8, "audio": "AAC 192k, -16 LUFS / <= -1.5 dBTP"},
+  "brand": {
+    "name": "kinetic",
     "headline": "kinetic thinks in motion.",
-    "brandline": "KINETIC / MOTION REEL 2026",
     "end_wordmark": "kinetic.",
-    "end_tagline": "motion, engineered."
+    "tagline": "motion, engineered.",
+    "mark": "own 12-petal coral starburst (never the Claude mark)"
   },
-  "camera": "slow orbit + push-in all 12.8s; faster pushes at 1.55, 3.2, 3.95, 11.2",
+  "palette": {"ink": "#0e1016", "cream": "#f2eee6", "coral": "#ff6b35", "coral_hi": "#ff8c4f", "blue": "#2b4fd8", "navy": "#0d1b3d", "white": "#f7f5f0", "cyan": "#7fe8ff"},
+  "stage": {
+    "engine": "Blender 4.3.2 Cycles CPU, AgX Punchy, 20 samples + adaptive 0.06, no OIDN (shadow-denoise in grade.py)",
+    "scene": "laptop 0.322x0.228m deck / 0.212m lid @102deg, 70 keys, trackpad, glossy dark desk, dark room",
+    "camera": "70mm @ ~1.2m, screen-height, -5deg dutch roll, DOF f/5.6, drift +-1cm, punch-ins at cuts, push-in on end card",
+    "screen_texture": "1920x1200 PNG per frame on emission (strength 5.0)"
+  },
   "acts": [
-    {"t0": 0.00, "t1": 1.55, "chapter": "00 / THE DOT", "content": "elastic ruler + glowing pill pops (squash&stretch), labels FIG.01 SQUASH + STRETCH"},
-    {"t0": 1.55, "t1": 1.95, "chapter": "01 / TYPE", "content": "letters whip in (tumble) -> 'motion'"},
-    {"t0": 1.95, "t1": 2.40, "chapter": "01 / TYPE", "content": "white sphere invert flash -> flip settle dark-on-white"},
-    {"t0": 2.40, "t1": 3.20, "chapter": "01 / TYPE", "content": "'design' flies in -> two-line lockup, orange i-tittles"},
-    {"t0": 3.20, "t1": 3.95, "chapter": "01 / TYPE", "content": "split-flap letter cycles + push-in defocus"},
-    {"t0": 3.95, "t1": 4.35, "chapter": "01 / TYPE", "content": "zoom-through tittle -> orange sun floods screen"},
-    {"t0": 4.35, "t1": 5.20, "chapter": "02 / SHAPE", "content": "extruded bauhaus relief tiles rearranging"},
-    {"t0": 5.20, "t1": 5.60, "chapter": "03 / PATTERN", "content": "squiggle maze morph + drifting dot"},
-    {"t0": 5.60, "t1": 6.00, "chapter": "03 / PATTERN", "content": "vertical slit-scan smear to black"},
-    {"t0": 6.00, "t1": 6.35, "chapter": "04 / PARTICLE", "content": "dot ignites -> starburst"},
-    {"t0": 6.35, "t1": 7.20, "chapter": "04 / PARTICLE", "content": "sphere shell -> armillary rings vortex -> collapse"},
-    {"t0": 7.20, "t1": 7.60, "chapter": "04 / PARTICLE", "content": "wave terrain field"},
-    {"t0": 7.60, "t1": 8.00, "chapter": "04 / PARTICLE", "content": "spiral galaxy -> implosion flash"},
-    {"t0": 8.00, "t1": 8.80, "chapter": "05 / ORGANIC", "content": "clay blobs bloom on royal blue"},
-    {"t0": 8.80, "t1": 9.20, "chapter": "05 / ORGANIC", "content": "metaball merge to one circle"},
-    {"t0": 9.20, "t1": 9.60, "chapter": "05 / ORGANIC", "content": "mitosis 1->2->4->5 with squash&stretch"},
-    {"t0": 9.60, "t1": 10.00, "chapter": "05 / ORGANIC", "content": "dots multiply to row -> stretch into capsule bars"},
-    {"t0": 10.00, "t1": 11.20, "chapter": "06 / DATA", "content": "live dashboard: rolling KPIs, sparkline w/ dot head, spectrum bars"},
-    {"t0": 11.20, "t1": 11.55, "chapter": "06 / DATA", "content": "defocus rack-out"},
-    {"t0": 11.55, "t1": 11.95, "chapter": "07 / RECAP", "content": "rapid montage flashes (wordmark/bauhaus/spiral/blobs) on 16th grid"},
-    {"t0": 12.00, "t1": 12.80, "chapter": "08 / END", "content": "end card: wordmark + caret becomes period + typed tagline"}
+    {"id": "00 THE DOT", "t": [0.0, 1.55], "design": "coral capsule elastic hops on ruler, glow trail"},
+    {"id": "01 TYPE", "t": [1.55, 4.35], "design": "Archivo Black motion design: whip smears, invert flash 1.95, letter flips, coral tittles, zoom-through 3.95"},
+    {"id": "02 SOLID + SHAPE", "t": [4.35, 5.2], "design": "bauhaus tiles stagger pop + flips"},
+    {"id": "03 PATTERN", "t": [5.2, 5.6], "design": "serpentine ribbons + coral pill"},
+    {"id": "04 SMEAR", "t": [5.6, 6.0], "design": "slit-scan comet + ghost stack"},
+    {"id": "05 PARTICLES", "t": [6.0, 8.0], "design": "burst, dot sphere, glowing rings, dot terrain, tight spiral rose, implode"},
+    {"id": "06 ORGANIC", "t": [8.0, 10.0], "design": "clay metaballs (field+normals+spec+shadow), merge, mitosis, bead row"},
+    {"id": "07 DATA + UI", "t": [10.0, 11.2], "design": "navy dashboard: rolling KPIs, sparkline, staggered bars"},
+    {"id": "08 DEFOCUS", "t": [11.2, 11.55], "design": "blur + streak ramp-out"},
+    {"id": "09 MONTAGE", "t": [11.55, 11.95], "design": "8 recap flashes + cyan blowout"},
+    {"id": "10 END", "t": [12.0, 12.8], "design": "kinetic. wordmark, caret->period, typed tagline"}
   ],
-  "palette": {
-    "coral": [224, 120, 86],
-    "blue": [27, 63, 216],
-    "amber": [245, 166, 35],
-    "vermilion": [232, 84, 42],
-    "cream": [242, 233, 216],
-    "ink": [12, 12, 14],
-    "screen_dark": [26, 22, 20],
-    "type_white": [240, 240, 238]
+  "score": {
+    "bpm": 157, "key": "F minor-ish",
+    "map": "intro pluck 0, drop 1.55 (kick/clap/sub), hats 4.35, fill+riser 5.28, arp 6.0, pad lift 8.0, busiest 10.0, sweep-down 11.02, 4 montage hits 11.55, impact+chord tail 12.0",
+    "production": "layered kick, sidechained sub, staggered claps, dark hats, filtered saw plucks/pads, reverb send, bus saturation, -16 LUFS fit"
   }
 }
