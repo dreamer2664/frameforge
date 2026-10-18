@@ -1,0 +1,27 @@
+import puppeteer from 'puppeteer';
+import path from 'node:path';
+const b = await puppeteer.launch({ headless: true, args: ['--no-sandbox','--disable-dev-shm-usage','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--disable-gpu-sandbox'] });
+const p = await b.newPage();
+await p.setViewport({ width: 1920, height: 1080, deviceScaleFactor: 1 });
+p.on('pageerror', e => console.log('[pageerror]', e.message));
+await p.goto('file://' + path.resolve('film/page.html'), { waitUntil: 'load' });
+await p.waitForFunction('window.__film && window.__film.ready === true', { timeout: 120000 });
+const out = await p.evaluate(() => {
+  const F = window.__film.dbg;
+  const r = {};
+  F.renderer.info.autoReset = false;
+  F.renderFrame(60);
+  r.info60 = { ...F.renderer.info.render }; F.renderer.info.reset();
+  const t2 = F.type.events.find(e => e.def.id === 'T2');
+  const t1 = F.type.events.find(e => e.def.id === 'T1');
+  r.t1 = { vis: t1.group.visible, drawn: t1.chars.filter(c=>c.visible).length, op: +t1.chars[0].material.opacity.toFixed(2), pos: t1.chars[0].position.toArray().map(v=>+v.toFixed(1)) };
+  r.t2 = { vis: t2.group.visible, n: t2.chars.length, op: +t2.chars[0].material.opacity.toFixed(2), pos: t2.chars[0].position.toArray().map(v=>+v.toFixed(1)), scale: t2.chars[0].scale.x, map: !!t2.chars[0].material.map, color: t2.chars[0].material.color.getHexString() };
+  r.fonts = Array.from(document.fonts).map(f => f.family + '/' + f.weight + '/' + f.status);
+  F.renderFrame(500);
+  r.info500 = { ...F.renderer.info.render }; F.renderer.info.reset();
+  F.renderFrame(260);
+  r.info260 = { ...F.renderer.info.render }; F.renderer.info.reset();
+  return r;
+});
+console.log(JSON.stringify(out, null, 1));
+await b.close();

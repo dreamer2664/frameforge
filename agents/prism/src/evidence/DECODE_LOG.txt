@@ -1,0 +1,8 @@
+PRISM / PROOF — DECODE_LOG
+generated 2026-10-18T18:58:19Z (env-B)
+command: ffmpeg -v error -i master.mp4 -f framemd5 framemd5.txt
+command: ffmpeg -v error -i master.mp4 -f null -
+frames decoded (framemd5 rows): 750
+decoder stderr bytes: 0
+decoder stderr: <empty>
+errors: 0

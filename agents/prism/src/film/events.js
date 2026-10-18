@@ -1,0 +1,56 @@
+// PRISM / "PROOF" — the master event timeline. ONE source of temporal truth:
+// visuals, flashes and audio hits all read these constants.
+// Frames are 0..749 @30fps. This file is also exported to JSON for the audio
+// synthesiser (audio/synth.py) so sound and picture cannot drift.
+
+export const FLASHES = [
+  { id: 'F1', frame: 150, dur: 2, type: 'burst',  color: '#ffd9a0', peak: 0.72, hit: 'H-claim',  note: 'Act I assertion: the claim fires.' },
+  { id: 'F2', frame: 300, dur: 1, type: 'tick',   color: '#eaf7ff', peak: 0.50, hit: 'H-m1',     note: 'Act II measurement tick 1.' },
+  { id: 'F3', frame: 390, dur: 2, type: 'burst',  color: '#bfe3ff', peak: 0.66, hit: 'H-m2',     note: 'Act II measurement tick 2 (ice burst).' },
+  { id: 'F4', frame: 480, dur: 3, type: 'whiteout', color: '#ffffff', peak: 1.00, hit: 'H-verdict', note: 'Act III verdict white-out (3f, spec max).' },
+  { id: 'F5', frame: 560, dur: 1, type: 'tick',   color: '#ffffff', peak: 0.55, hit: 'H-signed', note: 'Act III "SIGNED." stab.' },
+  { id: 'F6', frame: 660, dur: 2, type: 'burst',  color: '#fff3e0', peak: 0.62, hit: 'H-receipt', note: 'Act IV receipt stamp burst.' },
+];
+// Photosensitivity tally: minimum gap = 80 frames (2.67 s) => <=0.38 flashes/s,
+// well inside the <=3/s hygiene bar. Computed, not asserted: see FLASH_LOG.md.
+
+export const HITS = [
+  { id: 'H-claim',   frame: 150, kind: 'impact' },
+  { id: 'H-m1',      frame: 300, kind: 'tickhard' },
+  { id: 'H-m2',      frame: 390, kind: 'impact' },
+  { id: 'H-verdict', frame: 480, kind: 'drop' },
+  { id: 'H-signed',  frame: 560, kind: 'tickhard' },
+  { id: 'H-receipt', frame: 660, kind: 'stamp' },
+  { id: 'H-t2',      frame: 40,  kind: 'slam' },   // "A CLAIM IS NOISE." lands
+  { id: 'H-t5',      frame: 330, kind: 'slam' },   // "MEASURE EVERYTHING."
+  { id: 'H-proof',   frame: 483, kind: 'slam' },   // hero PROOF slam
+  { id: 'H-stab1',   frame: 500, kind: 'stab' },   // MEASURED.
+  { id: 'H-stab2',   frame: 530, kind: 'stab' },   // REPRODUCIBLE.
+  { id: 'H-last',    frame: 744, kind: 'tick' },   // final receipt tick
+];
+
+// 11 designed text moments (T1..T11). in/out inclusive frames.
+// cap = designed cap-height in screen px (min 36 required by spec).
+export const TEXTS = [
+  { id: 'T1', str: 'SIGNAL // UNVERIFIED',            in: 8,   out: 92,  cap: 40,  family: 'mono',   weight: 500, color: '#ffb347', anchor: 'left',  x: 168, y: 966, mode: 'type',   tracking: 6 },
+  { id: 'T2', str: 'A CLAIM IS NOISE.',               in: 40,  out: 176, cap: 96, family: 'display', weight: 400, color: '#ffd9a0', anchor: 'center', x: 960, y: 540, mode: 'track',  tracking: 8 },
+  { id: 'T3', str: 'FRAME 000/750',                   in: 196, out: 442, cap: 44,  family: 'mono',   weight: 600, color: '#bfe3ff', anchor: 'right', x: 1752, y: 132, mode: 'counter' },
+  { id: 'T4', str: 'dLUMA +38.2%  DRIFT 0.004px',     in: 236, out: 372, cap: 40,  family: 'mono',   weight: 500, color: '#7fd4ff', anchor: 'left',  x: 168, y: 132, mode: 'fade' },
+  { id: 'T5', str: 'MEASURE EVERYTHING.',             in: 330, out: 446, cap: 78,  family: 'display', weight: 400, color: '#eaf7ff', anchor: 'center', x: 960, y: 852, mode: 'track', tracking: 8 },
+  { id: 'T6', str: 'PROOF',                           in: 483, out: 656, cap: 255, family: 'display', weight: 400, color: '#ffffff', anchor: 'center', x: 960, y: 470, mode: 'slam' },
+  { id: 'T7', str: 'MEASURED.',                       in: 500, out: 528, cap: 64,  family: 'display', weight: 400, color: '#ffffff', anchor: 'center', x: 960, y: 700, mode: 'stab' },
+  { id: 'T8', str: 'REPRODUCIBLE.',                   in: 530, out: 558, cap: 64,  family: 'display', weight: 400, color: '#ffffff', anchor: 'center', x: 960, y: 700, mode: 'stab' },
+  { id: 'T9', str: 'SIGNED.',                         in: 560, out: 596, cap: 64,  family: 'display', weight: 400, color: '#ffffff', anchor: 'center', x: 960, y: 700, mode: 'stab' },
+  { id: 'T10', str: 'RECEIPT',                        in: 668, out: 749, cap: 56,  family: 'mono',   weight: 700, color: '#141210', anchor: 'left',  x: 510, y: 300, mode: 'fade', tracking: 14 },
+  { id: 'T11', str: 'INDEPENDENT ACCEPTANCE PENDING.', in: 700, out: 749, cap: 44, family: 'mono',  weight: 600, color: '#ffb347', anchor: 'center', x: 960, y: 962, mode: 'fade' },
+];
+
+// Camera choreography segments: [fromFrame, toFrame, curve] per act.
+export const CAMERA = {
+  I:   { pos: [[0, 0.4, 26], [0, 0.2, 15]], look: [[0, 0, 0], [0, 0, 0]], curve: 'inOutQuint', f: [0, 179] },
+  II:  { orbit: { r: 19, y0: 6.5, y1: 3.0, a0: -0.55, a1: 1.35, f: [180, 449], curve: 'inOutCubic' } },
+  III: { pos: [[0, 0, 22], [0, 0, 13.5]], look: [[0, 0, 0], [0, 0, 0]], curve: 'outQuint', f: [450, 659] },
+  IV:  { pos: [[0, 0, 12], [0, 0, 12]], look: [[0, 0, 0], [0, 0, 0]], curve: 'linear', f: [660, 749] },
+};
+
+export const EVENTS = { fps: 30, frames: 750, flashes: FLASHES, hits: HITS, texts: TEXTS };
