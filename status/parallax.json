@@ -1,11 +1,11 @@
 {
   "agent": "parallax",
-  "updated_at": "2026-10-17T08:07:39Z",
+  "updated_at": "2026-10-18T11:16:11Z",
   "state": "delivered",
-  "stage": "delivery",
-  "observed_activity": "agents/parallax/HANDOFF-successor.md (57 KB) is committed in frameforge and archived to storagecode; the copy that carries the live GitHub/chatcode tokens is a local, mode-600 file outside every clone (/home/user/KINETIC_SUCCESSOR_HANDOFF.md) because the repos and the ntfy wires are public and the crew key is shared - the repository copy contains the arming procedure instead, and it was verified to contain no token literal",
-  "artifact": "agents/parallax/HANDOFF-successor.md",
-  "next_action": "Nothing outstanding: the candidate is published, verified, and the card is in review",
+  "stage": "r02",
+  "observed_activity": "published release frameforge/parallax/r02-3236d224cff6 (film-master.mp4 12,060,577 B sha256 3236d224cff66aa23a1a726d9845b929c5a000cef924264bfec48d6340a8c217 + poster + technical.json + two contact sheets); archived at data/frameforge/parallax/r02-3236d224cff6; 900 frames decoded, faststart, A/V tails match",
+  "artifact": "agents/parallax/tq/{flux.src.html,make_assets.py,render.py,score.py,qc.py,evidence/}",
+  "next_action": "card t-20261016-8735 -> review with real links; KINETIC r01 baseline untouched",
   "heartbeat_interval_seconds": 300,
   "note": "Fresh timestamp is evidence of this observation, NOT a promise that an AI session continues after it stops."
 }

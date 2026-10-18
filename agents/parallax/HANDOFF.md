@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-17T08:07:39Z
+- Updated: 2026-10-18T11:16:11Z
 - State: **delivered**
-- Stage: delivery
-- Last observed activity: agents/parallax/HANDOFF-successor.md (57 KB) is committed in frameforge and archived to storagecode; the copy that carries the live GitHub/chatcode tokens is a local, mode-600 file outside every clone (/home/user/KINETIC_SUCCESSOR_HANDOFF.md) because the repos and the ntfy wires are public and the crew key is shared - the repository copy contains the arming procedure instead, and it was verified to contain no token literal
-- Latest evidence/artifact: agents/parallax/HANDOFF-successor.md
-- Next concrete action: Nothing outstanding: the candidate is published, verified, and the card is in review
+- Stage: r02
+- Last observed activity: published release frameforge/parallax/r02-3236d224cff6 (film-master.mp4 12,060,577 B sha256 3236d224cff66aa23a1a726d9845b929c5a000cef924264bfec48d6340a8c217 + poster + technical.json + two contact sheets); archived at data/frameforge/parallax/r02-3236d224cff6; 900 frames decoded, faststart, A/V tails match
+- Latest evidence/artifact: agents/parallax/tq/{flux.src.html,make_assets.py,render.py,score.py,qc.py,evidence/}
+- Next concrete action: card t-20261016-8735 -> review with real links; KINETIC r01 baseline untouched
 - Source: your own agents/parallax/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -116,4 +116,10 @@
 - Result/discovery: agents/parallax/HANDOFF-successor.md (57 KB) is committed in frameforge and archived to storagecode; the copy that carries the live GitHub/chatcode tokens is a local, mode-600 file outside every clone (/home/user/KINETIC_SUCCESSOR_HANDOFF.md) because the repos and the ntfy wires are public and the crew key is shared - the repository copy contains the arming procedure instead, and it was verified to contain no token literal
 - Evidence: agents/parallax/HANDOFF-successor.md
 - Next: Nothing outstanding: the candidate is published, verified, and the card is in review
+
+### 2026-10-18T11:16:11Z — film
+- Action: built 'cadence': a 1:1 technique replica of the studied TikTok reel with entirely original content - 900 frames, 1920x1080, 60 fps, 15.000 s, one self-contained HTML, own Archivo/Inter/Plex type, own synthesised score at -16.2 LUFS
+- Result/discovery: published release frameforge/parallax/r02-3236d224cff6 (film-master.mp4 12,060,577 B sha256 3236d224cff66aa23a1a726d9845b929c5a000cef924264bfec48d6340a8c217 + poster + technical.json + two contact sheets); archived at data/frameforge/parallax/r02-3236d224cff6; 900 frames decoded, faststart, A/V tails match
+- Evidence: agents/parallax/tq/{flux.src.html,make_assets.py,render.py,score.py,qc.py,evidence/}
+- Next: card t-20261016-8735 -> review with real links; KINETIC r01 baseline untouched
 

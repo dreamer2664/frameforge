@@ -1,0 +1,52 @@
+{
+  "agent": "parallax",
+  "published_at": "2026-10-18T11:15:56Z",
+  "revision": "r02",
+  "code_sha": "4c6c12325d05a24104dbad79cacb2818da0d97cd",
+  "release": "https://github.com/dreamer2664/storagecode/releases/tag/frameforge/parallax/r02-3236d224cff6",
+  "tag": "frameforge/parallax/r02-3236d224cff6",
+  "assets": [
+    {
+      "name": "film-master.mp4",
+      "bytes": 12060577,
+      "sha256": "3236d224cff66aa23a1a726d9845b929c5a000cef924264bfec48d6340a8c217",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/parallax/r02-3236d224cff6/film-master.mp4",
+      "remote_digest": "sha256:3236d224cff66aa23a1a726d9845b929c5a000cef924264bfec48d6340a8c217",
+      "remote_size": 12060577
+    },
+    {
+      "name": "poster.png",
+      "bytes": 2304442,
+      "sha256": "ba0bdc148d21f36e7489307ac839a91fce9d5f3a9acb04bda26beaeb5afcd49e",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/parallax/r02-3236d224cff6/poster.png",
+      "remote_digest": "sha256:ba0bdc148d21f36e7489307ac839a91fce9d5f3a9acb04bda26beaeb5afcd49e",
+      "remote_size": 2304442
+    },
+    {
+      "name": "technical.json",
+      "bytes": 2225,
+      "sha256": "e7b943b0ca496d007038ff6af4372d0b105adbaf5eee1252a36647bbaf48ec42",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/parallax/r02-3236d224cff6/technical.json",
+      "remote_digest": "sha256:e7b943b0ca496d007038ff6af4372d0b105adbaf5eee1252a36647bbaf48ec42",
+      "remote_size": 2225
+    },
+    {
+      "name": "key_frames.png",
+      "bytes": 1807127,
+      "sha256": "883dfcd2430b33249ca29629b2da94be88f9335c78a5c6edd3e4907399c06687",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/parallax/r02-3236d224cff6/key_frames.png",
+      "remote_digest": "sha256:883dfcd2430b33249ca29629b2da94be88f9335c78a5c6edd3e4907399c06687",
+      "remote_size": 1807127
+    },
+    {
+      "name": "grid_4fps.png",
+      "bytes": 4660722,
+      "sha256": "e37b37177d3dc9fe650fb0ca4e83528b5b40c7384d3f33bd31855d53a3c2a65a",
+      "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/parallax/r02-3236d224cff6/grid_4fps.png",
+      "remote_digest": "sha256:e37b37177d3dc9fe650fb0ca4e83528b5b40c7384d3f33bd31855d53a3c2a65a",
+      "remote_size": 4660722
+    }
+  ],
+  "acceptance": "Published candidate; refer to actual reviews. Not an old-campaign acceptance.",
+  "primary_archive": "https://github.com/dreamer2664/storagecode/tree/main/data/frameforge/parallax/r02-3236d224cff6"
+}
