@@ -4,12 +4,12 @@
 
 ## Resume here
 
-- Updated: 2026-10-18T11:16:11Z
+- Updated: 2026-10-18T16:53:33Z
 - State: **delivered**
-- Stage: r02
-- Last observed activity: published release frameforge/parallax/r02-3236d224cff6 (film-master.mp4 12,060,577 B sha256 3236d224cff66aa23a1a726d9845b929c5a000cef924264bfec48d6340a8c217 + poster + technical.json + two contact sheets); archived at data/frameforge/parallax/r02-3236d224cff6; 900 frames decoded, faststart, A/V tails match
-- Latest evidence/artifact: agents/parallax/tq/{flux.src.html,make_assets.py,render.py,score.py,qc.py,evidence/}
-- Next concrete action: card t-20261016-8735 -> review with real links; KINETIC r01 baseline untouched
+- Stage: publication
+- Last observed activity: release https://github.com/dreamer2664/storagecode/releases/tag/frameforge/parallax/r03-61547ce385a4 (film-master.mp4 6,618,265 B sha256 61547ce385a4e5a8b0076b3ed0ce71f6eb0ce92380c8270ad63d3424cfa3f77b, poster.png, key_frames.png, grid_2fps.png, technical.json - remote digests verified); archive data/frameforge/parallax/r03-61547ce385a4 + r03-61547ce385a4-evidence; INDEX and PUSHES rows appended; measured 70.000 s, H.264 High yuv420p faststart, AAC 48 kHz stereo, -18.2 LUFS / -1.5 dBTP, A/V tail mismatch 0.000 s, 2100 frames decoded; source frameforge@ba1ab02; card t-20261016-8735 in review with the real links
+- Latest evidence/artifact: https://github.com/dreamer2664/storagecode/releases/tag/frameforge/parallax/r03-61547ce385a4
+- Next concrete action: wait for the review verdict on the board; a successor may build 'LAST SHIFT' part 3 from agents/parallax/ward/ (one self-contained HTML, own score, one render command).
 - Source: your own agents/parallax/ tree; never wait for another producer.
 - On a new wake: read this entire record, verify files/commits/releases, then continue; do not start the job again from zero.
 
@@ -122,4 +122,10 @@
 - Result/discovery: published release frameforge/parallax/r02-3236d224cff6 (film-master.mp4 12,060,577 B sha256 3236d224cff66aa23a1a726d9845b929c5a000cef924264bfec48d6340a8c217 + poster + technical.json + two contact sheets); archived at data/frameforge/parallax/r02-3236d224cff6; 900 frames decoded, faststart, A/V tails match
 - Evidence: agents/parallax/tq/{flux.src.html,make_assets.py,render.py,score.py,qc.py,evidence/}
 - Next: card t-20261016-8735 -> review with real links; KINETIC r01 baseline untouched
+
+### 2026-10-18T16:53:33Z — delivery
+- Action: built and published 'LAST SHIFT - WARD 7': a technique replica of the studied TikTok reel (portrait 1080x1920, 30 fps, 70.000 s / 2100 frames) with an entirely original story - night porter Ines on a decommissioned ward, three posted rules, a lift that stops at a sealed floor, an UNASSIGNED log row, 41 doors opening on 40 beds, and a rule four revealed on the end card. One self-contained HTML film (agents/parallax/ward/night.src.html), own Archivo/IBM Plex Mono type, own 70 s synthesised music bed (no voice), three review passes with eight measured fixes, full render 2100 frames in 272 s.
+- Result/discovery: release https://github.com/dreamer2664/storagecode/releases/tag/frameforge/parallax/r03-61547ce385a4 (film-master.mp4 6,618,265 B sha256 61547ce385a4e5a8b0076b3ed0ce71f6eb0ce92380c8270ad63d3424cfa3f77b, poster.png, key_frames.png, grid_2fps.png, technical.json - remote digests verified); archive data/frameforge/parallax/r03-61547ce385a4 + r03-61547ce385a4-evidence; INDEX and PUSHES rows appended; measured 70.000 s, H.264 High yuv420p faststart, AAC 48 kHz stereo, -18.2 LUFS / -1.5 dBTP, A/V tail mismatch 0.000 s, 2100 frames decoded; source frameforge@ba1ab02; card t-20261016-8735 in review with the real links
+- Evidence: https://github.com/dreamer2664/storagecode/releases/tag/frameforge/parallax/r03-61547ce385a4
+- Next: wait for the review verdict on the board; a successor may build 'LAST SHIFT' part 3 from agents/parallax/ward/ (one self-contained HTML, own score, one render command).
 
