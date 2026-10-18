@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>LAST SHIFT - WARD 7</title>
+<style>
+/* ------------------------------------------------------------------ *
+ * LAST SHIFT - WARD 7
+ * a flat-vector night-shift story, 1080x1920, 30 fps
+ * every element is a pure function of time: FLUX.seek(t)
+ * ------------------------------------------------------------------ */
+:root{
+  --bg:#0d1014; --edge:#1e2a31; --edge2:#2b3a44;
+  --steel:#66727c; --light:#c9d4dc; --white:#eef3f6;
+  --amber:#ffb020; --red:#e33a2f; --green:#24c48a; --orange:#ff7a18;
+  --sans:'Inter'; --black2:'Archivo Black'; --mono:'IBM Plex Mono';
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);width:1080px;height:1920px;overflow:hidden}
+body{font-family:var(--sans);-webkit-font-smoothing:antialiased;position:relative}
+#stage{position:absolute;inset:0;overflow:hidden}
+.layer{position:absolute;inset:0;pointer-events:none}
+
+/* ---------------- vignette (static, cheap) ---------------- */
+#vig{position:absolute;inset:0;background:
+   radial-gradient(120% 60% at 50% 38%, rgba(0,0,0,0) 45%, rgba(0,0,0,.45) 100%);}
+
+/* ---------------- title ---------------- */
+#title{position:absolute;inset:0}
+#titleRule{position:absolute;left:120px;top:596px;width:840px;height:2px;background:var(--amber);transform-origin:0 50%;opacity:.85}
+#titleMain{position:absolute;left:0;top:632px;width:1080px;text-align:center;
+  font-family:var(--black2);font-size:104px;letter-spacing:.16em;color:var(--white);text-indent:.16em}
+#titleSub{position:absolute;left:0;top:790px;width:1080px;text-align:center;
+  font-family:var(--mono);font-size:27px;letter-spacing:.32em;color:#93a1ac;text-indent:.32em}
+#titleEp{position:absolute;left:120px;top:516px;font-family:var(--mono);font-size:24px;color:var(--steel);letter-spacing:.2em}
+#titleDot{position:absolute;left:120px;top:562px;width:13px;height:13px;background:var(--red)}
+
+/* ---------------- plan (canvas) ---------------- */
+#planCanvas{position:absolute;left:0;top:0;width:1080px;height:1120px}
+
+/* ---------------- rules board ---------------- */
+#rules{position:absolute;left:0;top:150px;width:1080px;height:840px;background:#0b1014;
+  border-top:1px solid var(--edge);border-bottom:1px solid var(--edge);padding:44px 70px}
+#rulesH{font-family:var(--mono);font-size:23px;letter-spacing:.26em;color:#8b98a3;margin-bottom:6px;
+  display:flex;justify-content:space-between;align-items:baseline}
+#rulesH .r2{color:var(--steel);letter-spacing:.18em}
+.rule{display:grid;grid-template-columns:74px 1fr;gap:14px;align-items:start;padding:24px 0;border-top:1px solid #131b20}
+.rule:first-of-type{margin-top:26px}
+.ruleN{font-family:var(--mono);font-size:24px;color:#4f5a63;padding-top:4px;letter-spacing:.1em}
+.ruleT{font-family:var(--mono);font-size:29px;line-height:1.34;color:#63707a;letter-spacing:.01em}
+.rule.on .ruleT{color:var(--amber)}
+.rule.on .ruleN{color:var(--amber)}
+.rule.blank .ruleT{color:#2c353d}
+#rulesF{margin-top:34px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:20px;
+  letter-spacing:.2em;color:#39434b}
+
+/* ---------------- lift lobby ---------------- */
+#lift{position:absolute;left:0;top:150px;width:1080px;height:840px;background:#0b1014;
+  border-top:1px solid var(--edge);border-bottom:1px solid var(--edge)}
+#liftWall{position:absolute;inset:0;background:
+  linear-gradient(180deg,#121920 0%,#0e151a 55%,#0a0f13 100%)}
+#liftGrid{position:absolute;inset:0;background:
+  repeating-linear-gradient(90deg,rgba(255,255,255,.022) 0 1px,rgba(0,0,0,0) 1px 90px)}
+#liftInd{position:absolute;left:390px;top:52px;width:300px;height:118px;background:#040709;border:2px solid #313d45;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 0 40px rgba(0,0,0,.8)}
+#liftNum{font-family:var(--mono);font-size:86px;color:var(--amber);letter-spacing:.04em;line-height:1;
+  text-shadow:0 0 26px rgba(255,176,32,.45)}
+#liftNum.four{color:var(--red);text-shadow:0 0 30px rgba(227,58,47,.6)}
+#liftDoors{position:absolute;left:390px;top:238px;width:300px;height:430px;background:#030507;overflow:hidden;
+  border:1px solid #1b242b}
+.door{position:absolute;top:0;width:50%;height:100%;
+  background:linear-gradient(180deg,#26323a 0%,#182027 40%,#111820 100%);border-right:1px solid #090d10}
+.door.l{left:0}
+.door.r{right:0;border-right:0;border-left:1px solid #090d10}
+#liftVoid{position:absolute;left:390px;top:238px;width:300px;height:430px;background:radial-gradient(60% 50% at 50% 40%,#0b1014,#020304);opacity:0}
+#liftDir{position:absolute;left:70px;top:52px;width:246px;border:1px solid #1c262c;background:#0a0f13;padding:20px 22px}
+#liftDirH{font-family:var(--mono);font-size:18px;letter-spacing:.22em;color:var(--steel);margin-bottom:16px}
+.dirRow{display:flex;justify-content:space-between;font-family:var(--mono);font-size:25px;color:#93a0aa;padding:6px 0}
+.dirRow.dead{color:var(--red)}
+.dirRow.dead .dn{text-decoration:line-through;text-decoration-color:rgba(227,58,47,.8)}
+#liftPorter{position:absolute;left:318px;top:548px;width:34px;height:34px;border-radius:50%;background:var(--orange);
+  box-shadow:0 0 34px 10px rgba(255,122,24,.34)}
+#liftClock{position:absolute;right:112px;bottom:80px;width:170px;height:170px;border-radius:50%;
+  background:radial-gradient(circle at 50% 42%,#131c23,#080c0f);border:3px solid #2b3a44;box-shadow:0 0 0 7px #070a0d}
+#liftHandH,#liftHandM{position:absolute;left:50%;bottom:50%;transform-origin:50% 100%;background:#d3dde4}
+#liftHandH{width:9px;height:50px;margin-left:-4.5px;transform:rotate(126deg)}
+#liftHandM{width:5px;height:68px;margin-left:-2.5px;transform:rotate(72deg)}
+#liftClockC{position:absolute;left:50%;top:50%;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:#c9d4dc}
+#liftNote{position:absolute;right:70px;top:52px;width:216px;font-family:var(--mono);font-size:20px;line-height:1.6;
+  color:var(--steel);text-align:right}
+#liftNote b{color:var(--red);font-weight:500}
+#liftTag{position:absolute;left:70px;bottom:56px;font-family:var(--mono);font-size:19px;letter-spacing:.2em;color:#39434b}
+
+/* ---------------- shift log ---------------- */
+#log{position:absolute;left:0;top:150px;width:1080px;height:840px;background:#0b1014;
+  border-top:1px solid var(--edge);border-bottom:1px solid var(--edge)}
+#logH{display:flex;justify-content:space-between;align-items:center;padding:30px 70px;border-bottom:1px solid #131b20;
+  font-family:var(--mono);font-size:23px;letter-spacing:.22em;color:#8b98a3}
+#logH .live{color:var(--red);display:flex;align-items:center;gap:12px}
+#logRows{padding:12px 70px}
+.lrow{display:grid;grid-template-columns:150px 1fr 230px;font-family:var(--mono);font-size:27px;color:#8a97a1;padding:15px 0;
+  border-bottom:1px solid #101820}
+.lrow .t{color:#5f6b75}
+.lrow .who{color:#b9c4cc}
+.lrow .st{text-align:right;color:var(--green)}
+.lrow.bad{border-bottom:1px solid #2a1210;background:linear-gradient(90deg,rgba(227,58,47,.18),rgba(227,58,47,0))}
+.lrow.bad .t,.lrow.bad .who{color:var(--red)}
+.lrow.bad .st{color:var(--red)}
+#logClock{border:1px solid var(--red);border-radius:5px;padding:6px 16px;
+  font-family:var(--mono);font-size:32px;color:var(--red);letter-spacing:.08em;background:rgba(227,58,47,.09)}
+#logScan{position:absolute;inset:0;background:repeating-linear-gradient(180deg,rgba(255,255,255,.026) 0 1px,rgba(0,0,0,0) 1px 4px)}
+#logFoot{position:absolute;left:70px;bottom:46px;font-family:var(--mono);font-size:19px;letter-spacing:.2em;color:#39434b}
+
+/* ---------------- corridor (svg) ---------------- */
+#corr{position:absolute;left:0;top:0;width:1080px;height:1120px}
+#corrHud{position:absolute;left:70px;top:120px;font-family:var(--mono);font-size:20px;letter-spacing:.22em;color:#5d6a74}
+#corrHud2{position:absolute;right:70px;top:120px;font-family:var(--mono);font-size:20px;letter-spacing:.22em;color:#5d6a74;text-align:right}
+
+/* ---------------- end card ---------------- */
+#end{position:absolute;inset:0}
+#endCard{position:absolute;left:0;top:0;width:1080px;height:1120px;background:#080b0f;opacity:0}
+#endMain{position:absolute;left:0;top:380px;width:1080px;text-align:center;font-family:var(--black2);
+  font-size:86px;letter-spacing:.14em;color:var(--white);text-indent:.14em}
+#endSub{position:absolute;left:0;top:504px;width:1080px;text-align:center;font-family:var(--mono);font-size:26px;
+  letter-spacing:.3em;color:var(--amber);text-indent:.3em}
+#endRule{position:absolute;left:150px;top:620px;width:780px;border:1px solid #2c1211;background:rgba(227,58,47,.08);padding:24px 28px}
+#endRuleH{font-family:var(--mono);font-size:19px;letter-spacing:.24em;color:var(--red);margin-bottom:12px}
+#endRuleT{font-family:var(--mono);font-size:26px;line-height:1.45;color:#dcb0ab}
+#endFoot{position:absolute;left:0;top:900px;width:1080px;text-align:center;font-family:var(--mono);font-size:19px;
+  letter-spacing:.26em;color:#4b565f}
+
+/* ---------------- captions ---------------- */
+#caps{position:absolute;left:0;top:1168px;width:1080px;height:240px}
+.cap{position:absolute;left:54px;right:54px;top:0;text-align:center;font-family:var(--black2);font-size:53px;
+  line-height:1.2;letter-spacing:-.005em;color:var(--white);opacity:0}
+.cap .ln{display:block}
+.cap .w{display:inline-block;opacity:0;transform:translateY(10px);text-shadow:0 4px 26px rgba(0,0,0,.85)}
+.cap .w.amber{color:var(--amber)}
+.cap .w.red{color:var(--red)}
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- ============ plan ============ -->
+  <div class="layer" id="planLayer">
+    <canvas id="planCanvas" width="1080" height="1120"></canvas>
+  </div>
+
+  <!-- ============ rules board ============ -->
+  <div class="layer" id="rulesLayer" style="opacity:0">
+    <div id="rules">
+      <div id="rulesH"><span>WARD 7 &middot; NIGHT RULES</span><span class="r2">ST. ALDATE'S &middot; LEVEL 3</span></div>
+      <div class="rule" data-i="0"><div class="ruleN">ONE</div><div class="ruleT">LOCK THE EAST STAIR AT ELEVEN.</div></div>
+      <div class="rule" data-i="1"><div class="ruleN">TWO</div><div class="ruleT">COUNT THE DOORS, NOT THE BEDS.</div></div>
+      <div class="rule" data-i="2"><div class="ruleN">THREE</div><div class="ruleT">IF THE LIFT STOPS AT FOUR, STEP OUT.</div></div>
+      <div class="rule blank"><div class="ruleN">FOUR</div><div class="ruleT">&mdash; &mdash; &mdash; &mdash;</div></div>
+      <div id="rulesF"><span>POSTED BY THE NIGHT SUPERVISOR</span><span>NO SIGNATURE</span></div>
+    </div>
+  </div>
+
+  <!-- ============ lift lobby ============ -->
+  <div class="layer" id="liftLayer" style="opacity:0">
+    <div id="lift">
+      <div id="liftWall"></div>
+      <div id="liftGrid"></div>
+      <div id="liftDir">
+        <div id="liftDirH">DIRECTORY</div>
+        <div class="dirRow"><span>1</span><span class="dn">GROUND</span></div>
+        <div class="dirRow"><span>2</span><span class="dn">WARD A</span></div>
+        <div class="dirRow"><span>3</span><span class="dn">WARD 7</span></div>
+        <div class="dirRow dead"><span>4</span><span class="dn">SEALED</span></div>
+      </div>
+      <div id="liftInd"><div id="liftNum">3</div></div>
+      <div id="liftVoid"></div>
+      <div id="liftDoors"><div class="door l"></div><div class="door r"></div></div>
+      <div id="liftPorter"></div>
+      <div id="liftClock"><div id="liftHandH"></div><div id="liftHandM"></div><div id="liftClockC"></div></div>
+      <div id="liftNote">LIFT 1 &middot; CAR 2<br><b>NO SERVICE TO 4</b><br>SINCE 1998</div>
+      <div id="liftTag">WARD 7 &middot; NIGHT PORTER</div>
+    </div>
+  </div>
+
+  <!-- ============ shift log ============ -->
+  <div class="layer" id="logLayer" style="opacity:0">
+    <div id="log">
+      <div id="logH">
+        <span>SHIFT LOG &middot; WARD 7</span>
+        <span class="live"><span id="logClock">04:12:00</span></span>
+      </div>
+      <div id="logRows">
+        <div class="lrow"><span class="t">22:00</span><span class="who">R. OKONKWO</span><span class="st">LOCKED UP</span></div>
+        <div class="lrow"><span class="t">23:00</span><span class="who">R. OKONKWO</span><span class="st">STAIR LOCKED</span></div>
+        <div class="lrow"><span class="t">00:40</span><span class="who">V. HALE</span><span class="st">ROUND OK</span></div>
+        <div class="lrow"><span class="t">02:15</span><span class="who">V. HALE</span><span class="st">ROUND OK</span></div>
+        <div class="lrow"><span class="t">03:20</span><span class="who">I. VARGA</span><span class="st">ROUND OK</span></div>
+        <div class="lrow bad"><span class="t">04:12</span><span class="who">&mdash; &mdash; &mdash; &mdash;</span><span class="st">UNASSIGNED</span></div>
+      </div>
+      <div id="logScan"></div>
+      <div id="logFoot">ROUND SHEET &middot; PAGE 41</div>
+    </div>
+  </div>
+
+  <!-- ============ corridor ============ -->
+  <div class="layer" id="corrLayer" style="opacity:0">
+    <svg id="corr" viewBox="0 0 1080 1120" width="1080" height="1120">
+      <defs>
+        <radialGradient id="torch" cx="50%" cy="50%" r="50%">
+          <stop offset="0" stop-color="#ffe6b0" stop-opacity=".26"/>
+          <stop offset=".45" stop-color="#ffd89a" stop-opacity=".09"/>
+          <stop offset="1" stop-color="#ffd89a" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="redv" cx="50%" cy="48%" r="62%">
+          <stop offset=".30" stop-color="#e33a2f" stop-opacity="0"/>
+          <stop offset="1" stop-color="#e33a2f" stop-opacity=".9"/>
+        </radialGradient>
+        <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#141d24"/><stop offset="1" stop-color="#080b0f"/>
+        </linearGradient>
+        <linearGradient id="voidG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#0a0f13"/><stop offset="1" stop-color="#020304"/>
+        </linearGradient>
+      </defs>
+      <g id="corrBg">
+        <rect x="0" y="0" width="1080" height="1120" fill="#070a0e"/>
+        <g id="corrRings"></g>
+        <polygon points="60,1120 1020,1120 700,560 380,560" fill="url(#floorG)"/>
+        <polygon points="380,560 700,560 646,472 434,472" fill="#0d1318"/>
+        <rect x="434" y="472" width="212" height="88" fill="url(#voidG)"/>
+        <ellipse id="torchGlow" cx="540" cy="470" rx="330" ry="200" fill="url(#torch)"/>
+        <g id="corrTrolleys"></g>
+        <g id="corrFigure"></g>
+        <g id="corrArcs"></g>
+        <rect id="corrRed" x="0" y="0" width="1080" height="1120" fill="url(#redv)" opacity="0"/>
+        <rect id="corrFlash" x="0" y="0" width="1080" height="1120" fill="#fff" opacity="0"/>
+      </g>
+    </svg>
+    <div id="corrHud">CORRIDOR A &middot; WARD 7</div>
+    <div id="corrHud2">04:13</div>
+  </div>
+
+  <!-- ============ title / end ============ -->
+  <div class="layer" id="titleLayer">
+    <div id="titleDot"></div>
+    <div id="titleEp">EPISODE 01</div>
+    <div id="titleRule"></div>
+    <div id="titleMain">LAST SHIFT</div>
+    <div id="titleSub">ST. ALDATE'S &middot; WARD 7</div>
+  </div>
+  <div class="layer" id="endLayer" style="opacity:0">
+    <div id="endCard">
+      <div id="endMain">LAST SHIFT</div>
+      <div id="endSub">PART 2 &middot; THE FOURTH FLOOR</div>
+      <div id="endRule">
+        <div id="endRuleH">RULE FOUR</div>
+        <div id="endRuleT">IF THE DOOR IS OPEN,<br>IT IS NOT FOR YOU.</div>
+      </div>
+      <div id="endFoot">ST. ALDATE'S &middot; WARD 7 &middot; 04:12</div>
+    </div>
+  </div>
+
+  <div id="caps"></div>
+  <div id="vig"></div>
+</div>
+
+<script>
+/* ================= timing ================= */
+const FPS=30, DUR=70.0, FRAMES=Math.round(DUR*FPS);
+const W=1080, H=1920;
+const T={
+  titleIn:0.35, titleOut:3.10,
+  planIn:3.00, rulesIn:6.70, rulesOut:18.30,
+  ruleA:10.00, ruleB:12.70, ruleC:15.40,
+  liftIn:18.60, liftOut:26.40, liftOpen:22.40, liftFour:23.30,
+  logIn:26.60, logOut:34.20, logBad:29.80,
+  massIn:34.20, massOut:41.60, massWave:34.90,
+  corrIn:41.60, corrOut:57.60, corrFlash:55.30,
+  endIn:57.80, endOut:70.00
+};
+
+/* ================= helpers ================= */
+const clamp=(v,a,b)=>v<a?a:(v>b?b:v);
+const lerp=(a,b,t)=>a+(b-a)*t;
+const inv=(t,a,b)=>clamp((t-a)/((b-a)||1e-6),0,1);
+const smooth=(a,b,x)=>{const t=clamp((x-a)/((b-a)||1e-6),0,1);return t*t*(3-2*t);};
+const easeOut=x=>1-Math.pow(1-clamp(x,0,1),3);
+const easeInOut=x=>{const t=clamp(x,0,1);return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;};
+
+const el={};
+["stage","planLayer","planCanvas","rulesLayer","liftLayer","logLayer","corrLayer","titleLayer","endLayer",
+ "endCard","caps","liftNum","liftDoors","liftVoid","liftPorter","liftNote","logClock","corrRed",
+ "corrFlash","torchGlow","titleRule","titleMain","titleSub","titleEp","titleDot","endMain","endSub","endRule",
+ "endFoot","corrRings","corrTrolleys","corrFigure","corrArcs","corrHud","corrHud2"].forEach(k=>el[k]=document.getElementById(k));
+
+function op(node,v){ if(!node)return; const s=(v<0?0:v>1?1:v).toFixed(4); if(node.__o===s)return; node.__o=s; node.style.opacity=s; }
+function tf(node,t){ if(!node)return; if(node.__t===t)return; node.__t=t; node.style.transform=t; }
+
+/* ================= captions ================= */
+const CAPS=[
+ {t:3.40,d:3.00,lines:[["FORTY BEDS."],["ONE ","PORTER*","."]]},
+ {t:7.00,d:2.60,lines:[["THREE RULES ON THE WALL."]]},
+ {t:10.20,d:2.20,lines:[["ONE: LOCK THE EAST STAIR AT ELEVEN."]]},
+ {t:12.80,d:2.30,lines:[["TWO: COUNT THE DOORS,"],["NOT THE BEDS."]]},
+ {t:15.40,d:2.70,lines:[["THREE: IF THE LIFT STOPS"],["AT FOUR, STEP OUT."]]},
+ {t:19.20,d:2.60,lines:[["THE LIFT SERVES ONE,"],["TWO AND THREE."]]},
+ {t:22.60,d:2.70,lines:[["AT 04:12 IT STOPPED"],["AT ","FOUR*","."]]},
+ {t:27.40,d:2.40,lines:[["NOBODY WAS ROSTERED TO FOUR."]]},
+ {t:30.40,d:2.40,lines:[["THE LOG SAYS"],["OTHERWISE*."]]},
+ {t:35.20,d:2.50,lines:[["AT 04:12 EVERY DOOR"],["ON THE WARD OPENED."]]},
+ {t:38.30,d:2.30,lines:[["AND SOMETHING WAS"],["ALREADY INSIDE."]]},
+ {t:42.40,d:2.40,lines:[["THE LINEN TROLLEYS"],["WERE MOVING."]]},
+ {t:45.60,d:2.20,lines:[["NOBODY PUSHED THEM."]]},
+ {t:48.60,d:1.80,lines:[["FOOTSTEPS*."]]},
+ {t:50.80,d:1.90,lines:[["SOMEONE SAW HER."]]},
+ {t:53.20,d:2.10,lines:[["AND SOMETHING ","RAN*","."]]},
+ {t:58.20,d:2.70,lines:[["WARD SEVEN HAS FORTY BEDS."]]},
+ {t:61.40,d:2.70,lines:[["AND ","FORTY-ONE*"," DOORS."]]},
+ {t:65.00,d:4.30,lines:[["FOUR: IF THE DOOR IS OPEN,"],["IT IS NOT FOR YOU."]]}
+];
+const capNodes=[];
+CAPS.forEach((c)=>{
+  const d=document.createElement("div");
+  d.className="cap";
+  const spans=[];
+  c.lines.forEach(ln=>{
+    const l=document.createElement("span"); l.className="ln";
+    ln.forEach(w=>{
+      const s=document.createElement("span");
+      let txt=w, cls="w";
+      if(w.indexOf("*")>=0){ cls="w amber"; txt=w.replace(/\*/g,""); }
+      if(w.indexOf("!")>=0){ cls="w red"; txt=w.replace(/!/g,""); }
+      s.className=cls;
+      s.textContent=txt;
+      l.appendChild(s); spans.push(s);
+    });
+    d.appendChild(l);
+  });
+  el.caps.appendChild(d); capNodes.push({node:d,spans,c});
+});
+
+/* ================= the ward plan ================= */
+const BEDS=[], DOORS=[];
+const WARD={x0:150,x1:850,y0:150,y1:970,c0:470,c1:670};
+(function buildPlan(){
+  for(let i=0;i<20;i++) BEDS.push({x:162+i*34,y:250,row:0});
+  for(let i=0;i<20;i++) BEDS.push({x:162+i*34,y:830,row:1});
+  // 41 doors: 20 on the north wall, 21 on the south wall, ordered from the
+  // lift (right) to the east stair (left) so the opening wave travels the ward
+  for(let i=0;i<20;i++) DOORS.push({x:176+i*33,y:470,side:0});
+  for(let i=0;i<21;i++) DOORS.push({x:170+i*32,y:670,side:1});
+  DOORS.sort((a,b)=> b.x-a.x || a.side-b.side);
+})();
+const ctx=el.planCanvas.getContext("2d");
+function drawPlan(t,o){
+  ctx.clearRect(0,0,W,1120);
+  // grid
+  ctx.strokeStyle="rgba(150,180,195,.055)"; ctx.lineWidth=1;
+  ctx.beginPath();
+  for(let x=0;x<=W;x+=60){ctx.moveTo(x+.5,0);ctx.lineTo(x+.5,1120);}
+  for(let y=0;y<=1120;y+=60){ctx.moveTo(0,y+.5);ctx.lineTo(W,y+.5);}
+  ctx.stroke();
+  // header strip
+  ctx.fillStyle="#5f6c76"; ctx.font="19px 'IBM Plex Mono'"; ctx.textAlign="left";
+  ctx.fillText("ST. ALDATE'S  -  WARD 7  -  PLAN",54,58);
+  ctx.textAlign="right";
+  if(o.open>0){
+    ctx.fillStyle="#e33a2f";
+    ctx.fillText("DOORS OPEN  "+String(o.open).padStart(2,"0")+"/41",1026,58);
+  } else {
+    ctx.fillStyle="#5f6c76";
+    ctx.fillText("BEDS 40  /  DOORS 40",1026,58);
+  }
+  ctx.textAlign="left";
+  // slow push-in on the plan scene
+  const z=1.07+0.04*inv(t,T.planIn,T.rulesIn);
+  ctx.save();
+  ctx.translate(500,560); ctx.scale(z,z); ctx.translate(-500,-560);
+  // ward shell
+  ctx.fillStyle="#0c1117"; ctx.strokeStyle="#3a4d5a"; ctx.lineWidth=3.5;
+  ctx.beginPath(); ctx.roundRect(WARD.x0,WARD.y0,WARD.x1-WARD.x0,WARD.y1-WARD.y0,8); ctx.fill(); ctx.stroke();
+  ctx.strokeStyle="#222d35"; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.roundRect(WARD.x0+12,WARD.y0+12,WARD.x1-WARD.x0-24,WARD.y1-WARD.y0-24,6); ctx.stroke();
+  // corridor
+  ctx.fillStyle="#111a20"; ctx.fillRect(WARD.x0,WARD.c0,WARD.x1-WARD.x0,WARD.c1-WARD.c0);
+  ctx.strokeStyle="#2c3c46"; ctx.lineWidth=1.5;
+  ctx.setLineDash([14,16]);
+  ctx.beginPath(); ctx.moveTo(WARD.x0+12,570); ctx.lineTo(WARD.x1-12,570); ctx.stroke();
+  ctx.setLineDash([]);
+  // beds
+  BEDS.forEach(b=>{
+    ctx.fillStyle="#1d2a34"; ctx.strokeStyle="#3e525f"; ctx.lineWidth=1.4;
+    ctx.beginPath(); ctx.roundRect(b.x,b.y,30,44,3); ctx.fill(); ctx.stroke();
+    ctx.fillStyle="#455d6c"; ctx.fillRect(b.x+4,b.y+5,22,9);
+  });
+  // service blocks
+  ctx.fillStyle="#141f27"; ctx.strokeStyle="#33444f"; ctx.lineWidth=1.4;
+  ctx.beginPath(); ctx.roundRect(660,224,120,80,4); ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.roundRect(660,816,120,80,4); ctx.fill(); ctx.stroke();
+  ctx.fillStyle="#5b6a75"; ctx.font="15px 'IBM Plex Mono'"; ctx.textAlign="center";
+  ctx.fillText("WC",720,270); ctx.fillText("STORE",720,862);
+  ctx.fillStyle="#3d4a54"; ctx.font="17px 'IBM Plex Mono'"; ctx.textAlign="left";
+  ctx.fillText("BAY A",178,360); ctx.fillText("BAY B",178,780);
+  // nurses station in the corridor
+  ctx.fillStyle="#1a2831"; ctx.strokeStyle="#42586a"; ctx.lineWidth=1.6;
+  ctx.beginPath(); ctx.roundRect(452,530,176,80,4); ctx.fill(); ctx.stroke();
+  ctx.fillStyle="#7d8b96"; ctx.font="15px 'IBM Plex Mono'";
+  ctx.fillText("NURSES STATION",540,575);
+  // stair + lift
+  ctx.fillStyle="#121920"; ctx.strokeStyle="#3a4d5a"; ctx.lineWidth=1.8;
+  ctx.beginPath(); ctx.roundRect(62,470,72,200,4); ctx.fill(); ctx.stroke();
+  ctx.fillStyle="#8b99a4"; ctx.font="16px 'IBM Plex Mono'"; ctx.textAlign="center";
+  ctx.fillText("STAIR",98,578);
+  ctx.fillStyle="#121920";
+  ctx.beginPath(); ctx.roundRect(866,470,72,200,4); ctx.fill(); ctx.stroke();
+  ctx.fillStyle="#8b99a4"; ctx.fillText("LIFT",902,578);
+  ctx.textAlign="left";
+  // corridor walls
+  ctx.strokeStyle="#2b3a44"; ctx.lineWidth=2.5;
+  ctx.beginPath();
+  ctx.moveTo(WARD.x0,WARD.c0); ctx.lineTo(WARD.x1,WARD.c0);
+  ctx.moveTo(WARD.x0,WARD.c1); ctx.lineTo(WARD.x1,WARD.c1);
+  ctx.stroke();
+  // doors: an opening in the wall with a swing arc
+  DOORS.forEach((d,i)=>{
+    const on = i < o.open;
+    const pulse = on ? (0.55+0.45*Math.sin(t*9-i*0.5)) : 0;
+    const inward = d.side? -1 : 1;   // 0 = north wall, 1 = south wall
+    // knock the opening out of the wall
+    ctx.fillStyle="#080c0f";
+    ctx.fillRect(d.x-9,d.y-5,18,10);
+    // the leaf, swung open
+    ctx.strokeStyle = on ? "rgba(227,58,47,"+(0.6+0.4*pulse).toFixed(3)+")" : "#4a5f6d";
+    ctx.lineWidth = on ? 3.2 : 2.2;
+    ctx.beginPath();
+    if(d.side){ ctx.moveTo(d.x+9,d.y); ctx.lineTo(d.x+9,d.y-18); }
+    else     { ctx.moveTo(d.x-9,d.y); ctx.lineTo(d.x-9,d.y+18); }
+    ctx.stroke();
+    // the swing
+    ctx.strokeStyle = on ? "rgba(227,58,47,.45)" : "rgba(96,122,138,.55)";
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    if(d.side){ ctx.arc(d.x+9,d.y,18,-Math.PI/2,0); }
+    else     { ctx.arc(d.x-9,d.y,18,0,Math.PI/2); }
+    ctx.stroke();
+    if(on){
+      // something standing in the doorway
+      const fy=d.y+inward*17;
+      ctx.fillStyle="rgba(242,232,228,.95)";
+      ctx.beginPath(); ctx.ellipse(d.x,fy-5,3.6,3.6,0,0,7); ctx.fill();
+      ctx.fillRect(d.x-4,fy-1,8,13);
+    }
+  });
+  // the porter
+  if(o.porter!==false){
+    const px=o.porterX, py=570+Math.sin(t*3.2)*1.5;
+    const g=ctx.createRadialGradient(px,py,0,px,py,32);
+    g.addColorStop(0,"rgba(255,122,24,.34)"); g.addColorStop(1,"rgba(255,122,24,0)");
+    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(px,py,32,0,7); ctx.fill();
+    ctx.fillStyle="#ff7a18"; ctx.beginPath(); ctx.arc(px,py,7.5,0,7); ctx.fill();
+  }
+  ctx.restore();
+  // corner clock
+  ctx.fillStyle="#48545e"; ctx.font="19px 'IBM Plex Mono'"; ctx.textAlign="right";
+  ctx.fillText("04:12:"+String(o.sec).padStart(2,"0"),1026,1092);
+  ctx.textAlign="left";
+}
+
+/* ================= corridor parts ================= */
+(function buildCorr(){
+  let s="";
+  const sizes=[[1010,780],[840,646],[676,518],[522,400],[378,290],[248,192],[140,110]];
+  const cols=["#1e2931","#233038","#293840","#30414a","#384b56","#415a67","#4d6a79"];
+  sizes.forEach((sz,i)=>{
+    const x=(1080-sz[0])/2, y=470-sz[1]/2;
+    s+=`<rect x="${x}" y="${y}" width="${sz[0]}" height="${sz[1]}" fill="none" stroke="${cols[i]}" stroke-width="${(1.6+i*0.25).toFixed(2)}"/>`;
+  });
+  // an exit sign at the far end
+  s+=`<rect x="498" y="424" width="84" height="26" fill="#20100f" stroke="#4a1f1c"/>
+       <text x="540" y="443" font-family="'IBM Plex Mono'" font-size="16" fill="#e33a2f" text-anchor="middle">EXIT</text>`;
+  el.corrRings.innerHTML=s;
+  let tr="";
+  [[404,616,1],[648,556,0.82]].forEach(([x,y,sc])=>{
+    tr+=`<g transform="translate(${x},${y}) scale(${sc})">
+      <rect x="-28" y="-32" width="56" height="32" fill="#18222a" stroke="#26333c"/>
+      <rect x="-28" y="-32" width="56" height="9" fill="#222d35"/>
+      <circle cx="-17" cy="5" r="5.5" fill="#0b0f12" stroke="#2a353e"/>
+      <circle cx="17" cy="5" r="5.5" fill="#0b0f12" stroke="#2a353e"/>
+      <rect x="-32" y="-36" width="6" height="46" fill="#141c23" stroke="#242f37"/>
+    </g>`;
+  });
+  el.corrTrolleys.innerHTML=tr;
+  let ar="";
+  for(let i=0;i<3;i++) ar+=`<path id="arc${i}" d="M ${310+i*70} 1120 A ${270+i*70} ${270+i*70} 0 0 1 ${770-i*70} 1120" fill="none" stroke="#a8bcc7" stroke-width="4" stroke-linecap="round"/>`;
+  el.corrArcs.innerHTML=ar;
+})();
+
+/* ================= the seek ================= */
+function seek(t){
+  t=clamp(t,0,DUR-0.0001);
+
+  /* --- title --- */
+  const ti=smooth(T.titleIn,T.titleIn+0.7,t)*(1-smooth(T.titleOut-0.5,T.titleOut,t));
+  op(el.titleLayer,ti);
+  tf(el.titleRule,`scaleX(${easeOut(inv(t,T.titleIn+0.15,T.titleIn+0.95)).toFixed(4)})`);
+  op(el.titleEp,smooth(T.titleIn+0.5,T.titleIn+1.1,t)*(1-smooth(T.titleOut-0.5,T.titleOut,t)));
+  op(el.titleDot,smooth(T.titleIn+0.2,T.titleIn+0.6,t)*(1-smooth(T.titleOut-0.5,T.titleOut,t))*(0.55+0.45*Math.sin(t*6)));
+  op(el.titleMain,smooth(T.titleIn+0.6,T.titleIn+1.5,t)*(1-smooth(T.titleOut-0.5,T.titleOut,t)));
+  op(el.titleSub,smooth(T.titleIn+1.0,T.titleIn+1.9,t)*(1-smooth(T.titleOut-0.5,T.titleOut,t)));
+
+  /* --- plan --- */
+  const planA=Math.max(
+    smooth(T.planIn,T.planIn+0.5,t)*(1-smooth(T.rulesIn-0.2,T.rulesIn+0.3,t)),
+    smooth(T.massIn-0.6,T.massIn+0.2,t)*(1-smooth(T.massOut-0.2,T.massOut+0.5,t))
+  );
+  op(el.planLayer,clamp(planA,0,1));
+  const massA=smooth(T.massIn-0.6,T.massIn+0.2,t);
+  const open=massA>0?Math.floor(inv(t,T.massWave,T.massWave+2.2)*41):0;
+  const sec=massA>0?Math.floor(inv(t,T.massWave,T.massWave+2.2)*41):Math.floor(inv(t,T.planIn,T.rulesIn)*9);
+  const porterX = massA>0 ? lerp(200,320,easeOut(inv(t,T.massIn,T.massIn+1.2))) : lerp(200,790,inv(t,T.planIn,T.rulesIn));
+  drawPlan(t,{open:open,porterX:porterX,sec:sec,porter:massA<=0});
+
+  /* --- rules board --- */
+  const rulesA=smooth(T.rulesIn,T.rulesIn+0.45,t)*(1-smooth(T.rulesOut-0.4,T.rulesOut+0.2,t));
+  op(el.rulesLayer,rulesA);
+  tf(el.rulesLayer,`translateY(${((1-easeOut(inv(t,T.rulesIn,T.rulesIn+0.5)))*44).toFixed(1)}px)`);
+  const ruleEls=el.rulesLayer.querySelectorAll(".rule");
+  const ruleTimes=[T.ruleA,T.ruleB,T.ruleC];
+  ruleEls.forEach((r,i)=>{
+    r.classList.toggle("on", i<3 && t>=ruleTimes[i] && t<ruleTimes[i]+2.2);
+  });
+
+  /* --- lift --- */
+  const liftA=smooth(T.liftIn,T.liftIn+0.5,t)*(1-smooth(T.liftOut-0.4,T.liftOut+0.2,t));
+  op(el.liftLayer,liftA);
+  const four=t>=T.liftFour;
+  el.liftNum.textContent=four?"4":"3";
+  el.liftNum.classList.toggle("four",four);
+  const open2=easeInOut(inv(t,T.liftOpen,T.liftOpen+1.1));
+  const dl=el.liftDoors.querySelector(".door.l"), dr=el.liftDoors.querySelector(".door.r");
+  tf(dl,`translateX(${(-150*open2).toFixed(1)}px)`);
+  tf(dr,`translateX(${(150*open2).toFixed(1)}px)`);
+  op(el.liftVoid,open2*0.92);
+  op(el.liftPorter,(1-open2*0.6)*(0.9+0.1*Math.sin(t*2)));
+
+  /* --- log --- */
+  const logA=smooth(T.logIn,T.logIn+0.45,t)*(1-smooth(T.logOut-0.4,T.logOut+0.2,t));
+  op(el.logLayer,logA);
+  el.logClock.textContent="04:12:"+String(Math.min(59,Math.floor(inv(t,T.logIn,T.logOut)*40))).padStart(2,"0");
+  op(el.logClock,smooth(T.logIn+0.6,T.logIn+1.0,t)*smooth(T.logBad-0.5,T.logBad,t));
+
+  /* --- corridor --- */
+  const corrA=smooth(T.corrIn,T.corrIn+0.6,t)*(1-smooth(T.corrOut-0.4,T.corrOut+0.2,t));
+  op(el.corrLayer,corrA);
+  const cp=inv(t,T.corrIn,T.corrOut);
+  const fs=lerp(7,70,Math.pow(cp,2.1));
+  el.corrFigure.innerHTML=`<g transform="translate(540,472) scale(${(fs/60).toFixed(4)})">
+      <rect x="-15" y="-88" width="30" height="42" rx="13" fill="#0b1013"/>
+      <rect x="-25" y="-46" width="50" height="98" rx="15" fill="#0d1216" stroke="#1d272e"/>
+    </g>`;
+  el.torchGlow.setAttribute("rx",lerp(300,480,cp).toFixed(0));
+  el.torchGlow.setAttribute("ry",lerp(170,300,cp).toFixed(0));
+  el.corrTrolleys.setAttribute("transform",
+    `translate(${lerp(0,70,cp).toFixed(1)},${lerp(0,200,cp).toFixed(1)}) scale(${lerp(0.72,1.4,cp).toFixed(3)})`);
+  for(let i=0;i<3;i++){
+    const a=el.corrArcs.querySelector("#arc"+i);
+    if(!a)continue;
+    const ph=(t*1.1-i*0.34)%1;
+    a.setAttribute("stroke-opacity",(0.55*Math.max(0,1-Math.abs(ph-0.5)*2.4)).toFixed(3));
+  }
+  el.corrRed.setAttribute("opacity",(smooth(T.corrIn+6.0,T.corrOut-0.6,t)*0.62).toFixed(3));
+  // a three-frame white flash, then a fast fall-off: long enough to read as a
+  // hit at 30 fps, short enough to stay a punctuation mark
+  let flashOn = 0;
+  if(t>=T.corrFlash && t<T.corrFlash+0.20){
+    const ft=t-T.corrFlash;
+    flashOn = ft<0.067 ? 0.95 : (1-inv(t,T.corrFlash+0.067,T.corrFlash+0.20))*0.95;
+  }
+  el.corrFlash.setAttribute("opacity",flashOn.toFixed(3));
+  el.corrHud2.textContent="04:13:"+String(Math.floor(inv(t,T.corrIn,T.corrOut)*59)).padStart(2,"0");
+
+  /* --- end card --- */
+  const endA=smooth(T.endIn,T.endIn+0.7,t);
+  op(el.endLayer,endA);
+  op(el.endCard,endA);
+  tf(el.endCard,`scale(${lerp(1.05,1.0,easeOut(inv(t,T.endIn,T.endIn+0.9))).toFixed(4)})`);
+
+  /* --- captions --- */
+  capNodes.forEach(c=>{
+    const rel=t-c.c.t;
+    let a=0;
+    if(rel>0 && rel<c.c.d){
+      const words=c.spans.length;
+      const reveal=Math.min(words,Math.floor(rel/0.155)+1);
+      const fade=1-smooth(c.c.d-0.45,c.c.d,rel);
+      a=fade;
+      c.spans.forEach((s,i)=>{
+        const on=i<reveal?1:0;
+        const k=on?clamp((rel-i*0.155)/0.14,0,1):0;
+        s.style.opacity=(k*fade).toFixed(3);
+        s.style.transform="translateY("+((1-k)*10).toFixed(1)+"px)";
+      });
+    } else {
+      c.spans.forEach(s=>{s.style.opacity="0";s.style.transform="translateY(10px)";});
+    }
+    op(c.node,a);
+  });
+}
+
+/* ================= api ================= */
+window.FLUX={ready:false,seek:seek,duration:DUR,frames:FRAMES,fps:FPS};
+window.addEventListener("error",e=>{window.FLUX.error=String(e.message);});
+document.fonts.ready.then(()=>{
+  window.FLUX.ready=true;
+  seek(0);
+});
+</script>
+</body>
+</html>
