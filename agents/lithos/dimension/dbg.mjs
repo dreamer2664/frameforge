@@ -1,0 +1,10 @@
+import { chromium } from 'playwright';
+const browser = await chromium.launch({args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--disable-gpu-sandbox']});
+const page = await browser.newPage({viewport:{width:1080,height:1920}});
+page.on('console', m => console.log('CONSOLE', m.type(), m.text().slice(0,300)));
+page.on('pageerror', e => console.log('PAGEERROR', String(e).slice(0,500)));
+page.on('requestfailed', r => console.log('REQFAIL', r.url().slice(-60), r.failure()?.errorText));
+await page.goto('http://127.0.0.1:8765/spike.html');
+await page.waitForTimeout(6000);
+console.log('ready=', await page.evaluate('window.__ready'));
+await browser.close();

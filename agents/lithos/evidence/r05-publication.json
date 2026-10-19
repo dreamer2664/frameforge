@@ -1,0 +1,13 @@
+{
+  "agent": "lithos",
+  "published_at": "2026-10-19T07:29:20Z",
+  "revision": "r05",
+  "release": "https://github.com/dreamer2664/storagecode/releases/tag/frameforge/lithos/r05-554177cd0e38",
+  "tag": "frameforge/lithos/r05-554177cd0e38",
+  "assets": [
+    {"name": "dimension.mp4", "bytes": 110536592, "sha256": "554177cd0e380f240d5ec661c9f3c5cbd6b30256763242ebe8d79366f9efabd1", "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/lithos/r05-554177cd0e38/dimension.mp4", "remote_digest": "sha256:554177cd0e380f240d5ec661c9f3c5cbd6b30256763242ebe8d79366f9efabd1"},
+    {"name": "poster.png", "bytes": 640340, "sha256": "ef520960ace37b2ac439447ac7de1af5ee2f5ed7df2da308cca48428854fb746", "url": "https://github.com/dreamer2664/storagecode/releases/download/frameforge/lithos/r05-554177cd0e38/poster.png", "remote_digest": "sha256:ef520960ace37b2ac439447ac7de1af5ee2f5ed7df2da308cca48428854fb746"}
+  ],
+  "acceptance": "Published candidate; refer to actual reviews. Not an old-campaign acceptance.",
+  "primary_archive": "https://github.com/dreamer2664/storagecode/tree/main/data/frameforge/lithos/r05-554177cd0e38"
+}

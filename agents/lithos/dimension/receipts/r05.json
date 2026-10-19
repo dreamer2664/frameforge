@@ -1,0 +1,18 @@
+{
+  "release": "frameforge/lithos/r05-554177cd0e38",
+  "published_at": "2026-10-19T07:29:20Z",
+  "assets": {
+    "dimension.mp4": "sha256:554177cd0e380f240d5ec661c9f3c5cbd6b30256763242ebe8d79366f9efabd1",
+    "poster.png": "sha256:ef520960ace37b2ac439447ac7de1af5ee2f5ed7df2da308cca48428854fb746"
+  },
+  "spec": {"duration_s": 40.0, "width": 1080, "height": 1920, "fps": 30, "frames": 1200, "video": "h264 crf17", "audio": "aac 192k 48k", "loudness": "-16.0 LUFS / -5.3 dBTP"},
+  "brief": "r05 after r04 scored 4/10: 'Experiment with three.js, take as much time as you need, release a full video. 40 seconds. Cool and spectacular.'",
+  "engine": "three.js WebGL2 headless (Playwright + Chromium SwiftShader), deterministic applyTime(t), JPEG q93 frame capture",
+  "review_state": {
+    "verdict": "candidate; not an acceptance; refer to actual reviews",
+    "visual_review": "5 keyframe review passes (whiteout -> exposure -> composition -> vertical type + sun -> lockup fit) each watched via contact sheets; full 37-sample watch of the finished encode; 1 real defect (black dead-beat 13.2 s in type tunnel) found and fixed by 5-column redesign + partial re-render of frames 320-419",
+    "camera_clearance": "no geometry clipped in any of the 37 watched samples (monolith corridor |x|<2.9 cleared; type letters part during fly-through)"
+  },
+  "score": "score3.py: 120 BPM (2 s bars) F-minor cinematic techno; cuts at 4/8/14/20/28/34 s land on bars; impacts 1.0/36.0; HF-tamed (shelf -2.5dB@9k, LP 17.5k) and verified by spectrogram + band-RMS",
+  "source_note": "release tool stamped code_sha 7831013 (local ref was snapshot-rewound at turn start); true source commit is recorded in the r05 sync commit on frameforge"
+}
